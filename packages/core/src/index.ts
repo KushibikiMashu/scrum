@@ -1,2 +1,1 @@
-const a: string = "a"
-const b: number = 2
+export const add = (x: number, y: number) => x + y
