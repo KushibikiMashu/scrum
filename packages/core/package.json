@@ -5,7 +5,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "jest": "jest"
+    "test": "jest"
   },
   "devDependencies": {
     "@swc/core": "^1.3.91",

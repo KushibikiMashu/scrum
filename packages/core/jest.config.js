@@ -1,6 +1,3 @@
-module.exports = {
-  transform: {
-    "^.+\\.(t|j)sx?$": "@swc/jest"
-  },
-  "testEnvironment": "node"
-};
+const config = require("config/jest.config.js");
+
+module.exports = config;
