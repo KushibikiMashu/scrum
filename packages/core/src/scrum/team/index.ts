@@ -1,5 +1,15 @@
 import {Member} from "@/company";
 
+export class Project {
+  constructor(
+    public readonly team: ScrumTeam,
+    // public readonly sprints: Sprint[],
+  ) {
+  }
+
+  // pickCurrentSprint(): Sprint
+}
+
 export const ScrumMemberRole = {
   ProductOwner: 'product_owner',
   ScrumMaster: 'scrum_master',
