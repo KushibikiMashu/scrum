@@ -1,35 +1,16 @@
-機能追加
+## MVP の機能開発
+自分がこのプログラムをスクラム開発するつもりで実装していく。
 
-- [ ] オフライン開催とオンライン開催を選べる
+- [ ] 初期設定ができる
+  - [ ] プロジェクト、プロダクト、会社の作成
+  - [ ] メンバーの作成
+  - [ ] スクラムチームの作成
+  - [ ] スプリントの開始
+  - [ ] デイリースクラムの設定
+- [ ] UseCase に応じてパッケージを分ける 
+  - web -> Next.js
+    - パワプロっぽくなるかも？「コマンドが一覧になっている。時間が経つとコマンドが変わる。コマンドを選択すると時間が経つ」
+  - CLI -> 何かしらのツール
+    - 保存先はローカルファイル
 
-```ts
-abstract class Place {
-    abstract getDescription(): string;
-}
 
-class OfflinePlace extends Place {
-    constructor(
-        public readonly address: string,
-        public readonly roomNumber?: string
-    ) {
-        super();
-    }
-
-    getDescription(): string {
-        return this.roomNumber ? `${this.address}, Room: ${this.roomNumber}` : this.address;
-    }
-}
-
-class OnlinePlace extends Place {
-    constructor(
-        public readonly url: string,
-        public readonly platform: string
-    ) {
-        super();
-    }
-
-    getDescription(): string {
-        return `${this.platform} - ${this.url}`;
-    }
-}
-```
