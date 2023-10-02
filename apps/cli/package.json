@@ -4,13 +4,15 @@
   "main": "dist/index.js",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "scm": "node dist/index.js"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.1.2"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
+    "config": "*",
     "typescript": "^5.2.2"
   },
   "private": true
