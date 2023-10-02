@@ -5,6 +5,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
+    "dev": "tsc --watch",
     "scm": "node dist/index.js"
   },
   "dependencies": {
