@@ -2,8 +2,15 @@
   "name": "scrum",
   "version": "1.0.0",
   "main": "index.js",
-  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev --parallel",
+    "build": "turbo build"
+  },
   "devDependencies": {
     "turbo": "^1.10.14"
-  }
+  },
+  "private": true
 }
