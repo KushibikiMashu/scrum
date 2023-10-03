@@ -2,6 +2,7 @@ import {Member} from "@/company";
 
 export class Project {
   constructor(
+    public readonly name: string,
     public readonly team: ScrumTeam,
     // public readonly sprints: Sprint[],
   ) {

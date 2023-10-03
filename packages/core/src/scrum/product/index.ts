@@ -1,3 +1,5 @@
+import {Increment, ProductBacklog} from "../artifact";
+
 export const ProductGoalStatus = {
   WIP: 'wip',
   Ongoing: 'ongoing',
@@ -15,13 +17,13 @@ export class ProductGoal implements Commitment {
   ) {}
 }
 
-// export class Product {
-//   constructor(
-//     public readonly name: string,
-//     public readonly incrementSummary: IncrementSummary,
-//     public readonly productBacklog: ProductBacklog,
-//     public readonly goals: ProductGoal[],
-//   ) {
-//   }
-// }
+export class Product {
+  constructor(
+    public readonly name: string,
+    public readonly increment: Increment[],
+    public readonly productBacklog: ProductBacklog,
+    public readonly goals: ProductGoal[],
+  ) {
+  }
+}
 

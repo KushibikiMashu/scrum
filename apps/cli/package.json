@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "cli": "node dist/index.js",
     "dev": "tsc --watch",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
