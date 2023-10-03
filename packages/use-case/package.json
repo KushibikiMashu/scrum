@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc",
+    "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node",
     "typecheck": "tsc --noEmit",
     "jest": "jest"
   },
@@ -14,7 +14,8 @@
     "lowdb": "^6.0.1"
   },
   "devDependencies": {
-    "@panda-project/config": "*"
+    "@panda-project/config": "*",
+    "@types/node": "^20.8.2"
   },
   "private": true
 }
