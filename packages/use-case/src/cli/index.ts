@@ -1,9 +1,5 @@
-import {Product, Project, Employee} from "core/scrum";
-import {EmployeeRepositoryInterface} from "core/dist/company";
+import {Employee, EmployeeRepositoryInterface, Product, Project} from "@panda-project/core";
 
-export const add = (a: number, b: number) => a + b;
-
-// init command
 export class InitInput {
   constructor(
     public readonly productName: string,
@@ -14,11 +10,11 @@ export class InitInput {
   }
 
   getEmployeeFamilyName() {
-    return this.employeeName.split(' ').at(0)
+    return this.employeeName.split(' ').at(0)!
   }
 
   getEmployeeFirstName() {
-    return this.employeeName.split(' ').at(1)
+    return this.employeeName.split(' ').at(1)!
   }
 
   validate() {
@@ -66,6 +62,6 @@ export class EmployeeRepository {
   private readonly db = {}
 
   save(employee: Employee) {
-    db.save()
+    // db.save()
   }
 }
