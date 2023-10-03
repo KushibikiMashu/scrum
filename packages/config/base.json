@@ -4,7 +4,7 @@
     "lib": [
       "es2022"
     ],
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "paths": {
       "@panda-project/core/*": ["@panda-project/core/dist/*"],
