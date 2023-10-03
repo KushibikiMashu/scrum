@@ -35,13 +35,10 @@ export class InitUseCase {
   ) {
   }
 
-  exec(initInput: InitInput) {
+  async exec(initInput: InitInput) {
     // 保存する
-    this.employeeRepository.save(
-      new Employee(
-        initInput.getEmployeeName(),
-      )
-    )
+    const employee = new Employee(initInput.getEmployeeName())
+    await this.employeeRepository.save(employee)
 
     return null
   }
@@ -64,20 +61,12 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
   async save(employee: Employee) {
-    // Read data from JSON file, this will set db.data content
-    // If JSON file doesn't exist, defaultData is used instead
     await this.lowdb.read()
-
-    // If you don't want to type this.lowdb.data everytime, you can use destructuring assignment
     const { posts } = this.lowdb.data
-    posts.push('hello world')
+
     posts.push(employee.employeeName.getFullName())
 
-    // Finally write this.lowdb.data content to file
     await this.lowdb.write()
-
-    this.lowdb.data.posts.push('foo') // ✅ Success
-    this.lowdb.data.posts.push(employee.employeeName.getFullName()) // ✅ Success
     return employee
   }
 }
