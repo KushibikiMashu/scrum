@@ -7,15 +7,32 @@ export class Department {
   }
 }
 
-export class Employee {
+export class EmployeeName {
   constructor(
     public readonly firstName: string,
     public readonly familyName: string,
   ) {
   }
 
-  getName() {
+  static createFromString(name: string): EmployeeName {
+    if (!name.includes(' ')) {
+      throw new Error('社員名は姓名を半角スペースで区切ってください')
+    }
+
+    const [familyName, firstName] = name.split(' ')
+
+    return new EmployeeName(familyName, firstName)
+  }
+
+  getFullName() {
     return `${this.familyName} ${this.firstName}`
+  }
+}
+
+export class Employee {
+  constructor(
+    public readonly employeeName: EmployeeName,
+  ) {
   }
 }
 

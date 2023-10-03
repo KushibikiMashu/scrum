@@ -25,6 +25,7 @@ program
     try {
       const useCase = new InitUseCaseFactory().create()
       useCase.exec(new InitInput(product, project, employee))
+      console.info('初期設定を完了しました');
     } catch (e: any) {
       console.error(e?.message)
     }
