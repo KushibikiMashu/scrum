@@ -1,4 +1,5 @@
 import {Product, Project, Employee} from "core/scrum";
+import {EmployeeRepositoryInterface} from "core/dist/company";
 
 export const add = (a: number, b: number) => a + b;
 
@@ -9,24 +10,46 @@ export class InitInput {
     public readonly projectName: string,
     public readonly employeeName: string,
   ) {
+    this.validate()
+  }
+
+  getEmployeeFamilyName() {
+    return this.employeeName.split(' ').at(0)
+  }
+
+  getEmployeeFirstName() {
+    return this.employeeName.split(' ').at(1)
+  }
+
+  validate() {
+    if (!this.employeeName.includes(' ')) {
+      throw new Error('社員名はスペースで生命を区切ってください')
+    }
   }
 }
 
 export class InitUseCase {
   constructor(
-    private readonly initInput: InitInput
+    private readonly initInput: InitInput,
+    private readonly employeeRepository: EmployeeRepositoryInterface,
   ){
   }
 
   exec() {
-    console.log(this.initInput.employeeName)
-
     // 保存する
+    this.employeeRepository.save(
+      new Employee(
+        this.initInput.getEmployeeFirstName(),
+        this.initInput.getEmployeeFamilyName()
+      )
+    )
+
+
     return null
   }
 }
 
-// repository の interface は domain 層に置く
+// TODO: interface を implement する
 export class ProductRepository {
   save(product: Product) {
 
@@ -40,7 +63,9 @@ export class ProjectRepository {
 }
 
 export class EmployeeRepository {
-  save(employee: Employee) {
+  private readonly db = {}
 
+  save(employee: Employee) {
+    db.save()
   }
 }

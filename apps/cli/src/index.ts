@@ -17,10 +17,10 @@ program
   .command('init')
   .action(async () => {
     console.info('最初の設定を開始します');
-    const product = await input({message: "開発するプロダクトの名前を入力してください"})
-    const project = await input({message: "プロジェクト名、またはチーム名を入力してください"})
+    const product = await input({message: "開発するプロダクトの名前は？"})
+    const project = await input({message: "プロジェクト名、またはチーム名は？"})
     // TODO: 社員名は複数入力できるようにする
-    const employee = await input({message: "スクラムチームに参加する社員の名前を入力してください"})
+    const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名はスペース区切り）"})
 
     // use-case, core の型ファイルを作成するようにする
     // パッケージ名をuse-caseではなく @xxx/use-case にする
