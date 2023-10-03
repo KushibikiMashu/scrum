@@ -12,14 +12,13 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^3.1.2",
+    "@panda-project/use-case": "*",
     "commander": "^11.0.0"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
     "@types/inquirer": "^9.0.3",
-    "@panda-project/config": "*",
-    "@panda-project/use-case": "*",
-    "typescript": "^5.2.2"
+    "@panda-project/config": "*"
   },
   "private": true
 }

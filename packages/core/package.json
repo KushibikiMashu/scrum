@@ -9,12 +9,7 @@
     "jest": "jest"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.91",
-    "@swc/jest": "^0.2.29",
-    "@types/jest": "^29.5.5",
-    "@panda-project/config": "*",
-    "jest": "^29.7.0",
-    "typescript": "^5.2.2"
+    "@panda-project/config": "*"
   },
   "private": true
 }

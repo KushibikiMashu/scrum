@@ -8,17 +8,13 @@
     "typecheck": "tsc --noEmit",
     "jest": "jest"
   },
-  "devDependencies": {
-    "@swc/core": "^1.3.91",
-    "@swc/jest": "^0.2.29",
-    "@types/jest": "^29.5.5",
-    "@panda-project/core": "*",
-    "jest": "^29.7.0",
-    "typescript": "^5.2.2"
-  },
   "dependencies": {
+    "@panda-project/core": "*",
     "@types/lowdb": "^1.0.12",
     "lowdb": "^6.0.1"
+  },
+  "devDependencies": {
+    "@panda-project/config": "*"
   },
   "private": true
 }
