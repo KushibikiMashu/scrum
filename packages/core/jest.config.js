@@ -1,3 +1,3 @@
-const config = require("config/jest.config.js");
+const config = require("@panda-project/config/jest.config.js");
 
 module.exports = config;
