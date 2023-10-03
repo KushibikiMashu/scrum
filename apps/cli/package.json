@@ -6,7 +6,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "dev": "tsc --watch",
-    "scm": "node dist/index.js"
+    "cli": "node dist/index.js"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.1.2",
