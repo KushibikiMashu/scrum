@@ -37,7 +37,7 @@ export class Employee {
 }
 
 export interface EmployeeRepositoryInterface {
-  save(employee: Employee): Employee
+  save(employee: Employee): Promise<Employee>
 }
 
 export class Member {
