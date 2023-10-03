@@ -11,6 +11,11 @@ export class Project {
   // pickCurrentSprint(): Sprint
 }
 
+export interface ProjectRepository {
+  save(project: Project): Project
+}
+
+
 export const ScrumMemberRole = {
   ProductOwner: 'product_owner',
   ScrumMaster: 'scrum_master',

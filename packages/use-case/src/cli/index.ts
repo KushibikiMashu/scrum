@@ -1,3 +1,5 @@
+import {Product, Project, Employee} from "core/scrum";
+
 export const add = (a: number, b: number) => a + b;
 
 // init command
@@ -26,13 +28,19 @@ export class InitUseCase {
 
 // repository の interface は domain 層に置く
 export class ProductRepository {
+  save(product: Product) {
 
+  }
 }
 
 export class ProjectRepository {
+  save(project: Project) {
 
+  }
 }
 
 export class EmployeeRepository {
+  save(employee: Employee) {
 
+  }
 }

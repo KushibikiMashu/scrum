@@ -19,6 +19,10 @@ export class Employee {
   }
 }
 
+export interface EmployeeRepositoryInterface {
+  save(employee: Employee): Employee
+}
+
 export class Member {
   constructor(
     public readonly employee: Employee,

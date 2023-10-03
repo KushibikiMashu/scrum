@@ -27,3 +27,6 @@ export class Product {
   }
 }
 
+export interface ProductRepositoryInterface {
+  save(product: Product): Product
+}
