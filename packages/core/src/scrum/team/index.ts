@@ -11,7 +11,7 @@ export class Project {
   // pickCurrentSprint(): Sprint
 }
 
-export interface ProjectRepository {
+export interface ProjectRepositoryInterface {
   save(project: Project): Project
 }
 

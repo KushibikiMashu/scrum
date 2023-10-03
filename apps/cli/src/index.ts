@@ -1,6 +1,6 @@
 import {input} from "@inquirer/prompts";
 import {Command} from "commander";
-import {InitUseCase, InitInput} from "use-case/cli";
+import {InitInput, InitUseCaseFactory} from "@panda-project/use-case";
 
 const program = new Command();
 
@@ -22,11 +22,12 @@ program
     // TODO: 社員名は複数入力できるようにする
     const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名はスペース区切り）"})
 
-    // use-case, core の型ファイルを作成するようにする
-    // パッケージ名をuse-caseではなく @xxx/use-case にする
-    // new InitUseCase(
-    //   new InitInput(product, project, employee)
-    // ).exec()
+    try {
+      const useCase = new InitUseCaseFactory().create()
+      useCase.exec(new InitInput(product, project, employee))
+    } catch (e: any) {
+      console.error(e?.message)
+    }
   });
 
 program.parse(process.argv);

@@ -1,4 +1,4 @@
-import {Commitment, ProductGoal, ProductGoalStatus} from "@/scrum/product";
+import {Commitment, ProductGoal, ProductGoalStatus} from "../product";
 import {Artifact, BasicItemStatus, BasicItemStatusType, Increment, UserStory} from "./index";
 
 export class ProductBacklogItem {

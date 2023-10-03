@@ -1,4 +1,9 @@
-import {Employee, EmployeeRepositoryInterface, Product, Project} from "@panda-project/core";
+import {Employee,
+  EmployeeRepositoryInterface,
+  ProjectRepositoryInterface,
+  ProductRepositoryInterface,
+  Product, Project
+} from "@panda-project/core";
 
 export class InitInput {
   constructor(
@@ -19,49 +24,57 @@ export class InitInput {
 
   validate() {
     if (!this.employeeName.includes(' ')) {
-      throw new Error('社員名はスペースで生命を区切ってください')
+      throw new Error('社員名は姓名をスペースで区切ってください')
     }
+  }
+}
+
+export class InitUseCaseFactory {
+  create(): InitUseCase {
+    return new InitUseCase(
+      new EmployeeRepository()
+    )
   }
 }
 
 export class InitUseCase {
   constructor(
-    private readonly initInput: InitInput,
     private readonly employeeRepository: EmployeeRepositoryInterface,
   ){
   }
 
-  exec() {
+  exec(initInput: InitInput) {
     // 保存する
     this.employeeRepository.save(
       new Employee(
-        this.initInput.getEmployeeFirstName(),
-        this.initInput.getEmployeeFamilyName()
+        initInput.getEmployeeFirstName(),
+        initInput.getEmployeeFamilyName()
       )
     )
-
 
     return null
   }
 }
 
 // TODO: interface を implement する
-export class ProductRepository {
-  save(product: Product) {
+// export class ProductRepository implements ProductRepositoryInterface {
+//   save(product: Product) {
+//
+//   }
+// }
+//
+// export class ProjectRepository implements ProjectRepositoryInterface {
+//   save(project: Project) {
+//
+//   }
+// }
 
-  }
-}
-
-export class ProjectRepository {
-  save(project: Project) {
-
-  }
-}
-
-export class EmployeeRepository {
+export class EmployeeRepository implements EmployeeRepositoryInterface {
   private readonly db = {}
 
   save(employee: Employee) {
     // db.save()
+
+    return employee
   }
 }
