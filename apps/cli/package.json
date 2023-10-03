@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "build": "tsc",
     "dev": "tsc --watch",
-    "cli": "node dist/index.js"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "jest": "jest"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.1.2",

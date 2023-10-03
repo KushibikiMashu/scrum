@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "dev": "tsc --watch",
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "jest": "jest"
   },
   "devDependencies": {
