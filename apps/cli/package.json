@@ -16,6 +16,7 @@
     "@types/commander": "^2.12.2",
     "@types/inquirer": "^9.0.3",
     "config": "*",
+    "use-case": "*",
     "typescript": "^5.2.2"
   },
   "private": true
