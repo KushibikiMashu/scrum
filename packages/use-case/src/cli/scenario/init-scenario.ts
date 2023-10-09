@@ -7,7 +7,13 @@ import {
 } from "@panda-project/core";
 import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/cli/repository";
 
-export class InitInput {
+type InitUserInputType = {
+  product: string
+  project: string
+  employee: string
+}
+
+class InitInput {
   constructor(
     public readonly productName: string,
     public readonly projectName: string,
@@ -20,21 +26,25 @@ export class InitInput {
   }
 }
 
-export class InitUseCaseFactory {
-  create(): InitUseCase {
-    return new InitUseCase(
-      new ProductRepository(),
-      new ProjectRepository(),
-      new EmployeeRepository()
-    )
+export class InitScenario {
+  async exec(callback: () => Promise<InitUserInputType>): Promise<void> {
+    console.info('最初の設定を開始します');
+    const input = await callback()
+
+    try {
+      await new InitUseCase().exec(new InitInput(input.product, input.project, input.employee))
+      console.info('初期設定を完了しました');
+    } catch (e: any) {
+      console.error(e?.message)
+    }
   }
 }
 
 export class InitUseCase {
   constructor(
-    private readonly productRepository: ProductRepositoryInterface,
-    private readonly projectRepository: ProjectRepositoryInterface,
-    private readonly employeeRepository: EmployeeRepositoryInterface,
+    private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
+    private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
+    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
   ) {
   }
 
