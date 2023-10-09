@@ -1,6 +1,6 @@
 import {input} from "@inquirer/prompts";
 import {Command} from "commander";
-import {InitInput, InitScenario, InitUseCaseFactory} from "@panda-project/use-case";
+import {InitScenario} from "@panda-project/use-case";
 
 const program = new Command();
 
