@@ -6,8 +6,6 @@ erDiagram
     products {
         id int
         name string
-        
-        product_backlog_id int "nullable"
     }
     
     projects {
@@ -47,6 +45,8 @@ erDiagram
 
     scrum_teams {
         id int
+
+        product_backlog_id int "nullable"
     }
 
     product_owners {
