@@ -1,10 +1,15 @@
 import {Member} from "@/company";
 import {Increment, ProductGoal} from "@/scrum";
+import {ID} from "@/common";
 
 export class Project {
   constructor(
+    public readonly id: ID,
     public readonly name: string,
-    public readonly team: ScrumTeam,
+
+    // 必要かはわからないのでコメントアウトしておく
+    // public readonly product: Product,
+    // public readonly team: ScrumTeam,
     // public readonly sprints: Sprint[],
   ) {
   }
@@ -13,7 +18,7 @@ export class Project {
 }
 
 export interface ProjectRepositoryInterface {
-  save(project: Project): Project
+  save(project: Project): Promise<Project>
 }
 
 

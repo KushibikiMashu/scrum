@@ -42,8 +42,9 @@ export type ProjectsSchema = {
   id: number
   name: string
 
-  product_id: number
-  scrum_team_id: number | null
+  // 必要になったらコメントアウトをとる
+  // product_id: number
+  // scrum_team_id: number | null
 }
 
 export type EmployeesSchema = {
