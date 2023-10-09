@@ -15,6 +15,7 @@ program
 // init
 program
   .command('init')
+  .description('最初の設定を開始します')
   .action(async () => {
     console.info('最初の設定を開始します');
     // TODO: 入力してもらう前にバリデーションするためには、シナリオを作るしかない？
@@ -34,6 +35,19 @@ program
 
 // `employee create` `employee edit` `employee remove`
 // TODO: 社員を入力する
+program
+  .command('employee create')
+  .action(async () => {
+    console.info('社員を登録します')
+    const employee = await input({message: "社員の名前は？（姓名は半角スペース区切り）"})
+
+    try {
+      console.info(employee)
+    } catch (e: any) {
+      console.error(e?.message)
+    }
+  })
+
 
 // `team create` `team edit` `team remove`
 // TODO: スクラムチームを結成する
