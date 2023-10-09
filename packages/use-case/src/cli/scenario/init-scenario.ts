@@ -6,6 +6,7 @@ import {
   ProjectRepositoryInterface
 } from "@panda-project/core";
 import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/cli/repository";
+import {Logger} from "@/common";
 
 type InitUserInputType = {
   product: string
@@ -30,6 +31,7 @@ export class InitScenario {
   constructor(
     private readonly initValidateUseCase: InitValidateUseCase = new InitValidateUseCase(),
     private readonly initSetUpUseCase: InitSetUpUseCase = new InitSetUpUseCase(),
+    private readonly logger: Logger = console,
   ) {
   }
 
@@ -37,18 +39,18 @@ export class InitScenario {
     try {
       await this.initValidateUseCase.exec()
     } catch (e: any) {
-      console.error(e?.message)
+      this.logger.error(e?.message)
       return
     }
 
-    console.info('最初の設定を開始します');
+    this.logger.info('最初の設定を開始します');
     const input = await callback()
 
     try {
       await this.initSetUpUseCase.exec(new InitInput(input.product, input.project, input.employee))
-      console.info('初期設定を完了しました');
+      this.logger.info('初期設定を完了しました');
     } catch (e: any) {
-      console.error(e?.message)
+      this.logger.error(e?.message)
     }
   }
 }
