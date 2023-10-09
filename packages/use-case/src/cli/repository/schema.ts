@@ -6,7 +6,11 @@ export const defaultData: DataBase = {
   projects: [],
   employees: [],
   members: [],
-  scrumMemberRoles: [],
+  scrumMemberRoles: {
+    1: "product_owner",
+    2: "scrum_master",
+    3: "developer",
+  },
   scrumMembers: [],
   scrumTeams: [],
   productOwners: [],
@@ -21,7 +25,7 @@ export type Documents = {
   employees: EmployeesSchema[]
   members: MembersSchema[]
   // scrum
-  scrumMemberRoles: ScrumMemberRolesSchema[]
+  scrumMemberRoles: ScrumMemberRolesSchema
   scrumMembers: ScrumMembersSchema[]
   scrumTeams: ScrumTeamsSchema[]
   productOwners: ProductOwnersSchema[]
@@ -53,9 +57,9 @@ export type MembersSchema = {
 }
 
 export type ScrumMemberRolesSchema = {
-  product_owner: number // "1"
-  scrum_master: number // "2"
-  developer: number // "3"
+  1: "product_owner",
+  2: "scrum_master",
+  3: "developer",
 }
 
 export type ScrumMembersSchema = {
@@ -68,6 +72,7 @@ export type ScrumTeamsSchema = {
 
   product_backlog_id: number | null
 }
+// increments, product_goals のリレーションを作成できる
 
 export type ProductOwnersSchema = {
   scrum_team_id: number

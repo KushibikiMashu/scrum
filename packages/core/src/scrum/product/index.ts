@@ -1,4 +1,4 @@
-import {Increment, ProductBacklog} from "../artifact";
+import {ID} from "@/common";
 
 export const ProductGoalStatus = {
   WIP: 'wip',
@@ -19,14 +19,12 @@ export class ProductGoal implements Commitment {
 
 export class Product {
   constructor(
+    public readonly id: ID,
     public readonly name: string,
-    public readonly increment: Increment[],
-    public readonly productBacklog: ProductBacklog,
-    public readonly goals: ProductGoal[],
   ) {
   }
 }
 
 export interface ProductRepositoryInterface {
-  save(product: Product): Product
+  save(product: Product): Promise<Product>
 }

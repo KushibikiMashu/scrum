@@ -25,6 +25,7 @@ export class InitInput {
 export class InitUseCaseFactory {
   create(): InitUseCase {
     return new InitUseCase(
+      new ProductRepository(),
       new EmployeeRepository()
     )
   }
@@ -32,12 +33,20 @@ export class InitUseCaseFactory {
 
 export class InitUseCase {
   constructor(
+    private readonly productRepository: ProductRepositoryInterface,
     private readonly employeeRepository: EmployeeRepositoryInterface,
   ) {
   }
 
   async exec(initInput: InitInput) {
     // 保存する
+    const product = new Product(
+      ID.createAsNull(),
+      initInput.productName
+    )
+    await this.productRepository.save(product)
+
+
     const employee = new Employee(
       ID.createAsNull(),
       initInput.getEmployeeName()
@@ -48,12 +57,23 @@ export class InitUseCase {
   }
 }
 
-// TODO: interface を implement する
-// export class ProductRepository implements ProductRepositoryInterface {
-//   async save(product: Product) {
-//
-//   }
-// }
+export class ProductRepository implements ProductRepositoryInterface {
+  constructor(private readonly lowdb: Low<DataBase> = db) {}
+
+  async save(product: Product) {
+    await this.lowdb.read()
+    const { products } = this.lowdb.data
+
+    const autoIncrementId = AutoIncrementId.createFromRecords(products)
+    products.push({
+      id: autoIncrementId.id,
+      name: product.name,
+    })
+
+    await this.lowdb.write()
+    return product
+  }
+}
 //
 // export class ProjectRepository implements ProjectRepositoryInterface {
 //   async save(project: Project) {

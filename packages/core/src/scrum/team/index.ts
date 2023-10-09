@@ -1,4 +1,5 @@
 import {Member} from "@/company";
+import {Increment, ProductGoal} from "@/scrum";
 
 export class Project {
   constructor(
@@ -29,6 +30,9 @@ export class ScrumTeam {
     public readonly productOwner: ProductOwner,
     public readonly scrumMaster: ScrumMaster,
     public readonly developers: Developer[],
+
+    public readonly increment: Increment[],
+    public readonly goals: ProductGoal[],
   ) {}
 }
 
