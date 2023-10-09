@@ -2,7 +2,7 @@ import {ID} from "@panda-project/core";
 
 export class AutoIncrementId extends ID {
   constructor(public readonly value: number) {
-    super(value);
+    super(value)
   }
 
   static createFromRecords(records: any[]): NonNullable<AutoIncrementId> {
