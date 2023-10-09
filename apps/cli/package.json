@@ -2,11 +2,10 @@
   "name": "@panda-project/cli",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "types": "",
   "scripts": {
     "cli": "node dist/index.js",
-    "dev": "tsc --watch",
-    "build": "tsc",
+    "dev": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
     "typecheck": "tsc --noEmit",
     "jest": "jest"
   },
