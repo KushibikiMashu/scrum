@@ -7,7 +7,7 @@ export class Duration {
 
 export class ID {
   constructor(
-    public readonly id: number|null
+    public readonly value: number|null
   ) {
   }
 

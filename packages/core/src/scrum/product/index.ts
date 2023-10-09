@@ -26,5 +26,7 @@ export class Product {
 }
 
 export interface ProductRepositoryInterface {
+  findById(id: ID): Promise<Product>
+  existsWithoutId(): Promise<boolean> // CLI でしか使わないメソッドかも
   save(product: Product): Promise<Product>
 }

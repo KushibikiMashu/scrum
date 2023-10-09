@@ -17,9 +17,10 @@ program
   .command('init')
   .action(async () => {
     console.info('最初の設定を開始します');
+    // TODO: 入力してもらう前にバリデーションするためには、シナリオを作るしかない？
+    // 例: InitValidateUseCase -> input -> InitUseCase というシナリオになる？
     const product = await input({message: "開発するプロダクトの名前は？"})
     const project = await input({message: "プロジェクト名は？"})
-    // TODO: 社員名は複数入力できるようにする
     const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
 
     try {
@@ -30,5 +31,21 @@ program
       console.error(e?.message)
     }
   });
+
+// `employee create` `employee edit` `employee remove`
+// TODO: 社員を入力する
+
+// `team create` `team edit` `team remove`
+// TODO: スクラムチームを結成する
+
+// `team add developer` member から select する
+// `team new po` POを設定 or 変更する
+// `team new sm` スクラムマスターを設定 or 変更する
+// TODO: スクラムチームに人を増やす
+
+
+// TODO: プロダクトバックログを作る
+// TODO: プロダクトゴールを作る
+// TODO: スプリントを開始する
 
 program.parse(process.argv);

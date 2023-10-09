@@ -1,7 +1,11 @@
 import {ID} from "@panda-project/core";
 
 export class AutoIncrementId extends ID {
-  static createFromRecords(records: any[]) {
+  constructor(public readonly value: number) {
+    super(value);
+  }
+
+  static createFromRecords(records: any[]): NonNullable<AutoIncrementId> {
     // 空の時
     if (records.length === 0) {
       return new AutoIncrementId(records.length + 1)
