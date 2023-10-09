@@ -25,6 +25,10 @@ classDiagram
         +Employee employee
     }
 
+    class ScrumMember {
+        +Member employee
+    }
+
     class ScrumMemberRole {
         <<enumeration>>
         ProductOwner
@@ -34,7 +38,7 @@ classDiagram
 
     class ScrumTeam {
         +ProductOwner productOwner
-        +ScrumMember scrumMaster
+        +ScrumMaster scrumMaster
         +Developer[] developers
 
         +getCurrentSprintId() string
@@ -71,7 +75,7 @@ classDiagram
 
     class ProductOwner {
         -ScrumMemberRole[] roles
-        -Member member
+        -ScrumMember member
 
         +establishProductGoal()
         +createProductBacklogItem()
@@ -89,7 +93,7 @@ classDiagram
 
     class ScrumMaster {
         -ScrumMemberRole[] roles
-        -Member member
+        -ScrumMember member
 
         +coachTeamMembers()
         +createProductBacklogItem()
@@ -101,7 +105,7 @@ classDiagram
 
     class Developer {
         -ScrumMemberRole role
-        -Member member
+        -ScrumMember member
 
         +selectProductBacklogItemForSprint()
         +refineProductBacklogItem()

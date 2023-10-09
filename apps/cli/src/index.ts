@@ -18,7 +18,7 @@ program
   .action(async () => {
     console.info('最初の設定を開始します');
     const product = await input({message: "開発するプロダクトの名前は？"})
-    const project = await input({message: "プロジェクト名、またはチーム名は？"})
+    const project = await input({message: "プロジェクト名は？"})
     // TODO: 社員名は複数入力できるようにする
     const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
 
