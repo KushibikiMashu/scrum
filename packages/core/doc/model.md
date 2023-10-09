@@ -7,18 +7,10 @@ classDiagram
 
     class Product {
         +int id
-        +Department[] departments
 
         +IncrementSummary incrementSummary
         +ProductBacklog productBacklog
         +ProductGoal[] goals
-    }
-
-    class Role {
-        <<enumeration>>
-        ProductOwner
-        ScrumMaster
-        Developer
     }
     
     class Employee {
@@ -33,11 +25,17 @@ classDiagram
         +Employee employee
     }
 
+    class ScrumMemberRole {
+        <<enumeration>>
+        ProductOwner
+        ScrumMaster
+        Developer
+    }
+
     class ScrumTeam {
         +ProductOwner productOwner
         +ScrumMember scrumMaster
         +Developer[] developers
-        +Sprint[] sprints
 
         +getCurrentSprintId() string
         +getLastSprintId() string
@@ -72,8 +70,8 @@ classDiagram
     note for ScrumTeam "プロダクトバックログアイテムが完成の定義を満たしていない場 合、リリースすることはできない。ましてやスプリントレビューで提⽰することもできない。"
 
     class ProductOwner {
-        -Role[] roles
-        -Person person
+        -ScrumMemberRole[] roles
+        -Member member
 
         +establishProductGoal()
         +createProductBacklogItem()
@@ -90,8 +88,8 @@ classDiagram
     }
 
     class ScrumMaster {
-        -Role[] roles
-        -Person person
+        -ScrumMemberRole[] roles
+        -Member member
 
         +coachTeamMembers()
         +createProductBacklogItem()
@@ -102,8 +100,8 @@ classDiagram
     }
 
     class Developer {
-        -Role role
-        -Person person
+        -ScrumMemberRole role
+        -Member member
 
         +selectProductBacklogItemForSprint()
         +refineProductBacklogItem()

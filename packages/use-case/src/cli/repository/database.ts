@@ -6,8 +6,6 @@ import {DataBase} from "./schema";
 
 const file = join(__dirname, '../../../apps/cli/db.json')
 
-console.log(file);
-
 const defaultData: DataBase = {posts: []}
 const adapter = new JSONFile<DataBase>(file)
 const db = new Low<DataBase>(adapter, defaultData)
