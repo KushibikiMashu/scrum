@@ -6,7 +6,7 @@ import {
   Product, Project, EmployeeName, ID,
 } from "@panda-project/core";
 import {Low} from "lowdb";
-import {DataBase, db} from "./repository";
+import {DataBase, db} from "./db";
 import {AutoIncrementId} from "../common";
 
 export class InitInput {
