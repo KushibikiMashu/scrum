@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@panda-project": ["node_modules/@panda-project"]
     },
     "outDir": "./dist"
   },

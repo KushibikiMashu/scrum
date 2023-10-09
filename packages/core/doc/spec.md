@@ -2,7 +2,6 @@
 自分がこのプログラムをスクラム開発するつもりで実装していく。
 
 TODO: use-case の esbuild の --watch が効いていないので原因を調べて対処する
-TODO: use-case の esbuild で absolute import をする方法を調べる
 
 - [ ] 初期設定ができる
   - [ ] プロジェクト、プロダクト
