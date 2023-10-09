@@ -27,9 +27,15 @@ class InitInput {
 }
 
 export class InitScenario {
+  constructor(
+    private readonly initValidateUseCase: InitValidateUseCase = new InitValidateUseCase(),
+    private readonly initSetUpUseCase: InitSetUpUseCase = new InitSetUpUseCase(),
+  ) {
+  }
+
   async exec(callback: () => Promise<InitUserInputType>): Promise<void> {
     try {
-      await new InitValidateUseCase().exec()
+      await this.initValidateUseCase.exec()
     } catch (e: any) {
       console.error(e?.message)
       return
@@ -39,7 +45,7 @@ export class InitScenario {
     const input = await callback()
 
     try {
-      await new InitSetUpUseCase().exec(new InitInput(input.product, input.project, input.employee))
+      await this.initSetUpUseCase.exec(new InitInput(input.product, input.project, input.employee))
       console.info('初期設定を完了しました');
     } catch (e: any) {
       console.error(e?.message)
@@ -53,7 +59,7 @@ class InitValidateUseCase {
   ) {
   }
 
-  async exec() {
+  async exec(): Promise<void> {
     // 1つしかないはずなので、存在しない場合はエラーにする
     // 本格的にやるなら（product の id を取得するなら）、CLIでもログインする機能が必要
     const existsProduct = await this.productRepository.existsWithoutId()
@@ -71,7 +77,7 @@ class InitSetUpUseCase {
   ) {
   }
 
-  async exec(initInput: InitInput) {
+  async exec(initInput: InitInput): Promise<void> {
     // いつか try catch で囲む
     const product = new Product(
       ID.createAsNull(),
@@ -90,7 +96,5 @@ class InitSetUpUseCase {
       initInput.getEmployeeName()
     )
     await this.employeeRepository.save(employee)
-
-    return null
   }
 }
