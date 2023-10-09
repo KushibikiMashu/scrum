@@ -21,7 +21,7 @@ erDiagram
     employees {
         id int
         first_name string
-        last_name string
+        family_name string
     }
 
     members {

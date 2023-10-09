@@ -45,7 +45,7 @@ export type ProjectsSchema = {
 export type EmployeesSchema = {
   id: number
   first_name: string
-  last_name: string
+  family_name: string
 }
 
 export type MembersSchema = {

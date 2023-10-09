@@ -7,6 +7,7 @@ import {
 } from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "./repository";
+import {AutoIncrementId} from "@/common";
 
 export class InitInput {
   constructor(
@@ -62,9 +63,13 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
 
   async save(employee: Employee) {
     await this.lowdb.read()
-    const { posts } = this.lowdb.data
+    const { employees } = this.lowdb.data
 
-    posts.push(employee.employeeName.getFullName())
+    employees.push({
+      id: AutoIncrementId.createFromRecords(employees).id,
+      first_name: employee.employeeName.firstName,
+      family_name: employee.employeeName.familyName,
+    })
 
     await this.lowdb.write()
     return employee
