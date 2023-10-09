@@ -3,7 +3,7 @@ import {
   EmployeeRepositoryInterface,
   ProjectRepositoryInterface,
   ProductRepositoryInterface,
-  Product, Project, EmployeeName,
+  Product, Project, EmployeeName, ID,
 } from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "./repository";
@@ -38,7 +38,10 @@ export class InitUseCase {
 
   async exec(initInput: InitInput) {
     // 保存する
-    const employee = new Employee(initInput.getEmployeeName())
+    const employee = new Employee(
+      ID.createAsNull(),
+      initInput.getEmployeeName()
+    )
     await this.employeeRepository.save(employee)
 
     return null
@@ -47,13 +50,13 @@ export class InitUseCase {
 
 // TODO: interface を implement する
 // export class ProductRepository implements ProductRepositoryInterface {
-//   save(product: Product) {
+//   async save(product: Product) {
 //
 //   }
 // }
 //
 // export class ProjectRepository implements ProjectRepositoryInterface {
-//   save(project: Project) {
+//   async save(project: Project) {
 //
 //   }
 // }
@@ -65,13 +68,14 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     await this.lowdb.read()
     const { employees } = this.lowdb.data
 
+    const autoIncrementId = AutoIncrementId.createFromRecords(employees)
     employees.push({
-      id: AutoIncrementId.createFromRecords(employees).id,
+      id: autoIncrementId.id,
       first_name: employee.employeeName.firstName,
       family_name: employee.employeeName.familyName,
     })
 
     await this.lowdb.write()
-    return employee
+    return new Employee(autoIncrementId, employee.employeeName)
   }
 }

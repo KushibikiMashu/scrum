@@ -1,3 +1,5 @@
+import {ID} from "@/common";
+
 export class Company {
 
 }
@@ -31,6 +33,7 @@ export class EmployeeName {
 
 export class Employee {
   constructor(
+    public readonly id: ID,
     public readonly employeeName: EmployeeName,
   ) {
   }
