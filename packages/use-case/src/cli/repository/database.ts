@@ -4,8 +4,9 @@ import {Low} from 'lowdb'
 import {JSONFile} from 'lowdb/node'
 import {DataBase} from "./schema";
 
-const file = join(__dirname, 'db.json')
+const file = join(__dirname, '../../../apps/cli/db.json')
 
+console.log(file);
 
 const defaultData: DataBase = {posts: []}
 const adapter = new JSONFile<DataBase>(file)
