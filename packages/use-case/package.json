@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node",
-    "watch": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node --watch",
+    "dev": "node ../config/build.mjs",
     "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node",
     "type-check": "tsc --noEmit",
     "jest": "jest"
