@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "~/*": ["./src/*"],
+      "@/*": ["../../packages/use-case/src/*"],
     },
     "outDir": "./dist"
   },
