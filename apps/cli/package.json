@@ -6,7 +6,7 @@
     "cli": "node dist/index.js",
     "dev": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "jest": "jest"
   },
   "dependencies": {

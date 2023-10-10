@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "jest": "jest"
   },
   "devDependencies": {

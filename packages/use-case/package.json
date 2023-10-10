@@ -6,7 +6,7 @@
     "dev": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node",
     "watch": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node --watch",
     "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "jest": "jest"
   },
   "dependencies": {
