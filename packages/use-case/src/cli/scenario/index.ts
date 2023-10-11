@@ -1,4 +1,4 @@
-export * from './create-team-scenario-scenario'
+export * from './create-team-scenario'
 export * from './employee-create-scenario'
 export * from './employee-create-multiple-scenario'
 export * from './init-scenario'

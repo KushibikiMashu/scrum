@@ -1,7 +1,7 @@
 import {input, select} from "@inquirer/prompts";
 import {Command} from "commander";
 import {
-  CreateTeamCallbackArg, CreateTeamScenarioScenario,
+  CreateTeamCallbackArg, CreateTeamScenario,
   EmployeeCreateMultipleScenario,
   EmployeeCreateScenario,
   EmployeeEditScenarioScenario, EmployeeRemoveCallbackArg, EmployeeRemoveScenario,
@@ -112,14 +112,15 @@ program
       return { employeeId }
     }
 
-    await new CreateTeamScenarioScenario().exec(selectProductOwner, selectScrumMaster)
+    await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
   });
 
+// edit 1 product owner を変更する
+// edit 2 scrum master を変更する
 
-// `team add developer` member から select する
-// `team new po` POを設定 or 変更する
-// `team new sm` スクラムマスターを設定 or 変更する
 // TODO: スクラムチームに人を増やす
+// developer add. loop で select + confirm で抜ける
+// developer remove
 
 
 // TODO: プロダクトバックログを作る

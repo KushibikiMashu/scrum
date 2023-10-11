@@ -10,7 +10,7 @@ import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 
 export type CreateTeamCallbackArg = Awaited<ReturnType<FetchEmployeesUseCase['exec']>>
 
-export class CreateTeamScenarioScenario {
+export class CreateTeamScenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly fetchEmployeesUseCase: FetchEmployeesUseCase = new FetchEmployeesUseCase(),
