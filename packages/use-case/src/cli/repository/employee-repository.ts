@@ -20,5 +20,11 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     await this.lowdb.write()
     return new Employee(autoIncrementId, employee.employeeName)
   }
+
+  async count() {
+    await this.lowdb.read()
+    const { employees } = this.lowdb.data
+    return employees.length
+  }
 }
 

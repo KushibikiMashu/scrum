@@ -1,6 +1,6 @@
-import {input} from "@inquirer/prompts";
+import {input, select} from "@inquirer/prompts";
 import {Command} from "commander";
-import {InitScenario} from "@panda-project/use-case";
+import {EmployeeCreateMultipleScenario, EmployeeCreateScenario, InitScenario} from "@panda-project/use-case";
 
 const program = new Command();
 
@@ -27,21 +27,50 @@ program
     await new InitScenario().exec(useInput)
   });
 
-// `employee create` `employee edit` `employee remove`
-// TODO: 社員を入力する
+// `employee create`
 program
-  .command('employee create')
-  .action(async () => {
-    console.info('社員を登録します')
-    const employee = await input({message: "社員の名前は？（姓名は半角スペース区切り）"})
+  .command('employee-create')
+  .option('-m, --multiple', '複数の社員を登録する')
+  .action(async (_, options) => {
+    if (options.multiple) {
+      const useInput = async () => {
+        const employee = await input({message: "複数の社員の名前をカンマ区切りで入力してください（姓名は半角スペース区切り）"})
+        return { employee }
+      }
 
-    try {
-      console.info(employee)
-    } catch (e: any) {
-      console.error(e?.message)
+      await new EmployeeCreateMultipleScenario().exec(useInput)
+    } else {
+      const useInput = async () => {
+        const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
+        return { employee }
+      }
+
+      await new EmployeeCreateScenario().exec(useInput)
     }
   })
 
+// `employee edit`
+program
+  .command('employee-edit')
+  .action(async () => {
+    const useInput = async (names: {id: number, name: string}[]) => {
+      const employeeId = await select({
+        message: "名前を編集する社員を選択してください",
+        choices: names.map(v => ({
+          name: `${v.id}: ${v.name}`,
+          value: v.id,
+        })),
+      })
+      const employee = await input({message: "訂正したい名前を入力してください"})
+      return { employeeId, newEmployeeName: employee }
+    }
+
+    console.log(await useInput([{id: 1, name: 'Satoshi Tanaka'}, {id: 2, name: 'Taro Yamada'}]))
+  });
+
+
+
+// `employee remove`
 
 // `team create` `team edit` `team remove`
 // TODO: スクラムチームを結成する

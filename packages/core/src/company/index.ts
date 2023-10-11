@@ -41,6 +41,7 @@ export class Employee {
 
 export interface EmployeeRepositoryInterface {
   save(employee: Employee): Promise<Employee>
+  count(): Promise<number>
 }
 
 export class Member {
