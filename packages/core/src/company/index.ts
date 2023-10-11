@@ -37,11 +37,19 @@ export class Employee {
     public readonly employeeName: EmployeeName,
   ) {
   }
+
+  updateName(name: EmployeeName) {
+    return new Employee(this.id, name)
+  }
 }
 
 export interface EmployeeRepositoryInterface {
-  save(employee: Employee): Promise<Employee>
+  findByIdOrFail(id: ID): Promise<Employee>
+  fetchAll(): Promise<Employee[]>
   count(): Promise<number>
+  save(employee: Employee): Promise<Employee>
+  update(employee: Employee): Promise<Employee>
+  delete(employee: Employee): Promise<void>
 }
 
 export class Member {
@@ -50,5 +58,9 @@ export class Member {
     // 部署を使うようになったら追加する
     // public readonly department: Department,
   ) {
+  }
+
+  static createFromEmployee(employee: Employee) {
+    return new Member(employee)
   }
 }

@@ -18,15 +18,7 @@ classDiagram
     }
 
     class Department {
-        +Member[] members
-    }
-
-    class Member {
-        +Employee employee
-    }
-
-    class ScrumMember {
-        +Member employee
+        +Employee[] members
     }
 
     class ScrumMemberRole {
@@ -37,6 +29,8 @@ classDiagram
     }
 
     class ScrumTeam {
+        %% ProductOwner とか ScrumMaster は ID 参照の方がいいかもしれないと思ったけど、
+        %% あえて集約を持つ実装にしてみる。いつもやっていないことをやってみるため
         +ProductOwner productOwner
         +ScrumMaster scrumMaster
         +Developer[] developers
@@ -75,7 +69,7 @@ classDiagram
 
     class ProductOwner {
         -ScrumMemberRole[] roles
-        -ScrumMember member
+        -Employee employee
 
         +establishProductGoal()
         +createProductBacklogItem()
@@ -93,7 +87,7 @@ classDiagram
 
     class ScrumMaster {
         -ScrumMemberRole[] roles
-        -ScrumMember member
+        -Employee employee
 
         +coachTeamMembers()
         +createProductBacklogItem()
@@ -105,7 +99,7 @@ classDiagram
 
     class Developer {
         -ScrumMemberRole role
-        -ScrumMember member
+        -Employee employee
 
         +selectProductBacklogItemForSprint()
         +refineProductBacklogItem()
@@ -347,7 +341,7 @@ classDiagram
         +TimeBox timeBox
         +Duration duration
 
-        +Member[] stakeholders
+        +Employee[] stakeholders
     }
     note for SprintReview "スプリントが1か⽉の場合、タイムボックスは最⼤4時間である"
 

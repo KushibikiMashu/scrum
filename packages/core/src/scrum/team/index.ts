@@ -39,13 +39,19 @@ export class ScrumTeam {
     public readonly increment: Increment[],
     public readonly goals: ProductGoal[],
   ) {}
+
+  static createWithProductOwnerAndScrumMaster(productOwner: ProductOwner, scrumMaster: ScrumMaster) {
+    return new ScrumTeam(productOwner, scrumMaster, [], [], [])
+  }
 }
 
 export class ProductOwner {
   constructor(
     public readonly roles: ScrumMemberRoleType[],
     public readonly member: Member
-  ) {}
+  ) {
+    this.validate()
+  }
 
   validate() {
     if (this.roles.includes(ScrumMemberRole.ScrumMaster)) {
@@ -54,11 +60,17 @@ export class ProductOwner {
   }
 }
 
+export interface ScrumTeamRepositoryInterface {
+  save(scrumTeam: ScrumTeam): Promise<void>
+}
+
 export class ScrumMaster {
   constructor(
     public readonly roles: ScrumMemberRoleType[],
     public readonly member: Member
-  ) {}
+  ) {
+    this.validate()
+  }
 
   validate() {
     if (this.roles.includes(ScrumMemberRole.ProductOwner)) {
@@ -71,7 +83,9 @@ export class Developer {
   constructor(
     public readonly role: ScrumMemberRoleType = ScrumMemberRole.Developer,
     public readonly member: Member
-  ) {}
+  ) {
+    this.validate()
+  }
 
   validate() {
     if (this.role === ScrumMemberRole.ProductOwner) {

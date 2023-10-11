@@ -1,6 +1,12 @@
 import {input, select} from "@inquirer/prompts";
 import {Command} from "commander";
-import {EmployeeCreateMultipleScenario, EmployeeCreateScenario, InitScenario} from "@panda-project/use-case";
+import {
+  CreateTeamCallbackArg, CreateTeamScenarioScenario,
+  EmployeeCreateMultipleScenario,
+  EmployeeCreateScenario,
+  EmployeeEditScenarioScenario, EmployeeRemoveCallbackArg, EmployeeRemoveScenario,
+  InitScenario
+} from "@panda-project/use-case";
 
 const program = new Command();
 
@@ -56,24 +62,59 @@ program
     const useInput = async (names: {id: number, name: string}[]) => {
       const employeeId = await select({
         message: "名前を編集する社員を選択してください",
-        choices: names.map(v => ({
+        choices: names.map((v: {id: number, name: string}) => ({
           name: `${v.id}: ${v.name}`,
           value: v.id,
         })),
       })
-      const employee = await input({message: "訂正したい名前を入力してください"})
+      const employee = await input({message: "新しい名前を入力してください"})
       return { employeeId, newEmployeeName: employee }
     }
 
-    console.log(await useInput([{id: 1, name: 'Satoshi Tanaka'}, {id: 2, name: 'Taro Yamada'}]))
+    await new EmployeeEditScenarioScenario().exec(useInput)
   });
 
-
-
 // `employee remove`
+program
+  .command('employee-remove')
+  .action(async () => {
+    const useInput = async (names: EmployeeRemoveCallbackArg) => {
+      const employeeId = await select({
+        message: "削除する社員名を選択してください",
+        choices: names.map((v: EmployeeRemoveCallbackArg[number]) => ({
+          name: `${v.id}: ${v.name}`,
+          value: v.id,
+        })),
+      })
+      return { employeeId }
+    }
 
-// `team create` `team edit` `team remove`
+    await new EmployeeRemoveScenario().exec(useInput)
+  });
+
 // TODO: スクラムチームを結成する
+// `team create` `team edit` `team remove`
+program
+  .command('team-create')
+  .action(async () => {
+    const selectProductOwner = async (names: CreateTeamCallbackArg) => {
+      const employeeId = await select({
+        message: "プロダクトオーナーを選択してください",
+        choices: names.map((v: CreateTeamCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+      })
+      return { employeeId }
+    }
+    const selectScrumMaster = async (names: CreateTeamCallbackArg) => {
+      const employeeId = await select({
+        message: "スクラムマスターを選択してください",
+        choices: names.map((v: CreateTeamCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+      })
+      return { employeeId }
+    }
+
+    await new CreateTeamScenarioScenario().exec(selectProductOwner, selectScrumMaster)
+  });
+
 
 // `team add developer` member から select する
 // `team new po` POを設定 or 変更する

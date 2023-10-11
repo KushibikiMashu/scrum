@@ -1,0 +1,17 @@
+import {EmployeeRepositoryInterface} from "@panda-project/core";
+import {EmployeeRepository} from "@/cli/repository";
+
+export class FetchEmployeesUseCase {
+  constructor(
+    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
+  ) {
+  }
+
+  async exec(): Promise<{id: number; name: string}[]> {
+    const employees = await this.employeeRepository.fetchAll()
+    return employees.map(employee => ({
+      id: employee.id.value!,
+      name: employee.employeeName.getFullName(),
+    }))
+  }
+}

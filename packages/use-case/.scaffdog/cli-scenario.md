@@ -4,21 +4,19 @@ root: '.'
 output: 'src/cli/scenario'
 ignore: []
 questions:
-  name: 'Scenario 名を入力してください ex. FooScenario'
+  name: 'Scenario 名を入力してください。Scenarioという接尾辞は不要です ex. Foo'
 ---
 
 # `index.ts`
 
 ```ts
+export * from './{{ inputs.name | kebab }}-scenario'
 {{ read output.abs }}
-export * from './{{ inputs.name | kebab }}'
 ```
 
-# `{{ inputs.name | kebab }}.ts`
+# `{{ inputs.name | kebab }}-scenario.ts`
 
 ```ts
-import {Employee, EmployeeName, EmployeeRepositoryInterface, ID} from "@panda-project/core";
-import {EmployeeRepository} from "@/cli/repository";
 import {Logger} from "@/common";
 
 export class {{ inputs.name }}Scenario {
@@ -53,7 +51,7 @@ type {{ inputs.name }}UserInputType = {
 }
 
 class {{ inputs.name }}Input {
-  constructor(private readonly input: {{ inputs.name }}UserInputType) {}
+  constructor(private readonly userInput: {{ inputs.name }}UserInputType) {}
 
   
 }
