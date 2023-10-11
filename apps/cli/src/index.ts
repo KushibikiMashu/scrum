@@ -37,8 +37,8 @@ program
 program
   .command('employee-create')
   .option('-m, --multiple', '複数の社員を登録する')
-  .action(async (_, options) => {
-    if (options.multiple) {
+  .action(async (option) => {
+    if (option.multiple) {
       const useInput = async () => {
         const employee = await input({message: "複数の社員の名前をカンマ区切りで入力してください（姓名は半角スペース区切り）"})
         return { employee }
