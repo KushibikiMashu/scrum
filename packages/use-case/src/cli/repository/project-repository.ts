@@ -16,6 +16,7 @@ export class ProjectRepository implements ProjectRepositoryInterface {
       name: project.name,
     })
 
+    await this.lowdb.write()
     return new Project(autoIncrementId, project.name)
   }
 }
