@@ -8,7 +8,7 @@ export class FetchEmployeesUseCase {
   }
 
   async exec(): Promise<{id: number; name: string}[]> {
-    const employees = await this.employeeRepository.fetchAll()
+    const employees = await this.employeeRepository.findAll()
     return employees.map(employee => ({
       id: employee.id.value!,
       name: employee.employeeName.getFullName(),

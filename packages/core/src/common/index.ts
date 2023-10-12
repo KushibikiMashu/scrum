@@ -14,4 +14,8 @@ export class ID {
   static createAsNull() {
     return new ID(null)
   }
+
+  equals(id: ID) {
+    return this.value === id.value
+  }
 }

@@ -16,7 +16,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     return this.mapToEmployee(employee)
   }
 
-  async fetchAll(): Promise<Employee[]> {
+  async findAll(): Promise<Employee[]> {
     await this.lowdb.read()
     const {employees} = this.lowdb.data
 
@@ -62,7 +62,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     }
 
     employees[index] = {
-      id: newEmployeeId,
+      id: newEmployeeId!,
       first_name: newEmployee.employeeName.firstName,
       family_name: newEmployee.employeeName.familyName,
     }

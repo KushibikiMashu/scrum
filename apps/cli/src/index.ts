@@ -7,6 +7,7 @@ import {
   EmployeeEditScenarioScenario, EmployeeRemoveCallbackArg, EmployeeRemoveScenario,
   InitScenario
 } from "@panda-project/use-case";
+import {ReselectProductOwnerCallbackArg, ReselectProductOwnerScenario} from "@/cli";
 
 const program = new Command();
 
@@ -113,6 +114,25 @@ program
     }
 
     await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+  });
+
+program
+  .command('team-edit')
+  .option('-po, --product-owner', 'プロダクトオーナーを変更する')
+  .action(async (option) => {
+    if (!option.productOwner) {
+      console.error('オプションを指定してください')
+      return
+    }
+    const selectProductOwner = async (names: ReselectProductOwnerCallbackArg) => {
+      const employeeId = await select({
+        message: "プロダクトオーナーを選択してください",
+        choices: names.map((v: ReselectProductOwnerCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+      })
+      return { employeeId }
+    }
+
+    await new ReselectProductOwnerScenario().exec(selectProductOwner)
   });
 
 // edit 1 product owner を変更する

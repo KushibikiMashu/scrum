@@ -1,4 +1,4 @@
-import {Member} from "@/company";
+import {Employee, Member} from "@/company";
 import {Increment, ProductGoal} from "@/scrum";
 import {ID} from "@/common";
 
@@ -32,6 +32,7 @@ export type ScrumMemberRoleType = typeof ScrumMemberRole[keyof typeof ScrumMembe
 
 export class ScrumTeam {
   constructor(
+    public readonly id: ID,
     public readonly productOwner: ProductOwner,
     public readonly scrumMaster: ScrumMaster,
     public readonly developers: Developer[],
@@ -41,8 +42,30 @@ export class ScrumTeam {
   ) {}
 
   static createWithProductOwnerAndScrumMaster(productOwner: ProductOwner, scrumMaster: ScrumMaster) {
-    return new ScrumTeam(productOwner, scrumMaster, [], [], [])
+    return new ScrumTeam(ID.createAsNull(), productOwner, scrumMaster, [], [], [])
   }
+
+  changeProductOwner(productOwner: ProductOwner) {
+    return new ScrumTeam(this.id, productOwner, this.scrumMaster, this.developers, this.increment, this.goals)
+  }
+
+  changeScrumMaster(scrumMaster: ScrumMaster) {
+    return new ScrumTeam(this.id, this.productOwner, scrumMaster, this.developers, this.increment, this.goals)
+  }
+
+  getScrumMemberByEmployeeId(employeeId: ID): ProductOwner | ScrumMaster | Developer | null {
+    if (this.productOwner.member.employee.id.equals(employeeId)) return this.productOwner
+    if (this.scrumMaster.member.employee.id.equals(employeeId)) return this.scrumMaster
+    const developer = this.developers.find(developer => developer.member.employee.id.equals(employeeId))
+    return developer ?? null
+  }
+}
+
+export interface ScrumTeamRepositoryInterface {
+  fetch(): Promise<ScrumTeam>
+  exists(): Promise<boolean>
+  save(scrumTeam: ScrumTeam): Promise<void>
+  update(scrumTeam: ScrumTeam): Promise<void>
 }
 
 export class ProductOwner {
@@ -58,10 +81,24 @@ export class ProductOwner {
       throw new Error('ProductOwner cannot be ScrumMaster');
     }
   }
-}
 
-export interface ScrumTeamRepositoryInterface {
-  save(scrumTeam: ScrumTeam): Promise<void>
+  static createFromEmployee(employee: Employee) {
+    return new ProductOwner(
+      [ScrumMemberRole.ProductOwner],
+      Member.createFromEmployee(employee)
+    )
+  }
+
+  static createFromDeveloper(developer: Developer) {
+    return new ProductOwner(
+      [ScrumMemberRole.ProductOwner, developer.role],
+      developer.member
+    )
+  }
+
+  isDeveloper() {
+    return this.roles.includes(ScrumMemberRole.Developer)
+  }
 }
 
 export class ScrumMaster {
@@ -77,22 +114,27 @@ export class ScrumMaster {
       throw new Error('ScrumMaster cannot be ProductOwner');
     }
   }
+
+  static createFromEmployee(employee: Employee) {
+    return new ScrumMaster(
+      [ScrumMemberRole.ScrumMaster],
+      Member.createFromEmployee(employee)
+    )
+  }
+
+  isDeveloper() {
+    return this.roles.includes(ScrumMemberRole.Developer)
+  }
 }
 
 export class Developer {
-  constructor(
-    public readonly role: ScrumMemberRoleType = ScrumMemberRole.Developer,
-    public readonly member: Member
-  ) {
-    this.validate()
-  }
+  public readonly role: ScrumMemberRoleType = ScrumMemberRole.Developer
 
-  validate() {
-    if (this.role === ScrumMemberRole.ProductOwner) {
-      throw new Error('Developer cannot be ProductOwner');
-    }
-    if (this.role === ScrumMemberRole.ScrumMaster) {
-      throw new Error('Developer cannot be ScrumMaster');
-    }
+  constructor(
+    public readonly member: Member
+  ) {}
+
+  isDeveloper() {
+    return true
   }
 }

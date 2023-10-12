@@ -45,7 +45,7 @@ export class Employee {
 
 export interface EmployeeRepositoryInterface {
   findByIdOrFail(id: ID): Promise<Employee>
-  fetchAll(): Promise<Employee[]>
+  findAll(): Promise<Employee[]>
   count(): Promise<number>
   save(employee: Employee): Promise<Employee>
   update(employee: Employee): Promise<Employee>

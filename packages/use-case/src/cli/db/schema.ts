@@ -70,15 +70,15 @@ export type ScrumTeamsSchema = {
 
 export type ProductOwnersSchema = {
   scrum_team_id: number
-  product_owner_id: number // "relation -> Employee"
+  employee_id: number // "relation -> Employee"
 }
 
 export type ScrumMastersSchema = {
   scrum_team_id: number
-  scrum_master_id: number // "relation -> Employee"
+  employee_id: number // "relation -> Employee"
 }
 
 export type DevelopersSchema = {
   scrum_team_id: number
-  developer_id: number // "relation -> Employee"
+  employee_id: number // "relation -> Employee"
 }
