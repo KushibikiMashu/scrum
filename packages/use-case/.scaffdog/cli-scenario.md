@@ -19,6 +19,8 @@ export * from './{{ inputs.name | kebab }}-scenario'
 ```ts
 import {Logger} from "@/common";
 
+export type {{ inputs.name }}CallbackArg = {}
+
 export class {{ inputs.name }}Scenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
@@ -27,17 +29,10 @@ export class {{ inputs.name }}Scenario {
   ) {
   }
 
-  async exec(callback: () => Promise<{{ inputs.name }}UserInputType>): Promise<void> {
+  async exec(callback: (arg: {{ inputs.name }}CallbackArg) => Promise<{{ inputs.name }}UserInputType>): Promise<void> {
     try {
       await this.validateUseCase.exec()
-    } catch (e: any) {
-      this.logger.error(e?.message)
-      return
-    }
-
-    const input = await callback()
-
-    try {
+      const input = await callback()
       await this.{{ inputs.name | camel }}UseCase.exec(new {{ inputs.name }}Input(input))
       this.logger.info(``);
     } catch (e: any) {

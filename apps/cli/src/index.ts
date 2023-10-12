@@ -1,11 +1,12 @@
-import {input, select} from "@inquirer/prompts";
+import {confirm, input, select} from "@inquirer/prompts";
 import {Command} from "commander";
 import {
-  CreateTeamCallbackArg, CreateTeamScenario,
+  AddDeveloperCallbackArg, AddDeveloperScenario,
+  CreateTeamCallbackArg, CreateTeamScenario, DisbandScrumTeamScenario,
   EmployeeCreateMultipleScenario,
-  EmployeeCreateScenario,
+  EmployeeCreateScenario, EmployeeEditCallbackArg,
   EmployeeEditScenarioScenario, EmployeeRemoveCallbackArg, EmployeeRemoveScenario,
-  InitScenario
+  InitScenario, ReselectScrumMasterCallbackArg, ReselectScrumMasterScenario
 } from "@panda-project/use-case";
 import {ReselectProductOwnerCallbackArg, ReselectProductOwnerScenario} from "@/cli";
 
@@ -60,7 +61,7 @@ program
 program
   .command('employee-edit')
   .action(async () => {
-    const useInput = async (names: {id: number, name: string}[]) => {
+    const useInput = async (names: EmployeeEditCallbackArg) => {
       const employeeId = await select({
         message: "名前を編集する社員を選択してください",
         choices: names.map((v: {id: number, name: string}) => ({
@@ -93,8 +94,7 @@ program
     await new EmployeeRemoveScenario().exec(useInput)
   });
 
-// TODO: スクラムチームを結成する
-// `team create` `team edit` `team remove`
+// `team create`
 program
   .command('team-create')
   .action(async () => {
@@ -116,30 +116,66 @@ program
     await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
   });
 
+// team-edit product owner を変更する
+// team-edit scrum master を変更する
 program
   .command('team-edit')
   .option('-po, --product-owner', 'プロダクトオーナーを変更する')
+  .option('-sm, --scrum-master', 'スクラムマスターを変更する')
   .action(async (option) => {
-    if (!option.productOwner) {
-      console.error('オプションを指定してください')
+    if (option.productOwner) {
+      const selectProductOwner = async (names: ReselectProductOwnerCallbackArg) => {
+        const employeeId = await select({
+          message: "プロダクトオーナーを選択してください",
+          choices: names.map((v: ReselectProductOwnerCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+        })
+        return { employeeId }
+      }
+      await new ReselectProductOwnerScenario().exec(selectProductOwner)
       return
     }
-    const selectProductOwner = async (names: ReselectProductOwnerCallbackArg) => {
+
+    if (option.scrumMaster) {
+      const selectScrumMaster = async (names: ReselectScrumMasterCallbackArg) => {
+        const employeeId = await select({
+          message: "スクラムマスターを選択してください",
+          choices: names.map((v: ReselectScrumMasterCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+        })
+        return { employeeId }
+      }
+      await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+      return
+    }
+
+    console.error('オプションを指定してください')
+  });
+
+// `team disband`
+program
+  .command('team-disband')
+  .action(async () => {
+    const answer = await confirm({ message: '本当にスクラムチームを解散しますか？' });
+    if (answer) {
+      await new DisbandScrumTeamScenario().exec()
+    }
+  });
+
+// developer add。loop で複数 select + confirm で抜ける
+program
+  .command('developer-add')
+  .action(async () => {
+    const selectDeveloper = async (names: AddDeveloperCallbackArg) => {
       const employeeId = await select({
-        message: "プロダクトオーナーを選択してください",
-        choices: names.map((v: ReselectProductOwnerCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+        message: "開発者を選択してください",
+        choices: names.map((v: AddDeveloperCallbackArg[number]) => ({name: `${v.id}: ${v.name}`, value: v.id})),
       })
       return { employeeId }
     }
+    const continueToSelect = async () => await confirm({ message: '他の開発者を追加しますか？' });
 
-    await new ReselectProductOwnerScenario().exec(selectProductOwner)
+    await new AddDeveloperScenario().exec(selectDeveloper, continueToSelect)
   });
 
-// edit 1 product owner を変更する
-// edit 2 scrum master を変更する
-
-// TODO: スクラムチームに人を増やす
-// developer add. loop で select + confirm で抜ける
 // developer remove
 
 

@@ -29,7 +29,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     return employees.length
   }
 
-  private mapToEmployee(record: EmployeesSchema): Employee {
+  private mapToEmployee(record: EmployeesSchema[number]): Employee {
     return new Employee(
       new AutoIncrementId(record.id),
       new EmployeeName(record.first_name, record.family_name),

@@ -1,40 +1,42 @@
 import {AutoIncrementId, Logger} from "@/common";
-import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
+import {FetchAllEmployeesWithoutPoAndSmUseCase} from "@/cli/scenario/use-case";
 import {
-  EmployeeRepositoryInterface, isDeveloper,
-  ProductOwner,
+  EmployeeRepositoryInterface,
+  isDeveloper,
+  ProductOwner, ScrumMaster,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {FetchAllEmployeesWithoutPoAndSmUseCase} from "@/cli/scenario/use-case";
+import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 
-export type ReselectProductOwnerCallbackArg = Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>
+export type ReselectScrumMasterCallbackArg = Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>
 
-export class ReselectProductOwnerScenario {
+export class ReselectScrumMasterScenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly fetchAllEmployeesWithoutPoAndSmUseCase: FetchAllEmployeesWithoutPoAndSmUseCase = new FetchAllEmployeesWithoutPoAndSmUseCase(),
-    private readonly reselectProductOwnerUseCase: ReselectProductOwnerUseCase = new ReselectProductOwnerUseCase(),
+    private readonly reselectScrumMasterUseCase: ReselectScrumMasterUseCase = new ReselectScrumMasterUseCase(),
     private readonly logger: Logger = console,
-  ) {}
+  ) {
+  }
 
-  async exec(callback: (arg: ReselectProductOwnerCallbackArg) => Promise<ReselectProductOwnerUserInputType>): Promise<void> {
+  async exec(callback: (arg: ReselectScrumMasterCallbackArg) => Promise<ReselectScrumMasterUserInputType>): Promise<void> {
     try {
       await this.validateUseCase.exec()
       const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()
       const input = await callback(employees)
-      await this.reselectProductOwnerUseCase.exec(new ReselectProductOwnerInput(input))
+      await this.reselectScrumMasterUseCase.exec(new ReselectScrumMasterInput(input))
     } catch (e: any) {
       this.logger.error(e?.message)
     }
   }
 }
 
-type ReselectProductOwnerUserInputType = {
+type ReselectScrumMasterUserInputType = {
   employeeId: number
 }
 
-class ReselectProductOwnerInput {
-  constructor(private readonly userInput: ReselectProductOwnerUserInputType) {}
+class ReselectScrumMasterInput {
+  constructor(private readonly userInput: ReselectScrumMasterUserInputType) {}
 
   getEmployeeId() {
     return new AutoIncrementId(this.userInput.employeeId)
@@ -57,27 +59,28 @@ class ValidateUseCase {
     // 社員が2人以下の場合はエラーになる
     const count = await this.employeeRepository.count()
     if (count <= 2) {
-      throw new Error('社員が2人以下なのでプロダクトオーナーを再選定できません')
+      throw new Error('社員が2人以下なのでスクラムマスターを再選定できません')
     }
   }
 }
 
-class ReselectProductOwnerUseCase {
+class ReselectScrumMasterUseCase {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-  ) {}
+  ) {
+  }
 
-  async exec(input: ReselectProductOwnerInput) {
+  async exec(input: ReselectScrumMasterInput) {
     const employee = await this.employeeRepository.findByIdOrFail(input.getEmployeeId())
-    // 開発者がプロダクトオーナーになることもあり得る
+    // 開発者がスクラムマスターになることもあり得る
     const scrumTeam = await this.scrumTeamRepository.fetch()
 
     const scrumMember = scrumTeam.getScrumMemberByEmployeeId(employee.id)
-    const newProductOwner = isDeveloper(scrumMember) ?
-      ProductOwner.createFromDeveloper(scrumMember)
-      : ProductOwner.createFromEmployee(employee)
-    const newScrumTeam = scrumTeam.changeProductOwner(newProductOwner)
+    const newScrumMaster = isDeveloper(scrumMember) ?
+      ScrumMaster.createFromDeveloper(scrumMember)
+      : ScrumMaster.createFromEmployee(employee)
+    const newScrumTeam = scrumTeam.changeScrumMaster(newScrumMaster)
 
     await this.scrumTeamRepository.update(newScrumTeam)
   }

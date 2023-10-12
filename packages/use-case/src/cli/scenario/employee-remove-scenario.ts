@@ -3,6 +3,8 @@ import {EmployeeRepository} from "@/cli/repository";
 import {AutoIncrementId, Logger} from "@/common";
 import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 
+export type EmployeeRemoveCallbackArg = Awaited<ReturnType<FetchEmployeesUseCase['exec']>>
+
 export class EmployeeRemoveScenario {
   constructor(
     private readonly fetchEmployeesUseCase: FetchEmployeesUseCase = new FetchEmployeesUseCase(),
@@ -22,8 +24,6 @@ export class EmployeeRemoveScenario {
     }
   }
 }
-
-export type EmployeeRemoveCallbackArg = Awaited<ReturnType<FetchEmployeesUseCase['exec']>>
 
 type EmployeeRemoveScenarioUserInputType = {
   employeeId: number,

@@ -33,7 +33,7 @@ export class EmployeeName {
 
 export class Employee {
   constructor(
-    public readonly id: ID,
+    public readonly id: ID, // TODO: Employee の ID は NonNullId にしないといけないかもしれない
     public readonly employeeName: EmployeeName,
   ) {
   }

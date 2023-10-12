@@ -30,6 +30,10 @@ export const ScrumMemberRole = {
 
 export type ScrumMemberRoleType = typeof ScrumMemberRole[keyof typeof ScrumMemberRole];
 
+export const isDeveloper = (scrumMember: ReturnType<ScrumTeam['getScrumMemberByEmployeeId']>): scrumMember is Developer => {
+  return scrumMember?.isDeveloper() ?? false
+}
+
 export class ScrumTeam {
   constructor(
     public readonly id: ID,
@@ -59,6 +63,14 @@ export class ScrumTeam {
     const developer = this.developers.find(developer => developer.member.employee.id.equals(employeeId))
     return developer ?? null
   }
+
+  addDeveloper(developer: Developer) {
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer], this.increment, this.goals)
+  }
+
+  countScrumMembers(): number {
+    return this.developers.length + 2
+  }
 }
 
 export interface ScrumTeamRepositoryInterface {
@@ -66,6 +78,7 @@ export interface ScrumTeamRepositoryInterface {
   exists(): Promise<boolean>
   save(scrumTeam: ScrumTeam): Promise<void>
   update(scrumTeam: ScrumTeam): Promise<void>
+  delete(): Promise<void>
 }
 
 export class ProductOwner {
@@ -122,6 +135,13 @@ export class ScrumMaster {
     )
   }
 
+  static createFromDeveloper(developer: Developer) {
+    return new ProductOwner(
+      [ScrumMemberRole.ScrumMaster, developer.role],
+      developer.member
+    )
+  }
+
   isDeveloper() {
     return this.roles.includes(ScrumMemberRole.Developer)
   }
@@ -133,6 +153,10 @@ export class Developer {
   constructor(
     public readonly member: Member
   ) {}
+
+  static createFromEmployee(employee: Employee) {
+    return new Developer(Member.createFromEmployee(employee))
+  }
 
   isDeveloper() {
     return true
