@@ -7,7 +7,7 @@ import {
 } from "@panda-project/core";
 import {FetchAllEmployeesWithoutPoAndSmUseCase} from "@/cli/scenario/use-case";
 
-export type ReselectProductOwnerCallbackArg = Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>
+export type ReselectProductOwnerCallbackArg = (arg: Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>)  => Promise<ReselectProductOwnerUserInputType>
 
 export class ReselectProductOwnerScenario {
   constructor(
@@ -17,7 +17,7 @@ export class ReselectProductOwnerScenario {
     private readonly logger: Logger = console,
   ) {}
 
-  async exec(callback: (arg: ReselectProductOwnerCallbackArg) => Promise<ReselectProductOwnerUserInputType>): Promise<void> {
+  async exec(callback: ReselectProductOwnerCallbackArg): Promise<void> {
     try {
       await this.validateUseCase.exec()
       const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()

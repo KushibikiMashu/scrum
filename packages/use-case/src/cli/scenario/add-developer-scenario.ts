@@ -2,41 +2,36 @@ import {AutoIncrementId, Logger} from "@/common";
 import {Developer, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 
-export type AddDeveloperCallbackArg = Awaited<ReturnType<FetchAllEmployeesWithoutScrumMembersUseCase['exec']>>
+export type AddDeveloperCallback = (arg: Awaited<ReturnType<FetchAllEmployeesWithoutScrumMembersUseCase['exec']>>) => Promise<AddDeveloperUserInputType>
 
 export class AddDeveloperScenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly fetchAllEmployeesWithoutScrumMembersUseCase: FetchAllEmployeesWithoutScrumMembersUseCase = new FetchAllEmployeesWithoutScrumMembersUseCase(),
     private readonly addDeveloperUseCase: AddDeveloperUseCase = new AddDeveloperUseCase(),
-    private readonly logger: Logger = console,
   ) {
   }
 
   async exec(
-    firstCallback: (arg: AddDeveloperCallbackArg) => Promise<AddDeveloperUserInputType>,
-    secondCallback: () => Promise<boolean>
-  ): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const allEmployees = await this.fetchAllEmployeesWithoutScrumMembersUseCase.exec()
-      for (let i = allEmployees.length;  allEmployees.length > 0; i--) {
-        const candidateEmployees = await this.fetchAllEmployeesWithoutScrumMembersUseCase.exec()
-        const input = await firstCallback(candidateEmployees)
-        await this.addDeveloperUseCase.exec(new AddDeveloperInput(input))
+    firstCallback: AddDeveloperCallback,
+    secondCallback: () => Promise<boolean>,
+  ): Promise<string|undefined> {
+    await this.validateUseCase.exec()
+    const allEmployees = await this.fetchAllEmployeesWithoutScrumMembersUseCase.exec()
 
-        if (i > 1) {
-          const shouldSelectMore = await secondCallback()
-          if (!shouldSelectMore) {
-            return
-          }
-        } else if (i === 1) {
-          console.info('開発者としてスクラムチームに参加できる社員はもういません')
+    for (let i = allEmployees.length;  allEmployees.length > 0; i--) {
+      const options = await this.fetchAllEmployeesWithoutScrumMembersUseCase.exec()
+      const input = await firstCallback(options)
+      await this.addDeveloperUseCase.exec(new AddDeveloperInput(input))
+
+      if (i > 1) {
+        const shouldSelectMore = await secondCallback()
+        if (!shouldSelectMore) {
           return
         }
+      } else if (i === 1) {
+        return '開発者としてスクラムチームに参加できる社員はもういません'
       }
-    } catch (e: any) {
-      this.logger.error(e?.message)
     }
   }
 }

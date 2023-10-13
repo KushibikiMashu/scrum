@@ -68,6 +68,11 @@ export class ScrumTeam {
     return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer], this.increment, this.goals)
   }
 
+  removeDeveloper(developer: Developer) {
+    const newDevelopers = this.developers.filter(v => v !== developer)
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, newDevelopers, this.increment, this.goals)
+  }
+
   countScrumMembers(): number {
     return this.developers.length + 2
   }

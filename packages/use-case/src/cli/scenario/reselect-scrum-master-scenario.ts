@@ -3,12 +3,12 @@ import {FetchAllEmployeesWithoutPoAndSmUseCase} from "@/cli/scenario/use-case";
 import {
   EmployeeRepositoryInterface,
   isDeveloper,
-  ProductOwner, ScrumMaster,
+  ScrumMaster,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 
-export type ReselectScrumMasterCallbackArg = Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>
+export type ReselectScrumMasterCallback = (arg: Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>) => Promise<ReselectScrumMasterUserInputType>
 
 export class ReselectScrumMasterScenario {
   constructor(
@@ -19,7 +19,7 @@ export class ReselectScrumMasterScenario {
   ) {
   }
 
-  async exec(callback: (arg: ReselectScrumMasterCallbackArg) => Promise<ReselectScrumMasterUserInputType>): Promise<void> {
+  async exec(callback: ReselectScrumMasterCallback): Promise<void> {
     try {
       await this.validateUseCase.exec()
       const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()

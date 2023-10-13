@@ -3,7 +3,7 @@ import {EmployeeRepository} from "@/cli/repository";
 import {AutoIncrementId, Logger} from "@/common";
 import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 
-export type EmployeeRemoveCallbackArg = Awaited<ReturnType<FetchEmployeesUseCase['exec']>>
+export type EmployeeRemoveCallback = (arg: Awaited<ReturnType<FetchEmployeesUseCase['exec']>>) => Promise<EmployeeRemoveScenarioUserInputType>
 
 export class EmployeeRemoveScenario {
   constructor(
@@ -13,7 +13,7 @@ export class EmployeeRemoveScenario {
   ) {
   }
 
-  async exec(callback: (arg: EmployeeRemoveCallbackArg) => Promise<EmployeeRemoveScenarioUserInputType>): Promise<void> {
+  async exec(callback: EmployeeRemoveCallback): Promise<void> {
     try {
       const employees = await this.fetchEmployeesUseCase.exec()
       const input = await callback(employees)

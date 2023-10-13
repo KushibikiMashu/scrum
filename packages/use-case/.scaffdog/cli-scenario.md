@@ -19,7 +19,7 @@ export * from './{{ inputs.name | kebab }}-scenario'
 ```ts
 import {Logger} from "@/common";
 
-export type {{ inputs.name }}CallbackArg = {}
+export type {{ inputs.name }}Callback = (arg: {}) => Promise<{{ inputs.name }}UserInputType>
 
 export class {{ inputs.name }}Scenario {
   constructor(
@@ -29,7 +29,7 @@ export class {{ inputs.name }}Scenario {
   ) {
   }
 
-  async exec(callback: (arg: {{ inputs.name }}CallbackArg) => Promise<{{ inputs.name }}UserInputType>): Promise<void> {
+  async exec(callback: {{ inputs.name }}Callback): Promise<void> {
     try {
       await this.validateUseCase.exec()
       const input = await callback()

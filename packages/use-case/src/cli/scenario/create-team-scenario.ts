@@ -8,7 +8,7 @@ import {
 import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 
-export type CreateTeamCallbackArg = Awaited<ReturnType<FetchEmployeesUseCase['exec']>>
+export type CreateTeamCallback = (arg: Awaited<ReturnType<FetchEmployeesUseCase['exec']>>) => Promise<CreateTeamScenarioUserInputType>
 
 export class CreateTeamScenario {
   constructor(
@@ -22,8 +22,8 @@ export class CreateTeamScenario {
   }
 
   async exec(
-    firstCallback: (arg: CreateTeamCallbackArg) => Promise<CreateTeamScenarioUserInputType>,
-    secondCallback: (arg: CreateTeamCallbackArg) => Promise<CreateTeamScenarioUserInputType>,
+    firstCallback: CreateTeamCallback,
+    secondCallback: CreateTeamCallback,
   ): Promise<void> {
     try {
       await this.validateUseCase.exec()
@@ -43,7 +43,7 @@ export class CreateTeamScenario {
     }
   }
 
-  private filterProductOwner(employees: CreateTeamCallbackArg, productOwner: ProductOwner) {
+  private filterProductOwner(employees: Awaited<ReturnType<FetchEmployeesUseCase['exec']>>, productOwner: ProductOwner) {
     return employees.filter(employee => employee.id !== productOwner.member.employee.id.value)
   }
 }
@@ -62,11 +62,17 @@ class CreateTeamScenarioInput {
 
 class ValidateUseCase {
   constructor(
+    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
   ) {
   }
 
   async exec() {
+    const exists = await this.scrumTeamRepository.exists()
+    if (exists) {
+      throw new Error('スクラムチームがすでに存在しています。CLIからは1チームしか作れません')
+    }
+
     const count = await this.employeeRepository.count()
     if (count < 2) {
       throw new Error('社員が2人以上登録されていません。employee-create コマンドで社員を追加してください')
