@@ -17,6 +17,11 @@ export const addDeveloperRemoveCommand = (program: Command) => {
       }
       const continueToSelect = async () => await confirm({message: '他の開発者を除外しますか？'});
 
-      await new RemoveDeveloperScenario().exec(selectDeveloper, continueToSelect)
+      try {
+        const result = await new RemoveDeveloperScenario().exec(selectDeveloper, continueToSelect)
+        if (result) console.info(result)
+      } catch (e: any) {
+        console.error(e?.message)
+      }
     });
 }

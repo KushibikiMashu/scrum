@@ -19,6 +19,11 @@ export const addEmployeeEditCommand = (program: Command) => {
         return {employeeId, newEmployeeName: employee}
       }
 
-      await new EmployeeEditScenarioScenario().exec(useInput)
+      try {
+        const result = await new EmployeeEditScenarioScenario().exec(useInput)
+        console.info(result);
+      } catch (e: any) {
+        console.error(e?.message)
+      }
     });
 }

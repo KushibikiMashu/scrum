@@ -21,7 +21,12 @@ export const addEmployeeCreateCommand = (program: Command) => {
           return { employee }
         }
 
-        await new EmployeeCreateScenario().exec(useInput)
+        try {
+          const result = await new EmployeeCreateScenario().exec(useInput)
+          console.info(result);
+        } catch (e: any) {
+          console.error(e?.message)
+        }
       }
     })
 }

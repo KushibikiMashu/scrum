@@ -18,6 +18,11 @@ export const addEmployeeRemoveCommand = (program: Command) => {
         return {employeeId}
       }
 
-      await new EmployeeRemoveScenario().exec(useInput)
+      try {
+        const result = await new EmployeeRemoveScenario().exec(useInput)
+          console.info(result);
+      } catch (e: any) {
+        console.error(e?.message)
+      }
     });
 }

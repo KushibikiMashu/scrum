@@ -1,4 +1,3 @@
-import {Logger} from "@/common";
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {ScrumTeamRepository} from "@/cli/repository";
 
@@ -7,18 +6,12 @@ export class ListScrumTeamScenario {
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly listScrumTeamUseCase: ListScrumTeamUseCase = new ListScrumTeamUseCase(),
     private readonly listScrumTeamPresenter: ListScrumTeamPresenter = new ListScrumTeamPresenter(),
-    private readonly logger: Logger = console,
   ) {}
 
-  async exec(): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const dto = await this.listScrumTeamUseCase.exec()
-      const body = await this.listScrumTeamPresenter.exec(dto)
-      this.logger.info(body)
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+  async exec(): Promise<string> {
+    await this.validateUseCase.exec()
+    const dto = await this.listScrumTeamUseCase.exec()
+    return this.listScrumTeamPresenter.exec(dto)
   }
 }
 
@@ -57,7 +50,7 @@ class ListScrumTeamUseCase {
 }
 
 class ListScrumTeamPresenter {
-  async exec(dto: ListScrumTeamUseCaseDto) {
+  exec(dto: ListScrumTeamUseCaseDto) {
     const {poName, smName, developerNames} = dto
     const developerBody = developerNames.length === 0 ? '開発者はいません' : `開発者（${developerNames.length}名）: ${developerNames.join(', ')}`
     return `プロダクトオーナー: ${poName}

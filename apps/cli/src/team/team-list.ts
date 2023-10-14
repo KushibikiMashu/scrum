@@ -6,6 +6,11 @@ export const addTeamListCommand = (program: Command) => {
     .command('team-list')
     .description('スクラムチームのメンバーを表示します')
     .action(async () => {
-      await new ListScrumTeamScenario().exec()
+      try {
+        const result = await new ListScrumTeamScenario().exec()
+        console.info(result);
+      } catch (e: any) {
+        console.error(e?.message)
+      }
     });
 }

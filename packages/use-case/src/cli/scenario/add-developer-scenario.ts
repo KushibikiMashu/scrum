@@ -1,4 +1,4 @@
-import {AutoIncrementId, Logger} from "@/common";
+import {AutoIncrementId} from "@/common";
 import {Developer, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 

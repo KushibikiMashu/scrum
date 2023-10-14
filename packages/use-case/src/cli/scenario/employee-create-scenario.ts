@@ -1,31 +1,21 @@
 import {Employee, EmployeeName, EmployeeRepositoryInterface, ID} from "@panda-project/core";
 import {EmployeeRepository} from "@/cli/repository";
-import {Logger} from "@/common";
 
 export class EmployeeCreateScenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly createEmployeeUseCase: CreateEmployeeUseCase = new CreateEmployeeUseCase(),
-    private readonly logger: Logger = console,
+    private readonly employeeCreatePresenter: EmployeeCreatePresenter = new EmployeeCreatePresenter(),
   ) {
   }
 
-  async exec(callback: () => Promise<EmployeeCreateUserInputType>): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-    } catch (e: any) {
-      this.logger.error(e?.message)
-      return
-    }
+  async exec(callback: () => Promise<EmployeeCreateUserInputType>): Promise<string> {
+    const userInput = await callback()
 
-    const input = await callback()
-
-    try {
-      await this.createEmployeeUseCase.exec(new EmployeeCreateInput(input.employee))
-      this.logger.info(`社員を登録しました: ${input.employee}`);
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    await this.validateUseCase.exec()
+    const input = new EmployeeCreateInput(userInput.employee)
+    await this.createEmployeeUseCase.exec(input)
+    return this.employeeCreatePresenter.exec(input)
   }
 }
 
@@ -67,5 +57,11 @@ class CreateEmployeeUseCase {
       input.getEmployeeName()
     )
     await this.employeeRepository.save(employee)
+  }
+}
+
+class EmployeeCreatePresenter {
+  exec(input: EmployeeCreateInput) {
+    return `社員を登録しました: ${input.employeeName}`
   }
 }

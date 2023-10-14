@@ -1,4 +1,4 @@
-import {AutoIncrementId, Logger} from "@/common";
+import {AutoIncrementId} from "@/common";
 import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
 import {
   EmployeeRepositoryInterface, isDeveloper,
@@ -14,18 +14,13 @@ export class ReselectProductOwnerScenario {
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly fetchAllEmployeesWithoutPoAndSmUseCase: FetchAllEmployeesWithoutPoAndSmUseCase = new FetchAllEmployeesWithoutPoAndSmUseCase(),
     private readonly reselectProductOwnerUseCase: ReselectProductOwnerUseCase = new ReselectProductOwnerUseCase(),
-    private readonly logger: Logger = console,
   ) {}
 
   async exec(callback: ReselectProductOwnerCallbackArg): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()
-      const input = await callback(employees)
-      await this.reselectProductOwnerUseCase.exec(new ReselectProductOwnerInput(input))
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    await this.validateUseCase.exec()
+    const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()
+    const input = await callback(employees)
+    await this.reselectProductOwnerUseCase.exec(new ReselectProductOwnerInput(input))
   }
 }
 

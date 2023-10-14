@@ -22,6 +22,10 @@ export const addTeamCreateCommand = (program: Command) => {
         return { employeeId }
       }
 
-      await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+      try {
+        await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+      } catch (e: any) {
+        console.error(e?.message)
+      }
     });
 }

@@ -124,7 +124,7 @@ export class ScrumTeamRepository {
     for (const scrumTeamDeveloper of scrumTeam.developers) {
       developers.push({
         id: AutoIncrementId.createFromRecords(developers).value,
-        scrum_team_id: scrumTeam.id.value,
+        scrum_team_id: scrumTeam.id.value!,
         employee_id: scrumTeamDeveloper.member.employee.id.value!,
       })
     }
@@ -140,14 +140,14 @@ export class ScrumTeamRepository {
     // product owner を更新
     const productOwnerIndex = productOwners.findIndex(po => po.scrum_team_id === scrumTeam.id.value)
     productOwners[productOwnerIndex] = {
-      scrum_team_id: scrumTeam.id.value,
+      scrum_team_id: scrumTeam.id.value!,
       employee_id: productOwner.member.employee.id.value!,
     }
 
     // scrum master を更新
     const scrumMasterIndex = scrumMasters.findIndex(sm => sm.scrum_team_id === scrumTeam.id.value)
     scrumMasters[scrumMasterIndex] = {
-      scrum_team_id: scrumTeam.id.value,
+      scrum_team_id: scrumTeam.id.value!,
       employee_id: scrumMaster.member.employee.id.value!,
     }
 
@@ -170,7 +170,7 @@ export class ScrumTeamRepository {
     for (const scrumTeamDeveloper of scrumTeam.developers) {
         developers.push({
           id: AutoIncrementId.createFromRecords(developers).value,
-          scrum_team_id: scrumTeam.id.value,
+          scrum_team_id: scrumTeam.id.value!,
           employee_id: scrumTeamDeveloper.member.employee.id.value!,
         })
     }

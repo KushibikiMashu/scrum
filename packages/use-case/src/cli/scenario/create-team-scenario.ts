@@ -1,4 +1,4 @@
-import {AutoIncrementId, Logger} from "@/common";
+import {AutoIncrementId} from "@/common";
 import {
   EmployeeRepositoryInterface, Member,
   ProductOwner, ScrumMaster,
@@ -17,7 +17,6 @@ export class CreateTeamScenario {
     private readonly createProductOwnerUseCase: CreateProductOwnerUseCase = new CreateProductOwnerUseCase(),
     private readonly createScrumMasterUseCase: CreateScrumMasterUseCase = new CreateScrumMasterUseCase(),
     private readonly createScrumTeamScenarioUseCase: CreateScrumTeamScenarioUseCase = new CreateScrumTeamScenarioUseCase(),
-    private readonly logger: Logger = console,
   ) {
   }
 
@@ -25,22 +24,17 @@ export class CreateTeamScenario {
     firstCallback: CreateTeamCallback,
     secondCallback: CreateTeamCallback,
   ): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
+    await this.validateUseCase.exec()
 
-      const employees = await this.fetchEmployeesUseCase.exec()
-      const firstInput = await firstCallback(employees)
-      const productOwner = await this.createProductOwnerUseCase.exec(new CreateTeamScenarioInput(firstInput))
+    const employees = await this.fetchEmployeesUseCase.exec()
+    const firstInput = await firstCallback(employees)
+    const productOwner = await this.createProductOwnerUseCase.exec(new CreateTeamScenarioInput(firstInput))
 
-      const employeesWithoutProductOwner = this.filterProductOwner(employees, productOwner)
-      const secondInput = await secondCallback(employeesWithoutProductOwner)
-      const scrumMaster = await this.createScrumMasterUseCase.exec(new CreateTeamScenarioInput(secondInput))
+    const employeesWithoutProductOwner = this.filterProductOwner(employees, productOwner)
+    const secondInput = await secondCallback(employeesWithoutProductOwner)
+    const scrumMaster = await this.createScrumMasterUseCase.exec(new CreateTeamScenarioInput(secondInput))
 
-      await this.createScrumTeamScenarioUseCase.exec(productOwner, scrumMaster)
-      this.logger.info(``);
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    await this.createScrumTeamScenarioUseCase.exec(productOwner, scrumMaster)
   }
 
   private filterProductOwner(employees: Awaited<ReturnType<FetchEmployeesUseCase['exec']>>, productOwner: ProductOwner) {

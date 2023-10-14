@@ -1,32 +1,21 @@
 import {Employee, EmployeeName, EmployeeRepositoryInterface, ID} from "@panda-project/core";
 import {EmployeeRepository} from "@/cli/repository";
-import {Logger} from "@/common";
 
 export class EmployeeCreateMultipleScenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly createEmployeeUseCase: CreateEmployeeUseCase = new CreateEmployeeUseCase(),
-    private readonly logger: Logger = console,
-  ) {
-  }
+    private readonly createEmployeePresenter: CreateEmployeePresenter = new CreateEmployeePresenter(),
+  ) {}
 
-  async exec(callback: () => Promise<EmployeeCreateMultipleUserInputType>): Promise<void> {
+  async exec(callback: () => Promise<EmployeeCreateMultipleUserInputType>): Promise<string> {
     const input = await callback()
     const employeeCreateMultipleInput = new EmployeeCreateMultipleInput(input.employee)
 
-    try {
-      await this.validateUseCase.exec(employeeCreateMultipleInput)
-    } catch (e: any) {
-      this.logger.error(e?.message)
-      return
-    }
+    await this.validateUseCase.exec(employeeCreateMultipleInput)
+    await this.createEmployeeUseCase.exec(employeeCreateMultipleInput)
 
-    try {
-      await this.createEmployeeUseCase.exec(employeeCreateMultipleInput)
-      this.logger.info(`社員を登録しました: ${employeeCreateMultipleInput.count()}名`);
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    return this.createEmployeePresenter.exec(employeeCreateMultipleInput)
   }
 }
 
@@ -76,5 +65,11 @@ class CreateEmployeeUseCase {
       )
       await this.employeeRepository.save(employee)
     }
+  }
+}
+
+class CreateEmployeePresenter {
+  exec(input: EmployeeCreateMultipleInput): string {
+    return `社員を登録しました: ${input.count()}名`
   }
 }

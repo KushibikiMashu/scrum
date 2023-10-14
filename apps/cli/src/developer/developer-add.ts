@@ -20,7 +20,7 @@ export const addDeveloperAddCommand = (program: Command) => {
       try {
         const result = await new AddDeveloperScenario().exec(selectDeveloper, continueToSelect)
         console.info(result)
-      } catch (e) {
+      } catch (e: any) {
         console.error(e)
       }
     });

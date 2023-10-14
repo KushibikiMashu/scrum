@@ -9,7 +9,11 @@ export const addTeamDisbandCommand = (program: Command) => {
     .action(async () => {
       const answer = await confirm({message: '本当にスクラムチームを解散しますか？'});
       if (answer) {
-        await new DisbandScrumTeamScenario().exec()
+        try {
+          await new DisbandScrumTeamScenario().exec()
+        } catch (e: any) {
+          console.error(e?.message)
+        }
       }
     });
 }

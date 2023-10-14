@@ -1,4 +1,4 @@
-import {AutoIncrementId, Logger} from "@/common";
+import {AutoIncrementId} from "@/common";
 import {FetchAllEmployeesWithoutPoAndSmUseCase} from "@/cli/scenario/use-case";
 import {
   EmployeeRepositoryInterface,
@@ -15,19 +15,13 @@ export class ReselectScrumMasterScenario {
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly fetchAllEmployeesWithoutPoAndSmUseCase: FetchAllEmployeesWithoutPoAndSmUseCase = new FetchAllEmployeesWithoutPoAndSmUseCase(),
     private readonly reselectScrumMasterUseCase: ReselectScrumMasterUseCase = new ReselectScrumMasterUseCase(),
-    private readonly logger: Logger = console,
-  ) {
-  }
+  ) {}
 
   async exec(callback: ReselectScrumMasterCallback): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()
-      const input = await callback(employees)
-      await this.reselectScrumMasterUseCase.exec(new ReselectScrumMasterInput(input))
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    await this.validateUseCase.exec()
+    const employees = await this.fetchAllEmployeesWithoutPoAndSmUseCase.exec()
+    const input = await callback(employees)
+    await this.reselectScrumMasterUseCase.exec(new ReselectScrumMasterInput(input))
   }
 }
 

@@ -1,4 +1,3 @@
-import {Logger} from "@/common";
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {ScrumTeamRepository} from "@/cli/repository";
 
@@ -9,36 +8,29 @@ export class RemoveDeveloperScenario {
     private readonly fetchAllScrumTeamDevelopersUseCase: FetchAllScrumTeamDevelopersUseCase = new FetchAllScrumTeamDevelopersUseCase(),
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly removeDeveloperUseCase: RemoveDeveloperUseCase = new RemoveDeveloperUseCase(),
-    private readonly logger: Logger = console,
-  ) {
-  }
+  ) {}
 
   async exec(
     callback: RemoveDeveloperCallback,
     secondCallback: () => Promise<boolean>,
-  ): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const allDevelopers = await this.fetchAllScrumTeamDevelopersUseCase.exec()
+  ): Promise<string|undefined> {
+    await this.validateUseCase.exec()
+    const allDevelopers = await this.fetchAllScrumTeamDevelopersUseCase.exec()
 
-      for (let i = allDevelopers.length; allDevelopers.length > 0; i--) {
-        const options = await this.fetchAllScrumTeamDevelopersUseCase.exec()
-        const input = await callback(options)
-        await this.removeDeveloperUseCase.exec(new RemoveDeveloperInput(input))
+    for (let i = allDevelopers.length; allDevelopers.length > 0; i--) {
+      const options = await this.fetchAllScrumTeamDevelopersUseCase.exec()
+      const input = await callback(options)
+      await this.removeDeveloperUseCase.exec(new RemoveDeveloperInput(input))
 
-        if (i > 1) {
-          const shouldSelectMore = await secondCallback()
-          if (!shouldSelectMore) {
-            return
-          }
-        } else if (i === 1) {
-          console.info('スクラムチームから除外できる社員はいません')
+      if (i > 1) {
+        const shouldSelectMore = await secondCallback()
+        if (!shouldSelectMore) {
           return
         }
+      } else if (i === 1) {
+        return 'スクラムチームから除外できる社員はいません'
+        return
       }
-
-    } catch (e: any) {
-      this.logger.error(e?.message)
     }
   }
 }
@@ -48,7 +40,8 @@ type RemoveDeveloperUserInputType = {
 }
 
 class RemoveDeveloperInput {
-  constructor(private readonly userInput: RemoveDeveloperUserInputType) {}
+  constructor(private readonly userInput: RemoveDeveloperUserInputType) {
+  }
 
   getDeveloperIndex(): number {
     if (this.userInput.developerIndex < 0) {
@@ -62,9 +55,10 @@ class RemoveDeveloperInput {
 class FetchAllScrumTeamDevelopersUseCase {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {}
+  ) {
+  }
 
-  async exec(): Promise<{index: number; name: string}[]> {
+  async exec(): Promise<{ index: number; name: string }[]> {
     const scrumTeam = await this.scrumTeamRepository.fetch()
     return scrumTeam.developers.map((developer, i) => {
       return {
@@ -78,7 +72,8 @@ class FetchAllScrumTeamDevelopersUseCase {
 class ValidateUseCase {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {}
+  ) {
+  }
 
   async exec() {
     const exists = await this.scrumTeamRepository.exists()

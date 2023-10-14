@@ -28,7 +28,12 @@ export const addTeamEditCommand = (program: Command) => {
           })
           return {employeeId}
         }
-        await new ReselectProductOwnerScenario().exec(selectProductOwner)
+        try {
+          await new ReselectProductOwnerScenario().exec(selectProductOwner)
+        } catch (e: any) {
+          console.error(e?.message)
+          return
+        }
       }
 
       if (option.scrumMaster) {
@@ -39,7 +44,12 @@ export const addTeamEditCommand = (program: Command) => {
           })
           return {employeeId}
         }
-        await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+
+        try {
+          await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+        } catch (e: any) {
+          console.error(e?.message)
+        }
       }
     });
 }
