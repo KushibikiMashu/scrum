@@ -5,7 +5,7 @@ import {JSONFile} from 'lowdb/node'
 import {DataBase, defaultData} from "./schema";
 
 const relativePath = __dirname.includes('/cli') ?
-  '../../../apps/cli/db.json' : '../../../../../apps/cli/db.json'
+  '../../../db.json' : '../../../../../db.json'
 const file = join(__dirname, relativePath)
 
 const adapter = new JSONFile<DataBase>(file)
