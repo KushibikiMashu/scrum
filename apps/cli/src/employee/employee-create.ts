@@ -1,5 +1,5 @@
 import {input} from "@inquirer/prompts";
-import {EmployeeCreateMultipleScenario, EmployeeCreateScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, EmployeeCreateMultipleScenario, EmployeeCreateScenario} from "@panda-project/use-case";
 import {Command} from "commander";
 
 export const addEmployeeCreateCommand = (program: Command) => {
@@ -11,18 +11,21 @@ export const addEmployeeCreateCommand = (program: Command) => {
       if (option.multiple) {
         const useInput = async () => {
           const employee = await input({message: "複数の社員の名前をカンマ区切りで入力してください（姓名は半角スペース区切り）"})
-          return { employee }
+          return {employee}
         }
 
         await new EmployeeCreateMultipleScenario().exec(useInput)
       } else {
         const useInput = async () => {
           const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
-          return { employee }
+          return {employee}
         }
 
         try {
-          const result = await new EmployeeCreateScenario().exec(useInput)
+          const result = await new CheckDbMiddleware(
+            async () =>
+              await new EmployeeCreateScenario().exec(useInput)
+          ).run()
           console.info(result);
         } catch (e: any) {
           console.error(e?.message)

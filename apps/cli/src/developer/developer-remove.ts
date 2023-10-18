@@ -1,4 +1,4 @@
-import {RemoveDeveloperCallback, RemoveDeveloperScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, RemoveDeveloperCallback, RemoveDeveloperScenario} from "@panda-project/use-case";
 import {confirm, select} from "@inquirer/prompts";
 import {Command} from "commander";
 
@@ -18,7 +18,10 @@ export const addDeveloperRemoveCommand = (program: Command) => {
       const continueToSelect = async () => await confirm({message: '他の開発者を除外しますか？'});
 
       try {
-        const result = await new RemoveDeveloperScenario().exec(selectDeveloper, continueToSelect)
+        const result = await new CheckDbMiddleware(
+          async () =>
+            await new RemoveDeveloperScenario().exec(selectDeveloper, continueToSelect)
+        ).run()
         if (result) console.info(result)
       } catch (e: any) {
         console.error(e?.message)

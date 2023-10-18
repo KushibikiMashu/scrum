@@ -1,6 +1,5 @@
 import {Command} from "commander";
-import {ListScrumTeamScenario} from "@panda-project/use-case";
-import {CheckDbMiddleware} from "@/cli/middleware/check-db-middleware";
+import {ListScrumTeamScenario, CheckDbMiddleware} from "@panda-project/use-case";
 
 export const addTeamListCommand = (program: Command) => {
   program

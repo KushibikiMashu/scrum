@@ -15,6 +15,6 @@ export class CheckDbMiddleware implements MiddlewareInterface {
     if (!dbFileExists) {
       throw new Error('db.json が存在しません。init コマンドを実行してください')
     }
-    return this.callback();
+    return await this.callback()
   }
 }

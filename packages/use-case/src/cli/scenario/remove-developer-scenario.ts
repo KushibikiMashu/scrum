@@ -29,7 +29,6 @@ export class RemoveDeveloperScenario {
         }
       } else if (i === 1) {
         return 'スクラムチームから除外できる社員はいません'
-        return
       }
     }
   }

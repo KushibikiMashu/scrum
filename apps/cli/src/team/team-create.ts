@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {CreateTeamCallback, CreateTeamScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, CreateTeamCallback, CreateTeamScenario} from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
 
 export const addTeamCreateCommand = (program: Command) => {
@@ -23,7 +23,10 @@ export const addTeamCreateCommand = (program: Command) => {
       }
 
       try {
-        await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+        await new CheckDbMiddleware(
+          async () =>
+            await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+        ).run()
       } catch (e: any) {
         console.error(e?.message)
       }

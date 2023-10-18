@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {AddDeveloperCallback, AddDeveloperScenario} from "@panda-project/use-case";
+import {AddDeveloperCallback, AddDeveloperScenario, CheckDbMiddleware} from "@panda-project/use-case";
 import {confirm, select} from "@inquirer/prompts";
 
 // developer add。loop で複数 select + confirm で抜ける
@@ -18,7 +18,10 @@ export const addDeveloperAddCommand = (program: Command) => {
       const continueToSelect = async () => await confirm({message: '他の開発者を追加しますか？'});
 
       try {
-        const result = await new AddDeveloperScenario().exec(selectDeveloper, continueToSelect)
+        const result = await new CheckDbMiddleware(
+          async () =>
+            await new AddDeveloperScenario().exec(selectDeveloper, continueToSelect)
+        ).run()
         console.info(result)
       } catch (e: any) {
         console.error(e)

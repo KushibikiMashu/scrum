@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {EmployeeRemoveCallback, EmployeeRemoveScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, EmployeeRemoveCallback, EmployeeRemoveScenario} from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
 
 export const addEmployeeRemoveCommand = (program: Command) => {
@@ -19,8 +19,11 @@ export const addEmployeeRemoveCommand = (program: Command) => {
       }
 
       try {
-        const result = await new EmployeeRemoveScenario().exec(useInput)
-          console.info(result);
+        const result = await new CheckDbMiddleware(
+          async () =>
+            await new EmployeeRemoveScenario().exec(useInput)
+        ).run()
+        console.info(result);
       } catch (e: any) {
         console.error(e?.message)
       }

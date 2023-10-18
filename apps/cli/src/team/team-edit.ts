@@ -1,5 +1,6 @@
 import {Command} from "commander";
 import {
+  CheckDbMiddleware,
   ReselectProductOwnerCallbackArg,
   ReselectProductOwnerScenario,
   ReselectScrumMasterCallback,
@@ -16,10 +17,6 @@ export const addTeamEditCommand = (program: Command) => {
     .option('-po, --product-owner', 'プロダクトオーナーを変更する')
     .option('-sm, --scrum-master', 'スクラムマスターを変更する')
     .action(async (option) => {
-      if (!option.productOwner || !option.scrumMaster) {
-        console.error('オプションを指定してください')
-      }
-
       if (option.productOwner) {
         const selectProductOwner: ReselectProductOwnerCallbackArg = async (names) => {
           const employeeId = await select({
@@ -29,7 +26,9 @@ export const addTeamEditCommand = (program: Command) => {
           return {employeeId}
         }
         try {
-          await new ReselectProductOwnerScenario().exec(selectProductOwner)
+          await new CheckDbMiddleware(
+            async () => await new ReselectProductOwnerScenario().exec(selectProductOwner)
+          ).run()
         } catch (e: any) {
           console.error(e?.message)
           return
@@ -46,10 +45,18 @@ export const addTeamEditCommand = (program: Command) => {
         }
 
         try {
-          await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+          await new CheckDbMiddleware(
+            async () =>
+              await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+          ).run()
         } catch (e: any) {
           console.error(e?.message)
+          return
         }
+
+        return
       }
+
+      console.error('オプションを指定してください')
     });
 }

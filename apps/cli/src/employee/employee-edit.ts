@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {EmployeeEditCallback, EmployeeEditScenarioScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, EmployeeEditCallback, EmployeeEditScenarioScenario} from "@panda-project/use-case";
 import {input, select} from "@inquirer/prompts";
 
 export const addEmployeeEditCommand = (program: Command) => {
@@ -20,7 +20,10 @@ export const addEmployeeEditCommand = (program: Command) => {
       }
 
       try {
-        const result = await new EmployeeEditScenarioScenario().exec(useInput)
+        const result = await new CheckDbMiddleware(
+          async () =>
+            await new EmployeeEditScenarioScenario().exec(useInput)
+        ).run()
         console.info(result);
       } catch (e: any) {
         console.error(e?.message)
