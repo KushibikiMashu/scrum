@@ -7,10 +7,10 @@ import Link from "next/link";
 export default async function ProductPage({params}: {params: { product: string }}) {
   const {data, error} = await new ProductPageQueryService().exec(params.product)
 
-  if (data === null || error) {
-    redirect('/')
-  } else if (error) {
+  if (error) {
     notFound()
+  } else if (data === null) {
+    redirect('/')
   }
 
   return (

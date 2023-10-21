@@ -78,7 +78,7 @@ export class ProjectPageQueryService {
     }
 
     const product = await this.productRepository.fetch()
-    if (product === null) {
+    if (product === null || !product.name.equals(productName)) {
       return {
         data: null,
         error: {
@@ -88,7 +88,7 @@ export class ProjectPageQueryService {
     }
 
     const project = await this.projectRepository.fetch()
-    if (project === null) {
+    if (project === null || !project.name.equals(projectName)) {
       return {
         data: null,
         error: {
@@ -96,7 +96,6 @@ export class ProjectPageQueryService {
         }
       }
     }
-
 
     return {
       data: {
