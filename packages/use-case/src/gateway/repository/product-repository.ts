@@ -6,7 +6,7 @@ import {AutoIncrementId} from "@/common";
 export class ProductRepository implements ProductRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
-  async fetch() {
+  async fetch(): Promise<Product|null> {
     await this.lowdb.read()
     const { products } = this.lowdb.data
 

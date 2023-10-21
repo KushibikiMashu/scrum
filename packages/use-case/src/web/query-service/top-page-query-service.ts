@@ -1,8 +1,9 @@
-import {ProductRepositoryInterface} from "@panda-project/core";
-import {ProductRepository} from "@/gateway";
+import {Product, ProductRepositoryInterface} from "@panda-project/core";
+import {createDb, dbFileExists, ProductRepository} from "@/gateway";
+import {ErrorReason, Result} from "@/web/types";
 
-export type TopPageQueryServiceDto = {
-  existsProduct: boolean
+type Dto = {
+  productName: string | null
 }
 
 export class TopPageQueryService {
@@ -11,15 +12,26 @@ export class TopPageQueryService {
   ) {
   }
 
-  async exec(): Promise<TopPageQueryServiceDto> {
-    try {
-      const existsProduct = await this.productRepository.existsWithoutId()
+  async exec(): Promise<Result<Dto>> {
+    // DB がない時は、DB + Product, Project を作成する
+    const product = await this.productRepository.fetch()
 
+    if (!dbFileExists()) {
+      // DB を作成する
+      await createDb()
+    }
+
+    if (product === null) {
       return {
-        existsProduct,
+        data: {productName: null},
+        error: null,
       }
-    } catch (e) {
-      throw new Error('Productが存在しません')
+    }
+
+    // Product, Project がある場合は、/:project に移動する
+    return {
+      data: {productName: product.name.value},
+      error: null,
     }
   }
 }

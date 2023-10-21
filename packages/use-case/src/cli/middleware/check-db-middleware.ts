@@ -8,7 +8,7 @@ export class CheckDbMiddleware implements MiddlewareInterface {
   }
 
   async run() {
-    if (!dbFileExists) {
+    if (!dbFileExists()) {
       throw new Error('db.json が存在しません。init コマンドを実行してください')
     }
     return await this.callback()

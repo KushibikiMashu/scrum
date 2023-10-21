@@ -3,18 +3,23 @@ import {JSONFile} from 'lowdb/node'
 import {DataBase, defaultData} from "./schema";
 import fs from "node:fs";
 
-const paths = __dirname.split('/')
-const cliPathIndex = paths.findIndex(item => item === '/apps/cli')
-const webPathIndex = paths.findIndex(item => item === '/apps/web')
+const cliPathIndex = __dirname.indexOf('/apps/cli')
+const webPathIndex = __dirname.indexOf('/apps/web')
 
-const getDbPath = () => {
-  const index = __dirname.includes('/cli') ? cliPathIndex : webPathIndex
-  return paths.slice(0, index - 2).concat(['db.json']).join('/')
+if (cliPathIndex === -1 && webPathIndex === -1) {
+  throw new Error('DB path not found')
 }
 
-const file = getDbPath()
-const adapter = new JSONFile<DataBase>(getDbPath())
-const db = new Low<DataBase>(adapter, defaultData)
-const dbFileExists = fs.existsSync(file)
+const rootIndex =  cliPathIndex > 0 ? cliPathIndex : webPathIndex
+const basePath = __dirname.slice(0, rootIndex)
+const dbFilePath = `${basePath}/db.json`
 
-export {db, dbFileExists}
+const adapter = new JSONFile<DataBase>(dbFilePath)
+const db = new Low<DataBase>(adapter, defaultData)
+const dbFileExists = () => fs.existsSync(dbFilePath)
+
+const createDb = async () => {
+  await db.write()
+}
+
+export {db, dbFileExists, createDb}
