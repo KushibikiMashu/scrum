@@ -18,6 +18,7 @@ export class Project {
 }
 
 export interface ProjectRepositoryInterface {
+  fetch(): Promise<Project>
   save(project: Project): Promise<Project>
 }
 

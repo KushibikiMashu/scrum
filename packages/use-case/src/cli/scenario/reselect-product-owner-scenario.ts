@@ -1,5 +1,5 @@
 import {AutoIncrementId} from "@/common";
-import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository";
 import {
   EmployeeRepositoryInterface, isDeveloper,
   ProductOwner,

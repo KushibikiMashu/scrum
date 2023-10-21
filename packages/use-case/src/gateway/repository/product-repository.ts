@@ -1,21 +1,21 @@
-import {ID, Product, ProductRepositoryInterface} from "@panda-project/core";
+import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
-import {DataBase, db} from "@/cli/db";
+import {DataBase, db} from "../db";
 import {AutoIncrementId} from "@/common";
 
 export class ProductRepository implements ProductRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
-  async findById(id: ID) {
+  async findByName(productName: ProductName) {
     await this.lowdb.read()
     const { products } = this.lowdb.data
 
-    const product = products.find((product) => product.id === id.value)
+    const product = products.find((product) => product.name === productName.value)
     if (!product) {
-      throw new Error(`Product not found. id: ${id.value}`)
+      throw new Error(`Product not found. product name: ${productName.value}`)
     }
 
-    return new Product(new ID(product.id), product.name)
+    return new Product(new ID(product.id), productName)
   }
 
   async existsWithoutId() {
@@ -32,7 +32,7 @@ export class ProductRepository implements ProductRepositoryInterface {
     const autoIncrementId = AutoIncrementId.createFromRecords(products)
     products.push({
       id: autoIncrementId.value,
-      name: product.name,
+      name: product.name.value,
     })
 
     await this.lowdb.write()

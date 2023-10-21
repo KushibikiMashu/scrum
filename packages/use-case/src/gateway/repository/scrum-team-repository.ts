@@ -7,7 +7,7 @@ import {
   ProductOwnersSchema,
   ScrumMastersSchema,
   ScrumTeamsSchema
-} from "@/cli/db";
+} from "../db";
 import {
   Developer,
   Employee,

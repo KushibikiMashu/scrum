@@ -5,7 +5,7 @@ import {
   ScrumMemberRole,
   ScrumTeam, ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository";
 import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 
 export type CreateTeamCallback = (arg: Awaited<ReturnType<FetchEmployeesUseCase['exec']>>) => Promise<CreateTeamScenarioUserInputType>

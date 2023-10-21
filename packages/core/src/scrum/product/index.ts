@@ -17,16 +17,30 @@ export class ProductGoal implements Commitment {
   ) {}
 }
 
+export class ProductName {
+  constructor(
+    public readonly value: string
+  ) {
+    this.validate()
+  }
+
+  private validate() {
+    if (this.value.length < 1) {
+      throw new Error('1文字以上入力してください')
+    }
+  }
+}
+
 export class Product {
   constructor(
     public readonly id: ID,
-    public readonly name: string,
+    public readonly name: ProductName,
   ) {
   }
 }
 
 export interface ProductRepositoryInterface {
-  findById(id: ID): Promise<Product>
+  findByName(name: ProductName): Promise<Product>
   existsWithoutId(): Promise<boolean> // CLI でしか使わないメソッドかも
   save(product: Product): Promise<Product>
 }

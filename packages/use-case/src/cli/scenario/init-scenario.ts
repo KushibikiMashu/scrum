@@ -1,11 +1,11 @@
 import {
   Employee, EmployeeName,
   EmployeeRepositoryInterface, ID,
-  Product,
+  Product, ProductName,
   ProductRepositoryInterface, Project,
   ProjectRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/cli/repository";
+import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/gateway/repository";
 
 type InitUserInputType = {
   product: string
@@ -68,7 +68,7 @@ class InitSetUpUseCase {
     // いつか try catch で囲む
     const product = new Product(
       ID.createAsNull(),
-      initInput.productName
+      new ProductName(initInput.productName)
     )
     await this.productRepository.save(product)
 

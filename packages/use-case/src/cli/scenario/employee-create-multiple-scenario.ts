@@ -1,5 +1,5 @@
 import {Employee, EmployeeName, EmployeeRepositoryInterface, ID} from "@panda-project/core";
-import {EmployeeRepository} from "@/cli/repository";
+import {EmployeeRepository} from "@/gateway/repository";
 
 export class EmployeeCreateMultipleScenario {
   constructor(

@@ -1,5 +1,5 @@
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/cli/repository";
+import {ScrumTeamRepository} from "@/gateway/repository";
 
 export type RemoveDeveloperCallback = (arg: Awaited<ReturnType<FetchAllScrumTeamDevelopersUseCase['exec']>>) => Promise<RemoveDeveloperUserInputType>
 

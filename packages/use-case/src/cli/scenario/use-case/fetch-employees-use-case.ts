@@ -1,5 +1,5 @@
 import {EmployeeRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository} from "@/cli/repository";
+import {EmployeeRepository} from "@/gateway/repository";
 
 export class FetchEmployeesUseCase {
   constructor(

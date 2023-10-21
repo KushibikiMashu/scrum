@@ -1,5 +1,5 @@
 import {EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/cli/repository";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository";
 
 export class FetchAllEmployeesWithoutPoAndSmUseCase {
   constructor(

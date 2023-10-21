@@ -5,7 +5,7 @@ import {
   ReselectProductOwnerScenario,
   ReselectScrumMasterCallback,
   ReselectScrumMasterScenario
-} from "@/cli";
+} from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
 
 // team-edit product owner を変更する

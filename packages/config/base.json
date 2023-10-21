@@ -6,10 +6,6 @@
     ],
     "module": "commonjs",
     "moduleResolution": "node",
-    "paths": {
-      "@panda-project/core/*": ["@panda-project/core/dist/*"],
-      "@panda-project/use-case/*": ["@panda-project/use-case/dist/*"]
-    },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

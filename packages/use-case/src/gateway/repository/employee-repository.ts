@@ -1,6 +1,6 @@
 import {Employee, EmployeeName, EmployeeRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
-import {DataBase, db, EmployeesSchema} from "@/cli/db";
+import {DataBase, db, EmployeesSchema} from "../db";
 import {AutoIncrementId} from "@/common";
 
 export class EmployeeRepository implements EmployeeRepositoryInterface {
