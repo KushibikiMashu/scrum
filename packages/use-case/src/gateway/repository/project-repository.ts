@@ -1,4 +1,4 @@
-import {ID, Project, ProjectRepositoryInterface} from "@panda-project/core";
+import {ID, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "../db";
 import {AutoIncrementId} from "@/common";
@@ -14,7 +14,7 @@ export class ProjectRepository implements ProjectRepositoryInterface {
       return null
     }
 
-    return new Project(new ID(projects[0].id), projects[0].name)
+    return new Project(new ID(projects[0].id), new ProjectName(projects[0].name))
   }
 
   async save(project: Project) {
@@ -24,7 +24,7 @@ export class ProjectRepository implements ProjectRepositoryInterface {
     const autoIncrementId = AutoIncrementId.createFromRecords(projects)
     projects.push({
       id: autoIncrementId.value,
-      name: project.name,
+      name: project.name.value,
     })
 
     await this.lowdb.write()

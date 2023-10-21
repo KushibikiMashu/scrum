@@ -17,6 +17,12 @@ export class ProductGoal implements Commitment {
   ) {}
 }
 
+export class InvalidProductNameError extends Error {
+  constructor(message: string) {
+    super(message)
+  }
+}
+
 export class ProductName {
   constructor(
     public readonly value: string
@@ -30,7 +36,7 @@ export class ProductName {
 
   private validate() {
     if (this.value.length < 1) {
-      throw new Error('1文字以上入力してください')
+      throw new InvalidProductNameError('1文字以上入力してください')
     }
   }
 }

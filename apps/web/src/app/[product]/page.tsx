@@ -9,7 +9,7 @@ export default async function ProductPage({params}: {params: { product: string }
 
   if (data === null || error) {
     redirect('/')
-  } else if (error?.reason) {
+  } else if (error) {
     notFound()
   }
 

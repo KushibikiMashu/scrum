@@ -9,7 +9,9 @@ type Props =  {
 }
 
 export default async function ProductPage({params}: Props) {
-  const {data, error} = await new ProjectPageQueryService().exec()
+  const {data, error} = await new ProjectPageQueryService().exec(
+    {product: params.product, project: params.project}
+  )
 
   if (data === null || error?.reason === ErrorReason.ProductNotExists) {
     redirect('/')

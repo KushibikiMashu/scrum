@@ -14,7 +14,7 @@ type Dto = {
   },
   project: {
     id: NonNullable<Project['id']['value']>,
-    name: Project['name'],
+    name: Project['name']['value'],
   } | null
 }
 
@@ -24,9 +24,9 @@ interface CustomError extends DefaultError {
     | typeof ErrorReason.InvalidProductName
 }
 
-class UserInput {
+class Query {
   constructor(
-    public readonly productName: string
+    private readonly productName: string
   ) {
   }
 
@@ -43,9 +43,9 @@ export class ProductPageQueryService {
   }
 
   async exec(input: string): Promise<Result<Dto, CustomError>> {
-    let productName
+    let productName = null
     try {
-      productName = new UserInput(input).getProductName()
+      productName = new Query(input).getProductName()
     } catch {
       return {
         data: null,
@@ -75,7 +75,7 @@ export class ProductPageQueryService {
         },
         project: project === null ? null : {
           id: project.id.value,
-          name: project.name,
+          name: project.name.value,
         }
       },
       error: null,

@@ -2,7 +2,7 @@ import {
   Employee, EmployeeName,
   EmployeeRepositoryInterface, ID,
   Product, ProductName,
-  ProductRepositoryInterface, Project,
+  ProductRepositoryInterface, Project, ProjectName,
   ProjectRepositoryInterface
 } from "@panda-project/core";
 import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/gateway/repository";
@@ -74,7 +74,7 @@ class InitSetUpUseCase {
 
     const project = new Project(
       ID.createAsNull(),
-      initInput.projectName,
+      new ProjectName(initInput.projectName),
     )
     await this.projectRepository.save(project)
 

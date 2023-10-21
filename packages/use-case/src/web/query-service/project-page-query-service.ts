@@ -1,5 +1,12 @@
 import {DefaultError, ErrorReason, Result} from "@/web/types";
-import {Product, ProductRepositoryInterface, Project, ProjectRepositoryInterface} from "@panda-project/core";
+import {
+  InvalidProductNameError, InvalidProjectNameError,
+  Product,
+  ProductName,
+  ProductRepositoryInterface,
+  Project, ProjectName,
+  ProjectRepositoryInterface
+} from "@panda-project/core";
 import {ProductRepository, ProjectRepository} from "@/gateway";
 
 type Dto = {
@@ -15,8 +22,38 @@ type Dto = {
 
 interface CustomError extends DefaultError {
   reason:
+    | typeof ErrorReason.InvalidProductName
+    | typeof ErrorReason.InvalidProjectName
     | typeof ErrorReason.ProductNotExists
     | typeof ErrorReason.ProjectNotExists
+    | typeof ErrorReason.UnknownError
+}
+
+class Query {
+  constructor(
+    private readonly productName: string,
+    public readonly projectName: string,
+  ) {
+  }
+
+  getProductName(): ProductName {
+    return new ProductName(this.productName)
+  }
+
+  getProjectName(): ProjectName {
+    return new ProjectName(this.projectName)
+  }
+}
+
+const resolveErrorReason = (e: unknown) => {
+  // match 式が欲しい...
+  if (e instanceof InvalidProductNameError) {
+    return ErrorReason.InvalidProductName
+  } else if (e instanceof InvalidProjectNameError) {
+    return ErrorReason.InvalidProjectName
+  }
+
+  return ErrorReason.UnknownError
 }
 
 export class ProjectPageQueryService {
@@ -26,7 +63,20 @@ export class ProjectPageQueryService {
   ) {
   }
 
-  async exec(): Promise<Result<Dto, CustomError>> {
+  async exec(input: {product: string, project: string}): Promise<Result<Dto, CustomError>> {
+    let productName = null, projectName = null
+    try {
+      const userInput = new Query(input.product, input.project)
+      productName = userInput.getProductName()
+      projectName = userInput.getProjectName()
+    } catch (e: unknown) {
+      const reason = resolveErrorReason(e)
+      return {
+        data: null,
+        error: { reason }
+      }
+    }
+
     const product = await this.productRepository.fetch()
     if (product === null) {
       return {
@@ -46,6 +96,7 @@ export class ProjectPageQueryService {
         }
       }
     }
+
 
     return {
       data: {
