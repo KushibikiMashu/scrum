@@ -25,19 +25,13 @@ export class {{ inputs.name }}Scenario {
   constructor(
     private readonly validateUseCase: ValidateUseCase = new ValidateUseCase(),
     private readonly {{ inputs.name | camel }}UseCase: {{ inputs.name }}UseCase = new {{ inputs.name }}UseCase(),
-    private readonly logger: Logger = console,
   ) {
-  }
+    }
 
   async exec(callback: {{ inputs.name }}Callback): Promise<void> {
-    try {
-      await this.validateUseCase.exec()
-      const input = await callback()
-      await this.{{ inputs.name | camel }}UseCase.exec(new {{ inputs.name }}Input(input))
-      this.logger.info(``);
-    } catch (e: any) {
-      this.logger.error(e?.message)
-    }
+    await this.validateUseCase.exec()
+    const input = await callback()
+    await this.{{ inputs.name | camel }}UseCase.exec(new {{ inputs.name }}Input(input))
   }
 }
 

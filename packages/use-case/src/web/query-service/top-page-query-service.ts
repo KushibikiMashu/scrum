@@ -1,9 +1,13 @@
-import {Product, ProductRepositoryInterface} from "@panda-project/core";
+import {ProductRepositoryInterface} from "@panda-project/core";
 import {createDb, dbFileExists, ProductRepository} from "@/gateway";
-import {ErrorReason, Result} from "@/web/types";
+import {Result} from "@/web/types";
 
 type Dto = {
   productName: string | null
+}
+
+type CustomError = {
+
 }
 
 export class TopPageQueryService {
@@ -12,7 +16,7 @@ export class TopPageQueryService {
   ) {
   }
 
-  async exec(): Promise<Result<Dto>> {
+  async exec(): Promise<Result<Dto, CustomError>> {
     // DB がない時は、DB + Product, Project を作成する
     const product = await this.productRepository.fetch()
 
