@@ -8,6 +8,6 @@ export class ProductUseCase {
   }
 
   async get(productName: string) {
-    return await this.productRepository.findByName(new ProductName(productName))
+    return await this.productRepository.findByNameOrFail(new ProductName(productName))
   }
 }

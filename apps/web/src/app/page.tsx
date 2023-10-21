@@ -1,32 +1,23 @@
 import {InitialForm} from "~/app/initial-form";
 import {CheckDbMiddleware, TopPageQueryService} from "@panda-project/use-case";
 
-async function execUseCase<T>(callback: () => Promise<T>): Promise<
-  { data: T, error: null }
-  | { data: null, error: string }
-> {
-  try {
-    const data = await new CheckDbMiddleware(callback).run()
-    return {data, error: null}
-  } catch (e: any) {
-    return {data: null, error: e?.message}
-  }
-}
-
-const getProductAndProject = async () => {
-  try {
-    const data = await new TopPageQueryService().exec()
-    return {data, error: null}
-  } catch (e: any) {
-    return {data: null, error: e?.message}
-  }
-}
+// async function execUseCase<T>(callback: () => Promise<T>): Promise<
+//   { data: T, error: null }
+//   | { data: null, error: string }
+// > {
+//   try {
+//     const data = await callback()
+//     return {data, error: null}
+//   } catch (e: any) {
+//     return {data: null, error: e?.message}
+//   }
+// }
 
 export default async function Home() {
-  const {data, error} = await execUseCase(
-    async () => await new TopPageQueryService().exec()
-  )
-
+  // const {data, error} = await execUseCase(
+  //   async () => await new TopPageQueryService().exec()
+  // )
+  const {data, error} = {}
   console.log(data, error);
 
   if (error) {

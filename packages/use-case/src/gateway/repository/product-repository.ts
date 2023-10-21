@@ -6,7 +6,19 @@ import {AutoIncrementId} from "@/common";
 export class ProductRepository implements ProductRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
-  async findByName(productName: ProductName) {
+  async fetch() {
+    await this.lowdb.read()
+    const { products } = this.lowdb.data
+
+    if (products.length === 0) {
+      return null
+    }
+
+    const product = products[0]
+    return new Product(new ID(product.id), new ProductName(product.name))
+  }
+
+  async findByNameOrFail(productName: ProductName) {
     await this.lowdb.read()
     const { products } = this.lowdb.data
 

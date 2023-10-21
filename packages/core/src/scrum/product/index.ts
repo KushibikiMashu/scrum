@@ -40,7 +40,8 @@ export class Product {
 }
 
 export interface ProductRepositoryInterface {
-  findByName(name: ProductName): Promise<Product>
+  fetch(): Promise<Product|null>
+  findByNameOrFail(name: ProductName): Promise<Product>
   existsWithoutId(): Promise<boolean> // CLI でしか使わないメソッドかも
   save(product: Product): Promise<Product>
 }

@@ -21,7 +21,7 @@ export class ProductPageQueryService {
 
   async exec(productName: string): Promise<ProductPageQueryServiceDto> {
     try {
-      const product = await this.productRepository.findByName(new ProductName(productName))
+      const product = await this.productRepository.findByNameOrFail(new ProductName(productName))
       const project = await this.projectRepository.fetch()
 
       return {
