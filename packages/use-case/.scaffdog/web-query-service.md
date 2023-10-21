@@ -27,15 +27,32 @@ interface CustomError extends DefaultError {
   
 }
 
+class Query {
+  constructor(
+    private readonly 
+  ) {
+  }
+
+  
+}
+
 export class {{ inputs.name }}QueryService {
   constructor(
     private readonly 
   ) {
   }
 
-  async exec(): Promise<Result<Dto, CustomError>> {
+  async exec(input): Promise<Result<Dto, CustomError>> {
     // validation
-
+    let a = null
+    try {
+      const userInput = new Query(input)
+    } catch (e: unknown) {
+      return {
+        data: null,
+        error: null
+      }
+    }
     
     // business logic
     

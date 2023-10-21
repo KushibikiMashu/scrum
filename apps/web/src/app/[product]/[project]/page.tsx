@@ -8,7 +8,7 @@ type Props = {
   }
 }
 
-const redirectOnError = ({data, error}) => {
+const redirectOnError = ({data, error}: Awaited<ReturnType<ProjectPageQueryService['exec']>>) => {
   const to404 = error?.reason === ErrorReason.InvalidProductName
     || error?.reason === ErrorReason.InvalidProjectName
     || error?.reason === ErrorReason.ProjectNotExists

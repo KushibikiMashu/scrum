@@ -16,7 +16,7 @@ type Dto = {
   },
   project: {
     id: NonNullable<Project['id']['value']>,
-    name: Project['name'],
+    name: Project['name']['value'],
   }
 }
 
@@ -108,7 +108,7 @@ export class ProjectPageQueryService {
         },
         project: {
           id: project.id.value,
-          name: project.name,
+          name: project.name.value,
         }
       },
       error: null,
