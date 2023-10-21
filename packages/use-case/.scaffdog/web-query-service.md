@@ -17,14 +17,14 @@ export * from './{{ inputs.name | kebab }}-query-service'
 # `{{ inputs.name | kebab }}-query-service.ts`
 
 ```ts
-import {Result} from "@/web/types";
+import {DefaultError, Result} from "@/web/types";
 
 type Dto = {
-  productName: string | null
+
 }
 
-type CustomError = {
-
+interface CustomError extends DefaultError {
+  
 }
 
 export class {{ inputs.name }}QueryService {

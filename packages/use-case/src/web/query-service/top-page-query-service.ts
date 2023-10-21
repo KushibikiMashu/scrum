@@ -6,17 +6,13 @@ type Dto = {
   productName: string | null
 }
 
-type CustomError = {
-
-}
-
 export class TopPageQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
   ) {
   }
 
-  async exec(): Promise<Result<Dto, CustomError>> {
+  async exec(): Promise<Result<Dto>> {
     // DB がない時は、DB + Product, Project を作成する
     const product = await this.productRepository.fetch()
 

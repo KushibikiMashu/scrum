@@ -15,9 +15,9 @@ export const createProductAndProject = async (prevState: any, formData: FormData
   try {
     schema.parse({productName, projectName})
 
-    // InputObject
-    // validate
-    // 保存する
+    // TODO: InputObject
+    // TODO: validate
+    // TODO: 保存する
 
   } catch (err) {
     if (err instanceof z.ZodError) {

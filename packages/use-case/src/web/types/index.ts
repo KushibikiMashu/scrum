@@ -1,6 +1,5 @@
-type DefaultError = {
+export interface DefaultError {
   reason: ErrorReasonValueType
-  [key: string]: string
 }
 
 export type Result<T, E extends DefaultError = DefaultError> =
@@ -11,5 +10,4 @@ export const ErrorReason = {
   DbNotExists: 'db_not_exist',
   ProductNotExists: 'product_not_exist',
 } as const
-type ErrorReasonValueType = typeof ErrorReason[keyof typeof ErrorReason]
-
+export type ErrorReasonValueType = typeof ErrorReason[keyof typeof ErrorReason]

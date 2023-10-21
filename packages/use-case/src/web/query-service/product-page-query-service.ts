@@ -1,15 +1,25 @@
-import {ProductName, ProductRepositoryInterface, ProjectRepositoryInterface} from "@panda-project/core";
+import {DefaultError, ErrorReason, Result} from "@/web/types";
+import {
+  Product,
+  ProductRepositoryInterface,
+  Project,
+  ProjectRepositoryInterface
+} from "@panda-project/core";
 import {ProductRepository, ProjectRepository} from "@/gateway";
 
-export type ProductPageQueryServiceDto = {
+type Dto = {
   product: {
-    id: number
-    name: string
-  }
+    id: NonNullable<Product['id']['value']>,
+    name: Product['name']['value'],
+  },
   project: {
-    id: number
-    name: string
-  }
+    id: NonNullable<Project['id']['value']>,
+    name: Project['name'],
+  } | null
+}
+
+interface CustomError extends DefaultError {
+  reason: typeof ErrorReason.ProductNotExists
 }
 
 export class ProductPageQueryService {
@@ -19,23 +29,31 @@ export class ProductPageQueryService {
   ) {
   }
 
-  async exec(productName: string): Promise<ProductPageQueryServiceDto> {
-    try {
-      const product = await this.productRepository.findByNameOrFail(new ProductName(productName))
-      const project = await this.projectRepository.fetch()
-
+  async exec(): Promise<Result<Dto, CustomError>> {
+    const product = await this.productRepository.fetch()
+    if (product === null) {
       return {
+        data: null,
+        error: {
+          reason: ErrorReason.ProductNotExists,
+        }
+      }
+    }
+
+    const project = await this.projectRepository.fetch()
+
+    return {
+      data: {
         product: {
           id: product.id.value,
           name: product.name.value,
         },
-        project: {
+        project: project === null ? null : {
           id: project.id.value,
           name: project.name,
-        },
-      }
-    } catch (e) {
-      throw new Error('Product または  Projectが存在しません')
+        }
+      },
+      error: null,
     }
   }
 }

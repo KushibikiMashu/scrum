@@ -6,12 +6,12 @@ import {AutoIncrementId} from "@/common";
 export class ProjectRepository implements ProjectRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
-  async fetch(): Promise<Project> {
+  async fetch(): Promise<Project|null> {
     await this.lowdb.read()
     const { projects } = this.lowdb.data
 
     if (projects.length === 0) {
-      throw new Error('Project が作成されていません')
+      return null
     }
 
     return new Project(new ID(projects[0].id), projects[0].name)
