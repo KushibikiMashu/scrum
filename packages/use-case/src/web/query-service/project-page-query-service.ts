@@ -64,6 +64,7 @@ export class ProjectPageQueryService {
   }
 
   async exec(input: {product: string, project: string}): Promise<Result<Dto, CustomError>> {
+    // validation
     let productName = null, projectName = null
     try {
       const userInput = new Query(input.product, input.project)
@@ -77,6 +78,7 @@ export class ProjectPageQueryService {
       }
     }
 
+    // business logic
     const product = await this.productRepository.fetch()
     if (product === null || !product.name.equals(productName)) {
       return {
@@ -97,6 +99,7 @@ export class ProjectPageQueryService {
       }
     }
 
+    // presentation logic
     return {
       data: {
         product: {

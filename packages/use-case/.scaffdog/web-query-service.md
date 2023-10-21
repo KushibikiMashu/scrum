@@ -34,6 +34,13 @@ export class {{ inputs.name }}QueryService {
   }
 
   async exec(): Promise<Result<Dto, CustomError>> {
+    // validation
+
+    
+    // business logic
+    
+    
+    // presentation logic
     return {
       data: {},
       error: null,

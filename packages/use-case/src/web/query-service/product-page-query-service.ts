@@ -43,6 +43,7 @@ export class ProductPageQueryService {
   }
 
   async exec(input: string): Promise<Result<Dto, CustomError>> {
+    // validation
     let productName = null
     try {
       productName = new Query(input).getProductName()
@@ -55,6 +56,7 @@ export class ProductPageQueryService {
       }
     }
 
+    // business logic
     const product = await this.productRepository.fetch()
     if (product === null || !product.name.equals(productName)) {
       return {
@@ -67,6 +69,7 @@ export class ProductPageQueryService {
 
     const project = await this.projectRepository.fetch()
 
+    // presentation logic
     return {
       data: {
         product: {
