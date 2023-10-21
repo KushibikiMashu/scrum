@@ -24,6 +24,10 @@ export class ProductName {
     this.validate()
   }
 
+  equals(other: ProductName): boolean {
+    return this.value === other.value
+  }
+
   private validate() {
     if (this.value.length < 1) {
       throw new Error('1文字以上入力してください')

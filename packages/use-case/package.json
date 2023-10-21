@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "node ../config/build.mjs",
+    "dev": "tsc --noEmit && node ../config/build.mjs",
     "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node && tsc --emitDeclarationOnly",
     "type-check": "tsc --noEmit",
     "jest": "jest"

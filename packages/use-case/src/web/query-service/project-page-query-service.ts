@@ -1,10 +1,5 @@
 import {DefaultError, ErrorReason, Result} from "@/web/types";
-import {
-  Product, ProductName,
-  ProductRepositoryInterface,
-  Project,
-  ProjectRepositoryInterface
-} from "@panda-project/core";
+import {Product, ProductRepositoryInterface, Project, ProjectRepositoryInterface} from "@panda-project/core";
 import {ProductRepository, ProjectRepository} from "@/gateway";
 
 type Dto = {
@@ -15,48 +10,25 @@ type Dto = {
   project: {
     id: NonNullable<Project['id']['value']>,
     name: Project['name'],
-  } | null
+  }
 }
 
 interface CustomError extends DefaultError {
   reason:
     | typeof ErrorReason.ProductNotExists
-    | typeof ErrorReason.InvalidProductName
+    | typeof ErrorReason.ProjectNotExists
 }
 
-class UserInput {
-  constructor(
-    public readonly productName: string
-  ) {
-  }
-
-  getProductName(): ProductName {
-    return new ProductName(this.productName)
-  }
-}
-
-export class ProductPageQueryService {
+export class ProjectPageQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
     private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
   ) {
   }
 
-  async exec(input: string): Promise<Result<Dto, CustomError>> {
-    let productName
-    try {
-      productName = new UserInput(input).getProductName()
-    } catch {
-      return {
-        data: null,
-        error: {
-          reason: ErrorReason.InvalidProductName,
-        }
-      }
-    }
-
+  async exec(): Promise<Result<Dto, CustomError>> {
     const product = await this.productRepository.fetch()
-    if (product === null || !product.name.equals(productName)) {
+    if (product === null) {
       return {
         data: null,
         error: {
@@ -66,6 +38,14 @@ export class ProductPageQueryService {
     }
 
     const project = await this.projectRepository.fetch()
+    if (project === null) {
+      return {
+        data: null,
+        error: {
+          reason: ErrorReason.ProjectNotExists,
+        }
+      }
+    }
 
     return {
       data: {
@@ -73,7 +53,7 @@ export class ProductPageQueryService {
           id: product.id.value,
           name: product.name.value,
         },
-        project: project === null ? null : {
+        project: {
           id: project.id.value,
           name: project.name,
         }

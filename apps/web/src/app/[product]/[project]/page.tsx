@@ -1,27 +1,31 @@
-import {notFound} from "next/navigation";
+import {notFound, redirect} from "next/navigation";
+import {ProjectPageQueryService, ErrorReason} from "@panda-project/use-case";
 
-const getProductAndProject = async (projectName: string) => {
-  try {
-    if (projectName !== 'scrum') {
-      throw new Error(`product name は scrum だけ許可されてます: ${projectName}`)
-    }
-  } catch (e: any) {
-    return {product: projectName, project: 'indie', error: e?.message}
+type Props =  {
+  params: {
+    project: string
+    product: string
   }
-
-  return {product: projectName, project: 'indie'}
 }
 
-export default async function ProductPage({params}: {params: { projectName: string }}) {
-  const {product, project, error} = await getProductAndProject(params.projectName)
-  if (error) {
+export default async function ProductPage({params}: Props) {
+  const {data, error} = await new ProjectPageQueryService().exec()
+
+  if (data === null || error?.reason === ErrorReason.ProductNotExists) {
+    redirect('/')
+  } else if (
+    error?.reason === ErrorReason.ProjectNotExists
+    // 存在しないプロダクト、プロジェクトの時
+    || data.product.name !== params.product
+    || data.project.name !== params.project
+  ) {
     notFound()
   }
 
   return (
     <div>
-    <p>{product}</p>
-    <p>{project}</p>
+    <p></p>
+    <p>a</p>
     </div>
   )
 }

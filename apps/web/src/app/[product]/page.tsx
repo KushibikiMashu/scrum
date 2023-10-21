@@ -2,12 +2,14 @@ import {notFound, redirect} from "next/navigation";
 import {ProductPageQueryService} from "@panda-project/use-case";
 import Link from "next/link";
 
+// TODO: DB を削除する action を追加する
+
 export default async function ProductPage({params}: {params: { product: string }}) {
-  const {data, error} = await new ProductPageQueryService().exec()
+  const {data, error} = await new ProductPageQueryService().exec(params.product)
 
   if (data === null || error) {
     redirect('/')
-  } else if (data.product.name !== params.product) {
+  } else if (error?.reason) {
     notFound()
   }
 
