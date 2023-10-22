@@ -23,7 +23,7 @@ export class EmployeeName {
 
     const [familyName, ...rest] = name.split(' ')
 
-    return new EmployeeName(familyName, rest.join(' '))
+    return new EmployeeName(rest.join(' '), familyName)
   }
 
   getFullName() {
