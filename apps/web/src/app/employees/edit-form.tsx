@@ -1,5 +1,3 @@
-'use client'
-
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
 import {editEmployee} from "~/app/employees/actions";
@@ -16,7 +14,7 @@ type Props = {
   onCancel: () => void
 }
 
-function CancelButton({onCancel}: Props['onCancel']) {
+function CancelButton({onCancel}: Pick<Props, 'onCancel'>) {
   return <button type="button" onClick={onCancel}>キャンセルする</button>
 }
 

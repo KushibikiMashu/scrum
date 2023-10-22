@@ -1,5 +1,3 @@
-'use client'
-
 import {deleteEmployee} from "./actions";
 import {useFormState} from "react-dom";
 
