@@ -3,6 +3,7 @@
 import {z} from "zod";
 import {revalidatePath} from "next/cache";
 import {createEmployeeState} from "~/app/employees/AddForm";
+import {CreateEmployeeCommand, EmployeeUseCase} from "@panda-project/use-case";
 
 export const createEmployee = async (_: typeof createEmployeeState, formData: FormData) => {
   const schema = z.object({
@@ -16,8 +17,8 @@ export const createEmployee = async (_: typeof createEmployeeState, formData: Fo
       firstName: formData.get('first-name'),
     })
 
-    // await new EmployeeUseCase().create(parsed.familyName, parsed.firstName)
-
+    const command = new CreateEmployeeCommand(parsed.familyName, parsed.firstName)
+    await new EmployeeUseCase().create(command)
     revalidatePath('/employees')
     return {message: '社員を作成しました', errors: null}
   } catch (e: unknown) {

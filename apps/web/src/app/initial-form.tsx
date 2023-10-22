@@ -27,7 +27,7 @@ export function InitialForm() {
       <form action={formAction}>
         <div>
           <label>プロダクト名</label>
-          <input type="text" name="product-name"/>
+          <input type="text" name="product-name" required />
           {state?.errors?.productName?.map((error: string, i: number) => (
             <p key={i}>{error}</p>
           ))}
@@ -35,7 +35,7 @@ export function InitialForm() {
 
         <div>
           <label>プロジェクト名</label>
-          <input type="text" name="project-name"/>
+          <input type="text" name="project-name" required />
           {state?.errors?.projectName?.map((error: string, i: number) => (
             <p key={i}>{error}</p>
           ))}
