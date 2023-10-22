@@ -65,6 +65,7 @@ export class EmployeeUseCase {
 
   async delete(command: DeleteEmployeeCommand) {
     const employee = await this.employeeRepository.findByIdOrFail(command.getEmployeeId())
+
     await this.employeeRepository.delete(employee)
   }
 }

@@ -9,16 +9,20 @@ export const editEmployeeState = {
   errors: null,
 }
 
-const SubmitButton = () => {
-  const {pending} = useFormStatus()
-  return <button type="submit" disabled={pending}>保存する</button>
-}
-
 type Props = {
   employeeName: string
   employeeId: number
   onSave: () => void
   onCancel: () => void
+}
+
+function CancelButton({onCancel}: Props['onCancel']) {
+  return <button type="button" onClick={onCancel}>キャンセルする</button>
+}
+
+function SubmitButton() {
+  const {pending} = useFormStatus()
+  return <button type="submit" disabled={pending}>保存する</button>
 }
 
 export function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
@@ -70,7 +74,7 @@ export function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
         ))}
 
         <SubmitButton />
-        <button type="button" onClick={onCancel}>キャンセルする</button>
+        <CancelButton onCancel={onCancel} />
       </div>
     </form>
   )
