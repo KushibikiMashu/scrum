@@ -1,4 +1,4 @@
-import {ProductName, ProductRepositoryInterface} from "@panda-project/core";
+import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {ProductRepository} from "@/gateway";
 
 export class ProductUseCase {
@@ -7,7 +7,12 @@ export class ProductUseCase {
   ) {
   }
 
-  async get(productName: string) {
+  async getByName(productName: string) {
     return await this.productRepository.findByNameOrFail(new ProductName(productName))
+  }
+
+  async create(productName: string) {
+    const product = new Product(ID.createAsNull(), new ProductName(productName))
+    return await this.productRepository.save(product)
   }
 }
