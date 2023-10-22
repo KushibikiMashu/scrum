@@ -34,10 +34,17 @@ export default async function ProductPage({params}: Props) {
 
   return (
     <div>
-      <p></p>
-      <p>a</p>
-      <p>{data?.product?.name && <Link href={`/${data?.product?.name}`}>{data?.product?.name}へ</Link>}</p>
-      <p><Link href="/">topへ</Link></p>
+      <p>content</p>
+      <hr/>
+      <p><Link href={`./${params.project}/team`}>teamへ</Link></p>
+      <p>
+        <Link href={`/${params.product}`}>
+          product: {data?.product?.name}へ
+        </Link>
+      </p>
+      <p>
+        <Link href="/">topへ</Link>
+      </p>
     </div>
   )
 }

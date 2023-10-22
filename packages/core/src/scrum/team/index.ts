@@ -139,6 +139,14 @@ export class ProductOwner {
     )
   }
 
+  getId(): number {
+    return this.member.employee.id.value!
+  }
+
+  getFullName(): string {
+    return this.member.employee.employeeName.getFullName()
+  }
+
   isDeveloper() {
     return this.roles.includes(ScrumMemberRole.Developer)
   }
@@ -172,6 +180,14 @@ export class ScrumMaster {
     )
   }
 
+  getId(): number {
+    return this.member.employee.id.value!
+  }
+
+  getFullName(): string {
+    return this.member.employee.employeeName.getFullName()
+  }
+
   isDeveloper() {
     return this.roles.includes(ScrumMemberRole.Developer)
   }
@@ -186,6 +202,14 @@ export class Developer {
 
   static createFromEmployee(employee: Employee) {
     return new Developer(Member.createFromEmployee(employee))
+  }
+
+  getId(): number {
+    return this.member.employee.id.value!
+  }
+
+  getFullName(): string {
+    return this.member.employee.employeeName.getFullName()
   }
 
   isDeveloper() {
