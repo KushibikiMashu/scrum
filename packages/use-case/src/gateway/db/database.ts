@@ -22,4 +22,9 @@ const createDb = async () => {
   await db.write()
 }
 
-export {db, dbFileExists, createDb}
+const resetDb = async () => {
+  const newDb = new Low<DataBase>(adapter, defaultData)
+  await newDb.write()
+}
+
+export {db, dbFileExists, createDb, resetDb}
