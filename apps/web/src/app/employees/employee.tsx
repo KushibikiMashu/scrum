@@ -16,6 +16,7 @@ export function Employee({employeeId, employeeName}: Props) {
       employeeId={employeeId}
       employeeName={employeeName}
       onSave={() => setIsEditing(false)}
+      onCancel={() => setIsEditing(false)}
     /> :
       <>
         <span>{employeeId}: {employeeName}</span>
