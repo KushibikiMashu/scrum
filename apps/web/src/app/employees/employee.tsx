@@ -2,6 +2,7 @@
 
 import {EditForm} from "./edit-form";
 import {useState} from "react";
+import {DeleteForm} from "~/app/employees/delete-form";
 
 type Props = {
   employeeId: number
@@ -18,11 +19,11 @@ export function Employee({employeeId, employeeName}: Props) {
       onSave={() => setIsEditing(false)}
       onCancel={() => setIsEditing(false)}
     /> :
-      <>
+      <div className="flex space-x-2">
         <span>{employeeId}: {employeeName}</span>
         <button type="submit" onClick={() => setIsEditing(true)}>編集する</button>
-        <button type="submit">削除する</button>
-      </>
+        <DeleteForm employeeId={employeeId} />
+      </div>
     }
   </li>
 }

@@ -2,7 +2,12 @@
 
 import {z} from "zod";
 import {revalidatePath} from "next/cache";
-import {CreateEmployeeCommand, EditEmployeeCommand, EmployeeUseCase} from "@panda-project/use-case";
+import {
+  CreateEmployeeCommand,
+  DeleteEmployeeCommand,
+  EditEmployeeCommand,
+  EmployeeUseCase
+} from "@panda-project/use-case";
 
 export const createEmployee = async (_: any, formData: FormData) => {
   const schema = z.object({
@@ -69,5 +74,24 @@ export const editEmployee = async (_: any, formData: FormData) => {
       message: '',
       errors: null
     }
+  }
+}
+
+export const deleteEmployee = async (_: any, formData: FormData) => {
+  const schema = z.object({
+    employeeId: z.string(),
+  })
+
+  try {
+    const parsed = schema.parse({
+      employeeId: formData.get('employee-id'),
+    })
+
+    const command = new DeleteEmployeeCommand(Number.parseInt(parsed.employeeId, 10))
+    await new EmployeeUseCase().delete(command)
+    revalidatePath('/employees')
+  } catch (e) {
+    // TODO: implements
+    console.error(e);
   }
 }

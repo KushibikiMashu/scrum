@@ -2,7 +2,7 @@
 
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
-import {editEmployee} from "~/app/employees/action";
+import {editEmployee} from "~/app/employees/actions";
 
 export const editEmployeeState = {
   message: '',
@@ -68,10 +68,10 @@ export function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
         {state.errors?.firstName?.map((error: string, i: number) => (
           <p key={i}>{error}</p>
         ))}
+
         <SubmitButton />
         <button type="button" onClick={onCancel}>キャンセルする</button>
       </div>
-
     </form>
   )
 }

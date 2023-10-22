@@ -1,6 +1,6 @@
 'use client'
 
-import {createEmployee} from "./action";
+import {createEmployee} from "./actions";
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
 

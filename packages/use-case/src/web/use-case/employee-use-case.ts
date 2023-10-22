@@ -22,12 +22,23 @@ export class EditEmployeeCommand {
   ) {
   }
 
-  getEmployeeId(): AutoIncrementId {
+  getEmployeeId(): AutoIncrementId { // 本当は EmployeeId を返すのが良い
     return new AutoIncrementId(this.employeeId)
   }
 
   getNewEmployeeName(): EmployeeName {
     return new EmployeeName(this.newFirstName, this.newFamilyName)
+  }
+}
+
+export class DeleteEmployeeCommand {
+  constructor(
+    public readonly employeeId: number,
+  ) {
+  }
+
+  getEmployeeId(): AutoIncrementId {
+    return new AutoIncrementId(this.employeeId)
   }
 }
 
@@ -50,5 +61,10 @@ export class EmployeeUseCase {
     const newEmployee = employee.updateName(newName)
 
     await this.employeeRepository.update(newEmployee)
+  }
+
+  async delete(command: DeleteEmployeeCommand) {
+    const employee = await this.employeeRepository.findByIdOrFail(command.getEmployeeId())
+    await this.employeeRepository.delete(employee)
   }
 }
