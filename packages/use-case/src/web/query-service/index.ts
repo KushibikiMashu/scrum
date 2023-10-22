@@ -1,3 +1,4 @@
+export * from './scrum-team-edit-query-service'
 export * from './scrum-team-query-service'
 export * from './employees-page-query-service'
 export * from './project-page-query-service'
