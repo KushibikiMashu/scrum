@@ -22,6 +22,9 @@ export default async function ProductPage({params}: { params: { product: string 
         link: {data.project.name}
       </Link>
       <ResetDbForm />
+      <Link href="/employees">
+        社員一覧
+      </Link>
     </div>
   )
 }
