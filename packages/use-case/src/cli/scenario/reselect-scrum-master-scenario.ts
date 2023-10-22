@@ -68,7 +68,7 @@ class ReselectScrumMasterUseCase {
   async exec(input: ReselectScrumMasterInput) {
     const employee = await this.employeeRepository.findByIdOrFail(input.getEmployeeId())
     // 開発者がスクラムマスターになることもあり得る
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
 
     const scrumMember = scrumTeam.getScrumMemberByEmployeeId(employee.id)
     const newScrumMaster = isDeveloper(scrumMember) ?

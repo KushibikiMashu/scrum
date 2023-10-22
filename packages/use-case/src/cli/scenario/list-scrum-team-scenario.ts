@@ -40,7 +40,7 @@ class ListScrumTeamUseCase {
   ) {}
 
   async exec(): Promise<ListScrumTeamUseCaseDto> {
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     return {
       poName: scrumTeam.productOwner.member.employee.employeeName.getFullName(),
       smName: scrumTeam.scrumMaster.member.employee.employeeName.getFullName(),

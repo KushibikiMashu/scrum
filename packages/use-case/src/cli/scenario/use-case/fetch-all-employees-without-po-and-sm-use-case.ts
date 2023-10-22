@@ -10,7 +10,7 @@ export class FetchAllEmployeesWithoutPoAndSmUseCase {
 
   async exec(): Promise<{id: number; name: string}[]> {
     const employees = await this.employeeRepository.findAll()
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     return employees.filter(employee => {
       const isPo = scrumTeam.productOwner.member.employee.id.value === employee.id.value
       const isSm = scrumTeam.scrumMaster.member.employee.id.value === employee.id.value

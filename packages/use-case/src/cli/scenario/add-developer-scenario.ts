@@ -76,7 +76,7 @@ class CanAddDeveloperFromEmployee {
 
   async exec() : Promise<boolean> {
     const employeeCount = await this.employeeRepository.count()
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     return employeeCount > scrumTeam.countScrumMembers()
   }
 }
@@ -89,7 +89,7 @@ class FetchAllEmployeesWithoutScrumMembersUseCase {
 
   async exec(): Promise<{id: number; name: string}[]> {
     const employees = await this.employeeRepository.findAll()
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     return employees.filter(employee => {
       const isPo = scrumTeam.productOwner.member.employee.id.equals(employee.id)
       const isSm = scrumTeam.scrumMaster.member.employee.id.equals(employee.id)
@@ -110,7 +110,7 @@ class AddDeveloperUseCase {
 
   async exec(input: AddDeveloperInput) {
     const employee = await this.employeeRepository.findByIdOrFail(input.getEmployeeId())
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
 
     const developer = Developer.createFromEmployee(employee)
     const newScrumTeam = scrumTeam.addDeveloper(developer)

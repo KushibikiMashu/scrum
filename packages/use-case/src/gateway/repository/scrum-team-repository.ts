@@ -21,7 +21,7 @@ import {AutoIncrementId} from "@/common";
 export class ScrumTeamRepository {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
 
-  async fetch() {
+  async fetchOrFail() {
     await this.lowdb.read()
     const { scrumTeams, productOwners, scrumMasters, developers, employees } = this.lowdb.data
     if (scrumTeams.length === 0) {

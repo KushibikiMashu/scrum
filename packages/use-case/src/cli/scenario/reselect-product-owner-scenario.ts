@@ -66,7 +66,7 @@ class ReselectProductOwnerUseCase {
   async exec(input: ReselectProductOwnerInput) {
     const employee = await this.employeeRepository.findByIdOrFail(input.getEmployeeId())
     // 開発者がプロダクトオーナーになることもあり得る
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
 
     const scrumMember = scrumTeam.getScrumMemberByEmployeeId(employee.id)
     const newProductOwner = isDeveloper(scrumMember) ?

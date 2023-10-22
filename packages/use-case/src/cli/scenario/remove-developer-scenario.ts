@@ -58,7 +58,7 @@ class FetchAllScrumTeamDevelopersUseCase {
   }
 
   async exec(): Promise<{ index: number; name: string }[]> {
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     return scrumTeam.developers.map((developer, i) => {
       return {
         index: i,
@@ -79,7 +79,7 @@ class ValidateUseCase {
     if (!exists) {
       throw new Error('スクラムチームが作成されていません')
     }
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     if (scrumTeam.developers.length === 0) {
       throw new Error('スクラムチームに開発者がいません')
     }
@@ -94,7 +94,7 @@ class RemoveDeveloperUseCase {
 
   async exec(input: RemoveDeveloperInput) {
     const targetIndex = input.getDeveloperIndex()
-    const scrumTeam = await this.scrumTeamRepository.fetch()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
 
     if (targetIndex > scrumTeam.developers.length) {
       throw new Error('開発者の index が不正です')

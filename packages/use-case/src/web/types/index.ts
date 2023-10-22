@@ -19,9 +19,9 @@ export const ErrorReason = {
 } as const
 export type ErrorReasonValueType = typeof ErrorReason[keyof typeof ErrorReason]
 
-export function assertDefined<T>(arg: T | null | undefined): asserts arg is T {
-  if (arg === null || arg === undefined) {
-    throw new Error(`arg is null or undefined`);
+export function assertDefined<T>(value: T): asserts value is NonNullable<T> {
+  if (value === null) {
+    throw new Error(`arg is null`);
   }
 }
 

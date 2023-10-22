@@ -104,7 +104,7 @@ export class ScrumTeam {
 }
 
 export interface ScrumTeamRepositoryInterface {
-  fetch(): Promise<ScrumTeam>
+  fetchOrFail(): Promise<ScrumTeam>
   exists(): Promise<boolean>
   save(scrumTeam: ScrumTeam): Promise<void>
   update(scrumTeam: ScrumTeam): Promise<void>
