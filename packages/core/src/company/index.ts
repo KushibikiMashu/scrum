@@ -21,9 +21,9 @@ export class EmployeeName {
       throw new Error('社員名は姓名を半角スペースで区切ってください')
     }
 
-    const [familyName, firstName] = name.split(' ')
+    const [familyName, ...rest] = name.split(' ')
 
-    return new EmployeeName(familyName, firstName)
+    return new EmployeeName(familyName, rest.join(' '))
   }
 
   getFullName() {

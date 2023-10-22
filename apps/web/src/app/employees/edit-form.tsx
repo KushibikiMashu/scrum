@@ -1,33 +1,48 @@
 'use client'
 
-import {createEmployee} from "./action";
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
+import {editEmployee} from "~/app/employees/action";
 
-export const createEmployeeState = {
+export const editEmployeeState = {
   message: '',
   errors: null,
 }
 
 const SubmitButton = () => {
   const {pending} = useFormStatus()
-  return <button type="submit" disabled={pending}>追加</button>
+  return <button type="submit" disabled={pending}>保存する</button>
 }
 
-export function AddForm() {
-  const [state, action] = useFormState(createEmployee, createEmployeeState)
-  // action 実行時に form を reset したいのだが、まだ正式な方法がないみたい...
-  const [familyName, setFamilyName] = useState('')
-  const [firstName, setFirstName] = useState('')
+type Props = {
+  employeeName: string
+  employeeId: number
+  onSave: () => void
+}
+
+export function EditForm({employeeName, employeeId, onSave}: Props) {
+  const [_familyName, ...rest] = employeeName.split(' ')
+  const [state, action] = useFormState(editEmployee, editEmployeeState)
+  // TODO: なぜか assertIsString が効かないので修正する
+  const [familyName, setFamilyName] = useState(_familyName as string)
+  const [firstName, setFirstName] = useState(rest.join(' ') as string)
   const handleSubmit = async (data: FormData) => {
     await action(data)
     setFamilyName('')
     setFirstName('')
+    onSave()
   }
 
-  return <div>
+  return (
     <form action={handleSubmit}>
       <div>
+        <input
+          type="hidden"
+          name="employee-id"
+          readOnly
+          value={employeeId}
+        />
+        <span>{employeeId}</span>
         <label>
           <input
             type="text"
@@ -40,8 +55,6 @@ export function AddForm() {
         {state.errors?.familyName?.map((error: string, i: number) => (
           <p key={i}>{error}</p>
         ))}
-      </div>
-      <div>
         <label>
           <input
             type="text"
@@ -54,9 +67,9 @@ export function AddForm() {
         {state.errors?.firstName?.map((error: string, i: number) => (
           <p key={i}>{error}</p>
         ))}
+        <SubmitButton />
       </div>
-      <SubmitButton/>
+
     </form>
-    {state.message !== '' && <p>{state.message}</p>}
-  </div>
+  )
 }

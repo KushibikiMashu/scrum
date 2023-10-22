@@ -5,7 +5,7 @@ import {useFormState} from "react-dom";
 import {redirect} from "next/navigation";
 
 export function ResetDbForm() {
-  const [_, action] = useFormState(resetDbAction, {})
+  const [_, action] = useFormState(resetDbAction, {message: ''})
 
   const handleSubmit = async () => {
     const answer = confirm('本当にDBをリセットしますか？')

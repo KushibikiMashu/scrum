@@ -24,3 +24,9 @@ export function assertDefined<T>(arg: T | null | undefined): asserts arg is T {
     throw new Error(`arg is null or undefined`);
   }
 }
+
+export function assertIsString<T>(arg: T | string): asserts arg is string {
+  if (typeof arg === 'string') {
+    throw new Error(`arg is not string`);
+  }
+}
