@@ -4,18 +4,24 @@ import {AutoIncrementId} from "@/common";
 
 class CreateOrUpdateScrumTeamCommand {
   constructor(
-    public readonly productOwnerId: number,
-    public readonly scrumMasterId: number,
-    // public readonly developerIds: number[],
+    public readonly productOwnerId: string,
+    public readonly scrumMasterId: string,
+    public readonly developerIds: string[],
   ) {
   }
 
   getProductOwnerId(): AutoIncrementId {
-    return new AutoIncrementId(this.productOwnerId)
+    return new AutoIncrementId(Number.parseInt(this.productOwnerId, 10))
   }
 
   getScrumMasterId(): AutoIncrementId {
-    return new AutoIncrementId(this.scrumMasterId)
+    return new AutoIncrementId(Number.parseInt(this.scrumMasterId, 10))
+  }
+
+  getDeveloperIds(): AutoIncrementId[] {
+    return this.developerIds
+      .filter(id => id !== '')
+      .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
   }
 }
 
@@ -40,16 +46,21 @@ export class ScrumTeamUseCase {
     const scrumMasterEmployee = await this.employeeRepository.findByIdOrFail(newScrumMasterId)
     const newScrumMaster = ScrumMaster.createFromEmployee(scrumMasterEmployee)
     // 開発者
-
-    const scrumTeamExists = await this.scrumTeamRepository.exists()
+    const developers = []
+    for (const developerId of command.getDeveloperIds()) {
+      const developerEmployee = await this.employeeRepository.findByIdOrFail(developerId)
+      const developer = ScrumMaster.createFromEmployee(developerEmployee)
+      developers.push(developer)
+    }
 
     // 更新
+    const scrumTeamExists = await this.scrumTeamRepository.exists()
     if (scrumTeamExists) {
       const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
       const newScrumTeam = prevScrumTeam
         .changeProductOwner(newProductOwner)
         .changeScrumMaster(newScrumMaster)
-      // update devs
+        .updateDevelopers(developers)
       await this.scrumTeamRepository.update(newScrumTeam)
       return
     }
@@ -58,7 +69,7 @@ export class ScrumTeamUseCase {
     const newScrumTeam = ScrumTeam.createFromNewScrumTeam(
       newProductOwner,
       newScrumMaster,
-      []
+      developers,
     )
     await this.scrumTeamRepository.save(newScrumTeam)
   }

@@ -99,6 +99,10 @@ export class ScrumTeam {
     return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, newDevelopers)
   }
 
+  updateDevelopers(developers: Developer[]) {
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, developers)
+  }
+
   countScrumMembers(): number {
     return this.developers.length + 2
   }

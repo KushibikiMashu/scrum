@@ -3,20 +3,23 @@
 import {z} from "zod";
 
 export const updateTeam = async (prevState: any, formData: FormData) => {
-  //    validation: PO, SM は必ず選択する
-  //    validation: devs は 最低一人を追加する。空配列を渡せるようにはしない。
   const schema = z.object({
     productOwnerId: z.string(),
     scrumMasterId: z.string(),
+    developerIds: z.array(z.string()).min(0).max(10),
   })
 
   try {
     const parsed = schema.parse({
       productOwnerId: formData.get('product-owner-id'),
       scrumMasterId: formData.get('scrum-master-id'),
+      developerIds: formData.getAll('developers'),
     })
 
+    console.log(parsed);
+
   } catch (e: unknown) {
+    console.log(e);
     if (e instanceof z.ZodError) {
       return {
         message: '',

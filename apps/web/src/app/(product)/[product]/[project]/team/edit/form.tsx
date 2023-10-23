@@ -18,6 +18,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
   // PO、が選ばれていたら、対象から外さず「SMはPOを兼任できません」というエラーメッセージを表示する
   const filteredEmployees = employees
     .map((employee) => ({id: employee.id, name: employee.fullName}))
+  const developersMaxCount = Math.max(Math.min(10, filteredEmployees.length - 2), 1)
 
   // TODO: エラーを表示する
   const [_, action] = useFormState(updateTeam, {message: '', errors: null})
@@ -27,46 +28,45 @@ export function TeamForm({scrumTeam, employees}: Props) {
       <h2>スクラムチームを編集する</h2>
       <form action={action}>
         <div>
-          <p>プロダクトオーナー</p>
+          <p>プロダクトオーナー*</p>
           <div>
             <select name="product-owner-id" required defaultValue={scrumTeam?.productOwner.employeeId ?? ""}>
-              <option value="" disabled>選択してください</option>
-              {filteredEmployees.map((employee) =>
-                <option
-                  key={employee.id}
-                  value={employee.id}
-                >
-                  {employee.name}
-                </option>
-              )}
-            </select>
-          </div>
-        </div>
-        <div>
-          <p>スクラムマスター</p>
-          <div>
-            <select name="scrum-master-id" required defaultValue={scrumTeam?.scrumMaster.employeeId ?? ""}>
-              <option value="" disabled>選択してください</option>
-              {filteredEmployees.map((employee) =>
-                <option
-                  key={employee.id}
-                  value={employee.id}
-                >
-                  {employee.name}
-                </option>
-              )}
-            </select>
-          </div>
-        </div>
-        <div>
-          <p>開発者</p>
-          <div>
-            <select name="product-owner-id">
-              <option value="">--Please choose an option--</option>
+              <option value="" disabled>---</option>
               {filteredEmployees.map((employee) =>
                 <option key={employee.id} value={employee.id}>{employee.name}</option>
               )}
             </select>
+          </div>
+        </div>
+        <div>
+          <p>スクラムマスター*</p>
+          <div>
+            <select name="scrum-master-id" required defaultValue={scrumTeam?.scrumMaster.employeeId ?? ""}>
+              <option value="" disabled>---</option>
+              {filteredEmployees.map((employee) =>
+                <option key={employee.id} value={employee.id}>{employee.name}</option>
+              )}
+            </select>
+          </div>
+        </div>
+        <div>
+          <p className="space-x-2">
+            <span>開発者</span>
+          </p>
+          <div>
+            {[...Array(developersMaxCount)].map((_, i) => {
+              const defaultValue = scrumTeam?.developers[i]?.employeeId ?? ""
+              return (
+                <div key={i}>
+                  <select name='developers' defaultValue={defaultValue}>
+                    <option value="">---</option>
+                    {filteredEmployees.map((employee) =>
+                      <option key={employee.id} value={employee.id}>{employee.name}</option>
+                    )}
+                  </select>
+                </div>
+              )
+            })}
           </div>
         </div>
 
