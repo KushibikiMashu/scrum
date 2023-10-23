@@ -45,7 +45,7 @@ export function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
           readOnly
           value={employeeId}
         />
-        <span>{employeeId}</span>
+        <span>{employeeId}: </span>
         <label>
           <input
             type="text"

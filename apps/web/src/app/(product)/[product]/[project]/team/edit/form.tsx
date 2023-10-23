@@ -3,6 +3,7 @@
 import {ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
 import {useFormState, useFormStatus} from "react-dom";
 import {updateTeam} from "./actions";
+import Link from "next/link";
 
 type Props = Pick<ScrumTeamEditQueryServiceDto, 'scrumTeam' | 'employees'>
 
@@ -12,17 +13,11 @@ function SubmitButton() {
 }
 
 export function TeamForm({scrumTeam, employees}: Props) {
-  // TODO: エラーメッセージを表示する
-
-  // TODO: スクラムチームが存在するケースから考える。存在するケースが終わったら、存在しないケースに対処する
-  // ただし、存在しないケースは考えなくてもいいかもしれない
-
-  // PO、が選ばれていたら、対象から外さず「SMはPOを兼任できません」というエラーメッセージを表示する
   const filteredEmployees = employees
     .map((employee) => ({id: employee.id, name: employee.fullName}))
   const developersMaxCount = Math.max(Math.min(10, filteredEmployees.length - 2), 1)
 
-  // TODO: エラーを表示する
+  // TODO: エラーメッセージを表示する
   const [_, action] = useFormState(updateTeam, {message: '', errors: null})
 
   return (
@@ -73,6 +68,10 @@ export function TeamForm({scrumTeam, employees}: Props) {
         </div>
 
         <SubmitButton/>
+
+        <div>
+        <Link href="/employees">社員を登録する</Link>
+        </div>
       </form>
     </div>
   )
