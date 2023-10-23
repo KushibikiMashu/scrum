@@ -122,7 +122,7 @@ export class ScrumTeamRepository {
     for (const scrumTeamDeveloper of scrumTeam.developers) {
       developers.push({
         id: AutoIncrementId.createFromRecords(developers).value,
-        scrum_team_id: scrumTeam.id.value!,
+        scrum_team_id: scrumTeamAutoIncrementId.value!,
         employee_id: scrumTeamDeveloper.member.employee.id.value!,
       })
     }

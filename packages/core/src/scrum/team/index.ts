@@ -94,13 +94,13 @@ export class ScrumTeam {
     return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer])
   }
 
+  updateDevelopers(developers: Developer[]) {
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, developers)
+  }
+
   removeDeveloper(developer: Developer) {
     const newDevelopers = this.developers.filter(v => v !== developer)
     return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, newDevelopers)
-  }
-
-  updateDevelopers(developers: Developer[]) {
-    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, developers)
   }
 
   countScrumMembers(): number {
@@ -179,7 +179,7 @@ export class ScrumMaster {
   }
 
   static createFromDeveloper(developer: Developer) {
-    return new ProductOwner(
+    return new ScrumMaster(
       [ScrumMemberRole.ScrumMaster, developer.role],
       developer.member
     )

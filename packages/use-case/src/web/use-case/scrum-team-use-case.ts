@@ -1,8 +1,14 @@
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway";
-import {EmployeeRepositoryInterface, ScrumMaster, ScrumTeam, ScrumTeamRepositoryInterface} from "@panda-project/core";
+import {
+  Developer,
+  EmployeeRepositoryInterface,
+  ScrumMaster,
+  ScrumTeam,
+  ScrumTeamRepositoryInterface
+} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
 
-class CreateOrUpdateScrumTeamCommand {
+export class CreateOrUpdateScrumTeamCommand {
   constructor(
     public readonly productOwnerId: string,
     public readonly scrumMasterId: string,
@@ -19,8 +25,8 @@ class CreateOrUpdateScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
-    return this.developerIds
-      .filter(id => id !== '')
+    const ids = this.developerIds.filter(id => id !== '')
+    return [...new Set(ids)]
       .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
   }
 }
@@ -35,7 +41,7 @@ export class ScrumTeamUseCase {
   async createOrUpdate(command: CreateOrUpdateScrumTeamCommand) {
     const newProductOwnerId = command.getProductOwnerId()
     const newScrumMasterId = command.getScrumMasterId()
-    if (newProductOwnerId === newScrumMasterId) {
+    if (newProductOwnerId.equals(newScrumMasterId)) {
       throw new Error('PO は SM を兼任できません')
     }
 
@@ -49,7 +55,7 @@ export class ScrumTeamUseCase {
     const developers = []
     for (const developerId of command.getDeveloperIds()) {
       const developerEmployee = await this.employeeRepository.findByIdOrFail(developerId)
-      const developer = ScrumMaster.createFromEmployee(developerEmployee)
+      const developer = Developer.createFromEmployee(developerEmployee)
       developers.push(developer)
     }
 

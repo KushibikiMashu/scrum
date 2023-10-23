@@ -12,6 +12,8 @@ function SubmitButton() {
 }
 
 export function TeamForm({scrumTeam, employees}: Props) {
+  // TODO: エラーメッセージを表示する
+
   // TODO: スクラムチームが存在するケースから考える。存在するケースが終わったら、存在しないケースに対処する
   // ただし、存在しないケースは考えなくてもいいかもしれない
 

@@ -1,6 +1,7 @@
 'use server'
 
 import {z} from "zod";
+import {CreateOrUpdateScrumTeamCommand, ScrumTeamUseCase} from "@panda-project/use-case";
 
 export const updateTeam = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -16,16 +17,20 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
       developerIds: formData.getAll('developers'),
     })
 
-    console.log(parsed);
-
+    const command = new CreateOrUpdateScrumTeamCommand(parsed.productOwnerId, parsed.scrumMasterId, parsed.developerIds)
+    await new ScrumTeamUseCase().createOrUpdate(command)
   } catch (e: unknown) {
-    console.log(e);
     if (e instanceof z.ZodError) {
       return {
         message: '',
         errors: {
           ...e.formErrors.fieldErrors,
         }
+      }
+    } else {
+      return {
+        message: e?.message ?? '',
+        errors: null
       }
     }
   }
