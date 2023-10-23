@@ -35,8 +35,6 @@ export class ScrumTeamRepository {
       this.createProductOwner(scrumTeam, productOwners, employees, developers),
       this.createScrumMaster(scrumTeam, scrumMasters, employees, developers),
       this.createDevelopers(scrumTeam, developers, employees),
-      [],
-      [],
     )
   }
 
@@ -181,7 +179,7 @@ export class ScrumTeamRepository {
   async delete() {
     await this.lowdb.read()
 
-    // CLI からは1チームしか作れないのでこれで良い
+    // 1チームしか作れないのでこれで良い
     this.lowdb.data.scrumTeams = []
     this.lowdb.data.productOwners = []
     this.lowdb.data.scrumMasters = []

@@ -65,21 +65,22 @@ export class ScrumTeam {
     public readonly productOwner: ProductOwner,
     public readonly scrumMaster: ScrumMaster,
     public readonly developers: Developer[],
-
-    public readonly increment: Increment[],
-    public readonly goals: ProductGoal[],
   ) {}
 
   static createWithProductOwnerAndScrumMaster(productOwner: ProductOwner, scrumMaster: ScrumMaster) {
-    return new ScrumTeam(ID.createAsNull(), productOwner, scrumMaster, [], [], [])
+    return new ScrumTeam(ID.createAsNull(), productOwner, scrumMaster, [])
+  }
+
+  static createFromNewScrumTeam(productOwner: ProductOwner, scrumMaster: ScrumMaster, developers: Developer[]) {
+    return new ScrumTeam(ID.createAsNull(), productOwner, scrumMaster, developers)
   }
 
   changeProductOwner(productOwner: ProductOwner) {
-    return new ScrumTeam(this.id, productOwner, this.scrumMaster, this.developers, this.increment, this.goals)
+    return new ScrumTeam(this.id, productOwner, this.scrumMaster, this.developers)
   }
 
   changeScrumMaster(scrumMaster: ScrumMaster) {
-    return new ScrumTeam(this.id, this.productOwner, scrumMaster, this.developers, this.increment, this.goals)
+    return new ScrumTeam(this.id, this.productOwner, scrumMaster, this.developers)
   }
 
   getScrumMemberByEmployeeId(employeeId: ID): ProductOwner | ScrumMaster | Developer | null {
@@ -90,12 +91,12 @@ export class ScrumTeam {
   }
 
   addDeveloper(developer: Developer) {
-    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer], this.increment, this.goals)
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer])
   }
 
   removeDeveloper(developer: Developer) {
     const newDevelopers = this.developers.filter(v => v !== developer)
-    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, newDevelopers, this.increment, this.goals)
+    return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, newDevelopers)
   }
 
   countScrumMembers(): number {

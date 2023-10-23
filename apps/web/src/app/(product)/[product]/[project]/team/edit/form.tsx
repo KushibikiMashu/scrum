@@ -27,27 +27,33 @@ export function TeamForm({scrumTeam, employees}: Props) {
       <h2>スクラムチームを編集する</h2>
       <form action={action}>
         <div>
-          <p>スクラムマスター</p>
+          <p>プロダクトオーナー</p>
           <div>
-            <select name="scrum-master-id" required multiple>
-              <option value="">--Please choose an option--</option>
+            <select name="product-owner-id" required defaultValue={scrumTeam?.productOwner.employeeId ?? ""}>
+              <option value="" disabled>選択してください</option>
               {filteredEmployees.map((employee) =>
                 <option
                   key={employee.id}
                   value={employee.id}
-                  selected={scrumTeam?.scrumMaster.employeeId === employee.id}
-                >{employee.name}</option>
+                >
+                  {employee.name}
+                </option>
               )}
             </select>
           </div>
         </div>
         <div>
-          <p>プロダクトオーナー</p>
+          <p>スクラムマスター</p>
           <div>
-            <select name="product-owner-id" required>
-              <option value="">--Please choose an option--</option>
+            <select name="scrum-master-id" required defaultValue={scrumTeam?.scrumMaster.employeeId ?? ""}>
+              <option value="" disabled>選択してください</option>
               {filteredEmployees.map((employee) =>
-                <option key={employee.id} value={employee.id}>{employee.name}</option>
+                <option
+                  key={employee.id}
+                  value={employee.id}
+                >
+                  {employee.name}
+                </option>
               )}
             </select>
           </div>
