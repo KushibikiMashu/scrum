@@ -19,7 +19,7 @@ export default async function ProductPage({params}: { params: { product: string 
       <p>{data.product.name}</p>
       <p>{data.project.name}</p>
       <Link href={`/${data.product.name}/${data.project.name}`}>
-        link: {data.project.name}
+        project: {data.project.name}
       </Link>
       <ResetDbForm />
       <Link href="/employees">
