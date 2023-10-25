@@ -12,5 +12,20 @@ export default async function TeamPage() {
     </div>
   }
 
-  return <div>スクラムチームを表示する</div>
+  const {scrumTeam} = data
+
+  return <div>
+    <h1>スクラムチーム</h1>
+    <div>
+      <p>プロダクトオーナー: <span>{scrumTeam.productOwner.name}</span></p>
+      <p>スクラムマスター: <span>{scrumTeam.scrumMaster.name}</span></p>
+      <p>開発者</p>
+      <ul>
+        {scrumTeam.developers.map((developer, i) =>
+          <li key={i}>{developer.name}</li>
+        )}
+      </ul>
+      <Link href="./team/edit">チームを編集する</Link>
+    </div>
+  </div>
 }
