@@ -25,7 +25,12 @@ export default async function TeamPage() {
           <li key={i}>{developer.name}</li>
         )}
       </ul>
-      <Link href="./team/edit">チームを編集する</Link>
+      <div>
+        <Link href="./team/edit">チームを編集する</Link>
+      </div>
+      <div>
+        <Link href="./">戻る</Link>
+      </div>
     </div>
   </div>
 }
