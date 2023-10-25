@@ -9,7 +9,7 @@
     "next:lint": "next lint"
   },
   "dependencies": {
-    "next": "canary",
+    "next": "canary@latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "@panda-project/use-case": "*",

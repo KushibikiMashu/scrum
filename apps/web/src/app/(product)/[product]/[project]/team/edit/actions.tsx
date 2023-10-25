@@ -17,7 +17,11 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
       developerIds: formData.getAll('developers'),
     })
 
-    const command = new CreateOrUpdateScrumTeamCommand(parsed.productOwnerId, parsed.scrumMasterId, parsed.developerIds)
+    const command = new CreateOrUpdateScrumTeamCommand(
+      parsed.productOwnerId,
+      parsed.scrumMasterId,
+      parsed.developerIds
+    )
     await new ScrumTeamUseCase().createOrUpdate(command)
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
@@ -30,7 +34,8 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
     } else {
       return {
         message: e?.message ?? '',
-        errors: null
+        errors: null,
+        dom: <div>{e?.message}: スーパーエラー</div>
       }
     }
   }

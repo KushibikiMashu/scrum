@@ -18,7 +18,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
   const developersMaxCount = Math.max(Math.min(10, filteredEmployees.length - 2), 1)
 
   // TODO: エラーメッセージを表示する
-  const [_, action] = useFormState(updateTeam, {message: '', errors: null})
+  const [_, action] = useFormState(updateTeam, {message: '', errors: null, dom: null})
 
   return (
     <div>
