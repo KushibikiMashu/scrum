@@ -23,6 +23,8 @@ export default async function TeamEditPage() {
   }
 
   return (
-    <div><TeamForm scrumTeam={data.scrumTeam} employees={data.employees} /></div>
+    <div>
+      <TeamForm scrumTeam={data.scrumTeam} employees={data.employees} />
+    </div>
   )
 }

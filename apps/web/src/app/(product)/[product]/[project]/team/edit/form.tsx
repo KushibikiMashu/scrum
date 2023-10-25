@@ -68,11 +68,13 @@ export function TeamForm({scrumTeam, employees}: Props) {
         </div>
 
         <SubmitButton/>
-
-        <div>
-        <Link href="/employees">社員を登録する</Link>
-        </div>
       </form>
+      <div>
+        <Link href="/employees">社員を登録する</Link>
+      </div>
+      <div>
+        <Link href="..">戻る</Link>
+      </div>
     </div>
   )
 }
