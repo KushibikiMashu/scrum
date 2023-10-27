@@ -68,21 +68,21 @@ export default function Team({scrumTeam}: Props) {
       <li className="flex justify-between gap-x-6 py-5">
         <div className="flex min-w-0 gap-x-4">
           <div className="min-w-0 flex-auto">
-            <p className="text-sm font-semibold leading-6 text-gray-900">{scrumTeam.productOwner.name}</p>
+            <p className="text-sm leading-6 text-gray-900">プロダクトオーナー{isPoDeveloper && ' / 開発者'}</p>
           </div>
         </div>
         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-          <p className="text-sm leading-6 text-gray-900">プロダクトオーナー{isPoDeveloper && ' / 開発者'}</p>
+          <p className="text-sm leading-6 text-gray-900 font-semibold">{scrumTeam.productOwner.name}</p>
         </div>
       </li>
       <li className="flex justify-between gap-x-6 py-5">
         <div className="flex min-w-0 gap-x-4">
           <div className="min-w-0 flex-auto">
-            <p className="text-sm font-semibold leading-6 text-gray-900">{scrumTeam.scrumMaster.name}</p>
+            <p className="text-sm leading-6 text-gray-900">スクラムマスター{isSmDeveloper && ' / 開発者'}</p>
           </div>
         </div>
         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-          <p className="text-sm leading-6 text-gray-900">スクラムマスター{isSmDeveloper && ' / 開発者'}</p>
+          <p className="text-sm leading-6 text-gray-900 font-semibold">{scrumTeam.scrumMaster.name}</p>
         </div>
       </li>
 
@@ -90,11 +90,11 @@ export default function Team({scrumTeam}: Props) {
         <li key={i} className="flex justify-between gap-x-6 py-5">
           <div className="flex min-w-0 gap-x-4">
             <div className="min-w-0 flex-auto">
-              <p className="text-sm font-semibold leading-6 text-gray-900">{developer.name}</p>
+              <p className="text-sm leading-6 text-gray-900">開発者</p>
             </div>
           </div>
           <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p className="text-sm leading-6 text-gray-900">開発者</p>
+            <p className="text-sm leading-6 text-gray-900 font-semibold">{developer.name}</p>
           </div>
         </li>
       ))}

@@ -1,6 +1,7 @@
 import {ScrumTeamQueryService} from "@panda-project/use-case";
 import Link from "next/link";
 import Team from "./team";
+import Breadcrumb from "./breadcrumb";
 
 export default async function TeamPage() {
   const {data} = await new ScrumTeamQueryService().exec()
@@ -20,7 +21,8 @@ export default async function TeamPage() {
       <div className="mx-auto w-full max-w-7xl grow lg:flex xl:px-2">
         <div className="flex-1 xl:flex">
           <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-            <div className="flex">
+            <Breadcrumb />
+            <div className="mt-4">
               <h1>スクラムチーム</h1>
               <div>
                 いい感じのダッシュボードを作る
