@@ -72,7 +72,7 @@ export default function Team({scrumTeam}: Props) {
           </div>
         </div>
         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-          <p className="text-sm leading-6 text-gray-900">プロダクトオーナー{isPoDeveloper && '/ 開発者'}</p>
+          <p className="text-sm leading-6 text-gray-900">プロダクトオーナー{isPoDeveloper && ' / 開発者'}</p>
         </div>
       </li>
       <li className="flex justify-between gap-x-6 py-5">
@@ -82,7 +82,7 @@ export default function Team({scrumTeam}: Props) {
           </div>
         </div>
         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-          <p className="text-sm leading-6 text-gray-900">スクラムマスター{isSmDeveloper && '/ 開発者'}</p>
+          <p className="text-sm leading-6 text-gray-900">スクラムマスター{isSmDeveloper && ' / 開発者'}</p>
         </div>
       </li>
 

@@ -22,7 +22,6 @@ export function TeamForm({scrumTeam, employees}: Props) {
 
   return (
     <div>
-      <h2>スクラムチームを編集する</h2>
       <form action={action}>
         <div>
           <p>プロダクトオーナー*</p>
@@ -71,9 +70,6 @@ export function TeamForm({scrumTeam, employees}: Props) {
       </form>
       <div>
         <Link href="/employees">社員を登録する</Link>
-      </div>
-      <div>
-        <Link href="./">戻る</Link>
       </div>
     </div>
   )

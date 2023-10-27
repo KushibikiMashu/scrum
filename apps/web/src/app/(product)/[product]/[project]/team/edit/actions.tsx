@@ -2,6 +2,8 @@
 
 import {z} from "zod";
 import {CreateOrUpdateScrumTeamCommand, ScrumTeamUseCase} from "@panda-project/use-case";
+import {redirect} from "next/navigation";
+import {revalidatePath} from "next/cache";
 
 export const updateTeam = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -39,4 +41,6 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
       }
     }
   }
+
+  redirect('./')
 }

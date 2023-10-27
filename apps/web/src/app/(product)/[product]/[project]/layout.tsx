@@ -115,11 +115,6 @@ export default function Layout({children}) {
     </div>
       <div className="w-full">
         <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-white px-4 shadow-sm sm:px-6 lg:px-8">
-          <button type="button" className="-m-2.5 p-2.5 text-white xl:hidden" onClick={() => setSidebarOpen(true)}>
-            <span className="sr-only">Open sidebar</span>
-            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
-          </button>
-
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <form className="flex flex-1" action="#" method="GET">
               <label htmlFor="search-field" className="sr-only">

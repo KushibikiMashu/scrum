@@ -1,6 +1,10 @@
-import {DefaultError, Result} from "@/web/types";
-import {EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway";
+import {DefaultError, ErrorReason, Result} from "@/web/types";
+import {
+  EmployeeRepositoryInterface,
+  ProjectRepositoryInterface,
+  ScrumTeamRepositoryInterface
+} from "@panda-project/core";
+import {EmployeeRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway";
 
 export type ScrumTeamEditQueryServiceDto = {
   scrumTeam: {
@@ -23,17 +27,22 @@ export type ScrumTeamEditQueryServiceDto = {
     id: number
     fullName: string
   }[]
+  project: {
+    name: string
+  }
 }
 
 interface CustomError extends DefaultError {
-
+  reason: typeof ErrorReason.ProjectNotExists
 }
 
 export class ScrumTeamEditQueryService {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-  ) {}
+    private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
+  ) {
+  }
 
   async exec(): Promise<Result<ScrumTeamEditQueryServiceDto, CustomError>> {
     const allEmployees = await this.employeeRepository.findAll()
@@ -43,10 +52,18 @@ export class ScrumTeamEditQueryService {
     }))
 
     const existsScrumTeam = await this.scrumTeamRepository.exists()
+    const project = await this.projectRepository.fetch()
+
+    if (!project) {
+      return {
+        data: null,
+        error: {reason: ErrorReason.ProjectNotExists},
+      }
+    }
 
     if (!existsScrumTeam) {
       return {
-        data: {scrumTeam: null, employees},
+        data: {scrumTeam: null, employees, project: {name: project.name.value}},
         error: null,
       }
     }
@@ -72,6 +89,7 @@ export class ScrumTeamEditQueryService {
           })),
         },
         employees,
+        project: {name: project.name.value}
       },
       error: null,
     }
