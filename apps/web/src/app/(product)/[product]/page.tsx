@@ -2,6 +2,7 @@ import {notFound, redirect} from "next/navigation";
 import {ProductPageQueryService} from "@panda-project/use-case";
 import Link from "next/link";
 import {ResetDbForm} from "./reset-db-form";
+import Content from "./content";
 
 // TODO: DB を削除する action を追加する
 
@@ -25,6 +26,7 @@ export default async function ProductPage({params}: { params: { product: string 
       <Link href="/employees">
         社員一覧
       </Link>
+      <Content />
     </div>
   )
 }

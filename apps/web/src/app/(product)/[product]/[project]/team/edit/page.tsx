@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
 import {TeamForm} from './form'
+import Breadcrumb from "~/app/(product)/[product]/[project]/team/edit/breadcrumb";
 
 // form は以下のものを作る
 // - SM, PO, Devs を選択し、チームを作成する
@@ -24,6 +25,7 @@ export default async function TeamEditPage() {
 
   return (
     <div>
+      <Breadcrumb />
       <TeamForm scrumTeam={data.scrumTeam} employees={data.employees} />
     </div>
   )
