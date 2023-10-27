@@ -9,7 +9,9 @@ type Props = Pick<ScrumTeamEditQueryServiceDto, 'scrumTeam' | 'employees'>
 
 function SubmitButton() {
   const {pending} = useFormStatus()
-  return <button type="submit" disabled={pending}>保存する</button>
+  return <button
+    className="text-xs border border-gray-200 rounded-md px-3 py-2 bg-gray-200 text-gray-600"
+    type="submit" disabled={pending}>保存する</button>
 }
 
 export function TeamForm({scrumTeam, employees}: Props) {
@@ -21,12 +23,17 @@ export function TeamForm({scrumTeam, employees}: Props) {
   const [_, action] = useFormState(updateTeam, {message: '', errors: null, dom: null})
 
   return (
-    <div>
-      <form action={action}>
-        <div>
-          <p>プロダクトオーナー*</p>
+    <div className="max-w-xs">
+      <form className="space-y-4" action={action}>
+        <div className="space-y-2">
+          <p className="block text-sm font-medium leading-6 text-gray-900">プロダクトオーナー*</p>
           <div>
-            <select name="product-owner-id" required defaultValue={scrumTeam?.productOwner.employeeId ?? ""}>
+            <select
+              className="w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm border-gray-300 focus:outline-none sm:text-sm sm:leading-6"
+              name="product-owner-id"
+              required
+              defaultValue={scrumTeam?.productOwner.employeeId ?? ""}
+            >
               <option value="" disabled>---</option>
               {filteredEmployees.map((employee) =>
                 <option key={employee.id} value={employee.id}>{employee.name}</option>
@@ -34,10 +41,15 @@ export function TeamForm({scrumTeam, employees}: Props) {
             </select>
           </div>
         </div>
-        <div>
-          <p>スクラムマスター*</p>
+        <div className="space-y-2">
+          <p className="block text-sm font-medium leading-6 text-gray-900">スクラムマスター*</p>
           <div>
-            <select name="scrum-master-id" required defaultValue={scrumTeam?.scrumMaster.employeeId ?? ""}>
+            <select
+              className="w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm border-gray-300 focus:outline-none sm:text-sm sm:leading-6"
+              name="scrum-master-id"
+              required
+              defaultValue={scrumTeam?.scrumMaster.employeeId ?? ""}
+            >
               <option value="" disabled>---</option>
               {filteredEmployees.map((employee) =>
                 <option key={employee.id} value={employee.id}>{employee.name}</option>
@@ -45,16 +57,18 @@ export function TeamForm({scrumTeam, employees}: Props) {
             </select>
           </div>
         </div>
-        <div>
-          <p className="space-x-2">
-            <span>開発者</span>
-          </p>
-          <div>
+        <div className="space-y-2">
+          <p className="block text-sm font-medium leading-6 text-gray-900">開発者</p>
+          <div className="space-y-2">
             {[...Array(developersMaxCount)].map((_, i) => {
               const defaultValue = scrumTeam?.developers[i]?.employeeId ?? ""
               return (
                 <div key={i}>
-                  <select name='developers' defaultValue={defaultValue}>
+                  <select
+                    className="w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm border-gray-300 focus:outline-none sm:text-sm sm:leading-6"
+                    name='developers'
+                    defaultValue={defaultValue}
+                  >
                     <option value="">---</option>
                     {filteredEmployees.map((employee) =>
                       <option key={employee.id} value={employee.id}>{employee.name}</option>
@@ -66,10 +80,15 @@ export function TeamForm({scrumTeam, employees}: Props) {
           </div>
         </div>
 
-        <SubmitButton/>
+        <div className="mt-4 text-right">
+          <SubmitButton/>
+        </div>
       </form>
-      <div>
-        <Link href="/employees">社員を登録する</Link>
+
+      <div className="mt-6">
+        <div className="text-right">
+          <Link className="text-xs border border-gray-200 rounded-md px-3 py-2" href="/employees">社員を登録する</Link>
+        </div>
       </div>
     </div>
   )
