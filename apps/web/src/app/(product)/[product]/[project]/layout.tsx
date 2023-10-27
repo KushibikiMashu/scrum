@@ -42,7 +42,7 @@ const MyLink = ({href, children}) => {
 
 export default function Layout({children}) {
   return (
-    <div className="h-screen flex">
+    <div className="flex">
     <div className="flex w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div className="flex h-16 shrink-0 items-center">
         <Link href="/scrum">Scrum</Link>
