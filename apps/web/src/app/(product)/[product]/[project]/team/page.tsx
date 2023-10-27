@@ -59,7 +59,7 @@ export default async function TeamPage() {
 
         <div className="shrink-0 border-t border-gray-200 px-4 py-6 sm:px-6 lg:w-96 lg:border-l lg:border-t-0 lg:pr-8 xl:pr-6">
           <div className="text-right">
-            <Link className="text-xs" href="./team/edit">チームを編集する</Link>
+            <Link className="text-xs border border-gray-200 rounded-md px-3 py-2" href="./team/edit">チームを編集する</Link>
           </div>
           <div className="mt-4">
           <Team scrumTeam={scrumTeam} />
