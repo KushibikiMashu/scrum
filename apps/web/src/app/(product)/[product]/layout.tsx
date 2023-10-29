@@ -1,7 +1,7 @@
 'use client'
 
 import {Disclosure} from '@headlessui/react'
-import {Bars3Icon, ChevronRightIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
+import {ChevronRightIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {
   FolderIcon,
   UsersIcon,
@@ -137,12 +137,12 @@ export default function Layout({children}) {
                 />
               </div>
             </form>
-            <div className="lg:w-96">
+            <div className="flex h-16 shrink-0 items-center justify-end lg:w-96">
               <div
-                className="flex py-5 text-sm font-semibold leading-6 text-gray-900"
+                className="flex text-sm font-semibold leading-6 text-gray-900"
               >
                 <span className="sr-only">Your profile</span>
-                <span className="w-full text-right" aria-hidden="true">Your Name</span>
+                <span aria-hidden="true">Your Name</span>
               </div>
             </div>
           </div>
