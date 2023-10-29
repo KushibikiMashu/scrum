@@ -43,6 +43,7 @@ const MyLink = ({href, children}) => {
 export default function Layout({children}) {
   return (
     <div className="flex">
+      {/* Left Menu */}
       <div className="flex w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
         <div className="flex h-16 shrink-0 items-center">
           <Link href="/scrum">Scrum</Link>
@@ -114,6 +115,7 @@ export default function Layout({children}) {
         </nav>
       </div>
       <div className="w-full">
+        {/* Nav Bar */}
         <div
           className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-white px-4 shadow-sm sm:px-6 lg:px-8">
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
@@ -145,6 +147,7 @@ export default function Layout({children}) {
             </div>
           </div>
         </div>
+        {/* Main */}
         {children}
       </div>
     </div>
