@@ -1,6 +1,6 @@
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
-import {editEmployee} from "~/app/employees/actions";
+import {editEmployee} from "./actions";
 
 export const editEmployeeState = {
   message: '',

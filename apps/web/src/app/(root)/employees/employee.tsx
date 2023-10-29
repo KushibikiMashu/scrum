@@ -2,7 +2,7 @@
 
 import {EditForm} from "./edit-form";
 import {useState} from "react";
-import {DeleteForm} from "~/app/employees/delete-form";
+import {DeleteForm} from "./delete-form";
 
 type Props = {
   employeeId: number
