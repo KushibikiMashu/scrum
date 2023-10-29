@@ -3,10 +3,12 @@
 import {Disclosure} from '@headlessui/react'
 import {ChevronRightIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {
+  ExclamationTriangleIcon,
   FolderIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import Link from "next/link";
+import {ResetDbForm} from "./reset-db-form";
 
 const navigation = [
   {
@@ -55,7 +57,7 @@ export default function Layout({children}) {
                 {navigation.map((item) => (
                   <li key={item.name}>
                     {!item.children ? (
-                      <a
+                      <Link
                         href={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
@@ -64,7 +66,7 @@ export default function Layout({children}) {
                       >
                         <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true"/>
                         {item.name}
-                      </a>
+                      </Link>
                     ) : (
                       <Disclosure as="div" defaultOpen={item.name === 'Indie'}>
                         {({open}) => (
@@ -109,6 +111,12 @@ export default function Layout({children}) {
                     )}
                   </li>
                 ))}
+                <li
+                  className={'group flex gap-x-3 rounded-md p-2 text-xs leading-6 text-gray-700 hover:bg-gray-50'}
+                >
+                  <ExclamationTriangleIcon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true"/>
+                  <ResetDbForm />
+                </li>
               </ul>
             </li>
           </ul>

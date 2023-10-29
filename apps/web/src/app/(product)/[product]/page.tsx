@@ -1,6 +1,5 @@
 import {notFound, redirect} from "next/navigation";
 import {ProductPageQueryService} from "@panda-project/use-case";
-import {ResetDbForm} from "./reset-db-form";
 import {ProjectList} from "./project-list";
 
 // TODO: DB を削除する action を追加する
@@ -28,10 +27,6 @@ export default async function ProductPage({params}: { params: { product: string 
             ]}/>
           </div>
         }
-      </div>
-
-      <div>
-        <ResetDbForm/>
       </div>
     </div>
   )
