@@ -1,6 +1,5 @@
 import {notFound, redirect} from "next/navigation";
 import {ProjectPageQueryService, ErrorReason, assertDefined} from "@panda-project/use-case";
-import Link from "next/link";
 
 type Props = {
   params: {
@@ -32,19 +31,7 @@ export default async function ProductPage({params}: Props) {
   assertDefined(data)
   assertDefined(data?.product)
 
-  return (
-    <div>
-      <p>content</p>
-      <hr/>
-      <p><Link href={`./${params.project}/team`}>teamへ</Link></p>
-      <p>
-        <Link href={`/${params.product}`}>
-          product: {data?.product?.name}へ
-        </Link>
-      </p>
-      <p>
-        <Link href="/">topへ</Link>
-      </p>
-    </div>
-  )
+  redirect(`/${params.product}/${params.project}/team`)
+
+  return null
 }

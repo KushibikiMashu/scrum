@@ -3,11 +3,11 @@ import {
   Product, ProductName,
   ProductRepositoryInterface,
   Project,
-  ProjectRepositoryInterface
+  ProjectRepositoryInterface, ScrumTeam, ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {ProductRepository, ProjectRepository} from "@/gateway";
+import {ProductRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway";
 
-type Dto = {
+export type ProductPageQueryServiceDto = {
   product: {
     id: NonNullable<Product['id']['value']>,
     name: Product['name']['value'],
@@ -15,6 +15,11 @@ type Dto = {
   project: {
     id: NonNullable<Project['id']['value']>,
     name: Project['name']['value'],
+  } | null
+  scrumTeam: {
+    poName: ReturnType<ScrumTeam['productOwner']['getFullName']>
+    smName: ReturnType<ScrumTeam['scrumMaster']['getFullName']>
+    developersCount: number
   } | null
 }
 
@@ -39,10 +44,11 @@ export class ProductPageQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
     private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
+    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
   ) {
   }
 
-  async exec(input: string): Promise<Result<Dto, CustomError>> {
+  async exec(input: string): Promise<Result<ProductPageQueryServiceDto, CustomError>> {
     // validation
     let productName = null
     try {
@@ -69,19 +75,43 @@ export class ProductPageQueryService {
 
     const project = await this.projectRepository.fetch()
 
-    // presentation logic
-    return {
-      data: {
-        product: {
-          id: product.id.value,
-          name: product.name.value,
+    try {
+      const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+      // presentation logic
+      return {
+        data: {
+          product: {
+            id: product.id.value,
+            name: product.name.value,
+          },
+          project: project === null ? null : {
+            id: project.id.value,
+            name: project.name.value,
+          },
+          scrumTeam: {
+            poName: scrumTeam.productOwner.getFullName(),
+            smName: scrumTeam.scrumMaster.getFullName(),
+            developersCount: scrumTeam.developers.length,
+          }
         },
-        project: project === null ? null : {
-          id: project.id.value,
-          name: project.name.value,
-        }
-      },
-      error: null,
+        error: null,
+      }
+    } catch {
+      // throw するが 別段エラーというわけではない
+      return {
+        data: {
+          product: {
+            id: product.id.value,
+            name: product.name.value,
+          },
+          project: project === null ? null : {
+            id: project.id.value,
+            name: project.name.value,
+          },
+          scrumTeam: null
+        },
+        error: null,
+      }
     }
   }
 }
