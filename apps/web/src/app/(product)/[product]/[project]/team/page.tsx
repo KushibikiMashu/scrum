@@ -3,7 +3,7 @@ import Link from "next/link";
 import Team from "./team";
 import Breadcrumb from "./breadcrumb";
 import Stats from "./stats";
-import TaskList from "./task-list";
+import TaskList from "../_common/task-list";
 
 export default async function TeamPage() {
   const {data} = await new ScrumTeamQueryService().exec()
