@@ -10,7 +10,7 @@ type Props = Pick<ScrumTeamEditQueryServiceDto, 'scrumTeam' | 'employees'>
 function SubmitButton() {
   const {pending} = useFormStatus()
   return <button
-    className="text-xs border border-gray-200 rounded-md px-3 py-2"
+    className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
     type="submit" disabled={pending}>保存する</button>
 }
 
@@ -87,7 +87,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
 
       <div className="mt-6">
         <div className="text-right">
-          <Link className="text-xs border border-gray-200 rounded-md px-3 py-2" href="/employees">社員を登録する</Link>
+          <Link className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" href="/employees">社員を登録する</Link>
         </div>
       </div>
     </div>

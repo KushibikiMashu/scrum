@@ -21,7 +21,7 @@ export function Employee({employeeId, employeeName}: Props) {
     /> :
       <div className="flex space-x-2">
         <span>{employeeId}: {employeeName}</span>
-        <button type="submit" onClick={() => setIsEditing(true)}>編集する</button>
+        <button type="submit" onClick={() => setIsEditing(true)}>編集</button>
         <DeleteForm employeeId={employeeId} />
       </div>
     }

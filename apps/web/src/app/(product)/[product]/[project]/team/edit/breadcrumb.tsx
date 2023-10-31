@@ -49,7 +49,7 @@ export default function Breadcrumb({projectName}: Props) {
             <span
               className="ml-1 text-xs font-medium text-gray-500"
             >
-              チームを編集する
+              チームを編集
             </span>
           </div>
         </li>
