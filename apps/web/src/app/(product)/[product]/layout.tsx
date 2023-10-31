@@ -4,7 +4,7 @@ import {Disclosure} from '@headlessui/react'
 import {ChevronRightIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {
   ExclamationTriangleIcon,
-  FolderIcon,
+  FolderIcon, UserIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import Link from "next/link";
@@ -147,10 +147,11 @@ export default function Layout({children}) {
             </form>
             <div className="flex h-16 shrink-0 items-center justify-end lg:w-96">
               <div
-                className="flex text-sm font-semibold leading-6 text-gray-900"
+                className="flex text-sm leading-6 text-gray-900 space-x-2"
               >
                 <span className="sr-only">Your profile</span>
-                <span aria-hidden="true">Your Name</span>
+                <UserIcon className="h-6 w-6 shrink-0 text-gray-400" />
+                <span aria-hidden="true">田中 太郎</span>
               </div>
             </div>
           </div>
