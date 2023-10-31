@@ -17,8 +17,8 @@ const navigation = [
     current: false,
     children: [
       {name: 'スクラムチーム', href: '/scrum/indie/team'},
+      {name: 'スプリントバックログ', href: '/scrum/indie/sprint-backlog'},
       {name: 'プロダクトバックログ', href: '#'},
-      {name: 'スプリントバックログ', href: '#'},
     ],
   },
   {
@@ -26,9 +26,9 @@ const navigation = [
     icon: FolderIcon,
     current: false,
     children: [
-      {name: 'スクラムチーム', href: '#'},
+      {name: 'スクラムチーム', href: '/scrum/indie/team'},
+      {name: 'スプリントバックログ', href: '/scrum/indie/sprint-backlog'},
       {name: 'プロダクトバックログ', href: '#'},
-      {name: 'スプリントバックログ', href: '#'},
     ],
   },
   {name: '社員一覧', href: '/employees', icon: UsersIcon, current: false},

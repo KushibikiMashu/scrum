@@ -12,20 +12,18 @@ export default async function ProductPage({params}: { params: { product: string 
   }
 
   return (
-    <div>
-      <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-        {data.scrumTeam &&
-          <div>
-            <ProjectList projects={[
-              {
-                name: data.project.name,
-                product: {name: data.product.name},
-                scrumTeam: data.scrumTeam
-              }
-            ]}/>
-          </div>
-        }
-      </div>
+    <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
+      {data.scrumTeam &&
+        <div>
+          <ProjectList projects={[
+            {
+              name: data.project.name,
+              product: {name: data.product.name},
+              scrumTeam: data.scrumTeam
+            }
+          ]}/>
+        </div>
+      }
     </div>
   )
 }
