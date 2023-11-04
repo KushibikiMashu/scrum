@@ -1,16 +1,10 @@
 'use client'
 
-import {Disclosure} from '@headlessui/react'
-import {ChevronRightIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
-import {
-  ExclamationTriangleIcon,
-  FolderIcon, UserIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
+import {FolderIcon, UsersIcon} from '@heroicons/react/24/outline'
 import Link from "next/link";
-import ResetDbForm from "~/components/form/reset-db-form";
 import SearchBar from "~/components/layout/search-bar";
 import Sidebar from "~/components/layout/sidebar";
+import UserName from "~/components/layout/user-name";
 
 const navigation = [
   {
@@ -56,13 +50,7 @@ export default function Layout({children}) {
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <SearchBar />
             <div className="flex h-16 shrink-0 items-center justify-end lg:w-96">
-              <div
-                className="flex text-sm leading-6 text-gray-900 space-x-2"
-              >
-                <span className="sr-only">Your profile</span>
-                <UserIcon className="h-6 w-6 shrink-0 text-gray-400" />
-                <span aria-hidden="true">田中 太郎</span>
-              </div>
+              <UserName />
             </div>
           </div>
         </div>

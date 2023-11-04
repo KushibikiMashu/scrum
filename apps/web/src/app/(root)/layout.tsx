@@ -1,6 +1,7 @@
 'use client'
 
 import Sidebar from "~/components/layout/sidebar";
+import UserName from "~/components/layout/user-name";
 
 export default function Layout({children}) {
   return (
@@ -13,13 +14,7 @@ export default function Layout({children}) {
           className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-white px-4 shadow-sm sm:px-6 lg:px-8">
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="ml-auto">
-              <div
-                className="flex text-sm leading-6 text-gray-900 space-x-2"
-              >
-                <span className="sr-only">Your profile</span>
-                <UserIcon className="h-6 w-6 shrink-0 text-gray-400" />
-                <span aria-hidden="true">田中 太郎</span>
-              </div>
+              <UserName />
             </div>
           </div>
         </div>
