@@ -1,9 +1,10 @@
 'use client'
 
-import {Fragment} from 'react'
+import {Fragment, useState} from 'react'
 import {Menu, Transition} from '@headlessui/react'
 import {EllipsisVerticalIcon} from '@heroicons/react/20/solid'
 import {EmployeesPageQueryServiceDto} from "@panda-project/use-case";
+import {DeleteForm} from "~/app/(root)/employees/delete-form";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -12,6 +13,8 @@ function classNames(...classes) {
 type Props = Pick<EmployeesPageQueryServiceDto, 'employees'>
 
 export default function EmployeeList({employees}: Props) {
+  const [isEditing, setIsEditing] = useState(false)
+
   return (
     <div>
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員一覧</h2>
@@ -44,28 +47,20 @@ export default function EmployeeList({employees}: Props) {
                     className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                     <Menu.Item>
                       {({active}) => (
-                        <a
-                          href="#"
+                        <button
                           className={classNames(
                             active ? 'bg-gray-50' : '',
-                            'block px-3 py-1 text-sm leading-6 text-gray-900'
+                            'w-full text-left block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
+                          onClick={() => setIsEditing(true)}
                         >
-                          View profile<span className="sr-only">, {employee.name}</span>
-                        </a>
+                          編集する<span className="sr-only">, {employee.name}</span>
+                        </button>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {({active}) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? 'bg-gray-50' : '',
-                            'block px-3 py-1 text-sm leading-6 text-gray-900'
-                          )}
-                        >
-                          Message<span className="sr-only">, {employee.name}</span>
-                        </a>
+                        <DeleteForm employeeId={employee.id} active={active} />
                       )}
                     </Menu.Item>
                   </Menu.Items>
