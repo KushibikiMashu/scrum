@@ -9,9 +9,7 @@ type Props = Pick<ScrumTeamEditQueryServiceDto, 'scrumTeam' | 'employees'>
 
 function SubmitButton() {
   const {pending} = useFormStatus()
-  return <button
-    className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
-    type="submit" disabled={pending}>保存する</button>
+  return <button className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" type="submit" disabled={pending}>保存する</button>
 }
 
 export function TeamForm({scrumTeam, employees}: Props) {

@@ -11,15 +11,20 @@ export default async function EmployeesPage() {
 
   return (
     <div>
-      <EmployeeList employees={data.employees} />
+      <div>
+        <AddForm />
+      </div>
 
-      <AddForm/>
-      <ul>
-        {data.employees.map((employee, i) =>
-          <Employee key={i} employeeId={employee.id!} employeeName={employee.name}/>
-        )}
-      </ul>
-      <Link href={path}>top</Link>
+      {/*<ul>*/}
+      {/*  {data.employees.map((employee, i) =>*/}
+      {/*    <Employee key={i} employeeId={employee.id!} employeeName={employee.name}/>*/}
+      {/*  )}*/}
+      {/*</ul>*/}
+      {/*<Link href={path}>top</Link>*/}
+
+      <div>
+        <EmployeeList employees={data.employees} />
+      </div>
     </div>
   )
 }
