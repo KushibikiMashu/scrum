@@ -11,7 +11,7 @@ type Props = {
   active: boolean
 }
 
-export function DeleteForm({employeeId, active}: Props) {
+export default function DeleteForm({employeeId, active}: Props) {
   const {showToast} = useToastDispatch()
 
   const [_, action] = useFormState(deleteEmployee, {message: ''})

@@ -16,7 +16,7 @@ const SubmitButton = () => {
                  disabled={pending}>登録する</button>
 }
 
-export function AddForm() {
+export default function AddForm() {
   const {showToast} = useToastDispatch()
 
   const [state, action] = useFormState(createEmployee, createEmployeeState)

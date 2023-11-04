@@ -1,6 +1,6 @@
 import {assertDefined, EmployeesPageQueryService} from "@panda-project/use-case";
-import {AddForm} from "./add-form";
-import EmployeeList from "~/app/(root)/employees/employee-list";
+import AddForm from "./add-form";
+import EmployeeList from "./employee-list";
 
 export default async function EmployeesPage() {
   const {data} = await new EmployeesPageQueryService().exec()
@@ -9,12 +9,6 @@ export default async function EmployeesPage() {
   return (
     <div>
       <AddForm />
-
-      {/*<ul>*/}
-      {/*  {data.employees.map((employee, i) =>*/}
-      {/*    <Employee key={i} employeeId={employee.id!} employeeName={employee.name}/>*/}
-      {/*  )}*/}
-      {/*</ul>*/}
 
       <div className="mt-6">
         <EmployeeList employees={data.employees} />
