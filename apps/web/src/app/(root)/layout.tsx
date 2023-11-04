@@ -13,7 +13,7 @@ export default function Layout({children}) {
         <div
           className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-white px-4 shadow-sm sm:px-6 lg:px-8">
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <div className="ml-auto">
+            <div className="flex w-full h-16 shrink-0 items-center justify-end">
               <UserName />
             </div>
           </div>
