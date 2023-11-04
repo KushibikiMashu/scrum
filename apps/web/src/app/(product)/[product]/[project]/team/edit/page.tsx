@@ -33,13 +33,12 @@ export default async function TeamEditPage({params}: Props) {
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
       <Breadcrumb
-        // TODO: params から取得する
-        linkItems={[
+        items={[
           {name : params.product, href: `/${params.product}`},
           {name : params.project, href: `/${params.product}/${params.project}`},
           {name : 'スクラムチーム', href: `/${params.product}/${params.project}/team`},
         ]}
-        currentItem={{name: 'チームを編集する'}}
+        currentItem={{ name: 'チームを編集する' }}
       />
       <div className="mt-4">
         <TeamForm scrumTeam={data.scrumTeam} employees={data.employees} />

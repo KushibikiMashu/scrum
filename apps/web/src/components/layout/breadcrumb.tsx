@@ -5,7 +5,7 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 
 type Props = {
-  linkItems: LinkItem[]
+  items: LinkItem[]
   currentItem: CurrentItem
 }
 
@@ -28,18 +28,18 @@ type CurrentItem = {
 // TODO: Breadcrumb は client コンポーネントで表示し、
 // server component でデータを取得するようにする。ページからはデータ取得しない。
 // TODO: Breadcrumb は Layout で描画する
-export default function Breadcrumb({linkItems, currentItem}: Props) {
+export default function Breadcrumb({items, currentItem}: Props) {
   // params からある程度取得する
   // router から取得しても良い
 
-  const path = usePathname()
-  console.log(path);
+  // const path = usePathname()
+  // console.log(path);
 
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-1">
-        {linkItems.map((item, i) => (
+        {items.map((item, i) => (
           <li key={i}>
             <div className="flex items-center">
               {i > 0 && <ChevronRightIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true"/>}
@@ -53,7 +53,7 @@ export default function Breadcrumb({linkItems, currentItem}: Props) {
           <div className="flex items-center">
             <ChevronRightIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true"/>
             <span
-              className="ml-1 text-xs font-medium text-gray-500"
+              className="text-xs font-medium text-gray-500"
             >
               {currentItem.name}
             </span>

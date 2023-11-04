@@ -1,9 +1,9 @@
 import {ScrumTeamQueryService} from "@panda-project/use-case";
 import Link from "next/link";
 import Team from "./team";
-import Breadcrumb from "./breadcrumb";
 import Stats from "./stats";
 import TaskList from "../_common/task-list";
+import Breadcrumb from "~/components/layout/breadcrumb";
 
 export default async function TeamPage() {
   const {data} = await new ScrumTeamQueryService().exec()
@@ -23,7 +23,13 @@ export default async function TeamPage() {
       <div className="mx-auto w-full max-w-7xl grow lg:flex">
         <div className="flex-1 xl:flex">
           <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-            <Breadcrumb />
+            <Breadcrumb
+              items={[
+                { name: 'scrum', href: '/scrum' },
+                { name: 'indie', href: '/scrum/indie' },
+              ]}
+              currentItem={{ name: 'スクラムチーム' }}
+            />
             <div className="mt-6">
               <Stats />
             </div>
