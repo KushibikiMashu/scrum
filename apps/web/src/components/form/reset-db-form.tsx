@@ -4,7 +4,7 @@ import {resetDbAction} from "./actions";
 import {useFormState} from "react-dom";
 import {redirect} from "next/navigation";
 
-export function ResetDbForm() {
+export default function ResetDbForm() {
   const [_, action] = useFormState(resetDbAction, {message: ''})
 
   const handleSubmit = async () => {
