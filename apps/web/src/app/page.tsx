@@ -2,7 +2,7 @@ import {InitialForm} from "~/app/initial-form";
 import {TopPageQueryService} from "@panda-project/use-case";
 import {redirect} from "next/navigation";
 
-export default async function Home() {
+export default async function Page() {
   const {data} = await new TopPageQueryService().exec()
 
   if (data !== null && data.productName !== null) {

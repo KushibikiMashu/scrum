@@ -3,6 +3,7 @@
 import {createEmployee} from "./actions";
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
+import {useToastDispatch} from "~/components/global/use-toast";
 
 export const createEmployeeState = {
   message: '',
@@ -16,6 +17,8 @@ const SubmitButton = () => {
 }
 
 export function AddForm() {
+  const {showToast} = useToastDispatch()
+
   const [state, action] = useFormState(createEmployee, createEmployeeState)
   // action 実行時に form を reset したいのだが、まだ正式な方法がないみたい...
   const [familyName, setFamilyName] = useState('')
@@ -24,6 +27,11 @@ export function AddForm() {
     await action(data)
     setFamilyName('')
     setFirstName('')
+
+    showToast({
+      icon: 'success',
+      heading: '社員を登録しました',
+    })
   }
 
   return (
@@ -76,7 +84,6 @@ export function AddForm() {
           </div>
         </div>
       </form>
-      {state.message !== '' && <p>{state.message}</p>}
     </div>
   )
 }
