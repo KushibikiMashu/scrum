@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 import ResetDbForm from "~/components/form/reset-db-form";
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -67,7 +67,7 @@ export default function Sidebar() {
           <ul role="list" className="-mx-2 space-y-1">
             {navigation.map((item) => (
               <li key={item.name}>
-                {!item.children ? (
+                {!('children' in item) ? (
                   <Link
                     href={item.href}
                     className={classNames(
@@ -105,7 +105,7 @@ export default function Sidebar() {
                               <Disclosure.Button
                                 as="div"
                                 className={classNames(
-                                  subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                                  'current' in subItem && subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
                                   'block rounded-md py-2 pr-2 pl-9 text-xs leading-6 text-gray-700'
                                 )}
                               >

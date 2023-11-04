@@ -23,12 +23,8 @@ const ToastDispatchContext = createContext<{
   showToast: (args: Omit<State, 'show'>) => void
   hideToast: () => void
 }>({
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  showToast: () => {
-  },
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  hideToast: () => {
-  },
+  showToast: () => {},
+  hideToast: () => {},
 })
 
 // Toast コンポーネント で利用する
@@ -118,6 +114,7 @@ export const useToastCore = (initialState?: Partial<State>) => {
 
 type Props = {
   initialState?: Partial<State>
+  children: React.ReactNode
 }
 
 export default function ToastProviderContainer (props: Props) {

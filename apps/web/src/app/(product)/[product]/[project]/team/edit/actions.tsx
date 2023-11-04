@@ -33,12 +33,6 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
           ...e.formErrors.fieldErrors,
         }
       }
-    } else {
-      return {
-        message: e?.message ?? '',
-        errors: null,
-        dom: <div>{e?.message}: スーパーエラー</div>
-      }
     }
   }
 

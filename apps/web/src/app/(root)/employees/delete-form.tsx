@@ -2,7 +2,7 @@ import {deleteEmployee} from "./actions";
 import {useFormState} from "react-dom";
 import {useToastDispatch} from "~/components/global/use-toast";
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 

@@ -3,7 +3,7 @@
 import Sidebar from "~/components/layout/sidebar";
 import UserName from "~/components/layout/user-name";
 
-export default function Layout({children}) {
+export default function Layout({children}: any) {
   return (
     <div className="flex">
       <Sidebar />

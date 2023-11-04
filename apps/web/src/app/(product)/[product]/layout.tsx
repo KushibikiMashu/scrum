@@ -1,44 +1,10 @@
 'use client'
 
-import {FolderIcon, UsersIcon} from '@heroicons/react/24/outline'
-import Link from "next/link";
 import SearchBar from "~/components/layout/search-bar";
 import Sidebar from "~/components/layout/sidebar";
 import UserName from "~/components/layout/user-name";
 
-const navigation = [
-  {
-    name: 'Indie',
-    icon: FolderIcon,
-    current: false,
-    children: [
-      {name: 'スクラムチーム', href: '/scrum/indie/team'},
-      {name: 'スプリントバックログ', href: '/scrum/indie/sprint-backlog'},
-      {name: 'プロダクトバックログ', href: '#'},
-    ],
-  },
-  {
-    name: 'Sample Project',
-    icon: FolderIcon,
-    current: false,
-    children: [
-      {name: 'スクラムチーム', href: '/scrum/indie/team'},
-      {name: 'スプリントバックログ', href: '/scrum/indie/sprint-backlog'},
-      {name: 'プロダクトバックログ', href: '#'},
-    ],
-  },
-  {name: '社員一覧', href: '/employees', icon: UsersIcon, current: false},
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-const MyLink = ({href, children}) => {
-  return <Link href={href}>{children}</Link>
-}
-
-export default function Layout({children}) {
+export default function Layout({children}: any) {
   return (
     <div className="flex">
       {/* Left Menu */}
