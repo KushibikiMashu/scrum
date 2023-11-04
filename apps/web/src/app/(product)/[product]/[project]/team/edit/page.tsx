@@ -1,8 +1,7 @@
 import Link from "next/link";
 import {ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
 import {TeamForm} from './form'
-import Breadcrumb from "~/components/layout/bread-crumb";
-import {usePathname, useRouter} from "next/navigation";
+import Breadcrumb from "~/components/layout/breadcrumb";
 
 // form は以下のものを作る
 // - SM, PO, Devs を選択し、チームを作成する
