@@ -2,7 +2,7 @@ import {Employee, EmployeeRepositoryInterface, ProductName, ProductRepositoryInt
 import {EmployeeRepository, ProductRepository} from "@/gateway";
 import {Result} from "../types";
 
-type Dto = {
+export type EmployeesPageQueryServiceDto = {
   employees: {
     id: NonNullable<Employee['id']['value']>
     name: string
@@ -17,7 +17,7 @@ export class EmployeesPageQueryService {
   ) {
   }
 
-  async exec(): Promise<Result<Dto>> {
+  async exec(): Promise<Result<EmployeesPageQueryServiceDto>> {
     const employees = await this.employeeRepository.findAll()
     const product = await this.productRepository.fetch()
 
