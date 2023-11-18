@@ -38,7 +38,7 @@ export default function AddForm() {
     <div>
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員を登録する</h2>
       <form action={handleSubmit}>
-        <div className="mt-4 w-full lg:w-3/5">
+        <div className="mt-4">
           <div className="">
             <div className="">
               <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">

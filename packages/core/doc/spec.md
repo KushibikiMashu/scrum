@@ -14,9 +14,11 @@
 
 - [ ] チームページ（/team）
 - [x] チーム編集ページ（/team/edit）
+- [x] 社員一覧ページ（/employees）
 
 コンポーネント
-- [ ] 
+- [ ] side bar
+- [ ] search bar
 
 -------
 - [ ] esbuild watch のログを出す

@@ -93,7 +93,7 @@ export default function EmployeeList({employees}: Props) {
   return (
     <div>
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員一覧</h2>
-      <ul role="list" className="mt-2 w-full lg:w-3/5 divide-y divide-gray-100">
+      <ul role="list" className="mt-2 divide-y divide-gray-100">
         {employees.map((employee, i) => (
           <Employee key={i} employee={employee}/>
         ))}

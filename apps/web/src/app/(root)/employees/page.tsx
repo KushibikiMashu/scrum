@@ -7,7 +7,7 @@ export default async function EmployeesPage() {
   assertDefined(data?.employees)
 
   return (
-    <div>
+    <div className="max-w-sm">
       <AddForm />
 
       <div className="mt-6">

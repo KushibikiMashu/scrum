@@ -1,8 +1,11 @@
 import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
+import {useUnimplemented} from "~/hooks";
 
 export default function SearchBar() {
+  const onChange = useUnimplemented()
+
   return (
-    <form className="flex flex-1" action="#" method="GET">
+    <div className="flex flex-1">
       <label htmlFor="search-field" className="sr-only">
         Search
       </label>
@@ -17,8 +20,9 @@ export default function SearchBar() {
           placeholder="Search..."
           type="search"
           name="search"
+          onChange={onChange}
         />
       </div>
-    </form>
+    </div>
   )
 }

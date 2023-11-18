@@ -1,4 +1,7 @@
+'use client'
+
 import { Fragment } from 'react'
+import {useUnimplemented} from "~/hooks";
 
 const stories = [
   {
@@ -27,6 +30,8 @@ function classNames(...classes: any[]) {
 }
 
 export default function TaskList() {
+  const onClick = useUnimplemented()
+
   return (
     <div>
       <div className="sm:flex sm:items-center">
@@ -37,6 +42,7 @@ export default function TaskList() {
           <button
             type="button"
             className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
+            onClick={onClick}
           >
             Storyを追加
           </button>
@@ -93,6 +99,7 @@ export default function TaskList() {
                         <button
                           type="button"
                           className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-2.5 py-1.5"
+                          onClick={onClick}
                         >
                           編集する
                         </button>
