@@ -6,22 +6,26 @@ import {redirect} from "next/navigation";
 import {useToastDispatch} from "~/components/global/use-toast";
 
 export default function ResetDbForm() {
-  const [state, action] = useFormState(resetDbAction, {message: ''})
+  const [state, action] = useFormState<{ message: string; success: boolean | null }>(resetDbAction, {
+    message: '',
+    success: null
+  })
   const {showToast} = useToastDispatch()
 
   const handleSubmit = async () => {
     const answer = confirm('本当にDBをリセットしますか？')
     if (answer) {
       await action()
-      showToast({icon: 'success', heading: state.message})
-      redirect('/')
     }
   }
 
-  if (state.message) {
-    showToast({icon: 'error', heading: state.message})
+  if (state.success !== null) {
+    showToast({icon: state.success ? 'success' : 'error', heading: state.message})
   }
 
+  if (state.success) {
+    redirect('/')
+  }
 
   return (
     <form action={handleSubmit}>
