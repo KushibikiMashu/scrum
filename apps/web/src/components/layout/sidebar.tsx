@@ -1,3 +1,5 @@
+'use client'
+
 import {Disclosure} from '@headlessui/react'
 import {ChevronRightIcon, HomeIcon} from '@heroicons/react/20/solid'
 import {
@@ -8,6 +10,7 @@ import {
 import Link from "next/link";
 import ResetDbForm from "~/components/form/reset-db-form";
 import {useUnimplemented} from "~/hooks";
+import {SidebarDto} from "@panda-project/use-case";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
@@ -27,42 +30,42 @@ type Navigation = ({
   })[]
 })[]
 
-const navigation: Navigation = [
-  {
-    name: 'indie', // TODO: product name に応じて動的に取得する。プロジェクト名だけで良い
-    icon: FolderIcon,
-    current: false,
-    children: [
-      {name: 'スクラムチーム', href: '/scrum/indie/team'},
-      {name: 'スプリントバックログ', href: '/scrum/indie/sprint-backlog'},
-      {name: 'プロダクトバックログ', href: '#'},
-    ],
-  },
-  {
-    name: 'Sample Project',
-    icon: FolderIcon,
-    current: false,
-    children: [
-      {name: 'スクラムチーム', href: '#'},
-      {name: 'スプリントバックログ', href: '#'},
-      {name: 'プロダクトバックログ', href: '#'},
-    ],
-  },
-  {name: '社員一覧', href: '/employees', icon: UsersIcon, current: false},
-]
+const createNavigation = ({productName, projectName}: SidebarDto): Navigation => {
+  return [
+    {
+      name: projectName,
+      icon: FolderIcon,
+      current: false,
+      children: [
+        {name: 'スクラムチーム', href: `/${productName}/${projectName}/team`},
+        {name: 'スプリントバックログ', href: `/${productName}/${projectName}/sprint-backlog`},
+        {name: 'プロダクトバックログ', href: '#'},
+      ],
+    },
+    {
+      name: 'Sample Project',
+      icon: FolderIcon,
+      current: false,
+      children: [
+        {name: 'スクラムチーム', href: '#'},
+        {name: 'スプリントバックログ', href: '#'},
+        {name: 'プロダクトバックログ', href: '#'},
+      ],
+    },
+    {name: '社員一覧', href: '/employees', icon: UsersIcon, current: false},
+  ]
+}
 
-// TODO: async function にする？
-// データフェッチを layout で行うか、sidebar で行うかの違い。
-// sidebar で取得するようにしたい。可能な限り component と fetcher を 1対1 にする
+type Props = SidebarDto
 
-export default function Sidebar() {
+export default function Sidebar({productName, projectName}: Props) {
   const onClick = useUnimplemented()
+  const navigation = createNavigation({productName, projectName})
 
   return (
     <div className="flex w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div className="flex h-16 shrink-0 items-center">
-        {/* TODO: Product Name を動的に表示する */}
-        <Link href="/scrum">Scrum</Link>
+        <Link href={`/${productName}`}>{productName}</Link>
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">

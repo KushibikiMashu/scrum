@@ -1,14 +1,14 @@
-'use client'
+'use server'
 
 import SearchBar from "~/components/layout/search-bar";
-import Sidebar from "~/components/layout/sidebar";
 import UserName from "~/components/layout/user-name";
+import SidebarContainer from "~/components/layout/sidebar-container";
 
-export default function Layout({children}: any) {
+export default async function Layout({children}: any) {
   return (
     <div className="flex">
       {/* Left Menu */}
-      <Sidebar />
+      <SidebarContainer />
       <div className="w-full">
         {/* Nav Bar */}
         <div

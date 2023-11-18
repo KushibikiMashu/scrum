@@ -19,8 +19,8 @@
 - [x] 社員一覧ページ（/employees）
 
 コンポーネント
-- [ ] side bar
-- [ ] search bar
+- [ ] sidebar
+- [x] search bar
 
 -------
 - [ ] esbuild watch のログを出す

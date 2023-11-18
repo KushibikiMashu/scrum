@@ -1,3 +1,5 @@
+'use client'
+
 import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {useUnimplemented} from "~/hooks";
 
