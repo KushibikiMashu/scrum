@@ -34,6 +34,11 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
         }
       }
     }
+
+    return {
+      message: '',
+      errors: [e?.message],
+    }
   }
 
   redirect('./')

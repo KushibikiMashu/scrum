@@ -25,8 +25,7 @@ export class CreateOrUpdateScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
-    const ids = this.developerIds.filter(id => id !== '')
-    return [...new Set(ids)]
+    return this.developerIds.filter(id => id !== '')
       .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
   }
 }
@@ -42,7 +41,14 @@ export class ScrumTeamUseCase {
     const newProductOwnerId = command.getProductOwnerId()
     const newScrumMasterId = command.getScrumMasterId()
     if (newProductOwnerId.equals(newScrumMasterId)) {
-      throw new Error('PO は SM を兼任できません')
+      throw new Error('プロダクトオーナーはスクラムマスターを兼任できません')
+    }
+
+    const developerIds = command.getDeveloperIds()
+    // 重複の有無をチェック
+    const uniqueIds = new Set(developerIds.map(id => id.value))
+    if (uniqueIds.size !== developerIds.length) {
+      throw new Error('開発者が重複しています')
     }
 
     // プロダクトオーナー
@@ -53,7 +59,7 @@ export class ScrumTeamUseCase {
     const newScrumMaster = ScrumMaster.createFromEmployee(scrumMasterEmployee)
     // 開発者
     const developers = []
-    for (const developerId of command.getDeveloperIds()) {
+    for (const developerId of developerIds) {
       const developerEmployee = await this.employeeRepository.findByIdOrFail(developerId)
       const developer = Developer.createFromEmployee(developerEmployee)
       developers.push(developer)

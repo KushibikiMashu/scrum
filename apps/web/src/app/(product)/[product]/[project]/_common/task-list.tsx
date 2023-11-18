@@ -82,7 +82,7 @@ export default function TaskList() {
                   </tr>
                   {story.people.map((person, personIdx) => (
                     <tr
-                      key={person.status}
+                      key={personIdx}
                       className={classNames(personIdx === 0 ? 'border-gray-300' : 'border-gray-200', 'border-t')}
                     >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{person.title}</td>
