@@ -82,7 +82,7 @@ export default function Sidebar() {
                       {item.name}
                     </Link>
                   ) : (
-                    <Disclosure as="div" defaultOpen={item.name === 'Indie'}>
+                    <Disclosure as="div" defaultOpen={navIndex === 0}>
                       {({open}) => (
                         <>
                           <Disclosure.Button
@@ -125,7 +125,7 @@ export default function Sidebar() {
                                       'block rounded-md py-2 pr-2 pl-9 text-xs leading-6 text-gray-700'
                                     )}
                                   >
-                                    <Link href={subItem.href}>
+                                    <Link className="block" href={subItem.href}>
                                       {subItem.name}
                                     </Link>
                                   </Disclosure.Button>
