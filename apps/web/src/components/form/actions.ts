@@ -3,7 +3,12 @@
 import {resetDb} from "@panda-project/use-case";
 
 export const resetDbAction = async () => {
-  await resetDb()
+  try {
+    await resetDb()
+  } catch (e) {
+    return {message: 'DBをリセットできませんでした'}
+  }
+
   return {
     message: 'DBをリセットしました',
   }
