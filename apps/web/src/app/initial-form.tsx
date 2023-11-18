@@ -24,6 +24,7 @@ export function InitialForm() {
 
   return (
     <div>
+      {/* TODO: スタイリングする */}
       <form action={formAction}>
         <div>
           <label>プロダクト名</label>

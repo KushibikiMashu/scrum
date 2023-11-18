@@ -13,7 +13,7 @@ export default async function ProductPage({params}: { params: { product: string 
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-      {data.scrumTeam &&
+      {data.scrumTeam ?
         <div>
           <ProjectList projects={[
             {
@@ -22,6 +22,10 @@ export default async function ProductPage({params}: { params: { product: string 
               scrumTeam: data.scrumTeam
             }
           ]}/>
+        </div>
+        : <div>
+          {/* TODO: スタイリングする */}
+          スクラムチームを作成してください
         </div>
       }
     </div>

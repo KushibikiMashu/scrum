@@ -36,5 +36,5 @@ export const createProductAndProject = async (prevState: any, formData: FormData
     }
   }
 
-  redirect(`/${productName}`)
+  redirect(`/employees`)
 }

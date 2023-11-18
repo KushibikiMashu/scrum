@@ -93,11 +93,18 @@ export default function EmployeeList({employees}: Props) {
   return (
     <div>
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員一覧</h2>
-      <ul role="list" className="mt-2 divide-y divide-gray-100">
-        {employees.map((employee, i) => (
-          <Employee key={i} employee={employee}/>
-        ))}
-      </ul>
+
+      {/* TODO: スタイリングする */}
+      {employees.length === 0 ?
+        <p>社員はまだ登録されていません</p>
+        : (
+          <ul role="list" className="mt-2 divide-y divide-gray-100">
+            {employees.map((employee, i) => (
+              <Employee key={i} employee={employee}/>
+            ))}
+          </ul>
+        )
+      }
     </div>
   )
 }

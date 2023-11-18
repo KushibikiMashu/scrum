@@ -10,6 +10,7 @@ export default async function TeamPage() {
 
   if (data!.scrumTeam === null) {
     return <div>
+      {/* TODO: スタイリングする */}
       <Link href="./team/edit">
         スクラムチームを作成する
       </Link>
