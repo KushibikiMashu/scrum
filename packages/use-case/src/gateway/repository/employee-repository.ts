@@ -57,7 +57,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
 
     const newEmployeeId = newEmployee.id.value
     const index = employees.findIndex(v => v.id === newEmployeeId)
-    if (!index) {
+    if (index === -1) {
       throw new Error(`社員ID ${newEmployeeId} は存在しません`)
     }
 
@@ -76,7 +76,7 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     const {employees} = this.lowdb.data
 
     const index = employees.findIndex(v => v.id === employee.id.value)
-    if (!index) {
+    if (index === -1) {
       throw new Error(`社員ID ${employee.id.value} は存在しません`)
     }
 
