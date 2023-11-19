@@ -10,6 +10,7 @@
 フロントでは、1コンポーネント 1 fetcher にする。ページ単位でデータを取得する QueryService は作らない
 `EmployeeListQueryService`など、コンポーネント名 + QueryService と命名する
 -> 全部にcontainer を作る？
+-> server component だけでいいものは、client component（presentation component は不要）
 
 zod のエラーにちゃんと対処する。ここはフォームごとのエラーじゃなくて、string[] に変換して、フォームの上にエラーメッセージを出すもいいと思う。
 
@@ -21,18 +22,10 @@ zod のエラーにちゃんと対処する。ここはフォームごとのエ�
 - [x] 社員一覧ページ（/employees）
 
 コンポーネント
-- [ ] sidebar
-- [x] search bar
 
 -------
 - [ ] esbuild watch のログを出す
 
-- [ ] 初期設定ができる
-  - [ ] プロジェクト、プロダクト
-  - [ ] メンバーの作成
-  - [ ] スクラムチームの作成
-  - [ ] スプリントの開始
-  - [ ] デイリースクラムの設定
 - [ ] UseCase に応じてパッケージを分ける 
   - web -> Next.js
     - パワプロっぽくなるかも？「コマンドが一覧になっている。時間が経つとコマンドが変わる。コマンドを選択すると時間が経つ」
