@@ -1,10 +1,10 @@
 'use server'
 
 import Sidebar from "~/components/layout/sidebar";
-import {SideBarQueryService} from "@panda-project/use-case";
+import {SidebarQueryService} from "@panda-project/use-case";
 
 export default async function SidebarContainer() {
-  const {data} = await new SideBarQueryService().exec()
+  const {data} = await new SidebarQueryService().exec()
 
   if (!data) {
     return <div>sidebar を表示できません</div>

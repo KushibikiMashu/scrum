@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
 import {TeamForm} from './form'
-import Breadcrumb from "~/components/layout/breadcrumb";
+import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
 
 type Props = {
   params: {
@@ -23,13 +23,11 @@ export default async function TeamEditPage({params}: Props) {
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-      <Breadcrumb
+      <BreadcrumbContainer
         items={[
-          {name : params.product, href: `/${params.product}`},
-          {name : params.project, href: `/${params.product}/${params.project}`},
-          {name : 'スクラムチーム', href: `/${params.product}/${params.project}/team`},
+          {name : 'スクラムチーム', path: '/team'},
         ]}
-        currentItem={{ name: 'チームを編集する' }}
+        current={{ name: 'チームを編集する' }}
       />
       <div className="mt-4">
         <TeamForm scrumTeam={data.scrumTeam} employees={data.employees} />

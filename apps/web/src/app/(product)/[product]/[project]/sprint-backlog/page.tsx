@@ -1,5 +1,5 @@
 import TaskList from "../_common/task-list";
-import Breadcrumb from "~/components/layout/breadcrumb";
+import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
 
 export default function SprintBacklogPage() {
   const today = new Date()
@@ -12,13 +12,7 @@ export default function SprintBacklogPage() {
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-      <Breadcrumb
-        items={[
-          { name: 'scrum', href: '/scrum' },
-          { name: 'indie', href: '/scrum/indie' },
-        ]}
-        currentItem={{ name: 'スプリントバックログ' }}
-      />
+      <BreadcrumbContainer current={{ name: 'スプリントバックログ' }} />
       <div className="mt-6">
         <div className="flex">
           <h3 className="text-base font-semibold leading-6 text-gray-600">スプリント8</h3>
