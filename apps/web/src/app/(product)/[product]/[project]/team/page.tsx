@@ -40,7 +40,7 @@ export default async function TeamPage() {
             <Link className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" href="./team/edit">編集する</Link>
           </div>
           <div className="mt-4">
-          <Team scrumTeam={scrumTeam} />
+            <Team scrumTeam={scrumTeam} />
           </div>
         </div>
       </div>

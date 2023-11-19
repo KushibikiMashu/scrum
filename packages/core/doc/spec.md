@@ -9,7 +9,7 @@
 
 フロントでは、1コンポーネント 1 fetcher にする。ページ単位でデータを取得する QueryService は作らない
 `EmployeeListQueryService`など、コンポーネント名 + QueryService と命名する
-
+-> 全部にcontainer を作る？
 
 ### 完了したページ
 2023.11.18
