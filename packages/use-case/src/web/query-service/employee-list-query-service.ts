@@ -2,7 +2,7 @@ import {Employee, EmployeeRepositoryInterface, ProductName, ProductRepositoryInt
 import {EmployeeRepository, ProductRepository} from "@/gateway";
 import {Result} from "../types";
 
-export type EmployeesPageQueryServiceDto = {
+export type EmployeeListQueryServiceDto = {
   employees: {
     id: NonNullable<Employee['id']['value']>
     name: string
@@ -10,14 +10,14 @@ export type EmployeesPageQueryServiceDto = {
   productName: ProductName['value'] | null
 }
 
-export class EmployeesPageQueryService {
+export class EmployeeListQueryService {
   constructor(
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
   ) {
   }
 
-  async exec(): Promise<Result<EmployeesPageQueryServiceDto>> {
+  async exec(): Promise<Result<EmployeeListQueryServiceDto>> {
     const employees = await this.employeeRepository.findAll()
     const product = await this.productRepository.fetch()
 
