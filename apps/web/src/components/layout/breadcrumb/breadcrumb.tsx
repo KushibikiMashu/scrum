@@ -5,7 +5,7 @@ import Link from "next/link";
 import {ComponentProps} from "react";
 import {BreadcrumbContainer} from "./breadcrumb-container";
 
-type Props = ComponentProps<BreadcrumbContainer>
+type Props = Required<ComponentProps<typeof BreadcrumbContainer>>
 
 export default function Breadcrumb({items, current}: Props) {
   return (

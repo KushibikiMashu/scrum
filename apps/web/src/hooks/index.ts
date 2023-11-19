@@ -1,5 +1,6 @@
 import {useToastDispatch} from "~/components/global/toast";
 
+// TODO: ファイルに切り出す
 export function useUnimplemented() {
   const {showToast} = useToastDispatch()
 

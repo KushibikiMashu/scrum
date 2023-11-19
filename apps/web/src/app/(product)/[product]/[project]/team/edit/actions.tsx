@@ -29,15 +29,14 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
     if (e instanceof z.ZodError) {
       return {
         message: '',
-        errors: {
-          ...e.formErrors.fieldErrors,
-        }
+        errors: e.formErrors.formErrors,
       }
     }
 
     return {
       message: '',
-      errors: [e?.message],
+      // TODO: ちゃんとエラー内容を書く
+      errors: e instanceof Error ? [e.message] : [],
     }
   }
 

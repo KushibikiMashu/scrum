@@ -3,14 +3,7 @@ import {ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto} from "@panda-pr
 import {TeamForm} from './form'
 import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
 
-type Props = {
-  params: {
-    product: string
-    project: string
-  }
-}
-
-export default async function TeamEditPage({params}: Props) {
+export default async function TeamEditPage() {
   const {data}: {data: ScrumTeamEditQueryServiceDto} = await new ScrumTeamEditQueryService().exec()
 
   if (data.employees.length < 3) {

@@ -23,7 +23,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
   return (
     <div>
       {/* TODO: スタイリングする */}
-      {state.errors.map(error => <p key={error}>{error}</p>)}
+      {state.errors?.map((error: string) => <p key={error}>{error}</p>)}
 
       <div className="max-w-xs">
         <form className="space-y-4" action={action}>
