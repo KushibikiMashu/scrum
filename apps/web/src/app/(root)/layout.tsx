@@ -1,12 +1,10 @@
-'use client'
-
-import Sidebar from "~/components/layout/sidebar";
+import {SidebarContainer} from "~/components/layout/sidebar";
 import UserName from "~/components/layout/user-name";
 
-export default function Layout({children}: any) {
+export default async function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="flex">
-      <Sidebar />
+      <SidebarContainer />
 
       <div className="w-full">
         {/* Nav Bar */}

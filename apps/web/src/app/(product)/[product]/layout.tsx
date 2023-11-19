@@ -4,7 +4,7 @@ import SearchBar from "~/components/layout/search-bar";
 import UserName from "~/components/layout/user-name";
 import {SidebarContainer} from "~/components/layout/sidebar";
 
-export default async function Layout({children}: any) {
+export default async function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="flex">
       {/* Left Menu */}
