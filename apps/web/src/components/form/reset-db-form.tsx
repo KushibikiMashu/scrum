@@ -3,7 +3,7 @@
 import {resetDbAction} from "./actions";
 import {useFormState} from "react-dom";
 import {redirect} from "next/navigation";
-import {useToastDispatch} from "~/components/global/use-toast";
+import {useToastDispatch} from "~/components/global/toast";
 
 export default function ResetDbForm() {
   const [state, action] = useFormState<{ message: string; success: boolean | null }>(resetDbAction, {

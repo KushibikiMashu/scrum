@@ -7,7 +7,7 @@ import { useToastDispatch, useToastState } from './use-toast'
 import {CheckCircleIcon, ExclamationCircleIcon, XCircleIcon} from "@heroicons/react/20/solid";
 
 // https://tailwindui.com/components/application-ui/overlays/notifications
-export default function Toast() {
+export function Toast() {
   const { show, icon, heading, description } = useToastState()
   const { hideToast } = useToastDispatch()
 

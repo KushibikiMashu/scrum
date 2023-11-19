@@ -1,4 +1,4 @@
-import {useToastDispatch} from "~/components/global/use-toast";
+import {useToastDispatch} from "~/components/global/toast";
 
 export function useUnimplemented() {
   const {showToast} = useToastDispatch()

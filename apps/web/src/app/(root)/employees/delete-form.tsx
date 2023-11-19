@@ -1,6 +1,6 @@
 import {deleteEmployee} from "./actions";
 import {useFormState} from "react-dom";
-import {useToastDispatch} from "~/components/global/use-toast";
+import {useToastDispatch} from "~/components/global/toast";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')

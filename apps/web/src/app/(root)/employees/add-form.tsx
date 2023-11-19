@@ -3,7 +3,7 @@
 import {createEmployee} from "./actions";
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
-import {useToastDispatch} from "~/components/global/use-toast";
+import {useToastDispatch} from "~/components/global/toast";
 
 export const createEmployeeState = {
   message: '',

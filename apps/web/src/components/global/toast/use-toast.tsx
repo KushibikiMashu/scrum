@@ -117,7 +117,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function ToastProviderContainer (props: Props) {
+export function ToastProviderContainer (props: Props) {
   const {state, showToast, hideToast} = useToastCore(props.initialState)
 
   return (
