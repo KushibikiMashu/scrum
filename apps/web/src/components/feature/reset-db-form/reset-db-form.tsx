@@ -5,7 +5,7 @@ import {useFormState} from "react-dom";
 import {redirect} from "next/navigation";
 import {useToastDispatch} from "~/components/global/toast";
 
-export default function ResetDbForm() {
+export function ResetDbForm() {
   const [state, action] = useFormState<{ message: string; success: boolean | null }>(resetDbAction, {
     message: '',
     success: null

@@ -1,16 +1,16 @@
 'use client'
 
 import {Disclosure} from '@headlessui/react'
-import {ChevronRightIcon, HomeIcon} from '@heroicons/react/20/solid'
+import {ChevronRightIcon,} from '@heroicons/react/20/solid'
 import {
   ExclamationTriangleIcon,
   FolderIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import Link from "next/link";
-import ResetDbForm from "~/components/form/reset-db-form";
 import {useUnimplemented} from "~/hooks";
 import {SidebarDto} from "@panda-project/use-case";
+import {ResetDbForm} from "~/components/feature/reset-db-form";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
