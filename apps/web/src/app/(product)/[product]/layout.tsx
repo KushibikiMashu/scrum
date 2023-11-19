@@ -2,7 +2,7 @@
 
 import SearchBar from "~/components/layout/search-bar";
 import UserName from "~/components/layout/user-name";
-import SidebarContainer from "~/components/layout/sidebar-container";
+import {SidebarContainer} from "~/components/layout/sidebar";
 
 export default async function Layout({children}: any) {
   return (

@@ -1,9 +1,9 @@
 'use server'
 
-import Sidebar from "~/components/layout/sidebar";
+import Sidebar from "./sidebar";
 import {SidebarQueryService} from "@panda-project/use-case";
 
-export default async function SidebarContainer() {
+export  async function SidebarContainer() {
   const {data} = await new SidebarQueryService().exec()
 
   if (!data) {

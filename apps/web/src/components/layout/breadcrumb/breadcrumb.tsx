@@ -8,7 +8,6 @@ import {BreadcrumbContainer} from "./breadcrumb-container";
 type Props = ComponentProps<BreadcrumbContainer>
 
 export default function Breadcrumb({items, current}: Props) {
-
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-1">
