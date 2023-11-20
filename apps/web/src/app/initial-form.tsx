@@ -2,26 +2,28 @@
 
 import {createProductAndProject} from "~/app/actions";
 import {useFormState, useFormStatus} from "react-dom";
+import {SubmitButton} from "~/components/common/submit-button";
+import {ErrorMessage} from "~/components/common/error-message";
 
-const initialState = {
-  productName: '',
-  projectName: '',
-  errors: null
-}
-
-function SubmitButton() {
+function Submit() {
   const {pending} = useFormStatus()
 
   return (
-    <button
-      className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
+    <SubmitButton
+      label="保存する"
       type="submit"
-      aria-disabled={pending}
-      disabled={pending}
-    >
-      保存する
-    </button>
+      pending={pending}
+    />
   )
+}
+
+const initialState: {
+  errors: {
+    productName: string[];
+    projectName: string[];
+  } | null
+} = {
+  errors: null
 }
 
 export function InitialForm() {
@@ -45,9 +47,11 @@ export function InitialForm() {
             />
           </label>
 
-          {state?.errors?.productName?.map((error: string, i: number) => (
-            <p key={i}>{error}</p>
-          ))}
+          <div className="mt-1">
+            {state.errors?.productName?.map((error: string, i: number) => (
+              <ErrorMessage key={i} message={error} />
+            ))}
+          </div>
         </div>
 
         <div className="mt-2">
@@ -61,13 +65,15 @@ export function InitialForm() {
             />
           </label>
 
-          {state?.errors?.projectName?.map((error: string, i: number) => (
-            <p key={i}>{error}</p>
-          ))}
+          <div className="mt-1">
+            {state.errors?.projectName?.map((error: string, i: number) => (
+              <ErrorMessage key={i} message={error} />
+            ))}
+          </div>
         </div>
 
         <div className="text-right">
-          <SubmitButton/>
+          <Submit />
         </div>
       </form>
     </div>

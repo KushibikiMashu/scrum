@@ -25,8 +25,6 @@ export const createProductAndProject = async (prevState: any, formData: FormData
   } catch (err) {
     if (err instanceof z.ZodError) {
       return {
-        productName,
-        projectName,
         errors: {
           ...err.formErrors.fieldErrors,
         }
@@ -34,8 +32,6 @@ export const createProductAndProject = async (prevState: any, formData: FormData
     }
 
     return {
-      productName,
-      projectName,
       // TODO: エラー内容を書く
       errors: null
     }
