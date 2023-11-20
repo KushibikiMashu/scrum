@@ -47,11 +47,7 @@ export function InitialForm() {
             />
           </label>
 
-          <div className="mt-1">
-            {state.errors?.productName?.map((error: string, i: number) => (
-              <ErrorMessage key={i} message={error} />
-            ))}
-          </div>
+          <ErrorMessage messages={state.errors?.productName} />
         </div>
 
         <div className="mt-2">
@@ -65,11 +61,7 @@ export function InitialForm() {
             />
           </label>
 
-          <div className="mt-1">
-            {state.errors?.projectName?.map((error: string, i: number) => (
-              <ErrorMessage key={i} message={error} />
-            ))}
-          </div>
+          <ErrorMessage messages={state.errors?.projectName} />
         </div>
 
         <div className="text-right">

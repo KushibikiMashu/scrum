@@ -1,9 +1,17 @@
 type Props = {
-  message: string
+  messages: string[] | null | undefined
 }
 
-export function ErrorMessage({message}: Props) {
+export function ErrorMessage({messages}: Props) {
+  if (messages === null || messages === undefined || messages.length === 0) {
+    return null
+  }
+
   return (
-    <p className="text-sm leading-6 text-red-600">{message}</p>
+    <ol className="mt-1">
+      {messages.map((message: string) =>
+        <li className="text-sm leading-6 text-red-600" key={message}>{message}</li>
+      )}
+    </ol>
   )
 }
