@@ -24,8 +24,8 @@ export async function BreadcrumbContainer(props: Props) {
 
   const {productName, projectName} = data
   const linkItems: LinkItem[] = [
-    {name: projectName, path: `/${productName}`},
-    {name: productName, path: `/${productName}/${projectName}`},
+    {name: productName, path: `/${productName}`},
+    {name: projectName, path: `/${productName}/${projectName}`},
     ...props.items?.map((item) => ({name: item.name, path: `/${productName}/${projectName}${item.path}`})) ?? []
   ]
 

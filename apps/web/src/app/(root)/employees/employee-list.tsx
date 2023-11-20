@@ -1,12 +1,12 @@
 import {assertDefined, EmployeeListQueryService} from "@panda-project/use-case";
 import Employee from "./employee";
-import {UsersIcon} from "@heroicons/react/20/solid";
+import {UserIcon} from "@heroicons/react/20/solid";
 
 function EmployeeEmpty() {
   return (
     <div className="text-center">
       <div className="flex justify-center">
-        <UsersIcon className="h-16 w-16 text-gray-700" />
+        <UserIcon className="h-16 w-16 text-gray-700" />
       </div>
       <h3 className="mt-2 text-sm font-semibold text-gray-800">社員がまだ登録されていません</h3>
       <p className="mt-1 text-sm text-gray-500">社員の名前を登録してください。</p>
