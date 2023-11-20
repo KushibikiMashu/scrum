@@ -4,24 +4,7 @@ import Team from "./team";
 import Stats from "./stats";
 import TaskList from "../_common/task-list";
 import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
-import {UsersIcon} from "@heroicons/react/20/solid";
-
-function EmptyTeam() {
-  return (
-    <div className="max-w-md">
-      <Link
-        className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        href="./team/edit"
-      >
-        <div>
-          <UsersIcon className="mx-auto h-12 w-12 text-gray-400"/>
-        </div>
-        <span className="mt-2 block text-sm font-base text-gray-700">スクラムチームを作成する</span>
-      </Link>
-    </div>
-
-  )
-}
+import {EmptyTeam} from "~/app/(product)/[product]/_common/empty-team";
 
 export default async function TeamPage() {
   const {data} = await new ScrumTeamQueryService().exec()
@@ -29,7 +12,7 @@ export default async function TeamPage() {
   if (data!.scrumTeam === null) {
     return (
       <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-        <EmptyTeam/>
+        <EmptyTeam />
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {ProjectListQueryService} from "@panda-project/use-case";
 import {notFound, redirect} from "next/navigation";
+import {EmptyTeam} from "./_common/empty-team";
 
 export async function ProjectList() {
   const {data, error} = await new ProjectListQueryService().exec()
@@ -10,12 +11,7 @@ export async function ProjectList() {
   } else if (data === null || !data?.product || !data?.project) {
     redirect('/')
   } else if (!data?.scrumTeam) {
-    return (
-      <div>
-        {/* TODO: スタイリングする */}
-        スクラムチームを作成してください
-      </div>
-    )
+    return <EmptyTeam />
   }
 
   return (
@@ -23,7 +19,7 @@ export async function ProjectList() {
       {/* 定義したプロジェクト */}
       <li className="overflow-hidden rounded-xl border border-gray-200 transition-colors duration-100 hover:bg-gray-50">
         <Link href={`/${data.product.name}/${data.project.name}`}>
-          <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+          <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 py-4 px-6">
             <div className="text-sm font-medium leading-6 text-gray-900">{data.project.name}</div>
           </div>
           <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
@@ -55,7 +51,7 @@ export async function ProjectList() {
 
       {/*　サンプル　*/}
       <li className="overflow-hidden rounded-xl border border-gray-200 hover:cursor-not-allowed">
-        <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+        <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 py-4 px-6">
           <div className="text-sm font-medium leading-6 text-gray-900">Sample Project</div>
         </div>
         <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
