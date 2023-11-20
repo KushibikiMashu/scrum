@@ -39,8 +39,8 @@ export default function AddForm() {
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員を登録する</h2>
       <form action={handleSubmit}>
         <div className="mt-4">
-          <div className="">
-            <div className="">
+          <div>
+            <div>
               <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                 姓
                 <input
@@ -50,7 +50,7 @@ export default function AddForm() {
                   value={familyName}
                   onChange={(e) => setFamilyName(e.target.value)}
                   autoComplete="first-name"
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </label>
 
@@ -69,7 +69,7 @@ export default function AddForm() {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   autoComplete="family-name"
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </label>
 
