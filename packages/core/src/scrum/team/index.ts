@@ -106,6 +106,12 @@ export class ScrumTeam {
   countScrumMembers(): number {
     return this.developers.length + 2
   }
+
+  isBelongTo(employeeId: ID): boolean {
+    return this.productOwner.member.employee.id.equals(employeeId)
+      || this.scrumMaster.member.employee.id.equals(employeeId)
+      || this.developers.some(developer => developer.member.employee.id.equals(employeeId))
+  }
 }
 
 export interface ScrumTeamRepositoryInterface {

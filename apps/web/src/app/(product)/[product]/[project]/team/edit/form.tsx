@@ -102,6 +102,8 @@ export function TeamForm({scrumTeam, employees}: Props) {
                   href="/employees">社員を登録する</Link>
           </div>
         </div>
+
+        {/* TODO: チームを削除するボタンを作る */}
       </div>
     </div>
   )

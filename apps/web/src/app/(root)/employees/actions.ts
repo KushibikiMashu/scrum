@@ -86,7 +86,8 @@ export const deleteEmployee = async (_: any, formData: FormData) => {
     const command = new DeleteEmployeeCommand(Number.parseInt(parsed.employeeId, 10))
     await new EmployeeUseCase().delete(command)
     revalidatePath('/employees')
+    return { type: 'success', errors: null }
   } catch (e) {
-    return { errors: null }
+    return { type: 'error', errors: e instanceof Error ? e.message : null }
   }
 }

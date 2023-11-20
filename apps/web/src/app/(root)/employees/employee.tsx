@@ -1,11 +1,14 @@
 'use client'
 
-import {Fragment, useState} from "react";
-import EditForm from "~/app/(root)/employees/edit-form";
+import {Fragment, useEffect, useState} from "react";
+import EditForm from "./edit-form";
 import {Menu, Transition} from "@headlessui/react";
 import {EllipsisVerticalIcon} from "@heroicons/react/20/solid";
-import DeleteForm from "~/app/(root)/employees/delete-form";
+import DeleteForm from "./delete-form";
 import {EmployeeListQueryServiceDto} from "@panda-project/use-case";
+import {useToastDispatch} from "~/components/global/toast";
+import {useFormState, useFormStatus} from "react-dom";
+import {deleteEmployee} from "./actions";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
@@ -15,6 +18,29 @@ type Props = { employee: EmployeeListQueryServiceDto['employees'][number] }
 
 export default function Employee({employee}: Props) {
   const [isEditing, setIsEditing] = useState(false)
+  const {showToast} = useToastDispatch()
+
+  const [deleteState, deleteAction] = useFormState(deleteEmployee, {type: null, errors: null})
+  const onSubmit = async (formData: FormData) => {
+    const answer = confirm('本当に削除しますか？')
+    if (answer) {
+        await deleteAction(formData)
+    }
+  }
+
+  useEffect(() => {
+    if (deleteState.type === 'success') {
+      showToast({
+        icon: 'success',
+        heading: '社員を削除しました',
+      })
+    } else if (deleteState.type === 'error') {
+      showToast({
+        icon: 'error',
+        heading: deleteState.errors,
+      })
+    }
+  }, [deleteState])
 
   return (
     <li className={
@@ -71,7 +97,7 @@ export default function Employee({employee}: Props) {
                   </Menu.Item>
                   <Menu.Item>
                     {({active}) => (
-                      <DeleteForm employeeId={employee.id} active={active}/>
+                      <DeleteForm employeeId={employee.id} active={active} onSubmit={onSubmit}/>
                     )}
                   </Menu.Item>
                 </Menu.Items>

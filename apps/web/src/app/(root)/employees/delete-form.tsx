@@ -1,7 +1,3 @@
-import {deleteEmployee} from "./actions";
-import {useFormState} from "react-dom";
-import {useToastDispatch} from "~/components/global/toast";
-
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
@@ -9,25 +5,12 @@ function classNames(...classes: any[]) {
 type Props = {
   employeeId: number
   active: boolean
+  onSubmit: (formData: FormData) => Promise<void>
 }
 
-export default function DeleteForm({employeeId, active}: Props) {
-  const {showToast} = useToastDispatch()
-
-  const [_, action] = useFormState(deleteEmployee, {errors: null})
-  const handleSubmit = async (formData: FormData) => {
-    const answer = confirm('本当に削除しますか？')
-    if (answer) {
-      await action(formData)
-      showToast({
-        icon: 'success',
-        heading: '社員を削除しました',
-      })
-    }
-  }
-
+export default function DeleteForm({employeeId, active, onSubmit}: Props) {
   return (
-    <form action={handleSubmit}>
+    <form action={onSubmit}>
       <input type="hidden" name="employee-id" value={employeeId} required />
       <button
         type="submit"
