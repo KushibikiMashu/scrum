@@ -4,13 +4,23 @@ import {ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
 import {useFormState, useFormStatus} from "react-dom";
 import {updateTeam} from "./actions";
 import Link from "next/link";
+import {ErrorMessage} from "~/components/common/error-message";
+import {SubmitButton} from "~/components/common/submit-button";
 
 type Props = Pick<ScrumTeamEditQueryServiceDto, 'scrumTeam' | 'employees'>
 
-function SubmitButton() {
+function Submit() {
   const {pending} = useFormStatus()
-  return <button className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" type="submit"
-                 disabled={pending}>保存する</button>
+  return <SubmitButton label="保存する" type="submit" pending={pending} />
+}
+
+const initialState: {
+  errors: {
+    productOwnerId: string[]
+    scrumMasterId: string[]
+    developerIds: string[]
+  } | string[] | null
+} = {
 }
 
 export function TeamForm({scrumTeam, employees}: Props) {
@@ -18,12 +28,11 @@ export function TeamForm({scrumTeam, employees}: Props) {
     .map((employee) => ({id: employee.id, name: employee.fullName}))
   const developersMaxCount = Math.max(Math.min(10, filteredEmployees.length - 2), 1)
 
-  const [state, action] = useFormState(updateTeam, {message: '', errors: []})
+  const [state, action] = useFormState(updateTeam, initialState)
 
   return (
     <div>
-      {/* TODO: スタイリングする */}
-      {state.errors?.map((error: string) => <p key={error}>{error}</p>)}
+      <ErrorMessage messages={state.errors} />
 
       <div className="max-w-xs">
         <form className="space-y-4" action={action}>
@@ -83,7 +92,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
           </div>
 
           <div className="mt-4 text-right">
-            <SubmitButton/>
+            <Submit　/>
           </div>
         </form>
 

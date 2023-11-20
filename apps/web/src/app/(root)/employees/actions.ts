@@ -24,11 +24,10 @@ export const createEmployee = async (_: any, formData: FormData) => {
     const command = new CreateEmployeeCommand(parsed.familyName, parsed.firstName)
     await new EmployeeUseCase().create(command)
     revalidatePath('/employees')
-    return {message: '社員を作成しました', errors: null}
+    return {errors: null}
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return {
-        message: '',
         errors: {
           ...e.formErrors.fieldErrors,
         }
@@ -36,7 +35,6 @@ export const createEmployee = async (_: any, formData: FormData) => {
     }
 
     return {
-      message: '',
       errors: null
     }
   }
@@ -59,11 +57,10 @@ export const editEmployee = async (_: any, formData: FormData) => {
     const command = new EditEmployeeCommand(Number.parseInt(parsed.employeeId, 10), parsed.familyName, parsed.firstName)
     await new EmployeeUseCase().edit(command)
     revalidatePath('/employees')
-    return {message: '社員を編集しました', errors: null}
+    return {errors: null}
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return {
-        message: '',
         errors: {
           ...e.formErrors.fieldErrors,
         }
@@ -71,7 +68,6 @@ export const editEmployee = async (_: any, formData: FormData) => {
     }
 
     return {
-      message: '',
       errors: null
     }
   }
@@ -91,7 +87,6 @@ export const deleteEmployee = async (_: any, formData: FormData) => {
     await new EmployeeUseCase().delete(command)
     revalidatePath('/employees')
   } catch (e) {
-    // TODO: implements
-    console.error(e);
+    return { errors: null }
   }
 }

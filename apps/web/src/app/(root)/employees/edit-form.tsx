@@ -2,9 +2,10 @@ import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
 import {editEmployee} from "./actions";
 import {useToastDispatch} from "~/components/global/toast";
+import {SubmitButton} from "~/components/common/submit-button";
+import {ErrorMessage} from "~/components/common/error-message";
 
 export const editEmployeeState = {
-  message: '',
   errors: null,
 }
 
@@ -15,15 +16,13 @@ type Props = {
   onCancel: () => void
 }
 
-function CancelButton({onCancel}: Pick<Props, 'onCancel'>) {
-  return <button className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" type="button"
-                 onClick={onCancel}>取消</button>
+function Submit() {
+  const {pending} = useFormStatus()
+  return <SubmitButton label="保存" type="submit" pending={pending} />
 }
 
-function SubmitButton() {
-  const {pending} = useFormStatus()
-  return <button className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" type="submit"
-                 disabled={pending}>保存</button>
+function CancelButton({onCancel}: Pick<Props, 'onCancel'>) {
+  return <SubmitButton label="取消" type="button" onClick={onCancel} />
 }
 
 export default function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
@@ -70,10 +69,10 @@ export default function EditForm({employeeName, employeeId, onSave, onCancel}: P
                   className="block w-24 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </label>
-              {state.errors?.familyName?.map((error: string, i: number) => (
-                <p key={i}>{error}</p>
-              ))}
+
+              <ErrorMessage messages={state.errors?.familyName} />
             </div>
+
             <div>
               <label>
                 <input
@@ -86,14 +85,13 @@ export default function EditForm({employeeName, employeeId, onSave, onCancel}: P
                   className="block w-24 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </label>
-              {state.errors?.firstName?.map((error: string, i: number) => (
-                <p key={i}>{error}</p>
-              ))}
+
+              <ErrorMessage messages={state.errors?.firstName} />
             </div>
           </div>
 
           <div className="space-x-2 pl-2">
-            <SubmitButton/>
+            <Submit />
             <CancelButton onCancel={onCancel}/>
           </div>
         </div>

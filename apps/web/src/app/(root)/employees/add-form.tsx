@@ -4,16 +4,21 @@ import {createEmployee} from "./actions";
 import {useFormState, useFormStatus} from "react-dom";
 import {useState} from "react";
 import {useToastDispatch} from "~/components/global/toast";
+import {SubmitButton} from "~/components/common/submit-button";
+import {ErrorMessage} from "~/components/common/error-message";
 
-export const createEmployeeState = {
-  message: '',
+export const createEmployeeState: {
+  errors: {
+    familyName: string[];
+    firstName: string[];
+  } | null
+} = {
   errors: null,
 }
 
-const SubmitButton = () => {
+const Submit = () => {
   const {pending} = useFormStatus()
-  return <button className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2" type="submit"
-                 disabled={pending}>登録する</button>
+  return <SubmitButton label="登録する" type="submit" pending={pending} />
 }
 
 export default function AddForm() {
@@ -54,9 +59,7 @@ export default function AddForm() {
                 />
               </label>
 
-              {state.errors?.familyName?.map((error: string, i: number) => (
-                <p key={i}>{error}</p>
-              ))}
+              <ErrorMessage messages={state.errors?.familyName} />
             </div>
 
             <div className="mt-2">
@@ -73,13 +76,11 @@ export default function AddForm() {
                 />
               </label>
 
-              {state.errors?.firstName?.map((error: string, i: number) => (
-                <p key={i}>{error}</p>
-              ))}
+              <ErrorMessage messages={state.errors?.firstName} />
             </div>
 
             <div className="mt-4 text-right">
-              <SubmitButton/>
+              <Submit />
             </div>
           </div>
         </div>

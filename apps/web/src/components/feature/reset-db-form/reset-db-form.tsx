@@ -5,11 +5,16 @@ import {useFormState} from "react-dom";
 import {redirect} from "next/navigation";
 import {useToastDispatch} from "~/components/global/toast";
 
+const initialState: {
+  message: string;
+  success: boolean | null
+} = {
+  message: '',
+  success: null
+}
+
 export function ResetDbForm() {
-  const [state, action] = useFormState<{ message: string; success: boolean | null }>(resetDbAction, {
-    message: '',
-    success: null
-  })
+  const [state, action] = useFormState(resetDbAction, initialState)
   const {showToast} = useToastDispatch()
 
   const handleSubmit = async () => {
