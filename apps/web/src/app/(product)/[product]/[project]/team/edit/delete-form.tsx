@@ -5,7 +5,6 @@ import {deleteTeam} from "./actions";
 import {ErrorMessage} from "~/components/common/error-message";
 import {useEffect} from "react";
 import {useToastDispatch} from "~/components/global/toast";
-import {useRouter} from "next/navigation";
 
 const initialState: {
   type: null | 'success' | 'error'
@@ -22,7 +21,6 @@ type Props = {
 }
 
 export default function DeleteForm({teamId}: Props) {
-  const router = useRouter()
   const {showToast} = useToastDispatch()
   const [state, action] = useFormState(deleteTeam, initialState)
 
