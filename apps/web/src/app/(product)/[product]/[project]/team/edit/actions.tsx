@@ -3,7 +3,6 @@
 import {z} from "zod";
 import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand, ScrumTeamUseCase} from "@panda-project/use-case";
 import {redirect} from "next/navigation";
-import {revalidatePath} from "next/cache";
 
 export const updateTeam = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -69,9 +68,5 @@ export const deleteTeam = async (prevState: any, formData: FormData) => {
       errors: e instanceof Error ? [e.message] : [],
     }
   }
-
-  return {
-    type: 'success',
-    errors: null,
-  }
+  redirect('./')
 }

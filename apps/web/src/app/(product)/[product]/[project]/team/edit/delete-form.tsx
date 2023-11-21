@@ -34,13 +34,7 @@ export default function DeleteForm({teamId}: Props) {
   }
 
   useEffect(() => {
-    if (state.type === 'success') {
-      showToast({
-        icon: 'success',
-        heading: 'チームを削除しました',
-      })
-      router.push('./')
-    } else if (state.type === 'error') {
+    if (state.type === 'error') {
       showToast({
         icon: 'error',
         heading: state.errors,
