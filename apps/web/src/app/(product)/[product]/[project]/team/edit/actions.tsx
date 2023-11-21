@@ -70,7 +70,6 @@ export const deleteTeam = async (prevState: any, formData: FormData) => {
     }
   }
 
-  redirect('./')
   return {
     type: 'success',
     errors: null,

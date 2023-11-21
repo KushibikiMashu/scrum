@@ -20,7 +20,7 @@ export type ProjectListQueryServiceDto = {
     poName: ReturnType<ScrumTeam['productOwner']['getFullName']>
     smName: ReturnType<ScrumTeam['scrumMaster']['getFullName']>
     developersCount: number
-  }
+  } | null
 }
 
 interface CustomError extends DefaultError {
@@ -50,25 +50,43 @@ export class ProjectListQueryService {
     // product と project は同時に作るのでここを通ることはない
     const project = (await this.projectRepository.fetch())!
 
-    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
-    // presentation logic
-    return {
-      data: {
-        product: {
-          id: product.id.value,
-          name: product.name.value,
+    try {
+      const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+
+      // presentation logic
+      return {
+        data: {
+          product: {
+            id: product.id.value,
+            name: product.name.value,
+          },
+          project: {
+            id: project.id.value,
+            name: project.name.value,
+          },
+          scrumTeam: {
+            poName: scrumTeam.productOwner.getFullName(),
+            smName: scrumTeam.scrumMaster.getFullName(),
+            developersCount: scrumTeam.developers.length,
+          }
         },
-        project: {
-          id: project.id.value,
-          name: project.name.value,
+        error: null,
+      }
+    } catch (e) {
+      return {
+        data: {
+          product: {
+            id: product.id.value,
+            name: product.name.value,
+          },
+          project: {
+            id: project.id.value,
+            name: project.name.value,
+          },
+          scrumTeam: null,
         },
-        scrumTeam: {
-          poName: scrumTeam.productOwner.getFullName(),
-          smName: scrumTeam.scrumMaster.getFullName(),
-          developersCount: scrumTeam.developers.length,
-        }
-      },
-      error: null,
+        error: null,
+      }
     }
   }
 }

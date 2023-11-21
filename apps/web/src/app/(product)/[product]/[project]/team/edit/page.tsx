@@ -14,10 +14,10 @@ function EmployeeEmpty() {
       >
         <div className="text-center">
           <div className="flex justify-center">
-            <UserIcon className="h-16 w-16 text-gray-700"/>
+            <UserIcon className="mx-auto h-12 w-12 text-gray-400" />
           </div>
-          <h3 className="mt-2 text-sm font-semibold text-gray-800">チームを作成するためには、社員を3名以上登録してください。</h3>
-          <p className="mt-1 text-sm text-gray-500">社員を登録する</p>
+          <h3 className="mt-2 text-sm font-semibold text-gray-800">社員を登録する</h3>
+          <p className="mt-1 text-sm text-gray-500">チームを作成するためには、社員を3名以上登録してください。</p>
         </div>
       </Link>
     </div>
@@ -36,24 +36,25 @@ export default async function TeamEditPage() {
         current={{name: 'チームを編集する'}}
       />
 
-      {data.employees.length < 2 ?
-        <EmployeeEmpty/>
-        : (
-          <div className="mt-4 max-w-xs">
-            <TeamForm scrumTeam={data.scrumTeam} employees={data.employees}/>
+      <div className="mt-4">
+        {data.employees.length <= 2 ?
+          <EmployeeEmpty/>
+          : (
+            <div className="max-w-xs">
+              <TeamForm scrumTeam={data.scrumTeam} employees={data.employees}/>
 
-            <div className="mt-6">
-              <div className="text-right">
-                <Link className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
-                      href="/employees">社員を登録する</Link>
+              <div className="mt-6">
+                <div className="text-right">
+                  <Link className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
+                        href="/employees">社員を登録する</Link>
+                </div>
               </div>
+
+              {data.scrumTeam !== null && <DeleteForm teamId={data.scrumTeam.id}/>}
             </div>
-
-            <DeleteForm teamId={data.scrumTeam.id} />
-
-          </div>
-        )
-      }
+          )
+        }
+      </div>
     </div>
   )
 }
