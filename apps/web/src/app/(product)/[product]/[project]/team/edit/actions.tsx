@@ -1,7 +1,7 @@
 'use server'
 
 import {z} from "zod";
-import {CreateOrUpdateScrumTeamCommand, ScrumTeamUseCase} from "@panda-project/use-case";
+import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand, ScrumTeamUseCase} from "@panda-project/use-case";
 import {redirect} from "next/navigation";
 import {revalidatePath} from "next/cache";
 
@@ -40,4 +40,39 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
   }
 
   redirect('./')
+}
+
+export const deleteTeam = async (prevState: any, formData: FormData) => {
+  const schema = z.object({
+    teamId: z.string(),
+  })
+
+  try {
+    const parsed = schema.parse({
+      teamId: formData.get('team-id'),
+    })
+
+    const command = new DisbandScrumTeamCommand(parsed.teamId)
+    await new ScrumTeamUseCase().disband(command)
+  } catch (e: unknown) {
+    if (e instanceof z.ZodError) {
+      return {
+        errors: {
+          type: 'error',
+          ...e.formErrors.fieldErrors,
+        },
+      }
+    }
+
+    return {
+      type: 'error',
+      errors: e instanceof Error ? [e.message] : [],
+    }
+  }
+
+  redirect('./')
+  return {
+    type: 'success',
+    errors: null,
+  }
 }

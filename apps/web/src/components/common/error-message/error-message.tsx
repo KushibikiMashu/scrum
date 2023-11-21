@@ -8,7 +8,7 @@ export function ErrorMessage({messages}: Props) {
   }
 
   return (
-    <ol className="mt-1">
+    <ol className="my-1">
       {messages.map((message: string) =>
         <li className="text-sm leading-6 text-red-600" key={message}>{message}</li>
       )}

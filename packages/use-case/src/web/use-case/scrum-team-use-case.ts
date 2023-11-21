@@ -10,9 +10,9 @@ import {AutoIncrementId} from "@/common";
 
 export class CreateOrUpdateScrumTeamCommand {
   constructor(
-    public readonly productOwnerId: string,
-    public readonly scrumMasterId: string,
-    public readonly developerIds: string[],
+    private readonly productOwnerId: string,
+    private readonly scrumMasterId: string,
+    private readonly developerIds: string[],
   ) {
   }
 
@@ -27,6 +27,17 @@ export class CreateOrUpdateScrumTeamCommand {
   getDeveloperIds(): AutoIncrementId[] {
     return this.developerIds.filter(id => id !== '')
       .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
+  }
+}
+
+export class DisbandScrumTeamCommand {
+  constructor(
+    private readonly scrumTeamId: string,
+  ) {
+  }
+
+  getScrumTeamId(): AutoIncrementId {
+    return new AutoIncrementId(Number.parseInt(this.scrumTeamId, 10))
   }
 }
 
@@ -84,5 +95,16 @@ export class ScrumTeamUseCase {
       developers,
     )
     await this.scrumTeamRepository.save(newScrumTeam)
+  }
+
+  async disband(command: DisbandScrumTeamCommand) {
+    const scrumTeamId = command.getScrumTeamId()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+
+    if (!scrumTeam.id.equals(scrumTeamId)) {
+      throw new Error('削除しようとしているスクラムチームは存在しません')
+    }
+
+    await this.scrumTeamRepository.delete()
   }
 }

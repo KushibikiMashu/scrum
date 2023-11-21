@@ -8,6 +8,7 @@ import {EmployeeRepository, ProjectRepository, ScrumTeamRepository} from "@/gate
 
 export type ScrumTeamEditQueryServiceDto = {
   scrumTeam: {
+    id: number
     scrumMaster: {
       employeeId: number
       name: string
@@ -68,11 +69,12 @@ export class ScrumTeamEditQueryService {
       }
     }
 
-    const {scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
+    const {id, scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
     // presentation logic
     return {
       data: {
         scrumTeam: {
+          id: id.value!,
           scrumMaster: {
             employeeId: scrumMaster.getId(),
             name: scrumMaster.getFullName(),

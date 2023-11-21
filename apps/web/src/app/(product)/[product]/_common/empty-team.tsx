@@ -1,4 +1,5 @@
 import {UsersIcon} from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 export function EmptyTeam() {
   return (
