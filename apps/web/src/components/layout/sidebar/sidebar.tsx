@@ -63,7 +63,7 @@ export default function Sidebar({productName, projectName}: Props) {
   const navigation = createNavigation({productName, projectName})
 
   return (
-    <div className="flex w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+    <div className="flex min-h-screen w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div className="flex h-16 shrink-0 items-center">
         <Link href={`/${productName}`}>{productName}</Link>
       </div>
