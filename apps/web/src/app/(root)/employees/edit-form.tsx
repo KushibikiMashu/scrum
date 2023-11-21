@@ -27,12 +27,12 @@ function CancelButton({onCancel}: Pick<Props, 'onCancel'>) {
 
 export default function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
   const {showToast} = useToastDispatch()
+  const [state, action] = useFormState(editEmployee, editEmployeeState)
 
   const [_familyName, ...rest] = employeeName.split(' ')
-  const [state, action] = useFormState(editEmployee, editEmployeeState)
-  // TODO: なぜか assertIsString が効かないので修正する
   const [familyName, setFamilyName] = useState(_familyName as string)
   const [firstName, setFirstName] = useState(rest.join(' ') as string)
+
   const handleSubmit = async (data: FormData) => {
     await action(data)
     setFamilyName('')
