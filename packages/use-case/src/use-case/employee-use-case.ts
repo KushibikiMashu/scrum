@@ -8,18 +8,6 @@ import {
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {AutoIncrementId} from "@/common";
 
-export class CreateEmployeeCommand {
-  constructor(
-    public readonly familyName: string,
-    public readonly firstName: string,
-  ) {
-  }
-
-  getEmployeeName(): EmployeeName {
-    return new EmployeeName(this.firstName, this.familyName)
-  }
-}
-
 export class EditEmployeeCommand {
   constructor(
     public readonly employeeId: number,
@@ -48,6 +36,10 @@ export class DeleteEmployeeCommand {
   }
 }
 
+export interface CreateEmployeeCommand {
+  getEmployeeName(): EmployeeName;
+}
+
 export class EmployeeUseCase {
   constructor(
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
@@ -55,7 +47,7 @@ export class EmployeeUseCase {
   ) {
   }
 
-  async create(command: CreateEmployeeCommand) {
+  async create(command: CreateEmployeeCommand): Promise<void> {
     const employeeName = command.getEmployeeName()
     const employee = new Employee(ID.createAsNull(), employeeName)
 

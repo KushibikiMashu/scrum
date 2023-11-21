@@ -3,7 +3,7 @@
 import {z} from "zod";
 import {revalidatePath} from "next/cache";
 import {
-  CreateEmployeeCommand,
+  CreateEmployeeWebCommand,
   DeleteEmployeeCommand,
   EditEmployeeCommand,
   EmployeeUseCase
@@ -21,7 +21,7 @@ export const createEmployee = async (_: any, formData: FormData) => {
       firstName: formData.get('first-name'),
     })
 
-    const command = new CreateEmployeeCommand(parsed.familyName, parsed.firstName)
+    const command = new CreateEmployeeWebCommand(parsed.familyName, parsed.firstName)
     await new EmployeeUseCase().create(command)
     revalidatePath('/employees')
     return {errors: null}
