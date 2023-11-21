@@ -1,5 +1,5 @@
 import {ID, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
-import {ProjectRepository} from "@/gateway";
+import {ProjectRepository} from "@/gateway/repository/db";
 
 export class ProjectUseCase {
   constructor(

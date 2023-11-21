@@ -1,6 +1,6 @@
 import {Result} from "@/web/types";
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/gateway";
+import {ScrumTeamRepository} from "@/gateway/repository/db";
 
 type Dto = {
   scrumTeam: {

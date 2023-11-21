@@ -5,7 +5,7 @@ import {
   ID,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {AutoIncrementId} from "@/common";
 
 export class CreateEmployeeCommand {

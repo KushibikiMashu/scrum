@@ -7,7 +7,7 @@ import {
   Project, ProjectName,
   ProjectRepositoryInterface
 } from "@panda-project/core";
-import {ProductRepository, ProjectRepository} from "@/gateway";
+import {ProductRepository, ProjectRepository} from "@/gateway/repository/db";
 
 type Dto = {
   product: {

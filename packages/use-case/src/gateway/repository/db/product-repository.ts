@@ -1,6 +1,6 @@
 import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
-import {DataBase, db} from "../db";
+import {DataBase, db} from "@/external/db";
 import {AutoIncrementId} from "@/common";
 
 export class ProductRepository implements ProductRepositoryInterface {

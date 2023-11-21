@@ -1,5 +1,5 @@
 import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
-import {ProductRepository} from "@/gateway";
+import {ProductRepository} from "@/gateway/repository/db";
 
 export class ProductUseCase {
   constructor(

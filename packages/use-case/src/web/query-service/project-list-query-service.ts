@@ -5,7 +5,7 @@ import {
   Project,
   ProjectRepositoryInterface, ScrumTeam, ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {ProductRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway";
+import {ProductRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 
 export type ProjectListQueryServiceDto = {
   product?: {

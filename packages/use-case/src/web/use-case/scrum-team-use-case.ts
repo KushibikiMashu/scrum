@@ -1,4 +1,4 @@
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {
   Developer,
   EmployeeRepositoryInterface,

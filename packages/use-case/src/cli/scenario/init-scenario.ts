@@ -5,7 +5,7 @@ import {
   ProductRepositoryInterface, Project, ProjectName,
   ProjectRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/gateway/repository";
+import {EmployeeRepository, ProductRepository, ProjectRepository} from "@/gateway/repository/db";
 
 type InitUserInputType = {
   product: string

@@ -1,5 +1,5 @@
 import {MiddlewareInterface} from "./middleware";
-import {dbFileExists} from "@/gateway";
+import {dbFileExists} from "@/external/db";
 
 export class CheckDbMiddleware implements MiddlewareInterface {
   constructor(

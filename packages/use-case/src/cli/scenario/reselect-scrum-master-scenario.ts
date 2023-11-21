@@ -6,7 +6,7 @@ import {
   ScrumMaster,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 
 export type ReselectScrumMasterCallback = (arg: Awaited<ReturnType<FetchAllEmployeesWithoutPoAndSmUseCase['exec']>>) => Promise<ReselectScrumMasterUserInputType>
 

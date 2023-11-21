@@ -1,5 +1,5 @@
 import {EmployeeRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository} from "@/gateway/repository";
+import {EmployeeRepository} from "@/gateway/repository/db";
 import {AutoIncrementId} from "@/common";
 import {FetchEmployeesUseCase} from "@/cli/scenario/use-case";
 

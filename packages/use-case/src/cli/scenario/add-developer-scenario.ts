@@ -1,6 +1,6 @@
 import {AutoIncrementId} from "@/common";
 import {Developer, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 
 export type AddDeveloperCallback = (arg: Awaited<ReturnType<FetchAllEmployeesWithoutScrumMembersUseCase['exec']>>) => Promise<AddDeveloperUserInputType>
 

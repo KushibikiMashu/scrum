@@ -1,5 +1,5 @@
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/gateway/repository";
+import {ScrumTeamRepository} from "@/gateway/repository/db";
 
 export class ListScrumTeamScenario {
   constructor(
