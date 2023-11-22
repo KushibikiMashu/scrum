@@ -1,6 +1,11 @@
 import {Employee, EmployeeRepositoryInterface, ID, ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
-import {CreateEmployeeCommand, RemoveEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
+import {
+  CreateEmployeeCommand,
+  RemoveEmployeeCommand,
+  EditEmployeeCommand,
+  CreateMultipleEmployeeCommand
+} from "@/use-case/employee";
 
 export class EmployeeUseCase {
   constructor(
@@ -19,6 +24,22 @@ export class EmployeeUseCase {
     const employee = new Employee(ID.createAsNull(), employeeName)
 
     await this.employeeRepository.save(employee)
+  }
+
+  async createMultiple(command: CreateMultipleEmployeeCommand): Promise<void> {
+    const names = command.getEmployeeNames()
+
+    // n+1 だが、DB は json なので特に問題にしない。
+    // RDB なら、bulk insert の処理を repository に実装する
+    for (const name of names) {
+      const count = await this.employeeRepository.count()
+      if (count > 50) {
+        throw new Error('登録できる従業員数の上限に達しました。登録可能な人数は50名以下です')
+      }
+
+      const employee = new Employee(ID.createAsNull(), name)
+      await this.employeeRepository.save(employee)
+    }
   }
 
   async edit(command: EditEmployeeCommand) {

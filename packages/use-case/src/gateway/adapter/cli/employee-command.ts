@@ -1,4 +1,4 @@
-import {CreateEmployeeCommand, RemoveEmployeeCommand} from "@/use-case/employee";
+import {CreateEmployeeCommand, CreateMultipleEmployeeCommand, RemoveEmployeeCommand} from "@/use-case/employee";
 import {EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
 
@@ -12,6 +12,26 @@ export class CreateEmployeeCliCommand implements CreateEmployeeCommand {
     return EmployeeName.createFromString(this.employeeName)
   }
 }
+
+export class CreateMultipleEmployeeCliCommand implements CreateMultipleEmployeeCommand {
+  constructor(
+    private readonly commaSeparatedNames: string,
+  ) {
+  }
+
+  getEmployeeNames(): EmployeeName[] {
+    return this.commaSeparatedNames.split(',')
+      .map((name) => name.trim())
+      .map((name) => EmployeeName.createFromString(name))
+  }
+}
+
+// TODO: 後から output adapter として実装する
+// export class CreateMultipleEmployeeCliPresenter {
+//   exec(dto): string {
+//     return `社員を登録しました: ${input.count()}名`
+//   }
+// }
 
 export class RemoveEmployeeCliCommand implements RemoveEmployeeCommand {
   constructor(
