@@ -9,6 +9,9 @@ export * from './gateway/adapter/web'
 // query service
 export * from './query-service'
 
+// scenario
+export * from './scenario/init'
+
 // use case
 export * from './use-case/employee'
 export * from './use-case/product'

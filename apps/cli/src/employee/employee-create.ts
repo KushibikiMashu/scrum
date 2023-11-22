@@ -20,6 +20,8 @@ export const addEmployeeCreateCommand = (program: Command) => {
           return {employee}
         }
 
+        // TODO: use case に bulk insert を実装する
+        // または、loop で対応する
         await new EmployeeCreateMultipleScenario().exec(useInput)
       } else {
         const useInput = async () => {

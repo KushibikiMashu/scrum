@@ -13,7 +13,7 @@ type InitUserInputType = {
   employee: string
 }
 
-export class InitScenario {
+class InitScenario {
   constructor(
     private readonly initValidateUseCase: InitValidateUseCase = new InitValidateUseCase(),
     private readonly initSetUpUseCase: InitSetUpUseCase = new InitSetUpUseCase(),

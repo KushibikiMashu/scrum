@@ -1,2 +1,5 @@
 export * from './employee-command'
+export * from './init-scenario-command'
+export * from './product-command'
+export * from './project-command'
 export * from './scrum-team-command'
