@@ -1,6 +1,6 @@
 import {Employee, EmployeeRepositoryInterface, ID, ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
-import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
+import {CreateEmployeeCommand, RemoveEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
 
 export class EmployeeUseCase {
   constructor(
@@ -29,7 +29,7 @@ export class EmployeeUseCase {
     await this.employeeRepository.update(newEmployee)
   }
 
-  async delete(command: DeleteEmployeeCommand) {
+  async remove(command: RemoveEmployeeCommand) {
     const employee = await this.employeeRepository.findByIdOrFail(command.getEmployeeId())
 
     let scrumTeam = null

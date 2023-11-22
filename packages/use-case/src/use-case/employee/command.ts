@@ -10,6 +10,6 @@ export interface EditEmployeeCommand {
   getNewEmployeeName(): EmployeeName;
 }
 
-export interface DeleteEmployeeCommand {
+export interface RemoveEmployeeCommand {
   getEmployeeId(): AutoIncrementId;
 }
