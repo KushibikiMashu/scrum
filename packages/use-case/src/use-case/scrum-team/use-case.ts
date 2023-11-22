@@ -20,7 +20,7 @@ export class ScrumTeamUseCase {
 
     const scrumTeamExists = await this.scrumTeamRepository.exists()
     if (scrumTeamExists) {
-      throw new Error('スクラムチームはすでに存在しています')
+      throw new Error('スクラムチームはすでに作成されています')
     }
 
     const newScrumTeam = ScrumTeam.createFromNewScrumTeam(newProductOwner, newScrumMaster, developers)
@@ -32,7 +32,7 @@ export class ScrumTeamUseCase {
 
     const scrumTeamExists = await this.scrumTeamRepository.exists()
     if (!scrumTeamExists) {
-      throw new Error('スクラムチームが存在しません')
+      throw new Error('スクラムチームが作成されていません')
     }
 
     const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
