@@ -1,5 +1,6 @@
 import {notFound, redirect} from "next/navigation";
-import {ProjectPageQueryService, ErrorReason, assertDefined} from "@panda-project/use-case";
+import {ProjectPageQueryService, ErrorReason} from "@panda-project/use-case";
+import {assertDefined} from "~/utils";
 
 type Props = {
   params: {
