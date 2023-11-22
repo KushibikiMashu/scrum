@@ -1,6 +1,6 @@
 import {EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
-import {CreateEmployeeCommand} from "@/use-case";
+import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from "@/use-case";
 
 export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
   constructor(
@@ -14,7 +14,7 @@ export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
   }
 }
 
- class EditEmployeeCommand {
+export class EditEmployeeWebCommand implements EditEmployeeCommand {
   constructor(
     public readonly employeeId: number,
     public readonly newFamilyName: string,
@@ -31,7 +31,7 @@ export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
   }
 }
 
- class DeleteEmployeeCommand {
+export class DeleteEmployeeWebCommand implements DeleteEmployeeCommand {
   constructor(
     public readonly employeeId: number,
   ) {

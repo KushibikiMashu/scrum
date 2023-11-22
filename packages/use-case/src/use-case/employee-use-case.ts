@@ -8,36 +8,17 @@ import {
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {AutoIncrementId} from "@/common";
 
-export class EditEmployeeCommand {
-  constructor(
-    public readonly employeeId: number,
-    public readonly newFamilyName: string,
-    public readonly newFirstName: string,
-  ) {
-  }
-
-  getEmployeeId(): AutoIncrementId { // 本当は EmployeeId を返すのが良い
-    return new AutoIncrementId(this.employeeId)
-  }
-
-  getNewEmployeeName(): EmployeeName {
-    return new EmployeeName(this.newFirstName, this.newFamilyName)
-  }
-}
-
-export class DeleteEmployeeCommand {
-  constructor(
-    public readonly employeeId: number,
-  ) {
-  }
-
-  getEmployeeId(): AutoIncrementId {
-    return new AutoIncrementId(this.employeeId)
-  }
-}
-
 export interface CreateEmployeeCommand {
   getEmployeeName(): EmployeeName;
+}
+
+export interface EditEmployeeCommand {
+  getEmployeeId(): AutoIncrementId; // 本当は EmployeeId を返すのが良い
+  getNewEmployeeName(): EmployeeName;
+}
+
+export interface DeleteEmployeeCommand {
+  getEmployeeId(): AutoIncrementId;
 }
 
 export class EmployeeUseCase {

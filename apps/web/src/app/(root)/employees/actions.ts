@@ -4,8 +4,8 @@ import {z} from "zod";
 import {revalidatePath} from "next/cache";
 import {
   CreateEmployeeWebCommand,
-  DeleteEmployeeCommand,
-  EditEmployeeCommand,
+  DeleteEmployeeWebCommand,
+  EditEmployeeWebCommand,
   EmployeeUseCase
 } from "@panda-project/use-case";
 
@@ -54,7 +54,7 @@ export const editEmployee = async (_: any, formData: FormData) => {
       firstName: formData.get('first-name'),
     })
 
-    const command = new EditEmployeeCommand(Number.parseInt(parsed.employeeId, 10), parsed.familyName, parsed.firstName)
+    const command = new EditEmployeeWebCommand(Number.parseInt(parsed.employeeId, 10), parsed.familyName, parsed.firstName)
     await new EmployeeUseCase().edit(command)
     revalidatePath('/employees')
     return {errors: null}
@@ -83,7 +83,7 @@ export const deleteEmployee = async (_: any, formData: FormData) => {
       employeeId: formData.get('employee-id'),
     })
 
-    const command = new DeleteEmployeeCommand(Number.parseInt(parsed.employeeId, 10))
+    const command = new DeleteEmployeeWebCommand(Number.parseInt(parsed.employeeId, 10))
     await new EmployeeUseCase().delete(command)
     revalidatePath('/employees')
     return { type: 'success', errors: null }
