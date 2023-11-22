@@ -1,6 +1,12 @@
 import {input} from "@inquirer/prompts";
-import {CheckDbMiddleware, EmployeeCreateMultipleScenario, EmployeeCreateScenario} from "@panda-project/use-case";
+import {
+  CheckDbMiddleware,
+  EmployeeCreateMultipleScenario,
+  EmployeeCreateScenario,
+  EmployeeUseCase
+} from "@panda-project/use-case";
 import {Command} from "commander";
+import {CreateEmployeeCliCommand} from "@/gateway/adapter/cli";
 
 export const addEmployeeCreateCommand = (program: Command) => {
   program
@@ -17,16 +23,19 @@ export const addEmployeeCreateCommand = (program: Command) => {
         await new EmployeeCreateMultipleScenario().exec(useInput)
       } else {
         const useInput = async () => {
-          const employee = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
-          return {employee}
+          const name = await input({message: "スクラムチームに参加する社員の名前は？（姓名は半角スペース区切り）"})
+          return {name}
         }
 
         try {
-          const result = await new CheckDbMiddleware(
+          const {name} = await useInput()
+          const command = new CreateEmployeeCliCommand(name)
+          await new CheckDbMiddleware(
             async () =>
-              await new EmployeeCreateScenario().exec(useInput)
+              await new EmployeeUseCase().create(command)
           ).run()
-          console.info(result);
+          // TODO: output portで対応する
+          console.info(`社員を登録しました: ${name}`);
         } catch (e: any) {
           console.error(e?.message)
         }

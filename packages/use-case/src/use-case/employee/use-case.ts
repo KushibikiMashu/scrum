@@ -10,6 +10,11 @@ export class EmployeeUseCase {
   }
 
   async create(command: CreateEmployeeCommand): Promise<void> {
+    const count = await this.employeeRepository.count()
+    if (count > 50) {
+      throw new Error('登録できる従業員数の上限に達しました。登録可能な人数は50名以下です')
+    }
+
     const employeeName = command.getEmployeeName()
     const employee = new Employee(ID.createAsNull(), employeeName)
 
