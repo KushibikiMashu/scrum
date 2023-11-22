@@ -3,6 +3,7 @@ export * from './external/db'
 
 // gateway
 export * from './gateway/repository/db'
+export * from './gateway/adapter/cli'
 export * from './gateway/adapter/web'
 
 // query service

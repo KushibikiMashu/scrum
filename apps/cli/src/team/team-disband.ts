@@ -1,6 +1,6 @@
 import {Command} from "commander";
 import {confirm} from "@inquirer/prompts";
-import {CheckDbMiddleware, DisbandScrumTeamScenario} from "@panda-project/use-case";
+import {CheckDbMiddleware, ScrumTeamUseCase, DisbandScrumTeamQueryService, DisbandScrumTeamCliCommand} from "@panda-project/use-case";
 
 export const addTeamDisbandCommand = (program: Command) => {
   program
@@ -10,9 +10,12 @@ export const addTeamDisbandCommand = (program: Command) => {
       const answer = await confirm({message: '本当にスクラムチームを解散しますか？'});
       if (answer) {
         try {
+          const {scrumTeamId} = await new DisbandScrumTeamQueryService().exec()
+          const command = new DisbandScrumTeamCliCommand(scrumTeamId)
+
           await new CheckDbMiddleware(
             async () =>
-              await new DisbandScrumTeamScenario().exec()
+              await new ScrumTeamUseCase().disband(command)
           ).run()
         } catch (e: any) {
           console.error(e?.message)

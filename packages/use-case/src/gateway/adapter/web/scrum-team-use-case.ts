@@ -33,4 +33,3 @@ export class DisbandScrumTeamWebCommand implements DisbandScrumTeamCommand {
     return new AutoIncrementId(Number.parseInt(this.scrumTeamId, 10))
   }
 }
-
