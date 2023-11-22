@@ -7,6 +7,7 @@ import {
 import {select} from "@inquirer/prompts";
 
 type SelectProductOwner = (args: EditTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
+type SelectScrumMaster = (args: EditTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
 
 // team-edit product owner を変更する
 // team-edit scrum master を変更する
@@ -43,18 +44,24 @@ export const addTeamEditCommand = (program: Command) => {
       }
 
       if (option.scrumMaster) {
-        const selectScrumMaster: ReselectScrumMasterCallback = async (names) => {
-          const employeeId = await select({
+        const selectScrumMaster: SelectScrumMaster = async (candidates) => {
+          const newScrumMasterId = await select({
             message: "スクラムマスターを選択してください",
-            choices: names.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+            choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
           })
-          return {employeeId}
+          return {newScrumMasterId}
         }
 
         try {
+          const dto = await new EditTeamQueryService().exec()
+          const {newScrumMasterId} = await selectScrumMaster(dto.candidateEmployees)
+          const command = new EditScrumTeamCliCommand(
+            dto.productOwnerId,
+            newScrumMasterId,
+            dto.developerIds,
+          )
           await new CheckDbMiddleware(
-            async () =>
-              await new ReselectScrumMasterScenario().exec(selectScrumMaster)
+            async () => await new ScrumTeamUseCase().edit(command)
           ).run()
         } catch (e: any) {
           console.error(e?.message)
