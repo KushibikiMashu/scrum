@@ -1,4 +1,3 @@
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {
   Developer,
   EmployeeRepositoryInterface,
@@ -6,17 +5,8 @@ import {
   ScrumTeam,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {AutoIncrementId} from "@/common";
-
-export interface CreateOrUpdateScrumTeamCommand {
-  getProductOwnerId(): AutoIncrementId;
-  getScrumMasterId(): AutoIncrementId;
-  getDeveloperIds(): AutoIncrementId[];
-}
-
-export interface DisbandScrumTeamCommand {
-  getScrumTeamId(): AutoIncrementId;
-}
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
+import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
 
 export class ScrumTeamUseCase {
   constructor(

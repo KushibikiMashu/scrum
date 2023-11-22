@@ -1,9 +1,6 @@
-import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
+import {ID, Product, ProductRepositoryInterface} from "@panda-project/core";
 import {ProductRepository} from "@/gateway/repository/db";
-
-export interface CreateProductCommand {
-  getProductName(): ProductName;
-}
+import {CreateProductCommand} from "./command";
 
 export class ProductUseCase {
   constructor(

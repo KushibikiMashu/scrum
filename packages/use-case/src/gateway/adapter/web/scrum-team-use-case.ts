@@ -1,5 +1,5 @@
 import {AutoIncrementId} from "@/common";
-import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case";
+import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
 
 export class CreateOrUpdateScrumTeamWebCommand implements CreateOrUpdateScrumTeamCommand {
   constructor(

@@ -1,25 +1,6 @@
-import {
-  Employee,
-  EmployeeName,
-  EmployeeRepositoryInterface,
-  ID,
-  ScrumTeamRepositoryInterface
-} from "@panda-project/core";
+import {Employee, EmployeeRepositoryInterface, ID, ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
-import {AutoIncrementId} from "@/common";
-
-export interface CreateEmployeeCommand {
-  getEmployeeName(): EmployeeName;
-}
-
-export interface EditEmployeeCommand {
-  getEmployeeId(): AutoIncrementId; // 本当は EmployeeId を返すのが良い
-  getNewEmployeeName(): EmployeeName;
-}
-
-export interface DeleteEmployeeCommand {
-  getEmployeeId(): AutoIncrementId;
-}
+import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
 
 export class EmployeeUseCase {
   constructor(

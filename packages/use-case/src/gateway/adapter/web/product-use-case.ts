@@ -1,5 +1,5 @@
-import {CreateProductCommand} from "@/use-case";
 import {ProductName} from "@panda-project/core";
+import {CreateProductCommand} from "@/use-case/product";
 
 export class CreateProductWebCommand implements CreateProductCommand {
   constructor(

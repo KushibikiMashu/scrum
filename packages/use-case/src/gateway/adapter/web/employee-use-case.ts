@@ -1,6 +1,6 @@
 import {EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
-import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from "@/use-case";
+import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
 
 export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
   constructor(

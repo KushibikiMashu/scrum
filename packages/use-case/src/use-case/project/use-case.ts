@@ -1,9 +1,6 @@
-import {ID, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
+import {ID, Project, ProjectRepositoryInterface} from "@panda-project/core";
 import {ProjectRepository} from "@/gateway/repository/db";
-
-export interface CreateProjectCommand {
-  getProjectName(): ProjectName;
-}
+import {CreateProjectCommand} from "@/use-case/project";
 
 export class ProjectUseCase {
   constructor(
