@@ -4,8 +4,8 @@ import {CreateEmployeeCommand, DeleteEmployeeCommand, EditEmployeeCommand} from 
 
 export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
   constructor(
-    public readonly familyName: string,
-    public readonly firstName: string,
+    private readonly familyName: string,
+    private readonly firstName: string,
   ) {
   }
 
@@ -16,9 +16,9 @@ export class CreateEmployeeWebCommand implements CreateEmployeeCommand {
 
 export class EditEmployeeWebCommand implements EditEmployeeCommand {
   constructor(
-    public readonly employeeId: number,
-    public readonly newFamilyName: string,
-    public readonly newFirstName: string,
+    private readonly employeeId: number,
+    private readonly newFamilyName: string,
+    private readonly newFirstName: string,
   ) {
   }
 
@@ -33,7 +33,7 @@ export class EditEmployeeWebCommand implements EditEmployeeCommand {
 
 export class DeleteEmployeeWebCommand implements DeleteEmployeeCommand {
   constructor(
-    public readonly employeeId: number,
+    private readonly employeeId: number,
   ) {
   }
 

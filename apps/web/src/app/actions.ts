@@ -2,7 +2,12 @@
 
 import {z} from "zod";
 import {redirect} from "next/navigation";
-import {ProductUseCase, ProjectUseCase} from "@panda-project/use-case";
+import {
+  CreateProductWebCommand,
+  CreateProjectWebCommand,
+  ProductUseCase,
+  ProjectUseCase
+} from "@panda-project/use-case";
 
 export const createProductAndProject = async (prevState: any, formData: FormData) => {
   const validation = z.string()
@@ -20,8 +25,11 @@ export const createProductAndProject = async (prevState: any, formData: FormData
   try {
     const parsed = schema.parse({productName, projectName})
 
-    await new ProductUseCase().create(parsed.productName)
-    await new ProjectUseCase().create(parsed.projectName)
+    const createProductCommand = new CreateProductWebCommand(parsed.productName)
+    await new ProductUseCase().create(createProductCommand)
+
+    const createProjectCommand = new CreateProjectWebCommand(parsed.projectName)
+    await new ProjectUseCase().create(createProjectCommand)
   } catch (err) {
     if (err instanceof z.ZodError) {
       return {
