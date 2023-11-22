@@ -1,4 +1,4 @@
-import {Result} from "@/web/types";
+import {Result} from "./types";
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {ScrumTeamRepository} from "@/gateway/repository/db";
 

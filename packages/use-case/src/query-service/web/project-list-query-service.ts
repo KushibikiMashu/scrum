@@ -1,4 +1,4 @@
-import {DefaultError, ErrorReason, Result} from "@/web/types";
+import {DefaultError, ErrorReason, Result} from "./types";
 import {
   Product, ProductName,
   ProductRepositoryInterface,

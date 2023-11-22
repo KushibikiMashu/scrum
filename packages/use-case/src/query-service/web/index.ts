@@ -1,3 +1,5 @@
+export * from './types'
+
 export * from './scrum-team-query-service'
 export * from './scrum-team-edit-query-service'
 export * from './scrum-team-query-service'

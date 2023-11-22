@@ -1,23 +1,23 @@
-import {Result} from "@/web/types";
+import {Result} from "./types";
 import {
   ProductRepositoryInterface,
   ProjectRepositoryInterface,
 } from "@panda-project/core";
 import {ProductRepository, ProjectRepository} from "@/gateway/repository/db";
 
-export type BreadcrumbDto = {
+export type SidebarDto = {
   projectName: string
   productName: string
 }
 
-export class BreadcrumbQueryService {
+export class SidebarQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
     private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
   ) {
   }
 
-  async exec(): Promise<Result<BreadcrumbDto>> {
+  async exec(): Promise<Result<SidebarDto>> {
     // business logic
     const project = await this.projectRepository.fetch()
     if (project === null) {

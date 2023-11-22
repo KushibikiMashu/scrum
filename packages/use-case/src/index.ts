@@ -1,10 +1,12 @@
 export * from './cli'
-export * from './web'
 export * from './external/db'
 
 // gateway
 export * from './gateway/repository/db'
 export * from './gateway/adapter/web'
+
+// query service
+export * from './query-service'
 
 // use case
 export * from './use-case/employee'

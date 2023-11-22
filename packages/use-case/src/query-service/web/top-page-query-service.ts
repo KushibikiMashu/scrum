@@ -1,7 +1,7 @@
 import {ProductRepositoryInterface} from "@panda-project/core";
 import {ProductRepository} from "@/gateway/repository/db";
 import {createDb, dbFileExists} from "@/external/db";
-import {Result} from "@/web/types";
+import {Result} from "./types";
 
 type Dto = {
   productName: string | null
