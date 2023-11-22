@@ -19,7 +19,7 @@ const initialState: {
     scrumMasterId: string[]
     developerIds: string[]
   } | string[] | null
-} = {}
+} = { errors: null }
 
 export function TeamForm({scrumTeam, employees}: Props) {
   const filteredEmployees = employees
