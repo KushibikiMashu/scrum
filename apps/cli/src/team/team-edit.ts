@@ -1,8 +1,7 @@
 import {Command} from "commander";
 import {
   CheckDbMiddleware, EditScrumTeamCliCommand, EditTeamQueryService, EditTeamQueryServiceDto,
-  ReselectScrumMasterCallback,
-  ReselectScrumMasterScenario, ScrumTeamUseCase
+  ScrumTeamUseCase
 } from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
 

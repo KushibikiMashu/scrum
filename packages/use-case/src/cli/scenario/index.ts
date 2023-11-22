@@ -4,7 +4,3 @@ export * from './create-team-scenario'
 // ループは cli で制御する。 use case では関与しない
 export * from './add-developer-scenario'
 export * from './remove-developer-scenario'
-
-// edit を分けてから作る
-export * from './reselect-scrum-master-scenario'
-export * from './reselect-product-owner-scenario'
