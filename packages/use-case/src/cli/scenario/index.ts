@@ -1,4 +1,3 @@
-export * from './list-scrum-team-scenario'
 export * from './add-developer-scenario'
 export * from './remove-developer-scenario'
 export * from './reselect-scrum-master-scenario'

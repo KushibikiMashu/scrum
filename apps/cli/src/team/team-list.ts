@@ -1,5 +1,6 @@
 import {Command} from "commander";
-import {ListScrumTeamScenario, CheckDbMiddleware} from "@panda-project/use-case";
+import {CheckDbMiddleware, ListScrumTeamQueryService} from "@panda-project/use-case";
+import {ListScrumTeamPresenter} from "@/query-service";
 
 export const addTeamListCommand = (program: Command) => {
   program
@@ -8,9 +9,11 @@ export const addTeamListCommand = (program: Command) => {
     .action(async () => {
       try {
         const result = await new CheckDbMiddleware(
-          async () => await new ListScrumTeamScenario().exec()
+          async () => await new ListScrumTeamQueryService().exec()
         ).run()
-        console.info(result);
+
+        const output = new ListScrumTeamPresenter().exec(result)
+        console.info(output);
       } catch (e: any) {
         console.error(e?.message)
       }
