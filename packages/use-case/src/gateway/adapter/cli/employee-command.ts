@@ -1,4 +1,9 @@
-import {CreateEmployeeCommand, CreateMultipleEmployeeCommand, RemoveEmployeeCommand} from "@/use-case/employee";
+import {
+  CreateEmployeeCommand,
+  CreateMultipleEmployeeCommand,
+  EditEmployeeCommand,
+  RemoveEmployeeCommand
+} from "@/use-case/employee";
 import {EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
 
@@ -32,6 +37,22 @@ export class CreateMultipleEmployeeCliCommand implements CreateMultipleEmployeeC
 //     return `社員を登録しました: ${input.count()}名`
 //   }
 // }
+
+export class EditEmployeeCliCommand implements EditEmployeeCommand {
+  constructor(
+    private readonly employeeId: number,
+    private readonly newEmployeeName: string,
+  ) {
+  }
+
+  getEmployeeId(): AutoIncrementId { // 本当は EmployeeId を返すのが良い
+    return new AutoIncrementId(this.employeeId)
+  }
+
+  getNewEmployeeName(): EmployeeName {
+    return EmployeeName.createFromString(this.newEmployeeName)
+  }
+}
 
 export class RemoveEmployeeCliCommand implements RemoveEmployeeCommand {
   constructor(
