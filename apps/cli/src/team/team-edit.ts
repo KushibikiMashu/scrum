@@ -18,6 +18,11 @@ export const addTeamEditCommand = (program: Command) => {
     .option('-po, --product-owner', 'プロダクトオーナーを変更する')
     .option('-sm, --scrum-master', 'スクラムマスターを変更する')
     .action(async (option) => {
+      if (!option.productOwner && !option.scrumMaster) {
+        console.error('オプションを指定してください: -po, --product-owner | -sm, --scrum-master')
+        return
+      }
+
       if (option.productOwner) {
         const selectProductOwner: SelectProductOwner = async (candidates) => {
           const newProductOwnerId = await select({
@@ -67,10 +72,6 @@ export const addTeamEditCommand = (program: Command) => {
           console.error(e?.message)
           return
         }
-
-        return
       }
-
-      console.error('オプションを指定してください')
     });
 }
