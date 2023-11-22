@@ -112,6 +112,18 @@ export class ScrumTeam {
       || this.scrumMaster.member.employee.id.equals(employeeId)
       || this.developers.some(developer => developer.member.employee.id.equals(employeeId))
   }
+
+  getProductOwnerId(): number {
+    return this.productOwner.getId()
+  }
+
+  getScrumMasterId(): number {
+    return this.scrumMaster.getId()
+  }
+
+  getDevelopersIds(): number[] {
+    return this.developers.map((developer) => developer.getId())
+  }
 }
 
 export interface ScrumTeamRepositoryInterface {

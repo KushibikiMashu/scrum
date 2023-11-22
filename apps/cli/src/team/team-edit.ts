@@ -1,12 +1,12 @@
 import {Command} from "commander";
 import {
-  CheckDbMiddleware,
-  ReselectProductOwnerCallbackArg,
-  ReselectProductOwnerScenario,
+  CheckDbMiddleware, EditScrumTeamCliCommand, EditTeamQueryService, EditTeamQueryServiceDto,
   ReselectScrumMasterCallback,
-  ReselectScrumMasterScenario
+  ReselectScrumMasterScenario, ScrumTeamUseCase
 } from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
+
+type SelectProductOwner = (args: EditTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
 
 // team-edit product owner を変更する
 // team-edit scrum master を変更する
@@ -18,16 +18,23 @@ export const addTeamEditCommand = (program: Command) => {
     .option('-sm, --scrum-master', 'スクラムマスターを変更する')
     .action(async (option) => {
       if (option.productOwner) {
-        const selectProductOwner: ReselectProductOwnerCallbackArg = async (names) => {
-          const employeeId = await select({
+        const selectProductOwner: SelectProductOwner = async (candidates) => {
+          const newProductOwnerId = await select({
             message: "プロダクトオーナーを選択してください",
-            choices: names.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+            choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
           })
-          return {employeeId}
+          return {newProductOwnerId}
         }
         try {
+          const dto = await new EditTeamQueryService().exec()
+          const {newProductOwnerId} = await selectProductOwner(dto.candidateEmployees)
+          const command = new EditScrumTeamCliCommand(
+            newProductOwnerId,
+            dto.scumMasterId,
+            dto.developerIds,
+          )
           await new CheckDbMiddleware(
-            async () => await new ReselectProductOwnerScenario().exec(selectProductOwner)
+            async () => await new ScrumTeamUseCase().edit(command)
           ).run()
         } catch (e: any) {
           console.error(e?.message)
