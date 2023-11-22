@@ -1,1 +1,1 @@
-export * from './scrum-team'
+export * from './scrum-team-command'
