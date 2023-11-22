@@ -14,6 +14,13 @@
 
 zod のエラーにちゃんと対処する。ここはフォームごとのエラーじゃなくて、string[] に変換して、フォームの上にエラーメッセージを出すもいいと思う。
 
+### 11.22
+やること
+
+- [ ] web/query-service で page 単位のものをコンポーネント単位に変更する
+- [ ] cli の use case を CliCommand + use case に置き換える（上から順番に） 
+- [ ] cli の scenario から query service を抽出する
+
 ### 完了したページ
 2023.11.18
 
