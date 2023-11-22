@@ -1,7 +1,12 @@
 'use server'
 
 import {z} from "zod";
-import {CreateOrUpdateScrumTeamWebCommand, DisbandScrumTeamWebCommand, ScrumTeamUseCase} from "@panda-project/use-case";
+import {
+  EditScrumTeamWebCommand,
+  CreateScrumTeamWebCommand,
+  DisbandScrumTeamWebCommand,
+  ScrumTeamUseCase
+} from "@panda-project/use-case";
 import {redirect} from "next/navigation";
 
 export const updateTeam = async (_: any, formData: FormData) => {
@@ -22,19 +27,19 @@ export const updateTeam = async (_: any, formData: FormData) => {
 
     const isCreate = parsed.scrumTeamId === ''
     if (isCreate) {
-      const command = new CreateOrUpdateScrumTeamWebCommand(
+      const command = new CreateScrumTeamWebCommand(
         parsed.productOwnerId,
         parsed.scrumMasterId,
         parsed.developerIds
       )
-      await new ScrumTeamUseCase().createOrUpdate(command)
+      await new ScrumTeamUseCase().create(command)
     } else {
-      const command = new CreateOrUpdateScrumTeamWebCommand(
+      const command = new EditScrumTeamWebCommand(
         parsed.productOwnerId,
         parsed.scrumMasterId,
         parsed.developerIds
       )
-      await new ScrumTeamUseCase().createOrUpdate(command)
+      await new ScrumTeamUseCase().edit(command)
     }
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {

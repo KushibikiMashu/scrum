@@ -5,6 +5,6 @@ export * from './create-team-scenario'
 export * from './add-developer-scenario'
 export * from './remove-developer-scenario'
 
-// createOrUpdate を分けてから作る
+// edit を分けてから作る
 export * from './reselect-scrum-master-scenario'
 export * from './reselect-product-owner-scenario'

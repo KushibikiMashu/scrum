@@ -6,7 +6,7 @@ import {
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
-import {CreateOrUpdateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
+import {EditScrumTeamCommand, CreateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
 
 export class ScrumTeamUseCase {
   constructor(
@@ -15,7 +15,35 @@ export class ScrumTeamUseCase {
   ) {
   }
 
-  async createOrUpdate(command: CreateOrUpdateScrumTeamCommand) {
+  async create(command: CreateScrumTeamCommand) {
+    const {newProductOwner, newScrumMaster, developers} = await this.createScrumMembersFromCommand(command)
+
+    const scrumTeamExists = await this.scrumTeamRepository.exists()
+    if (scrumTeamExists) {
+      throw new Error('スクラムチームはすでに存在しています')
+    }
+
+    const newScrumTeam = ScrumTeam.createFromNewScrumTeam(newProductOwner, newScrumMaster, developers)
+    await this.scrumTeamRepository.save(newScrumTeam)
+  }
+
+  async edit(command: EditScrumTeamCommand) {
+    const {newProductOwner, newScrumMaster, developers} = await this.createScrumMembersFromCommand(command)
+
+    const scrumTeamExists = await this.scrumTeamRepository.exists()
+    if (!scrumTeamExists) {
+      throw new Error('スクラムチームが存在しません')
+    }
+
+    const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    const newScrumTeam = prevScrumTeam
+      .changeProductOwner(newProductOwner)
+      .changeScrumMaster(newScrumMaster)
+      .updateDevelopers(developers)
+    await this.scrumTeamRepository.update(newScrumTeam)
+  }
+
+  private async createScrumMembersFromCommand(command: CreateScrumTeamCommand|EditScrumTeamCommand) {
     const newProductOwnerId = command.getProductOwnerId()
     const newScrumMasterId = command.getScrumMasterId()
     if (newProductOwnerId.equals(newScrumMasterId)) {
@@ -43,25 +71,7 @@ export class ScrumTeamUseCase {
       developers.push(developer)
     }
 
-    // 更新
-    const scrumTeamExists = await this.scrumTeamRepository.exists()
-    if (scrumTeamExists) {
-      const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
-      const newScrumTeam = prevScrumTeam
-        .changeProductOwner(newProductOwner)
-        .changeScrumMaster(newScrumMaster)
-        .updateDevelopers(developers)
-      await this.scrumTeamRepository.update(newScrumTeam)
-      return
-    }
-
-    // 新規作成
-    const newScrumTeam = ScrumTeam.createFromNewScrumTeam(
-      newProductOwner,
-      newScrumMaster,
-      developers,
-    )
-    await this.scrumTeamRepository.save(newScrumTeam)
+    return {newProductOwner, newScrumMaster, developers}
   }
 
   async disband(command: DisbandScrumTeamCommand) {
