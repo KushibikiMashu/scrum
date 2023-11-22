@@ -4,8 +4,9 @@ import {z} from "zod";
 import {CreateOrUpdateScrumTeamWebCommand, DisbandScrumTeamWebCommand, ScrumTeamUseCase} from "@panda-project/use-case";
 import {redirect} from "next/navigation";
 
-export const updateTeam = async (prevState: any, formData: FormData) => {
+export const updateTeam = async (_: any, formData: FormData) => {
   const schema = z.object({
+    scrumTeamId: z.string(),
     productOwnerId: z.string(),
     scrumMasterId: z.string(),
     developerIds: z.array(z.string()).min(0).max(10),
@@ -13,17 +14,28 @@ export const updateTeam = async (prevState: any, formData: FormData) => {
 
   try {
     const parsed = schema.parse({
+      scrumTeamId: formData.get('scrum-team-id'),
       productOwnerId: formData.get('product-owner-id'),
       scrumMasterId: formData.get('scrum-master-id'),
       developerIds: formData.getAll('developers'),
     })
 
-    const command = new CreateOrUpdateScrumTeamWebCommand(
-      parsed.productOwnerId,
-      parsed.scrumMasterId,
-      parsed.developerIds
-    )
-    await new ScrumTeamUseCase().createOrUpdate(command)
+    const isCreate = parsed.scrumTeamId === ''
+    if (isCreate) {
+      const command = new CreateOrUpdateScrumTeamWebCommand(
+        parsed.productOwnerId,
+        parsed.scrumMasterId,
+        parsed.developerIds
+      )
+      await new ScrumTeamUseCase().createOrUpdate(command)
+    } else {
+      const command = new CreateOrUpdateScrumTeamWebCommand(
+        parsed.productOwnerId,
+        parsed.scrumMasterId,
+        parsed.developerIds
+      )
+      await new ScrumTeamUseCase().createOrUpdate(command)
+    }
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return {

@@ -24,7 +24,7 @@ const initialState: {
 export function TeamForm({scrumTeam, employees}: Props) {
   const filteredEmployees = employees
     .map((employee) => ({id: employee.id, name: employee.fullName}))
-  const developersMaxCount = Math.max(Math.min(10, filteredEmployees.length - 2), 1)
+  const developersMaxCount = Math.max(Math.min(8, filteredEmployees.length - 2), 1)
 
   const [state, action] = useFormState(updateTeam, initialState)
 
@@ -33,6 +33,9 @@ export function TeamForm({scrumTeam, employees}: Props) {
       <ErrorMessage messages={state.errors}/>
 
       <form className="space-y-4" action={action}>
+        {/* 新規作成と更新を区別するために team id を送る */}
+        <input type="hidden" name="scrum-team-id" value={scrumTeam?.id ?? ""}/>
+
         <div className="space-y-2">
           <p className="block text-sm font-medium leading-6 text-gray-900">プロダクトオーナー*</p>
           <div>
@@ -66,7 +69,7 @@ export function TeamForm({scrumTeam, employees}: Props) {
           </div>
         </div>
         <div className="space-y-2">
-          <p className="block text-sm font-medium leading-6 text-gray-900">開発者</p>
+          <p className="block text-sm font-medium leading-6 text-gray-900">開発者（最大8名）</p>
           <div className="space-y-2">
             {[...Array(developersMaxCount)].map((_, i) => {
               const defaultValue = scrumTeam?.developers[i]?.employeeId ?? ""
