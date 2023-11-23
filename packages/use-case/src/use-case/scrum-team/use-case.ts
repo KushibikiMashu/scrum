@@ -59,13 +59,7 @@ export class ScrumTeamUseCase {
     if (newProductOwnerId.equals(newScrumMasterId)) {
       throw new Error('プロダクトオーナーはスクラムマスターを兼任できません')
     }
-
     const developerIds = command.getDeveloperIds()
-    // 重複の有無をチェック
-    const uniqueIds = new Set(developerIds.map(id => id.value))
-    if (uniqueIds.size !== developerIds.length) {
-      throw new Error('開発者が重複しています')
-    }
 
     // プロダクトオーナー
     const productOwnerEmployee = await this.employeeRepository.findByIdOrFail(newProductOwnerId)

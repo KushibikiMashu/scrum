@@ -1,6 +1,13 @@
-import {EmployeeRepositoryInterface, ID} from "@panda-project/core";
-import {EmployeeRepository} from "@/gateway/repository/db";
+import {EmployeeRepositoryInterface, ID, ScrumTeamRepositoryInterface} from "@panda-project/core";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
 import {AutoIncrementId} from "@/common";
+
+export type EditScrumTeamQueryServiceDto = {
+  candidateEmployees: { id: number, name: string }[]
+  productOwnerId: number
+  scumMasterId: number
+  developerIds: number[]
+}
 
 export class EditScrumTeamQueryServiceInput {
   constructor(private readonly employeeIds: number[]) {
@@ -11,13 +18,10 @@ export class EditScrumTeamQueryServiceInput {
   }
 }
 
-export type EditScrumTeamQueryServiceDto = {
-  candidateEmployees: { id: number, name: string }[]
-}
-
 export class EditScrumTeamQueryService {
   constructor(
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
+    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
   ) {
   }
 
@@ -39,10 +43,13 @@ export class EditScrumTeamQueryService {
         name: employee.employeeName.getFullName(),
       }))
 
-    console.log(candidateEmployees, 'candidateEmployees');
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
 
     return {
       candidateEmployees,
+      productOwnerId: scrumTeam.getProductOwnerId(),
+      scumMasterId: scrumTeam.getScrumMasterId(),
+      developerIds: scrumTeam.getDevelopersIds(),
     }
   }
 }

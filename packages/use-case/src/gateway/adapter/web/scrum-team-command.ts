@@ -18,6 +18,12 @@ export class CreateScrumTeamWebCommand implements CreateScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
+    // 重複の有無をチェック。ID の重複を排除するために Set を使う
+    const uniqueIds = new Set(this.developerIds)
+    if (uniqueIds.size !== this.developerIds.length) {
+      throw new Error('開発者が重複しています')
+    }
+
     return this.developerIds.filter(id => id !== '')
       .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
   }
@@ -40,6 +46,12 @@ export class EditScrumTeamWebCommand implements EditScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
+    // 重複の有無をチェック。ID の重複を排除するために Set を使う
+    const uniqueIds = new Set(this.developerIds)
+    if (uniqueIds.size !== this.developerIds.length) {
+      throw new Error('開発者が重複しています')
+    }
+
     return this.developerIds.filter(id => id !== '')
       .map(id => new AutoIncrementId(Number.parseInt(id, 10)))
   }
