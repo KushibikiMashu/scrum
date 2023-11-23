@@ -1,4 +1,9 @@
-import {CreateScrumTeamCommand, DisbandScrumTeamCommand, EditScrumTeamCommand} from "@/use-case/scrum-team";
+import {
+  AddDeveloperCommand,
+  CreateScrumTeamCommand,
+  DisbandScrumTeamCommand,
+  EditScrumTeamCommand
+} from "@/use-case/scrum-team";
 import {AutoIncrementId} from "@/common";
 
 export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
@@ -40,6 +45,17 @@ export class EditScrumTeamCliCommand implements EditScrumTeamCommand {
 
   getDeveloperIds(): AutoIncrementId[] {
     return this.developerIds.map((id) => new AutoIncrementId(id))
+  }
+}
+
+export class AddDeveloperCliCommand implements AddDeveloperCommand {
+  constructor(
+    private readonly developerId: number,
+  ) {
+  }
+
+  getDeveloperId(): AutoIncrementId {
+    return new AutoIncrementId(this.developerId)
   }
 }
 

@@ -1,3 +1,4 @@
+export * from './add-developer-query-service'
 export * from './create-scrum-team-query-service'
 export * from './disband-scrum-team-query-service'
 export * from './edit-employee-query-service'

@@ -6,7 +6,12 @@ import {
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
 import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
-import {EditScrumTeamCommand, CreateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
+import {
+  EditScrumTeamCommand,
+  CreateScrumTeamCommand,
+  DisbandScrumTeamCommand,
+  AddDeveloperCommand
+} from "@/use-case/scrum-team";
 
 export class ScrumTeamUseCase {
   constructor(
@@ -77,6 +82,28 @@ export class ScrumTeamUseCase {
     }
 
     return {newProductOwner, newScrumMaster, developers}
+  }
+
+  async addDeveloper(command: AddDeveloperCommand) {
+    const developerId = command.getDeveloperId()
+    const developerEmployee = await this.employeeRepository.findByIdOrFail(developerId)
+    const developer = Developer.createFromEmployee(developerEmployee)
+
+    const scrumTeamExists = await this.scrumTeamRepository.exists()
+    if (!scrumTeamExists) {
+      throw new Error('スクラムチームが作成されていません')
+    }
+
+    const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    if (prevScrumTeam.developers.length >= 8) {
+      throw new Error('スクラムチームに参加できる開発者は8名までです')
+    }
+    if (prevScrumTeam.isScrumTeamDeveloper(developerEmployee.id)) {
+      throw new Error('すでに開発者として参加しています')
+    }
+
+    const newScrumTeam = prevScrumTeam.addDeveloper(developer)
+    await this.scrumTeamRepository.update(newScrumTeam)
   }
 
   async disband(command: DisbandScrumTeamCommand) {

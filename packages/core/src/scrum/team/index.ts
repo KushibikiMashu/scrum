@@ -113,6 +113,10 @@ export class ScrumTeam {
       || this.developers.some(developer => developer.member.employee.id.equals(employeeId))
   }
 
+  isScrumTeamDeveloper(employeeId: ID): boolean {
+    return this.developers.some(developer => developer.member.employee.id.equals(employeeId))
+  }
+
   getProductOwnerId(): number {
     return this.productOwner.getId()
   }
@@ -123,6 +127,10 @@ export class ScrumTeam {
 
   getDevelopersIds(): number[] {
     return this.developers.map((developer) => developer.getId())
+  }
+
+  getAllScrumMemberIds(): number[] {
+    return [this.getProductOwnerId(), this.getScrumMasterId(), ...this.getDevelopersIds()]
   }
 }
 
