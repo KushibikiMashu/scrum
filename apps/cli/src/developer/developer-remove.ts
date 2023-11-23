@@ -1,6 +1,6 @@
 import {
   AddDeveloperCliCommand,
-  CheckDbMiddleware, RemoveDeveloperQueryService, RemoveDeveloperQueryServiceDto,
+  CheckDbMiddleware, RemoveDeveloperCliCommand, RemoveDeveloperQueryService, RemoveDeveloperQueryServiceDto,
   ScrumTeamUseCase
 } from "@panda-project/use-case";
 import {confirm, select} from "@inquirer/prompts";
@@ -32,7 +32,7 @@ export const addDeveloperRemoveCommand = (program: Command) => {
 
           const {developers} = await new RemoveDeveloperQueryService().exec()
           const {developerId} = await selectDeveloper(developers)
-          const command = new AddDeveloperCliCommand(developerId)
+          const command = new RemoveDeveloperCliCommand(developerId)
           await new CheckDbMiddleware(
             async () => await new ScrumTeamUseCase().removeDeveloper(command)
           ).run()
