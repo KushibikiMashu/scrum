@@ -3,7 +3,7 @@ import {
   ProductRepositoryInterface,
   ProjectRepositoryInterface,
 } from "@panda-project/core";
-import {ProductRepository, ProjectRepository} from "@/gateway/repository/db";
+import {ProductRepository, ProjectRepository} from "@/gateway/repository/json";
 
 export type BreadcrumbDto = {
   projectName: string

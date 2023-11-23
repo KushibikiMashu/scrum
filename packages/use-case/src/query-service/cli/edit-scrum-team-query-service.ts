@@ -1,5 +1,5 @@
 import {EmployeeRepositoryInterface, ID, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
+import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/json";
 import {AutoIncrementId} from "@/common";
 
 export type EditScrumTeamQueryServiceDto = {

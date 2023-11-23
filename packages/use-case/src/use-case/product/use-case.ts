@@ -1,5 +1,5 @@
 import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
-import {ProductRepository} from "@/gateway/repository/db";
+import {ProductRepository} from "@/gateway/repository/json";
 import {CreateProductCommand} from "./command";
 
 export class ProductUseCase {

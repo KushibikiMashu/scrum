@@ -1,5 +1,5 @@
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/gateway/repository/db";
+import {ScrumTeamRepository} from "@/gateway/repository/json";
 
 type Dto = {
   poName: string;

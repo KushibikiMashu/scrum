@@ -1,5 +1,5 @@
 import {EmployeeRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository} from "@/gateway/repository/db";
+import {EmployeeRepository} from "@/gateway/repository/json";
 
 export type EditEmployeeQueryServiceDto = {id: number; name: string}[]
 

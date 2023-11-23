@@ -4,7 +4,7 @@ import {
   ProjectRepositoryInterface,
   ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {EmployeeRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway/repository/db";
+import {EmployeeRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway/repository/json";
 
 export type ScrumTeamEditQueryServiceDto = {
   scrumTeam: {
