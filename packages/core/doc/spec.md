@@ -27,6 +27,9 @@ zod のエラーにちゃんと対処する。ここはフォームごとのエ�
 - [ ] ID を Id 型にする
 - web の xxx page query service を廃止する
 
+- [ ] lint を入れて不要なモジュールを削除する
+- [ ] prettier を入れる
+
 - テストを書く（全部）
 - Output Port について考えて決める
 
