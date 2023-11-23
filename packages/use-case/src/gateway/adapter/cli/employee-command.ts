@@ -2,16 +2,13 @@ import {
   CreateEmployeeCommand,
   CreateMultipleEmployeeCommand,
   EditEmployeeCommand,
-  RemoveEmployeeCommand
-} from "@/use-case/employee";
-import {EmployeeId, EmployeeName} from "@panda-project/core";
-import {AutoIncrementId} from "@/common";
+  RemoveEmployeeCommand,
+} from '@/use-case/employee'
+import { EmployeeId, EmployeeName } from '@panda-project/core'
+import { AutoIncrementId } from '@/common'
 
 export class CreateEmployeeCliCommand implements CreateEmployeeCommand {
-  constructor(
-    private readonly employeeName: string,
-  ) {
-  }
+  constructor(private readonly employeeName: string) {}
 
   getEmployeeName(): EmployeeName {
     return EmployeeName.createFromString(this.employeeName)
@@ -19,13 +16,11 @@ export class CreateEmployeeCliCommand implements CreateEmployeeCommand {
 }
 
 export class CreateMultipleEmployeeCliCommand implements CreateMultipleEmployeeCommand {
-  constructor(
-    private readonly commaSeparatedNames: string,
-  ) {
-  }
+  constructor(private readonly commaSeparatedNames: string) {}
 
   getEmployeeNames(): EmployeeName[] {
-    return this.commaSeparatedNames.split(',')
+    return this.commaSeparatedNames
+      .split(',')
       .map((name) => name.trim())
       .map((name) => EmployeeName.createFromString(name))
   }
@@ -41,9 +36,8 @@ export class CreateMultipleEmployeeCliCommand implements CreateMultipleEmployeeC
 export class EditEmployeeCliCommand implements EditEmployeeCommand {
   constructor(
     private readonly employeeId: number,
-    private readonly newEmployeeName: string,
-  ) {
-  }
+    private readonly newEmployeeName: string
+  ) {}
 
   getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)
@@ -55,10 +49,7 @@ export class EditEmployeeCliCommand implements EditEmployeeCommand {
 }
 
 export class RemoveEmployeeCliCommand implements RemoveEmployeeCommand {
-  constructor(
-    private readonly employeeId: number,
-  ) {
-  }
+  constructor(private readonly employeeId: number) {}
 
   getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)

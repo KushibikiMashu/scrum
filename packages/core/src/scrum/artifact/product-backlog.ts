@@ -1,5 +1,5 @@
-import {Commitment, ProductGoal, ProductGoalStatus} from "../product";
-import {Artifact, BasicItemStatus, BasicItemStatusType, Increment, UserStory} from "./index";
+import { Commitment, ProductGoal, ProductGoalStatus } from '../product'
+import { Artifact, BasicItemStatus, BasicItemStatusType, Increment, UserStory } from './index'
 
 export class ProductBacklogItem {
   constructor(
@@ -9,16 +9,16 @@ export class ProductBacklogItem {
   ) {}
 
   canBeMovedToSprintBacklog(): boolean {
-    return this.status === BasicItemStatus.ReadyForDevelop || this.status === BasicItemStatus.Done;
+    return this.status === BasicItemStatus.ReadyForDevelop || this.status === BasicItemStatus.Done
   }
 
   hasMetDefinitionOfDone(): boolean {
-    return this.status === BasicItemStatus.Done;
+    return this.status === BasicItemStatus.Done
   }
 
   meetsDefinitionOfDone(): Increment[] {
     // このメソッドの実装は、具体的なロジックに基づいています。
-    return [];
+    return []
   }
 }
 
@@ -27,8 +27,9 @@ export const ProductBacklogItemSortOption = {
   DescByPriority: 'desc_by_priority',
   AscByCreated: 'asc_by_created',
   DescByCreated: 'desc_by_created',
-} as const;
-export type ProductBacklogItemSortOptionType = typeof ProductBacklogItemSortOption[keyof typeof ProductBacklogItemSortOption];
+} as const
+export type ProductBacklogItemSortOptionType =
+  (typeof ProductBacklogItemSortOption)[keyof typeof ProductBacklogItemSortOption]
 
 export class ProductBacklog implements Artifact {
   constructor(
@@ -37,32 +38,32 @@ export class ProductBacklog implements Artifact {
   ) {}
 
   add(item: ProductBacklogItem): this {
-    this.items.push(item);
-    return this;
+    this.items.push(item)
+    return this
   }
 
   remove(item: ProductBacklogItem): this {
-    const index = this.items.indexOf(item);
+    const index = this.items.indexOf(item)
     if (index > -1) {
-      this.items.splice(index, 1);
+      this.items.splice(index, 1)
     }
-    return this;
+    return this
   }
 
   getProductBacklogItems(): ProductBacklogItem[] {
-    return this.items;
+    return this.items
   }
 
   getProductBacklogItem(id: number): ProductBacklogItem | undefined {
-    return this.items.find(item => item.id === id);
+    return this.items.find((item) => item.id === id)
   }
 
   sort(option: ProductBacklogItemSortOptionType): this {
     // このメソッドの実装は、具体的なソートロジックに基づいています。
-    return this;
+    return this
   }
 
   getCommitments(): Commitment[] {
-    return [new ProductGoal('', ProductGoalStatus.WIP)];
+    return [new ProductGoal('', ProductGoalStatus.WIP)]
   }
 }

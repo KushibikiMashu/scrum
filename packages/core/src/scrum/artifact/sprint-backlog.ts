@@ -1,5 +1,5 @@
-import {Commitment} from "@/scrum/product";
-import {Artifact, ImplementableItem, SprintGoal} from "./index";
+import { Commitment } from '@/scrum/product'
+import { Artifact, ImplementableItem, SprintGoal } from './index'
 
 export class SprintBacklogItem {
   constructor(
@@ -16,14 +16,14 @@ export class SprintBacklog implements Artifact {
 
   addItem(item: ImplementableItem): this {
     // このメソッドの実装は、具体的なロジックに基づいています。
-    return this;
+    return this
   }
 
   getItems(): SprintBacklogItem[] {
-    return this.items;
+    return this.items
   }
 
   getCommitments(): Commitment[] {
-    return [new SprintGoal('')];
+    return [new SprintGoal('')]
   }
 }

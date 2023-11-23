@@ -1,4 +1,4 @@
-import {redirect} from "next/navigation";
+import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
@@ -7,6 +7,6 @@ type Props = {
   }
 }
 
-export default async function ProductPage({params}: Props) {
+export default async function ProductPage({ params }: Props) {
   redirect(`/${params.product}/${params.project}/team`)
 }

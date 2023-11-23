@@ -1,18 +1,18 @@
-import {EmployeeName, EmployeeId} from "@panda-project/core";
+import { EmployeeName, EmployeeId } from '@panda-project/core'
 
 export interface CreateEmployeeCommand {
-  getEmployeeName(): EmployeeName;
+  getEmployeeName(): EmployeeName
 }
 
 export interface CreateMultipleEmployeeCommand {
-  getEmployeeNames(): EmployeeName[];
+  getEmployeeNames(): EmployeeName[]
 }
 
 export interface EditEmployeeCommand {
-  getEmployeeId(): EmployeeId;
-  getNewEmployeeName(): EmployeeName;
+  getEmployeeId(): EmployeeId
+  getNewEmployeeName(): EmployeeName
 }
 
 export interface RemoveEmployeeCommand {
-  getEmployeeId(): EmployeeId;
+  getEmployeeId(): EmployeeId
 }

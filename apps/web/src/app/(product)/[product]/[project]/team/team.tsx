@@ -1,13 +1,21 @@
-import {ScrumTeamQueryServiceDto} from "@panda-project/use-case";
+import { ScrumTeamQueryServiceDto } from '@panda-project/use-case'
 
 type Props = { scrumTeam: NonNullable<ScrumTeamQueryServiceDto['scrumTeam']> }
 
 type Developer = Props['scrumTeam']['developers'][number]
 
-export default function Team({scrumTeam}: Props) {
-  const isPoDeveloper = scrumTeam.developers.some((developer: Developer) => developer.employeeId === scrumTeam.productOwner.employeeId)
-  const isSmDeveloper = scrumTeam.developers.some((developer: Developer) => developer.employeeId === scrumTeam.scrumMaster.employeeId)
-  const filteredDevelopers = scrumTeam.developers.filter((developer: Developer) => developer.employeeId !== scrumTeam.productOwner.employeeId && developer.employeeId !== scrumTeam.scrumMaster.employeeId)
+export default function Team({ scrumTeam }: Props) {
+  const isPoDeveloper = scrumTeam.developers.some(
+    (developer: Developer) => developer.employeeId === scrumTeam.productOwner.employeeId
+  )
+  const isSmDeveloper = scrumTeam.developers.some(
+    (developer: Developer) => developer.employeeId === scrumTeam.scrumMaster.employeeId
+  )
+  const filteredDevelopers = scrumTeam.developers.filter(
+    (developer: Developer) =>
+      developer.employeeId !== scrumTeam.productOwner.employeeId &&
+      developer.employeeId !== scrumTeam.scrumMaster.employeeId
+  )
 
   return (
     <ul role="list" className="divide-y divide-gray-100">

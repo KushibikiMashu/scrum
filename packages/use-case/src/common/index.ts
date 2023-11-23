@@ -1,4 +1,4 @@
-import {Id} from "@panda-project/core";
+import { Id } from '@panda-project/core'
 
 export class AutoIncrementId extends Id {
   constructor(public readonly value: number) {
@@ -22,9 +22,9 @@ export class AutoIncrementId extends Id {
 }
 
 export interface Logger {
-  log(message?: any, ...optionalParams: any[]): void;
-  info(message?: any, ...optionalParams: any[]): void;
-  error(message?: any, ...optionalParams: any[]): void;
-  warn(message?: any, ...optionalParams: any[]): void;
-  debug(message?: any, ...optionalParams: any[]): void;
+  log(message?: any, ...optionalParams: any[]): void
+  info(message?: any, ...optionalParams: any[]): void
+  error(message?: any, ...optionalParams: any[]): void
+  warn(message?: any, ...optionalParams: any[]): void
+  debug(message?: any, ...optionalParams: any[]): void
 }

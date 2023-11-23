@@ -1,4 +1,4 @@
-import {Low} from "lowdb";
+import { Low } from 'lowdb'
 import {
   DataBase,
   db,
@@ -6,17 +6,20 @@ import {
   EmployeesSchema,
   ProductOwnersSchema,
   ScrumMastersSchema,
-  ScrumTeamsSchema
-} from "@/external/db";
+  ScrumTeamsSchema,
+} from '@/external/db'
 import {
   Developer,
-  Employee, EmployeeId,
+  Employee,
+  EmployeeId,
   EmployeeName,
   ProductOwner,
   ScrumMaster,
-  ScrumTeam, ScrumTeamId, ScrumTeamRepositoryInterface
-} from "@panda-project/core";
-import {JsonRepository} from "./json-repository";
+  ScrumTeam,
+  ScrumTeamId,
+  ScrumTeamRepositoryInterface,
+} from '@panda-project/core'
+import { JsonRepository } from './json-repository'
 
 export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {
@@ -40,58 +43,69 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
       new ScrumTeamId(scrumTeam.id),
       this.createProductOwner(scrumTeam, productOwners, employees, developers),
       this.createScrumMaster(scrumTeam, scrumMasters, employees, developers),
-      this.createDevelopers(scrumTeam, developers, employees),
+      this.createDevelopers(scrumTeam, developers, employees)
     )
   }
 
   // まだ ProductOwnerRepository としては切り出さない
-  private createProductOwner(scrumTeam: ScrumTeamsSchema[number], productOwners: ProductOwnersSchema, employees: EmployeesSchema, developers: DevelopersSchema): ProductOwner {
-    const productOwner = productOwners.find(po => po.scrum_team_id === scrumTeam.id)
+  private createProductOwner(
+    scrumTeam: ScrumTeamsSchema[number],
+    productOwners: ProductOwnersSchema,
+    employees: EmployeesSchema,
+    developers: DevelopersSchema
+  ): ProductOwner {
+    const productOwner = productOwners.find((po) => po.scrum_team_id === scrumTeam.id)
     if (!productOwner) {
       throw new Error('プロダクトオーナーが設定されていません')
     }
-    const productOwnerEmployee = employees.find(employee => employee.id === productOwner.employee_id)!
+    const productOwnerEmployee = employees.find((employee) => employee.id === productOwner.employee_id)!
 
     const employee = new Employee(
       new EmployeeId(productOwnerEmployee.id),
       new EmployeeName(productOwnerEmployee.first_name, productOwnerEmployee.family_name)
     )
-    const isDeveloper = developers.some(developer => developer.employee_id === productOwnerEmployee.id)
+    const isDeveloper = developers.some((developer) => developer.employee_id === productOwnerEmployee.id)
 
-    return isDeveloper ?
-      ProductOwner.createFromDeveloper(Developer.createFromEmployee(employee))
+    return isDeveloper
+      ? ProductOwner.createFromDeveloper(Developer.createFromEmployee(employee))
       : ProductOwner.createFromEmployee(employee)
   }
 
   // まだ ScrumMasterRepository としては切り出さない
-  private createScrumMaster(scrumTeam: ScrumTeamsSchema[number], scrumMasters: ScrumMastersSchema, employees: EmployeesSchema, developers: DevelopersSchema): ScrumMaster {
-    const scrumMaster = scrumMasters.find(sm => sm.scrum_team_id === scrumTeam.id)!
+  private createScrumMaster(
+    scrumTeam: ScrumTeamsSchema[number],
+    scrumMasters: ScrumMastersSchema,
+    employees: EmployeesSchema,
+    developers: DevelopersSchema
+  ): ScrumMaster {
+    const scrumMaster = scrumMasters.find((sm) => sm.scrum_team_id === scrumTeam.id)!
     if (!scrumMaster) {
       throw new Error('スクラムマスターが設定されていません')
     }
-    const scrumMasterEmployee = employees.find(employee => employee.id === scrumMaster.employee_id)!
+    const scrumMasterEmployee = employees.find((employee) => employee.id === scrumMaster.employee_id)!
 
     const employee = new Employee(
       new EmployeeId(scrumMasterEmployee.id),
       new EmployeeName(scrumMasterEmployee.first_name, scrumMasterEmployee.family_name)
     )
-    const isDeveloper = developers.some(developer => developer.employee_id === scrumMasterEmployee.id)
+    const isDeveloper = developers.some((developer) => developer.employee_id === scrumMasterEmployee.id)
 
-    return isDeveloper ?
-      ScrumMaster.createFromDeveloper(Developer.createFromEmployee(employee))
+    return isDeveloper
+      ? ScrumMaster.createFromDeveloper(Developer.createFromEmployee(employee))
       : ScrumMaster.createFromEmployee(employee)
   }
 
-  private createDevelopers(scrumTeam: ScrumTeamsSchema[number], developers: DevelopersSchema, employees: EmployeesSchema): Developer[] {
-    const developerRecords = developers.filter(developer => developer.scrum_team_id === scrumTeam.id)
+  private createDevelopers(
+    scrumTeam: ScrumTeamsSchema[number],
+    developers: DevelopersSchema,
+    employees: EmployeesSchema
+  ): Developer[] {
+    const developerRecords = developers.filter((developer) => developer.scrum_team_id === scrumTeam.id)
 
     return developerRecords.map((developerRecord) => {
-      const employee = employees.find(employee => employee.id === developerRecord.employee_id)!
+      const employee = employees.find((employee) => employee.id === developerRecord.employee_id)!
       return Developer.createFromEmployee(
-        new Employee(
-          new EmployeeId(employee.id),
-          new EmployeeName(employee.first_name, employee.family_name)
-        )
+        new Employee(new EmployeeId(employee.id), new EmployeeName(employee.first_name, employee.family_name))
       )
     })
   }
@@ -139,17 +153,17 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
   async update(scrumTeam: ScrumTeam) {
     await this.lowdb.read()
     const { productOwners, scrumMasters, developers } = this.lowdb.data
-    const {productOwner, scrumMaster} = scrumTeam
+    const { productOwner, scrumMaster } = scrumTeam
 
     // product owner を更新
-    const productOwnerIndex = productOwners.findIndex(po => po.scrum_team_id === scrumTeam.id.value)
+    const productOwnerIndex = productOwners.findIndex((po) => po.scrum_team_id === scrumTeam.id.value)
     productOwners[productOwnerIndex] = {
       scrum_team_id: scrumTeam.id.toInt(),
       employee_id: productOwner.getEmployeeId().toInt(),
     }
 
     // scrum master を更新
-    const scrumMasterIndex = scrumMasters.findIndex(sm => sm.scrum_team_id === scrumTeam.id.value)
+    const scrumMasterIndex = scrumMasters.findIndex((sm) => sm.scrum_team_id === scrumTeam.id.value)
     scrumMasters[scrumMasterIndex] = {
       scrum_team_id: scrumTeam.id.toInt(),
       employee_id: scrumMaster.getEmployeeId().toInt(),
@@ -172,10 +186,10 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
 
     // 対象者を除外した上で、スクラムチームの開発者をDBに再度追加
     for (const scrumTeamDeveloper of scrumTeam.developers) {
-        developers.push({
-          scrum_team_id: scrumTeam.id.toInt(),
-          employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
-        })
+      developers.push({
+        scrum_team_id: scrumTeam.id.toInt(),
+        employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
+      })
     }
 
     await this.lowdb.write()

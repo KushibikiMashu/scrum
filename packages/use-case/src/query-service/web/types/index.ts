@@ -2,9 +2,7 @@ export interface DefaultError {
   reason: ErrorReasonValueType
 }
 
-export type Result<T, E extends DefaultError = DefaultError> =
-  | { data: T; error: null }
-  | { data: null; error: E }
+export type Result<T, E extends DefaultError = DefaultError> = { data: T; error: null } | { data: null; error: E }
 
 export const ErrorReason = {
   // common
@@ -19,4 +17,4 @@ export const ErrorReason = {
   // scrum team
   ScrumTeamNotExists: 'scrum_team_not_exists',
 } as const
-export type ErrorReasonValueType = typeof ErrorReason[keyof typeof ErrorReason]
+export type ErrorReasonValueType = (typeof ErrorReason)[keyof typeof ErrorReason]

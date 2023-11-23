@@ -1,8 +1,8 @@
-import {Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface} from "@panda-project/core";
-import {Low} from "lowdb";
-import {DataBase, db, EmployeesSchema} from "@/external/db";
-import {AutoIncrementId} from "@/common";
-import {JsonRepository} from "./json-repository";
+import { Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface } from '@panda-project/core'
+import { Low } from 'lowdb'
+import { DataBase, db, EmployeesSchema } from '@/external/db'
+import { AutoIncrementId } from '@/common'
+import { JsonRepository } from './json-repository'
 
 export class EmployeeRepository extends JsonRepository implements EmployeeRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {
@@ -15,8 +15,8 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
 
   async findByIdOrFail(id: AutoIncrementId): Promise<Employee> {
     await this.lowdb.read()
-    const {employees} = this.lowdb.data
-    const employee = employees.find(v => v.id === id.value)
+    const { employees } = this.lowdb.data
+    const employee = employees.find((v) => v.id === id.value)
     if (!employee) {
       throw new Error(`社員ID ${id.value} は存在しません`)
     }
@@ -25,7 +25,7 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
 
   async findAll(): Promise<Employee[]> {
     await this.lowdb.read()
-    const {employees} = this.lowdb.data
+    const { employees } = this.lowdb.data
 
     return employees.map(this.mapToEmployee)
   }
@@ -37,10 +37,7 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
   }
 
   private mapToEmployee(record: EmployeesSchema[number]): Employee {
-    return new Employee(
-      new AutoIncrementId(record.id),
-      new EmployeeName(record.first_name, record.family_name),
-    )
+    return new Employee(new AutoIncrementId(record.id), new EmployeeName(record.first_name, record.family_name))
   }
 
   async save(employee: Employee) {
@@ -60,10 +57,10 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
 
   async update(newEmployee: Employee) {
     await this.lowdb.read()
-    const {employees} = this.lowdb.data
+    const { employees } = this.lowdb.data
 
     const newEmployeeId = newEmployee.id.value
-    const index = employees.findIndex(v => v.id === newEmployeeId)
+    const index = employees.findIndex((v) => v.id === newEmployeeId)
     if (index === -1) {
       throw new Error(`社員ID ${newEmployeeId} は存在しません`)
     }
@@ -80,9 +77,9 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
 
   async delete(employee: Employee) {
     await this.lowdb.read()
-    const {employees} = this.lowdb.data
+    const { employees } = this.lowdb.data
 
-    const index = employees.findIndex(v => v.id === employee.id.value)
+    const index = employees.findIndex((v) => v.id === employee.id.value)
     if (index === -1) {
       throw new Error(`社員ID ${employee.id.value} は存在しません`)
     }
@@ -92,4 +89,3 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
     await this.lowdb.write()
   }
 }
-

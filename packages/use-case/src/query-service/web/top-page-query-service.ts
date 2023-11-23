@@ -1,17 +1,14 @@
-import {ProductRepositoryInterface} from "@panda-project/core";
-import {ProductRepository} from "@/gateway/repository/json";
-import {createDb, dbFileExists} from "@/external/db";
-import {Result} from "./types";
+import { ProductRepositoryInterface } from '@panda-project/core'
+import { ProductRepository } from '@/gateway/repository/json'
+import { createDb, dbFileExists } from '@/external/db'
+import { Result } from './types'
 
 type Dto = {
   productName: string | null
 }
 
 export class TopPageQueryService {
-  constructor(
-    private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
-  ) {
-  }
+  constructor(private readonly productRepository: ProductRepositoryInterface = new ProductRepository()) {}
 
   async exec(): Promise<Result<Dto>> {
     // DB がない時は、DB + Product, Project を作成する
@@ -25,14 +22,14 @@ export class TopPageQueryService {
 
     if (product === null) {
       return {
-        data: {productName: null},
+        data: { productName: null },
         error: null,
       }
     }
 
     // Product, Project がある場合は、/:project に移動する
     return {
-      data: {productName: product.name.value},
+      data: { productName: product.name.value },
       error: null,
     }
   }

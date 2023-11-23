@@ -1,7 +1,7 @@
-import {Id, Product, ProductId, ProductName, ProductRepositoryInterface} from "@panda-project/core";
-import {Low} from "lowdb";
-import {DataBase, db} from "@/external/db";
-import {JsonRepository} from "./json-repository";
+import { Id, Product, ProductId, ProductName, ProductRepositoryInterface } from '@panda-project/core'
+import { Low } from 'lowdb'
+import { DataBase, db } from '@/external/db'
+import { JsonRepository } from './json-repository'
 
 export class ProductRepository extends JsonRepository implements ProductRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {
@@ -12,7 +12,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
     return new ProductId(this.calculateNewId(this.lowdb.data.products))
   }
 
-  async fetch(): Promise<Product|null> {
+  async fetch(): Promise<Product | null> {
     await this.lowdb.read()
     const { products } = this.lowdb.data
 

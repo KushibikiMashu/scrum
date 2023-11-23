@@ -1,10 +1,10 @@
-import {DefaultError, ErrorReason, Result} from "./types";
+import { DefaultError, ErrorReason, Result } from './types'
 import {
   EmployeeRepositoryInterface,
   ProjectRepositoryInterface,
-  ScrumTeamRepositoryInterface
-} from "@panda-project/core";
-import {EmployeeRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway/repository/json";
+  ScrumTeamRepositoryInterface,
+} from '@panda-project/core'
+import { EmployeeRepository, ProjectRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ScrumTeamEditQueryServiceDto = {
   scrumTeam: {
@@ -33,19 +33,18 @@ export type ScrumTeamEditQueryServiceDto = {
 export class ScrumTeamEditQueryService {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-  ) {
-  }
+    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository()
+  ) {}
 
   async exec(): Promise<Result<ScrumTeamEditQueryServiceDto>> {
     const allEmployees = await this.employeeRepository.findAll()
-    const employees = allEmployees.map(employee => ({
+    const employees = allEmployees.map((employee) => ({
       id: employee.id.toInt(),
       fullName: employee.employeeName.getFullName(),
     }))
 
     try {
-      const {id, scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
+      const { id, scrumMaster, productOwner, developers } = await this.scrumTeamRepository.fetchOrFail()
       // presentation logic
       return {
         data: {
@@ -61,7 +60,7 @@ export class ScrumTeamEditQueryService {
               name: productOwner.getFullName(),
               isDeveloper: productOwner.isDeveloper(),
             },
-            developers: developers.map(developer => ({
+            developers: developers.map((developer) => ({
               employeeId: developer.getId(),
               name: developer.getFullName(),
             })),
@@ -72,7 +71,7 @@ export class ScrumTeamEditQueryService {
       }
     } catch {
       return {
-        data: {scrumTeam: null, employees},
+        data: { scrumTeam: null, employees },
         error: null,
       }
     }

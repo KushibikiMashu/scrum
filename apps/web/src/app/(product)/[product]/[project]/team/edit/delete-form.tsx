@@ -1,10 +1,10 @@
 'use client'
 
-import {useFormState} from "react-dom";
-import {deleteTeam} from "./actions";
-import {ErrorMessage} from "~/components/common/error-message";
-import {useEffect} from "react";
-import {useToastDispatch} from "~/components/global/toast";
+import { useFormState } from 'react-dom'
+import { deleteTeam } from './actions'
+import { ErrorMessage } from '~/components/common/error-message'
+import { useEffect } from 'react'
+import { useToastDispatch } from '~/components/global/toast'
 
 const initialState: {
   type: null | 'success' | 'error'
@@ -20,8 +20,8 @@ type Props = {
   teamId: number
 }
 
-export default function DeleteForm({teamId}: Props) {
-  const {showToast} = useToastDispatch()
+export default function DeleteForm({ teamId }: Props) {
+  const { showToast } = useToastDispatch()
   const [state, action] = useFormState(deleteTeam, initialState)
 
   const onSubmit = async (formData: FormData) => {
@@ -43,7 +43,7 @@ export default function DeleteForm({teamId}: Props) {
   return (
     <div className="mt-8">
       <form className="text-right" action={onSubmit}>
-        <input type="hidden" name="team-id" value={teamId} required/>
+        <input type="hidden" name="team-id" value={teamId} required />
         <button
           className="text-xs bg-red-500 text-white border border-red-300 hover:bg-red-600 rounded-md px-3 py-2"
           type="submit"
@@ -52,8 +52,8 @@ export default function DeleteForm({teamId}: Props) {
         </button>
       </form>
 
-      <ErrorMessage messages={state.errors?.teamId}/>
-      <ErrorMessage messages={state.errors}/>
+      <ErrorMessage messages={state.errors?.teamId} />
+      <ErrorMessage messages={state.errors} />
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
 import { useToastDispatch, useToastState } from './use-toast'
-import {CheckCircleIcon, ExclamationCircleIcon, XCircleIcon} from "@heroicons/react/20/solid";
+import { CheckCircleIcon, ExclamationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
 // https://tailwindui.com/components/application-ui/overlays/notifications
 export function Toast() {

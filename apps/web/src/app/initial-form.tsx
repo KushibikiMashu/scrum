@@ -1,29 +1,26 @@
 'use client'
 
-import {createProductAndProject} from "~/app/actions";
-import {useFormState, useFormStatus} from "react-dom";
-import {SubmitButton} from "~/components/common/submit-button";
-import {ErrorMessage} from "~/components/common/error-message";
+import { createProductAndProject } from '~/app/actions'
+import { useFormState, useFormStatus } from 'react-dom'
+import { SubmitButton } from '~/components/common/submit-button'
+import { ErrorMessage } from '~/components/common/error-message'
 
 function Submit() {
-  const {pending} = useFormStatus()
+  const { pending } = useFormStatus()
 
-  return (
-    <SubmitButton
-      label="保存する"
-      type="submit"
-      pending={pending}
-    />
-  )
+  return <SubmitButton label="保存する" type="submit" pending={pending} />
 }
 
 const initialState: {
-  errors: {
-    productName: string[];
-    projectName: string[];
-  } | string[] | null
+  errors:
+    | {
+        productName: string[]
+        projectName: string[]
+      }
+    | string[]
+    | null
 } = {
-  errors: null
+  errors: null,
 }
 
 export function InitialForm() {
@@ -33,7 +30,9 @@ export function InitialForm() {
     <div>
       <div>
         <h1 className="text-lg font-semibold leading-6 text-gray-600">Scrum Management</h1>
-        <p className="text-sm leading-6 text-gray-400">本ソフトウェアはスクラムチームのタスク管理ツール（デモ用）です</p>
+        <p className="text-sm leading-6 text-gray-400">
+          本ソフトウェアはスクラムチームのタスク管理ツール（デモ用）です
+        </p>
       </div>
       <form action={action} className="mt-4 space-y-4">
         <ErrorMessage messages={state.errors} />

@@ -1,15 +1,12 @@
-import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/gateway/repository/json";
+import { ScrumTeamRepositoryInterface } from '@panda-project/core'
+import { ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type RemoveDeveloperQueryServiceDto = {
-  developers: {id: number; name: string}[]
+  developers: { id: number; name: string }[]
 }
 
 export class RemoveDeveloperQueryService {
-  constructor(
-    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {
-  }
+  constructor(private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository()) {}
 
   async exec(): Promise<RemoveDeveloperQueryServiceDto> {
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
@@ -18,6 +15,6 @@ export class RemoveDeveloperQueryService {
       name: developer.getFullName(),
     }))
 
-    return {developers}
+    return { developers }
   }
 }

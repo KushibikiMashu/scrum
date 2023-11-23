@@ -1,6 +1,6 @@
-import {input} from "@inquirer/prompts";
-import {Command} from "commander";
-import {InitCliCommand, InitScenario} from "@panda-project/use-case";
+import { input } from '@inquirer/prompts'
+import { Command } from 'commander'
+import { InitCliCommand, InitScenario } from '@panda-project/use-case'
 
 export const addInitCommand = (program: Command) => {
   program
@@ -8,19 +8,21 @@ export const addInitCommand = (program: Command) => {
     .description('最初の設定をします')
     .action(async () => {
       const useInput = async () => {
-        const productName = await input({message: "開発するプロダクトの名前は？"})
-        const projectName = await input({message: "プロジェクト名は？"})
-        return {productName, projectName}
+        const productName = await input({
+          message: '開発するプロダクトの名前は？',
+        })
+        const projectName = await input({ message: 'プロジェクト名は？' })
+        return { productName, projectName }
       }
 
-      console.info('最初の設定を開始します');
+      console.info('最初の設定を開始します')
       try {
-        const {productName, projectName} = await useInput()
+        const { productName, projectName } = await useInput()
         const command = new InitCliCommand(productName, projectName)
         await new InitScenario().exec(command)
-        console.info('初期設定を完了しました');
+        console.info('初期設定を完了しました')
       } catch (e: any) {
         console.error(e?.message)
       }
-    });
+    })
 }

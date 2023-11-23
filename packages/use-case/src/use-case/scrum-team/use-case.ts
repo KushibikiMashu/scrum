@@ -3,25 +3,25 @@ import {
   EmployeeRepositoryInterface,
   ScrumMaster,
   ScrumTeam,
-  ScrumTeamRepositoryInterface
-} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/json";
+  ScrumTeamRepositoryInterface,
+} from '@panda-project/core'
+import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 import {
   EditScrumTeamCommand,
   CreateScrumTeamCommand,
   DisbandScrumTeamCommand,
-  AddDeveloperCommand, RemoveDeveloperCommand
-} from "@/use-case/scrum-team";
+  AddDeveloperCommand,
+  RemoveDeveloperCommand,
+} from '@/use-case/scrum-team'
 
 export class ScrumTeamUseCase {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-  ) {
-  }
+    private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository()
+  ) {}
 
   async create(command: CreateScrumTeamCommand) {
-    const {newProductOwner, newScrumMaster, developers} = await this.createScrumMembersFromCommand(command)
+    const { newProductOwner, newScrumMaster, developers } = await this.createScrumMembersFromCommand(command)
 
     const scrumTeamExists = await this.scrumTeamRepository.exists()
     if (scrumTeamExists) {
@@ -38,7 +38,7 @@ export class ScrumTeamUseCase {
   }
 
   async edit(command: EditScrumTeamCommand) {
-    const {newProductOwner, newScrumMaster, developers} = await this.createScrumMembersFromCommand(command)
+    const { newProductOwner, newScrumMaster, developers } = await this.createScrumMembersFromCommand(command)
 
     const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
     const newScrumTeam = prevScrumTeam
@@ -48,7 +48,7 @@ export class ScrumTeamUseCase {
     await this.scrumTeamRepository.update(newScrumTeam)
   }
 
-  private async createScrumMembersFromCommand(command: CreateScrumTeamCommand|EditScrumTeamCommand) {
+  private async createScrumMembersFromCommand(command: CreateScrumTeamCommand | EditScrumTeamCommand) {
     const newProductOwnerId = command.getProductOwnerId()
     const newScrumMasterId = command.getScrumMasterId()
     if (newProductOwnerId.equals(newScrumMasterId)) {
@@ -70,7 +70,7 @@ export class ScrumTeamUseCase {
       developers.push(developer)
     }
 
-    return {newProductOwner, newScrumMaster, developers}
+    return { newProductOwner, newScrumMaster, developers }
   }
 
   async addDeveloper(command: AddDeveloperCommand) {

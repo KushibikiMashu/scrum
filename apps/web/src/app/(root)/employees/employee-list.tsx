@@ -1,7 +1,7 @@
-import {EmployeeListQueryService} from "@panda-project/use-case";
-import Employee from "./employee";
-import {UserIcon} from "@heroicons/react/20/solid";
-import {assertDefined} from "~/utils";
+import { EmployeeListQueryService } from '@panda-project/use-case'
+import Employee from './employee'
+import { UserIcon } from '@heroicons/react/20/solid'
+import { assertDefined } from '~/utils'
 
 function EmployeeEmpty() {
   return (
@@ -16,7 +16,7 @@ function EmployeeEmpty() {
 }
 
 export default async function EmployeeList() {
-  const {data} = await new EmployeeListQueryService().exec()
+  const { data } = await new EmployeeListQueryService().exec()
   assertDefined(data?.employees)
 
   return (
@@ -24,16 +24,15 @@ export default async function EmployeeList() {
       <h2 className="text-base font-semibold leading-6 text-gray-600">社員一覧</h2>
 
       <div className="mt-2">
-      {data.employees.length === 0 ?
+        {data.employees.length === 0 ? (
           <EmployeeEmpty />
-        : (
+        ) : (
           <ul role="list" className="divide-y divide-gray-100">
             {data.employees.map((employee, i) => (
-              <Employee key={i} employee={employee}/>
+              <Employee key={i} employee={employee} />
             ))}
           </ul>
-        )
-      }
+        )}
       </div>
     </div>
   )

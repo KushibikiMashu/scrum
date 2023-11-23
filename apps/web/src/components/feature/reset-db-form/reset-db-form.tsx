@@ -1,21 +1,21 @@
 'use client'
 
-import {resetDbAction} from "./actions";
-import {useFormState} from "react-dom";
-import {redirect} from "next/navigation";
-import {useToastDispatch} from "~/components/global/toast";
+import { resetDbAction } from './actions'
+import { useFormState } from 'react-dom'
+import { redirect } from 'next/navigation'
+import { useToastDispatch } from '~/components/global/toast'
 
 const initialState: {
-  message: string;
+  message: string
   success: boolean | null
 } = {
   message: '',
-  success: null
+  success: null,
 }
 
 export function ResetDbForm() {
   const [state, action] = useFormState(resetDbAction, initialState)
-  const {showToast} = useToastDispatch()
+  const { showToast } = useToastDispatch()
 
   const handleSubmit = async () => {
     const answer = confirm('本当にDBをリセットしますか？')
@@ -25,7 +25,10 @@ export function ResetDbForm() {
   }
 
   if (state.success !== null) {
-    showToast({icon: state.success ? 'success' : 'error', heading: state.message})
+    showToast({
+      icon: state.success ? 'success' : 'error',
+      heading: state.message,
+    })
   }
 
   if (state.success) {

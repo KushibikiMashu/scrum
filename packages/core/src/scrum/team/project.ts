@@ -1,4 +1,4 @@
-import {Id} from "@/common";
+import { Id } from '@/common'
 
 export class InvalidProjectNameError extends Error {
   constructor(message: string) {
@@ -6,14 +6,10 @@ export class InvalidProjectNameError extends Error {
   }
 }
 
-export class ProjectId extends Id {
-
-}
+export class ProjectId extends Id {}
 
 export class ProjectName {
-  constructor(
-    public readonly value: string
-  ) {
+  constructor(public readonly value: string) {
     this.validate()
   }
 
@@ -31,19 +27,18 @@ export class ProjectName {
 export class Project {
   constructor(
     public readonly id: ProjectId,
-    public readonly name: ProjectName,
+    public readonly name: ProjectName
 
     // 必要かはわからないのでコメントアウトしておく
     // public readonly product: Product,
     // public readonly team: ScrumTeam,
     // public readonly sprints: Sprint[],
-  ) {
-  }
+  ) {}
 
   // pickCurrentSprint(): Sprint
 }
 
 export interface ProjectRepositoryInterface {
-  fetch(): Promise<Project|null>
+  fetch(): Promise<Project | null>
   save(project: Project): Promise<Project>
 }

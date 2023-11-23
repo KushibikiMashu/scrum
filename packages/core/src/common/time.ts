@@ -4,4 +4,3 @@ export class Duration {
     public readonly end: Date
   ) {}
 }
-

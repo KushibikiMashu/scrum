@@ -7,9 +7,9 @@ classDiagram
         +description : string
         +status : BasicItemStatusType
         (他には、ストーリーポイントとか担当者とかを持つ)
-    }    
-    
-    
+    }
+
+
     class Epic {
         +item : BasicItem
         +definitionOfDone : DefinitionOfDone
@@ -17,7 +17,7 @@ classDiagram
         (ユーザーにとっての価値)
     }
     Epic --> BasicItem
-    
+
     class Feature {
         +item : BasicItem
         +definitionOfDone : DefinitionOfDone
@@ -25,7 +25,7 @@ classDiagram
         (epicよりは小さいが、実装できるほど細かくはない)
     }
     Feature --> BasicItem22
-    
+
     class Story {
         +item : BasicItem
         +definitionOfDone : DefinitionOfDone
@@ -33,14 +33,14 @@ classDiagram
         (実装できるくらいに小さくする)
     }
     Story --> BasicItem
-    
+
     class Task {
         +item : BasicItem
         作業形式\n(〜を調査する　。〜を実装する)
         (実装できるくらいに小さくする)
     }
     Task --> BasicItem
-    
+
     class ProductBacklogItem {
         +id : number
         +status : BasicItemStatusType
@@ -56,7 +56,7 @@ classDiagram
         +items : ProductBacklogItem[]
         (プロダクトオーナーが管理する\n並べ替えもする)
     }
-    
+
     class SprintBacklogItem {
         +item : ImplementableItem
         +created : Date

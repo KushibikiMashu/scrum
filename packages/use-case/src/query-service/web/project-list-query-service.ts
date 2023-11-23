@@ -1,20 +1,23 @@
-import {DefaultError, ErrorReason, Result} from "./types";
+import { DefaultError, ErrorReason, Result } from './types'
 import {
-  Product, ProductName,
+  Product,
+  ProductName,
   ProductRepositoryInterface,
   Project,
-  ProjectRepositoryInterface, ScrumTeam, ScrumTeamRepositoryInterface
-} from "@panda-project/core";
-import {ProductRepository, ProjectRepository, ScrumTeamRepository} from "@/gateway/repository/json";
+  ProjectRepositoryInterface,
+  ScrumTeam,
+  ScrumTeamRepositoryInterface,
+} from '@panda-project/core'
+import { ProductRepository, ProjectRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ProjectListQueryServiceDto = {
   product?: {
-    id: NonNullable<Product['id']['value']>,
-    name: Product['name']['value'],
-  },
+    id: NonNullable<Product['id']['value']>
+    name: Product['name']['value']
+  }
   project?: {
-    id: NonNullable<Project['id']['value']>,
-    name: Project['name']['value'],
+    id: NonNullable<Project['id']['value']>
+    name: Project['name']['value']
   }
   scrumTeam?: {
     poName: ReturnType<ScrumTeam['productOwner']['getFullName']>
@@ -31,9 +34,8 @@ export class ProjectListQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
     private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
-    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {
-  }
+    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository()
+  ) {}
 
   async exec(): Promise<Result<ProjectListQueryServiceDto, CustomError>> {
     // business logic
@@ -43,7 +45,7 @@ export class ProjectListQueryService {
         data: null,
         error: {
           reason: ErrorReason.ProductNotExists,
-        }
+        },
       }
     }
 
@@ -68,7 +70,7 @@ export class ProjectListQueryService {
             poName: scrumTeam.productOwner.getFullName(),
             smName: scrumTeam.scrumMaster.getFullName(),
             developersCount: scrumTeam.developers.length,
-          }
+          },
         },
         error: null,
       }

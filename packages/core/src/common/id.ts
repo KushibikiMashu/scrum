@@ -1,8 +1,5 @@
 export class Id {
-  constructor(
-    public readonly value: number|null
-  ) {
-  }
+  constructor(public readonly value: number | null) {}
 
   static createAsNull() {
     return new Id(null)

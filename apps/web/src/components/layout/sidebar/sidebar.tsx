@@ -1,43 +1,45 @@
 'use client'
 
-import {Disclosure} from '@headlessui/react'
-import {ChevronRightIcon,} from '@heroicons/react/20/solid'
-import {
-  ExclamationTriangleIcon,
-  FolderIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
-import Link from "next/link";
-import {useUnimplemented} from "~/hooks";
-import {SidebarDto} from "@panda-project/use-case";
-import {ResetDbForm} from "~/components/feature/reset-db-form";
-import {classNames} from "~/utils";
+import { Disclosure } from '@headlessui/react'
+import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { ExclamationTriangleIcon, FolderIcon, UsersIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { useUnimplemented } from '~/hooks'
+import { SidebarDto } from '@panda-project/use-case'
+import { ResetDbForm } from '~/components/feature/reset-db-form'
+import { classNames } from '~/utils'
 
+type Navigation = (
+  | {
+      name: string
+      href: string
+      icon: any
+      current: boolean
+    }
+  | {
+      name: string
+      icon: any
+      current: boolean
+      children: {
+        name: string
+        href: string
+      }[]
+    }
+)[]
 
-type Navigation = ({
-  name: string
-  href: string
-  icon: any
-  current: boolean,
-} | {
-  name: string
-  icon: any
-  current: boolean,
-  children: ({
-    name: string; href: string
-  })[]
-})[]
-
-const createNavigation = ({productName, projectName}: SidebarDto): Navigation => {
+const createNavigation = ({ productName, projectName }: SidebarDto): Navigation => {
   return [
     {
       name: projectName,
       icon: FolderIcon,
       current: false,
       children: [
-        {name: 'スクラムチーム', href: `/${productName}/${projectName}/team`},
-        {name: 'スプリントバックログ', href: `/${productName}/${projectName}/sprint-backlog`},
-        {name: 'プロダクトバックログ', href: '#'},
+        { name: 'スクラムチーム', href: `/${productName}/${projectName}/team` },
+        {
+          name: 'スプリントバックログ',
+          href: `/${productName}/${projectName}/sprint-backlog`,
+        },
+        { name: 'プロダクトバックログ', href: '#' },
       ],
     },
     {
@@ -45,20 +47,20 @@ const createNavigation = ({productName, projectName}: SidebarDto): Navigation =>
       icon: FolderIcon,
       current: false,
       children: [
-        {name: 'スクラムチーム', href: '#'},
-        {name: 'スプリントバックログ', href: '#'},
-        {name: 'プロダクトバックログ', href: '#'},
+        { name: 'スクラムチーム', href: '#' },
+        { name: 'スプリントバックログ', href: '#' },
+        { name: 'プロダクトバックログ', href: '#' },
       ],
     },
-    {name: '社員一覧', href: '/employees', icon: UsersIcon, current: false},
+    { name: '社員一覧', href: '/employees', icon: UsersIcon, current: false },
   ]
 }
 
 type Props = SidebarDto
 
-export default function Sidebar({productName, projectName}: Props) {
+export default function Sidebar({ productName, projectName }: Props) {
   const onClick = useUnimplemented()
-  const navigation = createNavigation({productName, projectName})
+  const navigation = createNavigation({ productName, projectName })
 
   return (
     <div className="flex min-h-screen w-[260px] flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
@@ -79,12 +81,12 @@ export default function Sidebar({productName, projectName}: Props) {
                         'group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-700'
                       )}
                     >
-                      <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true"/>
+                      <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
                       {item.name}
                     </Link>
                   ) : (
                     <Disclosure as="div" defaultOpen={navIndex === 0}>
-                      {({open}) => (
+                      {({ open }) => (
                         <>
                           <Disclosure.Button
                             className={classNames(
@@ -92,7 +94,7 @@ export default function Sidebar({productName, projectName}: Props) {
                               'flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 text-gray-700'
                             )}
                           >
-                            <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true"/>
+                            <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
                             {item.name}
                             <ChevronRightIcon
                               className={classNames(
@@ -106,7 +108,7 @@ export default function Sidebar({productName, projectName}: Props) {
                             {item.children.map((subItem) => (
                               <li key={subItem.name}>
                                 {/* 未実装のものと実装済みのリンクを区別する */}
-                                {navIndex === 1 || subItem.name === 'プロダクトバックログ' ?
+                                {navIndex === 1 || subItem.name === 'プロダクトバックログ' ? (
                                   <Disclosure.Button
                                     as="button"
                                     className={classNames(
@@ -117,7 +119,7 @@ export default function Sidebar({productName, projectName}: Props) {
                                   >
                                     {subItem.name}
                                   </Disclosure.Button>
-                                  :
+                                ) : (
                                   // 44px
                                   <Disclosure.Button
                                     as="div"
@@ -130,7 +132,7 @@ export default function Sidebar({productName, projectName}: Props) {
                                       {subItem.name}
                                     </Link>
                                   </Disclosure.Button>
-                                }
+                                )}
                               </li>
                             ))}
                           </Disclosure.Panel>
@@ -140,11 +142,9 @@ export default function Sidebar({productName, projectName}: Props) {
                   )}
                 </li>
               ))}
-              <li
-                className={'group flex gap-x-3 rounded-md p-2 text-xs leading-6 text-gray-700 hover:bg-gray-50'}
-              >
-                <ExclamationTriangleIcon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true"/>
-                <ResetDbForm/>
+              <li className={'group flex gap-x-3 rounded-md p-2 text-xs leading-6 text-gray-700 hover:bg-gray-50'}>
+                <ExclamationTriangleIcon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
+                <ResetDbForm />
               </li>
             </ul>
           </li>

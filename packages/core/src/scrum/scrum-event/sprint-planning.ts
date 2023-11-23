@@ -1,5 +1,5 @@
-import {ScrumEvent, ScrumEventType, ScrumEventTypeType} from "./index";
-import {Duration} from "@/common";
+import { ScrumEvent, ScrumEventType, ScrumEventTypeType } from './index'
+import { Duration } from '@/common'
 
 export class SprintPlanning implements ScrumEvent {
   constructor(
@@ -11,14 +11,14 @@ export class SprintPlanning implements ScrumEvent {
   ) {}
 
   getType(): ScrumEventTypeType {
-    return ScrumEventType.SprintPlanning;
+    return ScrumEventType.SprintPlanning
   }
 
   getStartDate(): Date {
-    return this.duration.start;
+    return this.duration.start
   }
 
   getEndDate(): Date {
-    return this.duration.end;
+    return this.duration.end
   }
 }

@@ -1,12 +1,12 @@
-import {Id} from "@/common";
+import { Id } from '@/common'
 
 export const ProductGoalStatus = {
   WIP: 'wip',
   Ongoing: 'ongoing',
   Done: 'done',
   Aborted: 'aborted',
-} as const;
-export type ProductGoalStatusType = typeof ProductGoalStatus[keyof typeof ProductGoalStatus];
+} as const
+export type ProductGoalStatusType = (typeof ProductGoalStatus)[keyof typeof ProductGoalStatus]
 
 export interface Commitment {}
 
@@ -23,14 +23,10 @@ export class InvalidProductNameError extends Error {
   }
 }
 
-export class ProductId extends Id {
-
-}
+export class ProductId extends Id {}
 
 export class ProductName {
-  constructor(
-    public readonly value: string
-  ) {
+  constructor(public readonly value: string) {
     this.validate()
   }
 
@@ -48,13 +44,12 @@ export class ProductName {
 export class Product {
   constructor(
     public readonly id: ProductId,
-    public readonly name: ProductName,
-  ) {
-  }
+    public readonly name: ProductName
+  ) {}
 }
 
 export interface ProductRepositoryInterface {
-  fetch(): Promise<Product|null>
+  fetch(): Promise<Product | null>
   findByNameOrFail(name: ProductName): Promise<Product>
   existsWithoutId(): Promise<boolean> // CLI でしか使わないメソッドかも
   save(product: Product): Promise<Product>

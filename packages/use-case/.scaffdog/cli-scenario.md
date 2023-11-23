@@ -36,18 +36,18 @@ export class {{ inputs.name }}Scenario {
 }
 
 type {{ inputs.name }}UserInputType = {
-  
+
 }
 
 class {{ inputs.name }}Input {
   constructor(private readonly userInput: {{ inputs.name }}UserInputType) {}
 
-  
+
 }
 
 class ValidateUseCase {
   constructor(
-    private readonly 
+    private readonly
   ) {
   }
 
@@ -58,7 +58,7 @@ class ValidateUseCase {
 
 class {{ inputs.name }}UseCase {
   constructor(
-    private readonly 
+    private readonly
   ) {
   }
 

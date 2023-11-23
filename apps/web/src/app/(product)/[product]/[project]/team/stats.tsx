@@ -13,7 +13,9 @@ export default function Stats() {
     <div>
       <div className="flex">
         <h3 className="text-base font-semibold leading-6 text-gray-600">スプリント8</h3>
-        <span className="text-xs leading-6 text-gray-600">（{toYearMonthDay(sprintStart)} ~ {toYearMonthDay(sprintEnd)}）</span>
+        <span className="text-xs leading-6 text-gray-600">
+          （{toYearMonthDay(sprintStart)} ~ {toYearMonthDay(sprintEnd)}）
+        </span>
       </div>
       <dl className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-3">
         {stats.map((item) => (

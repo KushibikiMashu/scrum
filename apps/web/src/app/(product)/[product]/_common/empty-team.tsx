@@ -1,11 +1,11 @@
-import {UsersIcon} from "@heroicons/react/20/solid";
-import Link from "next/link";
+import { UsersIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 type Props = {
   href: string
 }
 
-export function EmptyTeam({href}: Props) {
+export function EmptyTeam({ href }: Props) {
   return (
     <div className="max-w-md">
       <Link

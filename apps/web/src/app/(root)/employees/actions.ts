@@ -1,18 +1,18 @@
 'use server'
 
-import {z} from "zod";
-import {revalidatePath} from "next/cache";
+import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
 import {
   CreateEmployeeWebCommand,
   RemoveEmployeeWebCommand,
   EditEmployeeWebCommand,
-  EmployeeUseCase
-} from "@panda-project/use-case";
+  EmployeeUseCase,
+} from '@panda-project/use-case'
 
 export const createEmployee = async (_: any, formData: FormData) => {
   const schema = z.object({
-    familyName: z.string().min(1, "1文字以上入力してください"),
-    firstName: z.string().min(1, "1文字以上入力してください"),
+    familyName: z.string().min(1, '1文字以上入力してください'),
+    firstName: z.string().min(1, '1文字以上入力してください'),
   })
 
   try {
@@ -24,18 +24,18 @@ export const createEmployee = async (_: any, formData: FormData) => {
     const command = new CreateEmployeeWebCommand(parsed.familyName, parsed.firstName)
     await new EmployeeUseCase().create(command)
     revalidatePath('/employees')
-    return {errors: null}
+    return { errors: null }
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return {
         errors: {
           ...e.formErrors.fieldErrors,
-        }
+        },
       }
     }
 
     return {
-      errors: null
+      errors: null,
     }
   }
 }
@@ -43,8 +43,8 @@ export const createEmployee = async (_: any, formData: FormData) => {
 export const editEmployee = async (_: any, formData: FormData) => {
   const schema = z.object({
     employeeId: z.string(),
-    familyName: z.string().min(1, "1文字以上入力してください"),
-    firstName: z.string().min(1, "1文字以上入力してください"),
+    familyName: z.string().min(1, '1文字以上入力してください'),
+    firstName: z.string().min(1, '1文字以上入力してください'),
   })
 
   try {
@@ -54,21 +54,25 @@ export const editEmployee = async (_: any, formData: FormData) => {
       firstName: formData.get('first-name'),
     })
 
-    const command = new EditEmployeeWebCommand(Number.parseInt(parsed.employeeId, 10), parsed.familyName, parsed.firstName)
+    const command = new EditEmployeeWebCommand(
+      Number.parseInt(parsed.employeeId, 10),
+      parsed.familyName,
+      parsed.firstName
+    )
     await new EmployeeUseCase().edit(command)
     revalidatePath('/employees')
-    return {errors: null}
+    return { errors: null }
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return {
         errors: {
           ...e.formErrors.fieldErrors,
-        }
+        },
       }
     }
 
     return {
-      errors: null
+      errors: null,
     }
   }
 }

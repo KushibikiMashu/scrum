@@ -1,7 +1,7 @@
 'use client'
 
-import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
-import {useUnimplemented} from "~/hooks";
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { useUnimplemented } from '~/hooks'
 
 export default function SearchBar() {
   const onChange = useUnimplemented()

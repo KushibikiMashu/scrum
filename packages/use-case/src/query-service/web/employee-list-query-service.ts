@@ -1,6 +1,6 @@
-import {Employee, EmployeeRepositoryInterface, ProductName, ProductRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ProductRepository} from "@/gateway/repository/json";
-import {Result} from "./types";
+import { Employee, EmployeeRepositoryInterface, ProductName, ProductRepositoryInterface } from '@panda-project/core'
+import { EmployeeRepository, ProductRepository } from '@/gateway/repository/json'
+import { Result } from './types'
 
 export type EmployeeListQueryServiceDto = {
   employees: {
@@ -13,9 +13,8 @@ export type EmployeeListQueryServiceDto = {
 export class EmployeeListQueryService {
   constructor(
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-    private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
-  ) {
-  }
+    private readonly productRepository: ProductRepositoryInterface = new ProductRepository()
+  ) {}
 
   async exec(): Promise<Result<EmployeeListQueryServiceDto>> {
     const employees = await this.employeeRepository.findAll()
@@ -27,21 +26,19 @@ export class EmployeeListQueryService {
           employees: [],
           productName: null,
         },
-        error: null
+        error: null,
       }
     }
 
     return {
       data: {
-        employees: employees.map((employee) =>
-          ({
-            id: employee.id.toInt(),
-            name: employee.employeeName.getFullName(),
-          })
-        ),
+        employees: employees.map((employee) => ({
+          id: employee.id.toInt(),
+          name: employee.employeeName.getFullName(),
+        })),
         productName: product.name.value,
       },
-      error: null
+      error: null,
     }
   }
 }

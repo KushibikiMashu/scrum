@@ -1,9 +1,6 @@
-import {Result} from "./types";
-import {
-  ProductRepositoryInterface,
-  ProjectRepositoryInterface,
-} from "@panda-project/core";
-import {ProductRepository, ProjectRepository} from "@/gateway/repository/json";
+import { Result } from './types'
+import { ProductRepositoryInterface, ProjectRepositoryInterface } from '@panda-project/core'
+import { ProductRepository, ProjectRepository } from '@/gateway/repository/json'
 
 export type BreadcrumbDto = {
   projectName: string
@@ -13,9 +10,8 @@ export type BreadcrumbDto = {
 export class BreadcrumbQueryService {
   constructor(
     private readonly productRepository: ProductRepositoryInterface = new ProductRepository(),
-    private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
-  ) {
-  }
+    private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository()
+  ) {}
 
   async exec(): Promise<Result<BreadcrumbDto>> {
     // business logic

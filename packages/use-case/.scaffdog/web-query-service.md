@@ -24,21 +24,21 @@ type Dto = {
 }
 
 interface CustomError extends DefaultError {
-  
+
 }
 
 class Query {
   constructor(
-    private readonly 
+    private readonly
   ) {
   }
 
-  
+
 }
 
 export class {{ inputs.name }}QueryService {
   constructor(
-    private readonly 
+    private readonly
   ) {
   }
 
@@ -53,10 +53,10 @@ export class {{ inputs.name }}QueryService {
         error: null
       }
     }
-    
+
     // business logic
-    
-    
+
+
     // presentation logic
     return {
       data: {},

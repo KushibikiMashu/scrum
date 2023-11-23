@@ -1,5 +1,5 @@
-import Breadcrumb from "./breadcrumb";
-import {BreadcrumbQueryService} from "@panda-project/use-case";
+import Breadcrumb from './breadcrumb'
+import { BreadcrumbQueryService } from '@panda-project/use-case'
 
 type Props = {
   items?: LinkItem[]
@@ -16,17 +16,20 @@ type CurrentItem = {
 }
 
 export async function BreadcrumbContainer(props: Props) {
-  const {data} = await new BreadcrumbQueryService().exec()
+  const { data } = await new BreadcrumbQueryService().exec()
 
   if (!data) {
     return <div>パンくずを表示できません</div>
   }
 
-  const {productName, projectName} = data
+  const { productName, projectName } = data
   const linkItems: LinkItem[] = [
-    {name: productName, path: `/${productName}`},
-    {name: projectName, path: `/${productName}/${projectName}`},
-    ...props.items?.map((item) => ({name: item.name, path: `/${productName}/${projectName}${item.path}`})) ?? []
+    { name: productName, path: `/${productName}` },
+    { name: projectName, path: `/${productName}/${projectName}` },
+    ...(props.items?.map((item) => ({
+      name: item.name,
+      path: `/${productName}/${projectName}${item.path}`,
+    })) ?? []),
   ]
 
   return <Breadcrumb items={linkItems} current={props.current} />

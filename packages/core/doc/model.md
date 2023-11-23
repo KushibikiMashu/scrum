@@ -12,7 +12,7 @@ classDiagram
         +ProductBacklog productBacklog
         +ProductGoal[] goals
     }
-    
+
     class Employee {
         +string name
     }
@@ -115,9 +115,9 @@ classDiagram
         +inspectIncrement()
         +createSprintGoal()
     }
-    
+
     class Commitment {
-        <<interface>>        
+        <<interface>>
     }
 
     class ProductGoalStatus {
@@ -185,7 +185,7 @@ classDiagram
         +remove(ProductBacklogItem item): this
         +getProductBacklogItems(): ProductBacklogItem[]
         +getProductBacklogItem(int id): ProductBacklogItem
-        +sort(ProductBacklogItemSortOption option): this: 
+        +sort(ProductBacklogItemSortOption option): this:
     }
 
     Commitment <|-- SprintGoal
@@ -238,12 +238,12 @@ classDiagram
 
     UserStory <-- Epic
     class Epic {
-        
+
     }
 
     UserStory <-- Feature
     class Feature {
-        
+
     }
 
     class Implementable {
@@ -254,13 +254,13 @@ classDiagram
     UserStory <-- Story
     Implementable <|-- Story
     class Story {
-        
+
     }
     note for Story "2日以内に終わる"
 
     Implementable <|-- Task
     class Task {
-        
+
     }
     note for Task "4時間以内に終わる"
 

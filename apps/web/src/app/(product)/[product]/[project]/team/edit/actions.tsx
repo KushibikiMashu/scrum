@@ -1,13 +1,13 @@
 'use server'
 
-import {z} from "zod";
+import { z } from 'zod'
 import {
   EditScrumTeamWebCommand,
   CreateScrumTeamWebCommand,
   DisbandScrumTeamWebCommand,
-  ScrumTeamUseCase
-} from "@panda-project/use-case";
-import {redirect} from "next/navigation";
+  ScrumTeamUseCase,
+} from '@panda-project/use-case'
+import { redirect } from 'next/navigation'
 
 export const updateTeam = async (_: any, formData: FormData) => {
   const schema = z.object({
@@ -27,18 +27,10 @@ export const updateTeam = async (_: any, formData: FormData) => {
 
     const isCreate = parsed.scrumTeamId === ''
     if (isCreate) {
-      const command = new CreateScrumTeamWebCommand(
-        parsed.productOwnerId,
-        parsed.scrumMasterId,
-        parsed.developerIds
-      )
+      const command = new CreateScrumTeamWebCommand(parsed.productOwnerId, parsed.scrumMasterId, parsed.developerIds)
       await new ScrumTeamUseCase().create(command)
     } else {
-      const command = new EditScrumTeamWebCommand(
-        parsed.productOwnerId,
-        parsed.scrumMasterId,
-        parsed.developerIds
-      )
+      const command = new EditScrumTeamWebCommand(parsed.productOwnerId, parsed.scrumMasterId, parsed.developerIds)
       await new ScrumTeamUseCase().edit(command)
     }
   } catch (e: unknown) {

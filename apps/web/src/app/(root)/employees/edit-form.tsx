@@ -1,9 +1,9 @@
-import {useFormState, useFormStatus} from "react-dom";
-import {useState} from "react";
-import {editEmployee} from "./actions";
-import {useToastDispatch} from "~/components/global/toast";
-import {SubmitButton} from "~/components/common/submit-button";
-import {ErrorMessage} from "~/components/common/error-message";
+import { useFormState, useFormStatus } from 'react-dom'
+import { useState } from 'react'
+import { editEmployee } from './actions'
+import { useToastDispatch } from '~/components/global/toast'
+import { SubmitButton } from '~/components/common/submit-button'
+import { ErrorMessage } from '~/components/common/error-message'
 
 export const editEmployeeState = {
   errors: null,
@@ -17,16 +17,16 @@ type Props = {
 }
 
 function Submit() {
-  const {pending} = useFormStatus()
+  const { pending } = useFormStatus()
   return <SubmitButton label="保存" type="submit" pending={pending} />
 }
 
-function CancelButton({onCancel}: Pick<Props, 'onCancel'>) {
+function CancelButton({ onCancel }: Pick<Props, 'onCancel'>) {
   return <SubmitButton label="取消" type="button" onClick={onCancel} />
 }
 
-export default function EditForm({employeeName, employeeId, onSave, onCancel}: Props) {
-  const {showToast} = useToastDispatch()
+export default function EditForm({ employeeName, employeeId, onSave, onCancel }: Props) {
+  const { showToast } = useToastDispatch()
   const [state, action] = useFormState(editEmployee, editEmployeeState)
 
   const [_familyName, ...rest] = employeeName.split(' ')
@@ -47,12 +47,7 @@ export default function EditForm({employeeName, employeeId, onSave, onCancel}: P
   return (
     <form action={handleSubmit} className="grow">
       <div className="flex items-center">
-        <input
-          type="hidden"
-          name="employee-id"
-          readOnly
-          value={employeeId}
-        />
+        <input type="hidden" name="employee-id" readOnly value={employeeId} />
         <span className="text-sm leading-6 text-gray-900">{employeeId}: </span>
 
         <div className="flex items-center justify-between grow ml-2">
@@ -92,7 +87,7 @@ export default function EditForm({employeeName, employeeId, onSave, onCancel}: P
 
           <div className="space-x-2 pl-2">
             <Submit />
-            <CancelButton onCancel={onCancel}/>
+            <CancelButton onCancel={onCancel} />
           </div>
         </div>
       </div>

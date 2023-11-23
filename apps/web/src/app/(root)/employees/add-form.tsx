@@ -1,28 +1,28 @@
 'use client'
 
-import {createEmployee} from "./actions";
-import {useFormState, useFormStatus} from "react-dom";
-import {useState} from "react";
-import {useToastDispatch} from "~/components/global/toast";
-import {SubmitButton} from "~/components/common/submit-button";
-import {ErrorMessage} from "~/components/common/error-message";
+import { createEmployee } from './actions'
+import { useFormState, useFormStatus } from 'react-dom'
+import { useState } from 'react'
+import { useToastDispatch } from '~/components/global/toast'
+import { SubmitButton } from '~/components/common/submit-button'
+import { ErrorMessage } from '~/components/common/error-message'
 
 export const createEmployeeState: {
   errors: {
-    familyName: string[];
-    firstName: string[];
+    familyName: string[]
+    firstName: string[]
   } | null
 } = {
   errors: null,
 }
 
 const Submit = () => {
-  const {pending} = useFormStatus()
+  const { pending } = useFormStatus()
   return <SubmitButton label="登録する" type="submit" pending={pending} />
 }
 
 export default function AddForm() {
-  const {showToast} = useToastDispatch()
+  const { showToast } = useToastDispatch()
 
   const [state, action] = useFormState(createEmployee, createEmployeeState)
   // action 実行時に form を reset したいのだが、まだ正式な方法がないみたい...

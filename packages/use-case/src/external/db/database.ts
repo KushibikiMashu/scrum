@@ -1,7 +1,7 @@
-import {Low} from 'lowdb'
-import {JSONFile} from 'lowdb/node'
-import {DataBase, defaultData} from "./schema";
-import fs from "node:fs";
+import { Low } from 'lowdb'
+import { JSONFile } from 'lowdb/node'
+import { DataBase, defaultData } from './schema'
+import fs from 'node:fs'
 
 const cliPathIndex = __dirname.indexOf('/apps/cli')
 const webPathIndex = __dirname.indexOf('/apps/web')
@@ -10,7 +10,7 @@ if (cliPathIndex === -1 && webPathIndex === -1) {
   throw new Error('DB path not found')
 }
 
-const rootIndex =  cliPathIndex > 0 ? cliPathIndex : webPathIndex
+const rootIndex = cliPathIndex > 0 ? cliPathIndex : webPathIndex
 const basePath = __dirname.slice(0, rootIndex)
 const dbFilePath = `${basePath}/db.json`
 
@@ -27,4 +27,4 @@ const resetDb = async () => {
   await newDb.write()
 }
 
-export {db, dbFileExists, createDb, resetDb}
+export { db, dbFileExists, createDb, resetDb }

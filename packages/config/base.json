@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "es2022"
-    ],
+    "lib": ["es2022"],
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,

@@ -1,12 +1,9 @@
-import {Commitment} from "@/scrum/product";
+import { Commitment } from '@/scrum/product'
 
 export interface Artifact {
-  getCommitments(): Commitment[];
+  getCommitments(): Commitment[]
 }
 
 export class DefinitionOfDone implements Commitment {
-  constructor(
-    public readonly definition: string
-  ) {}
+  constructor(public readonly definition: string) {}
 }
-

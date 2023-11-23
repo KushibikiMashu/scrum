@@ -1,10 +1,10 @@
-import Link from "next/link";
-import {ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto} from "@panda-project/use-case";
-import {TeamForm} from './form'
-import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
-import {UserIcon} from "@heroicons/react/20/solid";
-import DeleteForm from "./delete-form";
-import {notFound} from "next/navigation";
+import Link from 'next/link'
+import { ScrumTeamEditQueryService, ScrumTeamEditQueryServiceDto } from '@panda-project/use-case'
+import { TeamForm } from './form'
+import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
+import { UserIcon } from '@heroicons/react/20/solid'
+import DeleteForm from './delete-form'
+import { notFound } from 'next/navigation'
 
 function EmployeeEmpty() {
   return (
@@ -26,7 +26,7 @@ function EmployeeEmpty() {
 }
 
 export default async function TeamEditPage() {
-  const {data} = await new ScrumTeamEditQueryService().exec()
+  const { data } = await new ScrumTeamEditQueryService().exec()
 
   if (data === null) {
     return <div>サーバーエラーです</div>
@@ -34,31 +34,29 @@ export default async function TeamEditPage() {
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
-      <BreadcrumbContainer
-        items={[
-          {name: 'スクラムチーム', path: '/team'},
-        ]}
-        current={{name: 'チームを編集する'}}
-      />
+      <BreadcrumbContainer items={[{ name: 'スクラムチーム', path: '/team' }]} current={{ name: 'チームを編集する' }} />
 
       <div className="mt-4">
-        {data.employees.length <= 2 ?
-          <EmployeeEmpty/>
-          : (
-            <div className="max-w-xs">
-              <TeamForm scrumTeam={data.scrumTeam} employees={data.employees}/>
+        {data.employees.length <= 2 ? (
+          <EmployeeEmpty />
+        ) : (
+          <div className="max-w-xs">
+            <TeamForm scrumTeam={data.scrumTeam} employees={data.employees} />
 
-              <div className="mt-6">
-                <div className="text-right">
-                  <Link className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
-                        href="/employees">社員を登録する</Link>
-                </div>
+            <div className="mt-6">
+              <div className="text-right">
+                <Link
+                  className="text-xs border border-gray-300 hover:bg-gray-50 rounded-md px-3 py-2"
+                  href="/employees"
+                >
+                  社員を登録する
+                </Link>
               </div>
-
-              {data.scrumTeam !== null && <DeleteForm teamId={data.scrumTeam.id}/>}
             </div>
-          )
-        }
+
+            {data.scrumTeam !== null && <DeleteForm teamId={data.scrumTeam.id} />}
+          </div>
+        )}
       </div>
     </div>
   )

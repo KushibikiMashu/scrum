@@ -7,9 +7,9 @@ export const defaultData: DataBase = {
   employees: [],
   members: [],
   scrumMemberRoles: {
-    1: "product_owner",
-    2: "scrum_master",
-    3: "developer",
+    1: 'product_owner',
+    2: 'scrum_master',
+    3: 'developer',
   },
   scrumTeams: [],
   productOwners: [],
@@ -56,9 +56,9 @@ export type MembersSchema = {
 }[]
 
 export type ScrumMemberRolesSchema = {
-  1: "product_owner",
-  2: "scrum_master",
-  3: "developer",
+  1: 'product_owner'
+  2: 'scrum_master'
+  3: 'developer'
 }
 
 export type ScrumTeamsSchema = {

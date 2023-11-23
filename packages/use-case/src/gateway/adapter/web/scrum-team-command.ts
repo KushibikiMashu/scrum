@@ -1,13 +1,12 @@
-import {AutoIncrementId} from "@/common";
-import {EditScrumTeamCommand, CreateScrumTeamCommand, DisbandScrumTeamCommand} from "@/use-case/scrum-team";
+import { AutoIncrementId } from '@/common'
+import { EditScrumTeamCommand, CreateScrumTeamCommand, DisbandScrumTeamCommand } from '@/use-case/scrum-team'
 
 export class CreateScrumTeamWebCommand implements CreateScrumTeamCommand {
   constructor(
     private readonly productOwnerId: string,
     private readonly scrumMasterId: string,
-    private readonly developerIds: string[],
-  ) {
-  }
+    private readonly developerIds: string[]
+  ) {}
 
   getProductOwnerId(): AutoIncrementId {
     return new AutoIncrementId(Number.parseInt(this.productOwnerId, 10))
@@ -18,7 +17,7 @@ export class CreateScrumTeamWebCommand implements CreateScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
-    const filteredIds = this.developerIds.filter(id => id !== '')
+    const filteredIds = this.developerIds.filter((id) => id !== '')
 
     // 重複の有無をチェック。ID の重複を排除するために Set を使う
     const uniqueIds = new Set(filteredIds)
@@ -26,7 +25,7 @@ export class CreateScrumTeamWebCommand implements CreateScrumTeamCommand {
       throw new Error('開発者が重複しています')
     }
 
-    return filteredIds.map(id => new AutoIncrementId(Number.parseInt(id, 10)))
+    return filteredIds.map((id) => new AutoIncrementId(Number.parseInt(id, 10)))
   }
 }
 
@@ -34,9 +33,8 @@ export class EditScrumTeamWebCommand implements EditScrumTeamCommand {
   constructor(
     private readonly productOwnerId: string,
     private readonly scrumMasterId: string,
-    private readonly developerIds: string[],
-  ) {
-  }
+    private readonly developerIds: string[]
+  ) {}
 
   getProductOwnerId(): AutoIncrementId {
     return new AutoIncrementId(Number.parseInt(this.productOwnerId, 10))
@@ -47,7 +45,7 @@ export class EditScrumTeamWebCommand implements EditScrumTeamCommand {
   }
 
   getDeveloperIds(): AutoIncrementId[] {
-    const filteredIds = this.developerIds.filter(id => id !== '')
+    const filteredIds = this.developerIds.filter((id) => id !== '')
 
     // 重複の有無をチェック。ID の重複を排除するために Set を使う
     const uniqueIds = new Set(filteredIds)
@@ -55,15 +53,12 @@ export class EditScrumTeamWebCommand implements EditScrumTeamCommand {
       throw new Error('開発者が重複しています')
     }
 
-    return filteredIds.map(id => new AutoIncrementId(Number.parseInt(id, 10)))
+    return filteredIds.map((id) => new AutoIncrementId(Number.parseInt(id, 10)))
   }
 }
 
 export class DisbandScrumTeamWebCommand implements DisbandScrumTeamCommand {
-  constructor(
-    private readonly scrumTeamId: string,
-  ) {
-  }
+  constructor(private readonly scrumTeamId: string) {}
 
   getScrumTeamId(): AutoIncrementId {
     return new AutoIncrementId(Number.parseInt(this.scrumTeamId, 10))

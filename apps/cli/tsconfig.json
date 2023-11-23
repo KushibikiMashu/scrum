@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
-      "@/*": ["../../packages/use-case/src/*"],
+      "@/*": ["../../packages/use-case/src/*"]
     },
     "outDir": "./dist"
   },

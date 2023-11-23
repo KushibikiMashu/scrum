@@ -1,7 +1,7 @@
-import {Id, ProjectId, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
-import {Low} from "lowdb";
-import {DataBase, db} from "@/external/db";
-import {JsonRepository} from "./json-repository";
+import { Id, ProjectId, Project, ProjectName, ProjectRepositoryInterface } from '@panda-project/core'
+import { Low } from 'lowdb'
+import { DataBase, db } from '@/external/db'
+import { JsonRepository } from './json-repository'
 
 export class ProjectRepository extends JsonRepository implements ProjectRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {
@@ -12,7 +12,7 @@ export class ProjectRepository extends JsonRepository implements ProjectReposito
     return new ProjectId(this.calculateNewId(this.lowdb.data.projects))
   }
 
-  async fetch(): Promise<Project|null> {
+  async fetch(): Promise<Project | null> {
     await this.lowdb.read()
     const { projects } = this.lowdb.data
 

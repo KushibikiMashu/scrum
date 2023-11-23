@@ -7,7 +7,7 @@ erDiagram
         id int
         name string
     }
-    
+
     projects {
         id int
         name string
@@ -31,9 +31,9 @@ erDiagram
     members ||--|| employees: ""
 
     scrum_member_roles {
-        product_owner int "1" 
-        scrum_master int "2" 
-        developer int "3" 
+        product_owner int "1"
+        scrum_master int "2"
+        developer int "3"
     }
 
     scrum_members {

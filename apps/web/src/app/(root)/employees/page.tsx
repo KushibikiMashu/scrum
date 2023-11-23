@@ -1,5 +1,5 @@
-import AddForm from "./add-form";
-import EmployeeList from "./employee-list";
+import AddForm from './add-form'
+import EmployeeList from './employee-list'
 
 export default async function EmployeesPage() {
   return (

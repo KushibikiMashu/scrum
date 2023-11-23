@@ -1,14 +1,12 @@
-import {Id} from "@/common";
+import { Id } from '@/common'
 
-export class EmployeeId extends Id {
-}
+export class EmployeeId extends Id {}
 
 export class EmployeeName {
   constructor(
     public readonly firstName: string,
-    public readonly familyName: string,
-  ) {
-  }
+    public readonly familyName: string
+  ) {}
 
   static createFromString(name: string): EmployeeName {
     if (!name.includes(' ')) {
@@ -28,9 +26,8 @@ export class EmployeeName {
 export class Employee {
   constructor(
     public readonly id: EmployeeId,
-    public readonly employeeName: EmployeeName,
-  ) {
-  }
+    public readonly employeeName: EmployeeName
+  ) {}
 
   updateName(name: EmployeeName) {
     return new Employee(this.id, name)
@@ -48,11 +45,10 @@ export interface EmployeeRepositoryInterface {
 
 export class Member {
   constructor(
-    public readonly employee: Employee,
+    public readonly employee: Employee
     // 部署を使うようになったら追加する
     // public readonly department: Department,
-  ) {
-  }
+  ) {}
 
   static createFromEmployee(employee: Employee) {
     return new Member(employee)

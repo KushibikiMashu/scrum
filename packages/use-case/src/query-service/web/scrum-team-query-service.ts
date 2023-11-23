@@ -1,6 +1,6 @@
-import {Result} from "./types";
-import {ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {ScrumTeamRepository} from "@/gateway/repository/json";
+import { Result } from './types'
+import { ScrumTeamRepositoryInterface } from '@panda-project/core'
+import { ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ScrumTeamQueryServiceDto = {
   scrumTeam: {
@@ -22,14 +22,11 @@ export type ScrumTeamQueryServiceDto = {
 }
 
 export class ScrumTeamQueryService {
-  constructor(
-    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {
-  }
+  constructor(private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository()) {}
 
   async exec(): Promise<Result<ScrumTeamQueryServiceDto>> {
     try {
-      const {scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
+      const { scrumMaster, productOwner, developers } = await this.scrumTeamRepository.fetchOrFail()
       // presentation logic
       return {
         data: {
@@ -44,17 +41,17 @@ export class ScrumTeamQueryService {
               name: productOwner.getFullName(),
               isDeveloper: productOwner.isDeveloper(),
             },
-            developers: developers.map(developer => ({
+            developers: developers.map((developer) => ({
               employeeId: developer.getId(),
               name: developer.getFullName(),
             })),
-          }
+          },
         },
         error: null,
       }
     } catch {
       return {
-        data: {scrumTeam: null},
+        data: { scrumTeam: null },
         error: null,
       }
     }

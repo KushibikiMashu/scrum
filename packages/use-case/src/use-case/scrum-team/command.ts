@@ -1,25 +1,25 @@
-import {AutoIncrementId} from "@/common";
+import { AutoIncrementId } from '@/common'
 
 export interface CreateScrumTeamCommand {
-  getProductOwnerId(): AutoIncrementId;
-  getScrumMasterId(): AutoIncrementId;
-  getDeveloperIds(): AutoIncrementId[];
+  getProductOwnerId(): AutoIncrementId
+  getScrumMasterId(): AutoIncrementId
+  getDeveloperIds(): AutoIncrementId[]
 }
 
 export interface EditScrumTeamCommand {
-  getProductOwnerId(): AutoIncrementId;
-  getScrumMasterId(): AutoIncrementId;
-  getDeveloperIds(): AutoIncrementId[];
+  getProductOwnerId(): AutoIncrementId
+  getScrumMasterId(): AutoIncrementId
+  getDeveloperIds(): AutoIncrementId[]
 }
 
 export interface AddDeveloperCommand {
-  getDeveloperId(): AutoIncrementId;
+  getDeveloperId(): AutoIncrementId
 }
 
 export interface RemoveDeveloperCommand {
-  getDeveloperId(): AutoIncrementId;
+  getDeveloperId(): AutoIncrementId
 }
 
 export interface DisbandScrumTeamCommand {
-  getScrumTeamId(): AutoIncrementId;
+  getScrumTeamId(): AutoIncrementId
 }

@@ -1,15 +1,14 @@
 'use server'
 
-import {z} from "zod";
-import {redirect} from "next/navigation";
-import {
-   InitScenario, InitWebCommand,
-} from "@panda-project/use-case";
+import { z } from 'zod'
+import { redirect } from 'next/navigation'
+import { InitScenario, InitWebCommand } from '@panda-project/use-case'
 
 export const createProductAndProject = async (prevState: any, formData: FormData) => {
-  const validation = z.string()
-    .min(1, "1文字以上入力してください")
-    .max(30, "30文字以下で入力してください")
+  const validation = z
+    .string()
+    .min(1, '1文字以上入力してください')
+    .max(30, '30文字以下で入力してください')
     .regex(/^[a-zA-Z0-9_-]*$/, '半角英数字と-_のみ使えます')
   const schema = z.object({
     productName: validation,
@@ -20,7 +19,7 @@ export const createProductAndProject = async (prevState: any, formData: FormData
   const projectName = formData.get('project-name')
 
   try {
-    const parsed = schema.parse({productName, projectName})
+    const parsed = schema.parse({ productName, projectName })
     const command = new InitWebCommand(parsed.productName, parsed.projectName)
     await new InitScenario().exec(command)
   } catch (e) {
@@ -28,12 +27,12 @@ export const createProductAndProject = async (prevState: any, formData: FormData
       return {
         errors: {
           ...e.formErrors.fieldErrors,
-        }
+        },
       }
     }
 
     return {
-      errors: e instanceof Error ? [e.message]: [],
+      errors: e instanceof Error ? [e.message] : [],
     }
   }
 

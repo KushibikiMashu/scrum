@@ -1,18 +1,17 @@
-import {Employee, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/json";
+import { Employee, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface } from '@panda-project/core'
+import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 import {
   CreateEmployeeCommand,
   RemoveEmployeeCommand,
   EditEmployeeCommand,
-  CreateMultipleEmployeeCommand
-} from "@/use-case/employee";
+  CreateMultipleEmployeeCommand,
+} from '@/use-case/employee'
 
 export class EmployeeUseCase {
   constructor(
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
-  ) {
-  }
+    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository()
+  ) {}
 
   async create(command: CreateEmployeeCommand): Promise<void> {
     const count = await this.employeeRepository.count()

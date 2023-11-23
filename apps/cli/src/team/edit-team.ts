@@ -1,12 +1,19 @@
-import {Command} from "commander";
+import { Command } from 'commander'
 import {
-  CheckDbMiddleware, EditScrumTeamCliCommand, EditScrumTeamQueryService, EditScrumTeamQueryServiceDto,
-  ScrumTeamUseCase
-} from "@panda-project/use-case";
-import {select} from "@inquirer/prompts";
+  CheckDbMiddleware,
+  EditScrumTeamCliCommand,
+  EditScrumTeamQueryService,
+  EditScrumTeamQueryServiceDto,
+  ScrumTeamUseCase,
+} from '@panda-project/use-case'
+import { select } from '@inquirer/prompts'
 
-type SelectProductOwner = (args: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
-type SelectScrumMaster = (args: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
+type SelectProductOwner = (
+  args: EditScrumTeamQueryServiceDto['candidateEmployees']
+) => Promise<{ newProductOwnerId: number }>
+type SelectScrumMaster = (
+  args: EditScrumTeamQueryServiceDto['candidateEmployees']
+) => Promise<{ newScrumMasterId: number }>
 
 // team-edit product owner を変更する
 // team-edit scrum master を変更する
@@ -25,22 +32,19 @@ export const addEditTeamCommand = (program: Command) => {
       if (option.productOwner) {
         const selectProductOwner: SelectProductOwner = async (candidates) => {
           const newProductOwnerId = await select({
-            message: "プロダクトオーナーを選択してください",
-            choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+            message: 'プロダクトオーナーを選択してください',
+            choices: candidates.map((v) => ({
+              name: `${v.id}: ${v.name}`,
+              value: v.id,
+            })),
           })
-          return {newProductOwnerId}
+          return { newProductOwnerId }
         }
         try {
           const dto = await new EditScrumTeamQueryService().exec()
-          const {newProductOwnerId} = await selectProductOwner(dto.candidateEmployees)
-          const command = new EditScrumTeamCliCommand(
-            newProductOwnerId,
-            dto.scumMasterId,
-            dto.developerIds,
-          )
-          await new CheckDbMiddleware(
-            async () => await new ScrumTeamUseCase().edit(command)
-          ).run()
+          const { newProductOwnerId } = await selectProductOwner(dto.candidateEmployees)
+          const command = new EditScrumTeamCliCommand(newProductOwnerId, dto.scumMasterId, dto.developerIds)
+          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().edit(command)).run()
         } catch (e: any) {
           console.error(e?.message)
           return
@@ -50,27 +54,24 @@ export const addEditTeamCommand = (program: Command) => {
       if (option.scrumMaster) {
         const selectScrumMaster: SelectScrumMaster = async (candidates) => {
           const newScrumMasterId = await select({
-            message: "スクラムマスターを選択してください",
-            choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+            message: 'スクラムマスターを選択してください',
+            choices: candidates.map((v) => ({
+              name: `${v.id}: ${v.name}`,
+              value: v.id,
+            })),
           })
-          return {newScrumMasterId}
+          return { newScrumMasterId }
         }
 
         try {
           const dto = await new EditScrumTeamQueryService().exec()
-          const {newScrumMasterId} = await selectScrumMaster(dto.candidateEmployees)
-          const command = new EditScrumTeamCliCommand(
-            dto.productOwnerId,
-            newScrumMasterId,
-            dto.developerIds,
-          )
-          await new CheckDbMiddleware(
-            async () => await new ScrumTeamUseCase().edit(command)
-          ).run()
+          const { newScrumMasterId } = await selectScrumMaster(dto.candidateEmployees)
+          const command = new EditScrumTeamCliCommand(dto.productOwnerId, newScrumMasterId, dto.developerIds)
+          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().edit(command)).run()
         } catch (e: any) {
           console.error(e?.message)
           return
         }
       }
-    });
+    })
 }

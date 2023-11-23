@@ -1,17 +1,16 @@
-import {CreateProductCommand, ProductUseCase} from '@/use-case/product'
-import {CreateProjectCommand, ProjectUseCase} from '@/use-case/project'
+import { CreateProductCommand, ProductUseCase } from '@/use-case/product'
+import { CreateProjectCommand, ProjectUseCase } from '@/use-case/project'
 
 export interface InitCommand {
-  getCreateProductCommand(): CreateProductCommand;
-  getCreateProjectCommand(): CreateProjectCommand;
+  getCreateProductCommand(): CreateProductCommand
+  getCreateProjectCommand(): CreateProjectCommand
 }
 
 export class InitScenario {
   constructor(
     private readonly productUseCase: ProductUseCase = new ProductUseCase(),
-    private readonly projectUseCase: ProjectUseCase = new ProjectUseCase(),
-  ) {
-  }
+    private readonly projectUseCase: ProjectUseCase = new ProjectUseCase()
+  ) {}
 
   async exec(command: InitCommand) {
     // 1つしかないはずなので、存在しない場合はエラーにする

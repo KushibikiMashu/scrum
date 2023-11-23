@@ -1,6 +1,6 @@
 'use client'
 
-import React, {createContext, useCallback, useContext, useEffect, useReducer} from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
 
 // @see
 // https://zenn.dev/takepepe/articles/context-custom-hooks
@@ -71,11 +71,11 @@ type Action = ({ type: 'SHOW' } & Omit<State, 'show'>) | { type: 'HIDE' }
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SHOW': {
-      const {icon, heading, description} = action
-      return {show: true, icon, heading, description}
+      const { icon, heading, description } = action
+      return { show: true, icon, heading, description }
     }
     case 'HIDE':
-      return {...state, show: false}
+      return { ...state, show: false }
     default:
       throw new Error('Toast action type is invalid at useToast.')
   }
@@ -87,10 +87,10 @@ const reducer = (state: State, action: Action): State => {
 export const useToastCore = (initialState?: Partial<State>) => {
   const [state, dispatch] = useReducer(reducer, initialStateFactory(initialState))
   const showToast = useCallback((args: Omit<State, 'show'>) => {
-    dispatch({type: 'SHOW', ...args})
+    dispatch({ type: 'SHOW', ...args })
   }, [])
   const hideToast = useCallback(() => {
-    dispatch({type: 'HIDE'})
+    dispatch({ type: 'HIDE' })
   }, [])
 
   useEffect(() => {
@@ -117,12 +117,12 @@ type Props = {
   children: React.ReactNode
 }
 
-export function ToastProviderContainer (props: Props) {
-  const {state, showToast, hideToast} = useToastCore(props.initialState)
+export function ToastProviderContainer(props: Props) {
+  const { state, showToast, hideToast } = useToastCore(props.initialState)
 
   return (
-    <ToastStateContext.Provider value={{...state}}>
-      <ToastDispatchContext.Provider value={{showToast, hideToast}}>{props.children}</ToastDispatchContext.Provider>
+    <ToastStateContext.Provider value={{ ...state }}>
+      <ToastDispatchContext.Provider value={{ showToast, hideToast }}>{props.children}</ToastDispatchContext.Provider>
     </ToastStateContext.Provider>
   )
 }
