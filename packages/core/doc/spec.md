@@ -17,16 +17,16 @@ zod のエラーにちゃんと対処する。ここはフォームごとのエ�
 ### 11.22
 やること
 
-- [ ] web/query-service で page 単位のものをコンポーネント単位に変更する
-- [ ] cli の use case を CliCommand + use case に置き換える（上から順番に） 
-- [ ] cli の scenario から query service を抽出する
+- [x] cli の use case を CliCommand + use case に置き換える（上から順番に） 
+- [x] cli の scenario から query service を抽出する
 
 ## 11.23
 細かいリファクタ
-- [ ] EmployeeId, DeveloperId 型などを作る
-- [ ] ID を Id 型にする
-- web の xxx page query service を廃止する
-- [ ] コマンド名を刷新する
+- [x] EmployeeId, DeveloperId 型などを作る
+- [x] ID を Id 型にする
+- [x] コマンド名を刷新する
+- [ ] web/query-service で page 単位のものをコンポーネント単位に変更する
+  - web の xxx page query service を廃止する
 
 - [ ] lint を入れて不要なモジュールを削除する
 - [ ] prettier を入れる
