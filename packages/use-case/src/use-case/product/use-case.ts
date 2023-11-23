@@ -1,4 +1,4 @@
-import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
+import {Id, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {ProductRepository} from "@/gateway/repository/json";
 import {CreateProductCommand} from "./command";
 
@@ -9,7 +9,7 @@ export class ProductUseCase {
   }
 
   async create(command: CreateProductCommand) {
-    const product = new Product(ID.createAsNull(), command.getProductName())
+    const product = new Product(Id.createAsNull(), command.getProductName())
     return await this.productRepository.save(product)
   }
 

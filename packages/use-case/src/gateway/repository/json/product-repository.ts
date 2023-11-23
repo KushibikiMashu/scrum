@@ -1,4 +1,4 @@
-import {ID, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
+import {Id, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "@/external/db";
 import {AutoIncrementId} from "@/common";
@@ -15,7 +15,7 @@ export class ProductRepository implements ProductRepositoryInterface {
     }
 
     const product = products[0]
-    return new Product(new ID(product.id), new ProductName(product.name))
+    return new Product(new Id(product.id), new ProductName(product.name))
   }
 
   async findByNameOrFail(productName: ProductName) {
@@ -27,7 +27,7 @@ export class ProductRepository implements ProductRepositoryInterface {
       throw new Error(`Product not found. product name: ${productName.value}`)
     }
 
-    return new Product(new ID(product.id), productName)
+    return new Product(new Id(product.id), productName)
   }
 
   async existsWithoutId() {

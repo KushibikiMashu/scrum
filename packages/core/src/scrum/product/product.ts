@@ -1,4 +1,4 @@
-import {ID} from "@/common";
+import {Id} from "@/common";
 
 export const ProductGoalStatus = {
   WIP: 'wip',
@@ -43,7 +43,7 @@ export class ProductName {
 
 export class Product {
   constructor(
-    public readonly id: ID,
+    public readonly id: Id,
     public readonly name: ProductName,
   ) {
   }

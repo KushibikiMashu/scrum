@@ -1,6 +1,6 @@
-import {ID} from "@panda-project/core";
+import {Id} from "@panda-project/core";
 
-export class AutoIncrementId extends ID {
+export class AutoIncrementId extends Id {
   constructor(public readonly value: number) {
     super(value)
   }

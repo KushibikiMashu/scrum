@@ -1,4 +1,4 @@
-import {ID, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
+import {Id, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "@/external/db";
 import {AutoIncrementId} from "@/common";
@@ -14,7 +14,7 @@ export class ProjectRepository implements ProjectRepositoryInterface {
       return null
     }
 
-    return new Project(new ID(projects[0].id), new ProjectName(projects[0].name))
+    return new Project(new Id(projects[0].id), new ProjectName(projects[0].name))
   }
 
   async save(project: Project) {

@@ -1,4 +1,4 @@
-import {ID} from "@/common";
+import {Id} from "@/common";
 
 export class EmployeeName {
   constructor(
@@ -24,7 +24,7 @@ export class EmployeeName {
 
 export class Employee {
   constructor(
-    public readonly id: ID, // TODO: Employee の ID は NonNullId にしないといけないかもしれない
+    public readonly id: Id, // TODO: Employee の ID は NonNullId にしないといけないかもしれない
     public readonly employeeName: EmployeeName,
   ) {
   }
@@ -35,7 +35,7 @@ export class Employee {
 }
 
 export interface EmployeeRepositoryInterface {
-  findByIdOrFail(id: ID): Promise<Employee>
+  findByIdOrFail(id: Id): Promise<Employee>
   findAll(): Promise<Employee[]>
   count(): Promise<number>
   save(employee: Employee): Promise<Employee>

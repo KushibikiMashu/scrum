@@ -5,17 +5,17 @@ export class Duration {
   ) {}
 }
 
-export class ID {
+export class Id {
   constructor(
     public readonly value: number|null
   ) {
   }
 
   static createAsNull() {
-    return new ID(null)
+    return new Id(null)
   }
 
-  equals(id: ID) {
+  equals(id: Id) {
     return this.value === id.value
   }
 }

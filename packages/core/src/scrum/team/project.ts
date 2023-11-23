@@ -1,4 +1,4 @@
-import {ID} from "@/common";
+import {Id} from "@/common";
 
 export class InvalidProjectNameError extends Error {
   constructor(message: string) {
@@ -26,7 +26,7 @@ export class ProjectName {
 
 export class Project {
   constructor(
-    public readonly id: ID,
+    public readonly id: Id,
     public readonly name: ProjectName,
 
     // 必要かはわからないのでコメントアウトしておく
