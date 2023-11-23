@@ -21,7 +21,7 @@ export class CreateScrumTeamQueryService {
       const isSm = scrumTeam.scrumMaster.getId() === employee.id.value
       return !isPo && !isSm
     }).map(employee => ({
-      id: employee.id.value!,
+      id: employee.id.toInt(),
       name: employee.employeeName.getFullName(),
     }))
 

@@ -13,6 +13,6 @@ export class DisbandScrumTeamQueryService {
 
   async exec(): Promise<Dto> {
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
-    return { scrumTeamId: scrumTeam.id.value! }
+    return { scrumTeamId: scrumTeam.id.toInt() }
   }
 }

@@ -29,7 +29,7 @@ export class ProjectRepository extends JsonRepository implements ProjectReposito
 
     const projectId = this.nextId()
     projects.push({
-      id: projectId.value!,
+      id: projectId.toInt(),
       name: project.name.value,
     })
 

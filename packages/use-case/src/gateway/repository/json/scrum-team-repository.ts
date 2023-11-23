@@ -117,13 +117,13 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     // product owner を保存
     productOwners.push({
       scrum_team_id: scrumTeamId.toInt(),
-      employee_id: scrumTeam.productOwner.member.employee.id.value!,
+      employee_id: scrumTeam.productOwner.getEmployeeId().toInt(),
     })
 
     // scrum master を保存
     scrumMasters.push({
       scrum_team_id: scrumTeamId.toInt(),
-      employee_id: scrumTeam.scrumMaster.member.employee.id.value!,
+      employee_id: scrumTeam.scrumMaster.getEmployeeId().toInt(),
     })
 
     // developer を保存
@@ -131,7 +131,7 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
       developers.push({
         id: AutoIncrementId.createFromRecords(developers).value,
         scrum_team_id: scrumTeamId.toInt(),
-        employee_id: scrumTeamDeveloper.member.employee.id.value!,
+        employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
       })
     }
 
@@ -146,15 +146,15 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     // product owner を更新
     const productOwnerIndex = productOwners.findIndex(po => po.scrum_team_id === scrumTeam.id.value)
     productOwners[productOwnerIndex] = {
-      scrum_team_id: scrumTeam.id.value!,
-      employee_id: productOwner.member.employee.id.value!,
+      scrum_team_id: scrumTeam.id.toInt(),
+      employee_id: productOwner.getEmployeeId().toInt(),
     }
 
     // scrum master を更新
     const scrumMasterIndex = scrumMasters.findIndex(sm => sm.scrum_team_id === scrumTeam.id.value)
     scrumMasters[scrumMasterIndex] = {
-      scrum_team_id: scrumTeam.id.value!,
-      employee_id: scrumMaster.member.employee.id.value!,
+      scrum_team_id: scrumTeam.id.toInt(),
+      employee_id: scrumMaster.getEmployeeId().toInt(),
     }
 
     // developer を更新
@@ -176,9 +176,9 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     // スクラムチームの開発者をDBに追加
     for (const scrumTeamDeveloper of scrumTeam.developers) {
         developers.push({
-          id: AutoIncrementId.createFromRecords(developers).value,
-          scrum_team_id: scrumTeam.id.value!,
-          employee_id: scrumTeamDeveloper.member.employee.id.value!,
+          id: AutoIncrementId.createFromRecords(developers).value, // TODO: 消せそう。使ってないところを調べる
+          scrum_team_id: scrumTeam.id.toInt(),
+          employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
         })
     }
 

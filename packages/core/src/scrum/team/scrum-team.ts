@@ -1,5 +1,5 @@
 import {Id} from "@/common";
-import {Employee, Member} from "@/company";
+import {Employee, EmployeeId, Member} from "@/company";
 
 export const ScrumMemberRole = {
   ProductOwner: 'product_owner',
@@ -136,6 +136,10 @@ export class ProductOwner {
     return this.member.employee.id.value!
   }
 
+  getEmployeeId(): EmployeeId {
+    return this.member.employee.id
+  }
+
   getFullName(): string {
     return this.member.employee.employeeName.getFullName()
   }
@@ -177,6 +181,10 @@ export class ScrumMaster {
     return this.member.employee.id.value!
   }
 
+  getEmployeeId(): EmployeeId {
+    return this.member.employee.id
+  }
+
   getFullName(): string {
     return this.member.employee.employeeName.getFullName()
   }
@@ -199,6 +207,10 @@ export class Developer {
 
   getId(): number {
     return this.member.employee.id.value!
+  }
+
+  getEmployeeId(): EmployeeId {
+    return this.member.employee.id
   }
 
   getFullName(): string {

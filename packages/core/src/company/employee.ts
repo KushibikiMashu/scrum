@@ -27,7 +27,7 @@ export class EmployeeName {
 
 export class Employee {
   constructor(
-    public readonly id: Id, // TODO: Employee の ID は NonNullId にしないといけないかもしれない
+    public readonly id: EmployeeId,
     public readonly employeeName: EmployeeName,
   ) {
   }

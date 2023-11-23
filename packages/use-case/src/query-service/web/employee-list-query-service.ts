@@ -35,7 +35,7 @@ export class EmployeeListQueryService {
       data: {
         employees: employees.map((employee) =>
           ({
-            id: employee.id.value!,
+            id: employee.id.toInt(),
             name: employee.employeeName.getFullName(),
           })
         ),

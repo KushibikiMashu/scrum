@@ -18,9 +18,9 @@ export class AddDeveloperQueryService {
     const allScrumMemberDeveloperIds = scrumTeam.getDevelopersIds()
 
     const candidateEmployees = employees
-      .filter(employee => !allScrumMemberDeveloperIds.includes(employee.id.value!))
+      .filter(employee => !allScrumMemberDeveloperIds.includes(employee.id.toInt()))
       .map(employee => ({
-        id: employee.id.value!,
+        id: employee.id.toInt(),
         name: employee.employeeName.getFullName(),
       }))
 

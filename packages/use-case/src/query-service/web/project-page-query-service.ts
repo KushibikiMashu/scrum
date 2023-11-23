@@ -103,11 +103,11 @@ export class ProjectPageQueryService {
     return {
       data: {
         product: {
-          id: product.id.value!,
+          id: product.id.toInt(),
           name: product.name.value,
         },
         project: {
-          id: project.id.value!,
+          id: project.id.toInt(),
           name: project.name.value,
         }
       },

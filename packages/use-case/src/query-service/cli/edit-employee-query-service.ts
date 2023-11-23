@@ -12,7 +12,7 @@ export class EditEmployeeQueryService {
   async exec(): Promise<EditEmployeeQueryServiceDto> {
     const employees = await this.employeeRepository.findAll()
     return employees.map(employee => ({
-      id: employee.id.value!,
+      id: employee.id.toInt(),
       name: employee.employeeName.getFullName(),
     }))
   }

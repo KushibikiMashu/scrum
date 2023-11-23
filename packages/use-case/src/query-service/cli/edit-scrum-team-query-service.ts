@@ -39,7 +39,7 @@ export class EditScrumTeamQueryService {
         return true
       })
       .map(employee => ({
-        id: employee.id.value!,
+        id: employee.id.toInt(),
         name: employee.employeeName.getFullName(),
       }))
 

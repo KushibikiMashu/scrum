@@ -57,11 +57,11 @@ export class ProjectListQueryService {
       return {
         data: {
           product: {
-            id: product.id.value!,
+            id: product.id.toInt(),
             name: product.name.value,
           },
           project: {
-            id: project.id.value!,
+            id: project.id.toInt(),
             name: project.name.value,
           },
           scrumTeam: {
@@ -76,11 +76,11 @@ export class ProjectListQueryService {
       return {
         data: {
           product: {
-            id: product.id.value!,
+            id: product.id.toInt(),
             name: product.name.value,
           },
           project: {
-            id: project.id.value!,
+            id: project.id.toInt(),
             name: project.name.value,
           },
           scrumTeam: null,

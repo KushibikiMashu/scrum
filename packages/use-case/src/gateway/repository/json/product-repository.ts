@@ -49,7 +49,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
 
     const productId = this.nextId()
     products.push({
-      id: productId.value!,
+      id: productId.toInt(),
       name: product.name.value,
     })
 

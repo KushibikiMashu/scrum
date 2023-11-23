@@ -48,7 +48,7 @@ export class ScrumTeamEditQueryService {
   async exec(): Promise<Result<ScrumTeamEditQueryServiceDto, CustomError>> {
     const allEmployees = await this.employeeRepository.findAll()
     const employees = allEmployees.map(employee => ({
-      id: employee.id.value!,
+      id: employee.id.toInt(),
       fullName: employee.employeeName.getFullName(),
     }))
 
