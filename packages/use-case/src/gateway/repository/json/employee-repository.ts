@@ -1,10 +1,14 @@
-import {Employee, EmployeeName, EmployeeRepositoryInterface} from "@panda-project/core";
+import {Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db, EmployeesSchema} from "@/external/db";
 import {AutoIncrementId} from "@/common";
 
 export class EmployeeRepository implements EmployeeRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {}
+
+  private nextId(): EmployeeId {
+    return new EmployeeId(this.lowdb.data.employees.length + 1)
+  }
 
   async findByIdOrFail(id: AutoIncrementId): Promise<Employee> {
     await this.lowdb.read()
@@ -40,15 +44,15 @@ export class EmployeeRepository implements EmployeeRepositoryInterface {
     await this.lowdb.read()
     const { employees } = this.lowdb.data
 
-    const autoIncrementId = AutoIncrementId.createFromRecords(employees)
+    const employeeId = this.nextId()
     employees.push({
-      id: autoIncrementId.value,
+      id: employeeId.toInt(),
       first_name: employee.employeeName.firstName,
       family_name: employee.employeeName.familyName,
     })
 
     await this.lowdb.write()
-    return new Employee(autoIncrementId, employee.employeeName)
+    return new Employee(employeeId, employee.employeeName)
   }
 
   async update(newEmployee: Employee) {

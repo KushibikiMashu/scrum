@@ -1,7 +1,6 @@
 import {Id} from "@/common";
 
 export class EmployeeId extends Id {
-
 }
 
 export class EmployeeName {

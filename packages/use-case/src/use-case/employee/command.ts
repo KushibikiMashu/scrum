@@ -1,5 +1,4 @@
-import {EmployeeName} from "@panda-project/core";
-import {AutoIncrementId} from "@/common";
+import {EmployeeName, EmployeeId} from "@panda-project/core";
 
 export interface CreateEmployeeCommand {
   getEmployeeName(): EmployeeName;
@@ -10,10 +9,10 @@ export interface CreateMultipleEmployeeCommand {
 }
 
 export interface EditEmployeeCommand {
-  getEmployeeId(): AutoIncrementId; // 本当は EmployeeId を返すのが良い
+  getEmployeeId(): EmployeeId;
   getNewEmployeeName(): EmployeeName;
 }
 
 export interface RemoveEmployeeCommand {
-  getEmployeeId(): AutoIncrementId;
+  getEmployeeId(): EmployeeId;
 }

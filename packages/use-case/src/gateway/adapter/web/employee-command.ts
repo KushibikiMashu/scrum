@@ -1,4 +1,4 @@
-import {EmployeeName} from "@panda-project/core";
+import {EmployeeId, EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
 import {CreateEmployeeCommand, RemoveEmployeeCommand, EditEmployeeCommand} from "@/use-case/employee";
 
@@ -22,7 +22,7 @@ export class EditEmployeeWebCommand implements EditEmployeeCommand {
   ) {
   }
 
-  getEmployeeId(): AutoIncrementId { // 本当は EmployeeId を返すのが良い
+  getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)
   }
 
@@ -37,7 +37,7 @@ export class RemoveEmployeeWebCommand implements RemoveEmployeeCommand {
   ) {
   }
 
-  getEmployeeId(): AutoIncrementId {
+  getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)
   }
 }

@@ -4,7 +4,7 @@ import {
   EditEmployeeCommand,
   RemoveEmployeeCommand
 } from "@/use-case/employee";
-import {EmployeeName} from "@panda-project/core";
+import {EmployeeId, EmployeeName} from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
 
 export class CreateEmployeeCliCommand implements CreateEmployeeCommand {
@@ -45,7 +45,7 @@ export class EditEmployeeCliCommand implements EditEmployeeCommand {
   ) {
   }
 
-  getEmployeeId(): AutoIncrementId { // 本当は EmployeeId を返すのが良い
+  getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)
   }
 
@@ -60,7 +60,7 @@ export class RemoveEmployeeCliCommand implements RemoveEmployeeCommand {
   ) {
   }
 
-  getEmployeeId(): AutoIncrementId {
+  getEmployeeId(): EmployeeId {
     return new AutoIncrementId(this.employeeId)
   }
 }

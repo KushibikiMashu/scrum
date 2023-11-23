@@ -8,4 +8,3 @@ export class Department {
   constructor(public readonly name: string) {
   }
 }
-
