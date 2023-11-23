@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc --emitDeclarationOnly && node ../config/build.mjs",
-    "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node && tsc --emitDeclarationOnly",
-    "type-check": "tsc --noEmit",
+    "dev": "tspc --emitDeclarationOnly && node ../config/build.mjs",
+    "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node && tspc --emitDeclarationOnly",
+    "type-check": "tspc --noEmit",
     "jest": "jest"
   },
   "dependencies": {

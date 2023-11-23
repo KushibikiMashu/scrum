@@ -11,7 +11,11 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmitOnError": true,
-    "declaration": true
+    "declaration": true,
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   },
   "exclude": ["node_modules"]
 }

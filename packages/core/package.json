@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc --watch --emitDeclarationOnly",
-    "build": "tsc",
-    "type-check": "tsc --noEmit",
+    "dev": "tspc --watch --emitDeclarationOnly",
+    "build": "tspc",
+    "type-check": "tspc --noEmit",
     "jest": "jest"
   },
   "devDependencies": {

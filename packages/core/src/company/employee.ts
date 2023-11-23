@@ -1,5 +1,9 @@
 import {Id} from "@/common";
 
+export class EmployeeId extends Id {
+
+}
+
 export class EmployeeName {
   constructor(
     public readonly firstName: string,

@@ -6,7 +6,7 @@
     "scrum": "node dist/index.js",
     "dev": "node ../../packages/config/build.mjs",
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
-    "type-check": "tsc --noEmit",
+    "type-check": "tspc --noEmit",
     "jest": "jest"
   },
   "dependencies": {
