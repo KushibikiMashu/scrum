@@ -21,7 +21,7 @@ const initialState: {
   errors: {
     productName: string[];
     projectName: string[];
-  } | null
+  } | string[] | null
 } = {
   errors: null
 }
@@ -36,6 +36,8 @@ export function InitialForm() {
         <p className="text-sm leading-6 text-gray-400">本ソフトウェアはスクラムチームのタスク管理ツール（デモ用）です</p>
       </div>
       <form action={action} className="mt-4 space-y-4">
+        <ErrorMessage messages={state.errors} />
+
         <div>
           <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
             プロダクト名（*半角英数字と-_のみ）

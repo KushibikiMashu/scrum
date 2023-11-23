@@ -18,7 +18,7 @@ export class InitScenario {
     // 本格的にやるなら（product の id を取得するなら）、ログインする機能が必要
     const existsProduct = await this.productUseCase.exists()
     if (existsProduct) {
-      throw new Error('error: 初期設定は完了済みです')
+      throw new Error('プロダクトは作成済みです')
     }
 
     await this.productUseCase.create(command.getCreateProductCommand())

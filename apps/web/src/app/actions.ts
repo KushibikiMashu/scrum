@@ -3,10 +3,7 @@
 import {z} from "zod";
 import {redirect} from "next/navigation";
 import {
-  CreateProductWebCommand,
-  CreateProjectWebCommand,
-  ProductUseCase,
-  ProjectUseCase
+   InitScenario, InitWebCommand,
 } from "@panda-project/use-case";
 
 export const createProductAndProject = async (prevState: any, formData: FormData) => {
@@ -24,24 +21,19 @@ export const createProductAndProject = async (prevState: any, formData: FormData
 
   try {
     const parsed = schema.parse({productName, projectName})
-
-    const createProductCommand = new CreateProductWebCommand(parsed.productName)
-    await new ProductUseCase().create(createProductCommand)
-
-    const createProjectCommand = new CreateProjectWebCommand(parsed.projectName)
-    await new ProjectUseCase().create(createProjectCommand)
-  } catch (err) {
-    if (err instanceof z.ZodError) {
+    const command = new InitWebCommand(parsed.productName, parsed.projectName)
+    await new InitScenario().exec(command)
+  } catch (e) {
+    if (e instanceof z.ZodError) {
       return {
         errors: {
-          ...err.formErrors.fieldErrors,
+          ...e.formErrors.fieldErrors,
         }
       }
     }
 
     return {
-      // TODO: エラー内容を書く
-      errors: null
+      errors: e instanceof Error ? [e.message]: [],
     }
   }
 
