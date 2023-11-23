@@ -1,2 +1,2 @@
-export * from './developer-add'
-export * from './developer-remove'
+export * from './add-developer'
+export * from './remove-developer'

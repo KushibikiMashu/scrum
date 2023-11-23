@@ -2,9 +2,9 @@ import {Command} from "commander";
 import {CheckDbMiddleware, ListScrumTeamQueryService} from "@panda-project/use-case";
 import {ListScrumTeamPresenter} from "@/query-service";
 
-export const addTeamListCommand = (program: Command) => {
+export const addListTeamCommand = (program: Command) => {
   program
-    .command('team-list')
+    .command('list-team')
     .description('スクラムチームのメンバーを表示します')
     .action(async () => {
       try {

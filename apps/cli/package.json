@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "cli": "node dist/index.js",
+    "scrum": "node dist/index.js",
     "dev": "node ../../packages/config/build.mjs",
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
     "type-check": "tsc --noEmit",

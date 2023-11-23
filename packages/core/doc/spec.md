@@ -26,6 +26,7 @@ zod のエラーにちゃんと対処する。ここはフォームごとのエ�
 - [ ] EmployeeId, DeveloperId 型などを作る
 - [ ] ID を Id 型にする
 - web の xxx page query service を廃止する
+- [ ] コマンド名を刷新する
 
 - [ ] lint を入れて不要なモジュールを削除する
 - [ ] prettier を入れる

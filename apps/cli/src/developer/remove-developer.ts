@@ -9,9 +9,9 @@ import {Command} from "commander";
 type SelectDeveloper = (arg: RemoveDeveloperQueryServiceDto['developers']) => Promise<{developerId: number}>
 
 // developer remove. loop で複数 select + confirm で抜ける
-export const addDeveloperRemoveCommand = (program: Command) => {
+export const addRemoveDeveloperCommand = (program: Command) => {
   program
-    .command('developer-remove')
+    .command('remove-developer')
     .description('スクラムチームから開発者を除外します')
     .action(async () => {
       const selectDeveloper: SelectDeveloper = async (developers) => {

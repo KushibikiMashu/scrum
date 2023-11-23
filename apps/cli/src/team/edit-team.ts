@@ -10,9 +10,9 @@ type SelectScrumMaster = (args: EditScrumTeamQueryServiceDto['candidateEmployees
 
 // team-edit product owner を変更する
 // team-edit scrum master を変更する
-export const addTeamEditCommand = (program: Command) => {
+export const addEditTeamCommand = (program: Command) => {
   program
-    .command('team-edit')
+    .command('edit-team')
     .description('スクラムチームのPOかSMを変更します。-po, --product-owner | -sm, --scrum-master')
     .option('-po, --product-owner', 'プロダクトオーナーを変更する')
     .option('-sm, --scrum-master', 'スクラムマスターを変更する')

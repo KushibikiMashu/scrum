@@ -9,10 +9,10 @@ import * as console from "console";
 type SelectDeveloper = (arg: AddDeveloperQueryServiceDto['candidateEmployees']) => Promise<{developerId: number}>
 
 // developer add。loop で複数 select + confirm で抜ける
-export const addDeveloperAddCommand = (program: Command) => {
+export const addAddDeveloperCommand = (program: Command) => {
   program
-    .command('developer-add')
-    .description('社員をスクラムチームの開発者を追加します')
+    .command('add-developer')
+    .description('スクラムチームの開発者を追加します')
     .action(async () => {
       const selectDeveloper: SelectDeveloper = async (candidates) => {
         const developerId = await select({

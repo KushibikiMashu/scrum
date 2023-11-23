@@ -10,9 +10,9 @@ import {input, select} from "@inquirer/prompts";
 
 type UserInput = (arg: EditEmployeeQueryServiceDto) => Promise<{employeeId: number, newEmployeeName: string}>
 
-export const addEmployeeEditCommand = (program: Command) => {
+export const addEditEmployeeCommand = (program: Command) => {
   program
-    .command('employee-edit')
+    .command('edit-employee')
     .description('社員の名前を変更します')
     .action(async () => {
       const userInput: UserInput = async (names) => {

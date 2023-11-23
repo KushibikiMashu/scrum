@@ -2,9 +2,9 @@ import {Command} from "commander";
 import {confirm} from "@inquirer/prompts";
 import {CheckDbMiddleware, ScrumTeamUseCase, DisbandScrumTeamQueryService, DisbandScrumTeamCliCommand} from "@panda-project/use-case";
 
-export const addTeamDisbandCommand = (program: Command) => {
+export const addDisbandTeamCommand = (program: Command) => {
   program
-    .command('team-disband')
+    .command('disband-team')
     .description('スクラムチームを解散します')
     .action(async () => {
       const answer = await confirm({message: '本当にスクラムチームを解散しますか？'});

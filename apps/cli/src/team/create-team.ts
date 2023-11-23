@@ -9,9 +9,9 @@ import {select} from "@inquirer/prompts";
 type SelectProductOwner = (arg: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
 type SelectScrumMaster = (arg: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
 
-export const addTeamCreateCommand = (program: Command) => {
+export const addCreateTeamCommand = (program: Command) => {
   program
-    .command('team-create')
+    .command('create-team')
     .description('スクラムチームを作成します')
     .action(async () => {
       const selectProductOwner: SelectProductOwner = async (candidates) => {

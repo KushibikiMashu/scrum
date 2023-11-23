@@ -10,9 +10,9 @@ import {RemoveEmployeeQueryServiceDto} from "@/query-service";
 
 type UserInput = (arg: RemoveEmployeeQueryServiceDto) => Promise<{ employeeId: number }>
 
-export const addEmployeeRemoveCommand = (program: Command) => {
+export const addRemoveEmployeeCommand = (program: Command) => {
   program
-    .command('employee-remove')
+    .command('remove-employee')
     .description('社員を削除します')
     .action(async () => {
       const userInput: UserInput = async (employees) => {

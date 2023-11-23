@@ -8,9 +8,9 @@ import {
 import {Command} from "commander";
 import * as console from "console";
 
-export const addEmployeeCreateCommand = (program: Command) => {
+export const addAddEmployeeCommand = (program: Command) => {
   program
-    .command('employee-create')
+    .command('add-employee')
     .description('社員を追加します。 -m, --multiple 複数の社員を追加します')
     .option('-m, --multiple', '複数の社員を登録する')
     .action(async (option) => {
