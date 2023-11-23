@@ -34,8 +34,8 @@ zod のエラーにちゃんと対処する。ここはフォームごとのエ�
 
   - web の xxx page query service を廃止する
 
-- [ ] lint を入れて不要なモジュールを削除する
-- [ ] prettier を入れる
+- [x] lint を入れて不要なモジュールを削除する
+- [x] prettier を入れる
 
 - [ ] テストを書く（全部）
 - [ ] Output Port について考えて決める
