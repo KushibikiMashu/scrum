@@ -4,6 +4,7 @@ import {TeamForm} from './form'
 import {BreadcrumbContainer} from "~/components/layout/breadcrumb";
 import {UserIcon} from "@heroicons/react/20/solid";
 import DeleteForm from "./delete-form";
+import {notFound} from "next/navigation";
 
 function EmployeeEmpty() {
   return (
@@ -25,7 +26,11 @@ function EmployeeEmpty() {
 }
 
 export default async function TeamEditPage() {
-  const {data}: { data: ScrumTeamEditQueryServiceDto } = await new ScrumTeamEditQueryService().exec()
+  const {data} = await new ScrumTeamEditQueryService().exec()
+
+  if (data === null) {
+    return <div>サーバーエラーです</div>
+  }
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">

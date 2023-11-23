@@ -9,7 +9,7 @@ import {EmptyTeam} from "~/app/(product)/[product]/_common/empty-team";
 export default async function TeamPage() {
   const {data} = await new ScrumTeamQueryService().exec()
 
-  if (data!.scrumTeam === null) {
+  if (data === null || data.scrumTeam === null) {
     return (
       <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
         <BreadcrumbContainer current={{name: 'スクラムチーム'}}/>

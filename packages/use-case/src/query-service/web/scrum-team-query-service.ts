@@ -2,7 +2,7 @@ import {Result} from "./types";
 import {ScrumTeamRepositoryInterface} from "@panda-project/core";
 import {ScrumTeamRepository} from "@/gateway/repository/json";
 
-type Dto = {
+export type ScrumTeamQueryServiceDto = {
   scrumTeam: {
     scrumMaster: {
       employeeId: number
@@ -27,7 +27,7 @@ export class ScrumTeamQueryService {
   ) {
   }
 
-  async exec(): Promise<Result<Dto>> {
+  async exec(): Promise<Result<ScrumTeamQueryServiceDto>> {
     try {
       const {scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
       // presentation logic

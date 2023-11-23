@@ -28,38 +28,21 @@ export type ScrumTeamEditQueryServiceDto = {
     id: number
     fullName: string
   }[]
-  project: {
-    name: string
-  }
-}
-
-interface CustomError extends DefaultError {
-  reason: typeof ErrorReason.ProjectNotExists
 }
 
 export class ScrumTeamEditQueryService {
   constructor(
     private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
-    private readonly projectRepository: ProjectRepositoryInterface = new ProjectRepository(),
   ) {
   }
 
-  async exec(): Promise<Result<ScrumTeamEditQueryServiceDto, CustomError>> {
+  async exec(): Promise<Result<ScrumTeamEditQueryServiceDto>> {
     const allEmployees = await this.employeeRepository.findAll()
     const employees = allEmployees.map(employee => ({
       id: employee.id.toInt(),
       fullName: employee.employeeName.getFullName(),
     }))
-
-    const project = await this.projectRepository.fetch()
-
-    if (!project) {
-      return {
-        data: null,
-        error: {reason: ErrorReason.ProjectNotExists},
-      }
-    }
 
     try {
       const {id, scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
@@ -84,13 +67,12 @@ export class ScrumTeamEditQueryService {
             })),
           },
           employees,
-          project: {name: project.name.value}
         },
         error: null,
       }
     } catch {
       return {
-        data: {scrumTeam: null, employees, project: {name: project.name.value}},
+        data: {scrumTeam: null, employees},
         error: null,
       }
     }

@@ -1,11 +1,13 @@
-import {ScrumTeamQueryService} from "@panda-project/use-case";
+import {ScrumTeamQueryServiceDto} from "@panda-project/use-case";
 
-type Props = Awaited<NonNullable<ReturnType<ScrumTeamQueryService['exec']>>>
+type Props = { scrumTeam: NonNullable<ScrumTeamQueryServiceDto['scrumTeam']> }
+
+type Developer = Props['scrumTeam']['developers'][number]
 
 export default function Team({scrumTeam}: Props) {
-  const isPoDeveloper = scrumTeam.developers.some((developer: Props['developers'][number]) => developer.employeeId === scrumTeam.productOwner.employeeId)
-  const isSmDeveloper = scrumTeam.developers.some((developer: Props['developers'][number]) => developer.employeeId === scrumTeam.scrumMaster.employeeId)
-  const filteredDevelopers = scrumTeam.developers.filter((developer: Props['developers'][number]) => developer.employeeId !== scrumTeam.productOwner.employeeId && developer.employeeId !== scrumTeam.scrumMaster.employeeId)
+  const isPoDeveloper = scrumTeam.developers.some((developer: Developer) => developer.employeeId === scrumTeam.productOwner.employeeId)
+  const isSmDeveloper = scrumTeam.developers.some((developer: Developer) => developer.employeeId === scrumTeam.scrumMaster.employeeId)
+  const filteredDevelopers = scrumTeam.developers.filter((developer: Developer) => developer.employeeId !== scrumTeam.productOwner.employeeId && developer.employeeId !== scrumTeam.scrumMaster.employeeId)
 
   return (
     <ul role="list" className="divide-y divide-gray-100">
@@ -30,7 +32,7 @@ export default function Team({scrumTeam}: Props) {
         </div>
       </li>
 
-      {filteredDevelopers.map((developer: Props['developers'][number], i: number) => (
+      {filteredDevelopers.map((developer: Developer, i: number) => (
         <li key={i} className="flex justify-between gap-x-6 py-5">
           <div className="flex min-w-0 gap-x-4">
             <div className="min-w-0 flex-auto">
