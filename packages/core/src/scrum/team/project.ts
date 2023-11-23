@@ -6,6 +6,10 @@ export class InvalidProjectNameError extends Error {
   }
 }
 
+export class ProjectId extends Id {
+
+}
+
 export class ProjectName {
   constructor(
     public readonly value: string
@@ -26,7 +30,7 @@ export class ProjectName {
 
 export class Project {
   constructor(
-    public readonly id: Id,
+    public readonly id: ProjectId,
     public readonly name: ProjectName,
 
     // 必要かはわからないのでコメントアウトしておく

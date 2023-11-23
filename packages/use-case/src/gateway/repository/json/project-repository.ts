@@ -1,10 +1,16 @@
-import {Id, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
+import {Id, ProjectId, Project, ProjectName, ProjectRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "@/external/db";
-import {AutoIncrementId} from "@/common";
+import {JsonRepository} from "./json-repository";
 
-export class ProjectRepository implements ProjectRepositoryInterface {
-  constructor(private readonly lowdb: Low<DataBase> = db) {}
+export class ProjectRepository extends JsonRepository implements ProjectRepositoryInterface {
+  constructor(private readonly lowdb: Low<DataBase> = db) {
+    super()
+  }
+
+  private nextId(): ProjectId {
+    return new ProjectId(this.calculateNewId(this.lowdb.data.employees))
+  }
 
   async fetch(): Promise<Project|null> {
     await this.lowdb.read()
@@ -21,13 +27,13 @@ export class ProjectRepository implements ProjectRepositoryInterface {
     await this.lowdb.read()
     const { projects } = this.lowdb.data
 
-    const autoIncrementId = AutoIncrementId.createFromRecords(projects)
+    const projectId = this.nextId()
     projects.push({
-      id: autoIncrementId.value,
+      id: projectId.value!,
       name: project.name.value,
     })
 
     await this.lowdb.write()
-    return new Project(autoIncrementId, project.name)
+    return new Project(projectId, project.name)
   }
 }
