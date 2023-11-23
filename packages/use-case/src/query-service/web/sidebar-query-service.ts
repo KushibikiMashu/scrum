@@ -17,11 +17,13 @@ export class SidebarQueryService {
     // business logic
     const project = await this.projectRepository.fetch()
     if (project === null) {
+      // { data: null, error: {reason; xxx }} を返すようにする
       throw new Error('プロジェクトを取得できませんでした')
     }
 
     const product = await this.productRepository.fetch()
     if (product === null) {
+      // { data: null, error: {reason; xxx }} を返すようにする
       throw new Error('プロジェクトを取得できませんでした')
     }
 

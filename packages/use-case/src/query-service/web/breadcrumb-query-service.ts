@@ -17,12 +17,14 @@ export class BreadcrumbQueryService {
     // business logic
     const project = await this.projectRepository.fetch()
     if (project === null) {
+      // { data: null, error: {reason; xxx }} を返すようにする
       throw new Error('プロジェクトを取得できませんでした')
     }
 
     const product = await this.productRepository.fetch()
     if (product === null) {
-      throw new Error('プロジェクトを取得できませんでした')
+      // { data: null, error: {reason; xxx }} を返すようにする
+      throw new Error('プロダクトを取得できませんでした')
     }
 
     // presentation logic
