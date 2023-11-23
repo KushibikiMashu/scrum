@@ -15,7 +15,6 @@ export class AddDeveloperQueryService {
   async exec(): Promise<AddDeveloperQueryServiceDto> {
     const employees = await this.employeeRepository.findAll()
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
-    const allScrumMemberIds = scrumTeam.getAllScrumMemberIds()
     const allScrumMemberDeveloperIds = scrumTeam.getDevelopersIds()
 
     const candidateEmployees = employees

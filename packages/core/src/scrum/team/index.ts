@@ -128,10 +128,6 @@ export class ScrumTeam {
   getDevelopersIds(): number[] {
     return this.developers.map((developer) => developer.getId())
   }
-
-  getAllScrumMemberIds(): number[] {
-    return [this.getProductOwnerId(), this.getScrumMasterId(), ...this.getDevelopersIds()]
-  }
 }
 
 export interface ScrumTeamRepositoryInterface {

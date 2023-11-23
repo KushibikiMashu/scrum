@@ -18,14 +18,15 @@ const initialState: {
     productOwnerId: string[]
     scrumMasterId: string[]
     developerIds: string[]
-  } | string[] | null
+  } |
+    string[] |
+    null
 } = { errors: null }
 
 export function TeamForm({scrumTeam, employees}: Props) {
   const filteredEmployees = employees
     .map((employee) => ({id: employee.id, name: employee.fullName}))
-  const developersMaxCount = Math.max(Math.min(8, filteredEmployees.length - 2), 1)
-
+  const developersMaxCount = Math.max(Math.min(8, filteredEmployees.length), 1)
   const [state, action] = useFormState(updateTeam, initialState)
 
   return (
