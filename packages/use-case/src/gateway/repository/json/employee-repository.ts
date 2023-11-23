@@ -2,12 +2,15 @@ import {Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface} from "@
 import {Low} from "lowdb";
 import {DataBase, db, EmployeesSchema} from "@/external/db";
 import {AutoIncrementId} from "@/common";
+import {JsonRepository} from "./json-repository";
 
-export class EmployeeRepository implements EmployeeRepositoryInterface {
-  constructor(private readonly lowdb: Low<DataBase> = db) {}
+export class EmployeeRepository extends JsonRepository implements EmployeeRepositoryInterface {
+  constructor(private readonly lowdb: Low<DataBase> = db) {
+    super()
+  }
 
   private nextId(): EmployeeId {
-    return new EmployeeId(this.lowdb.data.employees.length + 1)
+    return new EmployeeId(this.calculateNewId(this.lowdb.data.employees))
   }
 
   async findByIdOrFail(id: AutoIncrementId): Promise<Employee> {
