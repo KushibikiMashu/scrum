@@ -13,11 +13,6 @@ export class ListScrumTeamQueryService {
   ) {}
 
   async exec(): Promise<Dto> {
-    const exists = await this.scrumTeamRepository.exists()
-    if (!exists) {
-      throw new Error('スクラムチームが作成されていません')
-    }
-
     const {productOwner, scrumMaster, developers} = await this.scrumTeamRepository.fetchOrFail()
     return {
       poName: productOwner.getFullName(),

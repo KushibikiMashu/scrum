@@ -52,7 +52,6 @@ export class ScrumTeamEditQueryService {
       fullName: employee.employeeName.getFullName(),
     }))
 
-    const existsScrumTeam = await this.scrumTeamRepository.exists()
     const project = await this.projectRepository.fetch()
 
     if (!project) {
@@ -62,38 +61,38 @@ export class ScrumTeamEditQueryService {
       }
     }
 
-    if (!existsScrumTeam) {
+    try {
+      const {id, scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
+      // presentation logic
+      return {
+        data: {
+          scrumTeam: {
+            id: id.value!,
+            scrumMaster: {
+              employeeId: scrumMaster.getId(),
+              name: scrumMaster.getFullName(),
+              isDeveloper: scrumMaster.isDeveloper(),
+            },
+            productOwner: {
+              employeeId: productOwner.getId(),
+              name: productOwner.getFullName(),
+              isDeveloper: productOwner.isDeveloper(),
+            },
+            developers: developers.map(developer => ({
+              employeeId: developer.getId(),
+              name: developer.getFullName(),
+            })),
+          },
+          employees,
+          project: {name: project.name.value}
+        },
+        error: null,
+      }
+    } catch {
       return {
         data: {scrumTeam: null, employees, project: {name: project.name.value}},
         error: null,
       }
-    }
-
-    const {id, scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
-    // presentation logic
-    return {
-      data: {
-        scrumTeam: {
-          id: id.value!,
-          scrumMaster: {
-            employeeId: scrumMaster.getId(),
-            name: scrumMaster.getFullName(),
-            isDeveloper: scrumMaster.isDeveloper(),
-          },
-          productOwner: {
-            employeeId: productOwner.getId(),
-            name: productOwner.getFullName(),
-            isDeveloper: productOwner.isDeveloper(),
-          },
-          developers: developers.map(developer => ({
-            employeeId: developer.getId(),
-            name: developer.getFullName(),
-          })),
-        },
-        employees,
-        project: {name: project.name.value}
-      },
-      error: null,
     }
   }
 }

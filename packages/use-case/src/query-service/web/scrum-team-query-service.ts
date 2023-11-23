@@ -28,38 +28,35 @@ export class ScrumTeamQueryService {
   }
 
   async exec(): Promise<Result<Dto>> {
-    // business logic
-    const existsScrumTeam = await this.scrumTeamRepository.exists()
-    if (!existsScrumTeam) {
+    try {
+      const {scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
+      // presentation logic
+      return {
+        data: {
+          scrumTeam: {
+            scrumMaster: {
+              employeeId: scrumMaster.getId(),
+              name: scrumMaster.getFullName(),
+              isDeveloper: scrumMaster.isDeveloper(),
+            },
+            productOwner: {
+              employeeId: productOwner.getId(),
+              name: productOwner.getFullName(),
+              isDeveloper: productOwner.isDeveloper(),
+            },
+            developers: developers.map(developer => ({
+              employeeId: developer.getId(),
+              name: developer.getFullName(),
+            })),
+          }
+        },
+        error: null,
+      }
+    } catch {
       return {
         data: {scrumTeam: null},
         error: null,
       }
-    }
-
-    const {scrumMaster, productOwner, developers} = await this.scrumTeamRepository.fetchOrFail()
-
-    // presentation logic
-    return {
-      data: {
-        scrumTeam: {
-          scrumMaster: {
-            employeeId: scrumMaster.getId(),
-            name: scrumMaster.getFullName(),
-            isDeveloper: scrumMaster.isDeveloper(),
-          },
-          productOwner: {
-            employeeId: productOwner.getId(),
-            name: productOwner.getFullName(),
-            isDeveloper: productOwner.isDeveloper(),
-          },
-          developers: developers.map(developer => ({
-            employeeId: developer.getId(),
-            name: developer.getFullName(),
-          })),
-        }
-      },
-      error: null,
     }
   }
 }

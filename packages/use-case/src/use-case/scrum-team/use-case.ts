@@ -40,11 +40,6 @@ export class ScrumTeamUseCase {
   async edit(command: EditScrumTeamCommand) {
     const {newProductOwner, newScrumMaster, developers} = await this.createScrumMembersFromCommand(command)
 
-    const scrumTeamExists = await this.scrumTeamRepository.exists()
-    if (!scrumTeamExists) {
-      throw new Error('スクラムチームが作成されていません')
-    }
-
     const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
     const newScrumTeam = prevScrumTeam
       .changeProductOwner(newProductOwner)
@@ -82,11 +77,6 @@ export class ScrumTeamUseCase {
     const developerId = command.getDeveloperId()
     const developerEmployee = await this.employeeRepository.findByIdOrFail(developerId)
     const developer = Developer.createFromEmployee(developerEmployee)
-
-    const scrumTeamExists = await this.scrumTeamRepository.exists()
-    if (!scrumTeamExists) {
-      throw new Error('スクラムチームが作成されていません')
-    }
 
     const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
     if (prevScrumTeam.developers.length >= 8) {
