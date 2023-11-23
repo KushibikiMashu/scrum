@@ -10,7 +10,7 @@ import {
   EditScrumTeamCommand,
   CreateScrumTeamCommand,
   DisbandScrumTeamCommand,
-  AddDeveloperCommand
+  AddDeveloperCommand, RemoveDeveloperCommand
 } from "@/use-case/scrum-team";
 
 export class ScrumTeamUseCase {
@@ -87,6 +87,18 @@ export class ScrumTeamUseCase {
     }
 
     const newScrumTeam = prevScrumTeam.addDeveloper(developer)
+    await this.scrumTeamRepository.update(newScrumTeam)
+  }
+
+  async removeDeveloper(command: RemoveDeveloperCommand) {
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    if (scrumTeam.developers.length === 0) {
+      throw new Error('スクラムチームに開発者がいません')
+    }
+
+    const developerId = command.getDeveloperId()
+    const developer = scrumTeam.getDeveloperByEmployeeId(developerId)
+    const newScrumTeam = scrumTeam.removeDeveloper(developer)
     await this.scrumTeamRepository.update(newScrumTeam)
   }
 

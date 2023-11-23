@@ -16,6 +16,10 @@ export interface AddDeveloperCommand {
   getDeveloperId(): AutoIncrementId;
 }
 
+export interface RemoveDeveloperCommand {
+  getDeveloperId(): AutoIncrementId;
+}
+
 export interface DisbandScrumTeamCommand {
   getScrumTeamId(): AutoIncrementId;
 }

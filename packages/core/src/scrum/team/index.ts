@@ -90,6 +90,14 @@ export class ScrumTeam {
     return developer ?? null
   }
 
+  getDeveloperByEmployeeId(employeeId: ID): Developer {
+    const developer = this.developers.find(developer => developer.member.employee.id.equals(employeeId))
+    if (!developer) {
+      throw new Error(`開発者がスクラムチームに参加していません。ID: ${employeeId}`)
+    }
+    return developer
+  }
+
   addDeveloper(developer: Developer) {
     return new ScrumTeam(this.id, this.productOwner, this.scrumMaster, [...this.developers, developer])
   }
