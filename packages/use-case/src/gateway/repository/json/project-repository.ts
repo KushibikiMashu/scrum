@@ -9,7 +9,7 @@ export class ProjectRepository extends JsonRepository implements ProjectReposito
   }
 
   private nextId(): ProjectId {
-    return new ProjectId(this.calculateNewId(this.lowdb.data.employees))
+    return new ProjectId(this.calculateNewId(this.lowdb.data.projects))
   }
 
   async fetch(): Promise<Project|null> {

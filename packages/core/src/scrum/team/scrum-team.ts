@@ -13,9 +13,13 @@ export const isDeveloper = (scrumMember: ReturnType<ScrumTeam['getScrumMemberByE
   return scrumMember?.isDeveloper() ?? false
 }
 
+export class ScrumTeamId extends Id {
+
+}
+
 export class ScrumTeam {
   constructor(
-    public readonly id: Id,
+    public readonly id: ScrumTeamId,
     public readonly productOwner: ProductOwner,
     public readonly scrumMaster: ScrumMaster,
     public readonly developers: Developer[],

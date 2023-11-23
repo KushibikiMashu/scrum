@@ -10,16 +10,23 @@ import {
 } from "@/external/db";
 import {
   Developer,
-  Employee,
-  EmployeeName, isDeveloper,
+  Employee, EmployeeId,
+  EmployeeName,
   ProductOwner,
   ScrumMaster,
-  ScrumTeam
+  ScrumTeam, ScrumTeamId, ScrumTeamRepositoryInterface
 } from "@panda-project/core";
 import {AutoIncrementId} from "@/common";
+import {JsonRepository} from "./json-repository";
 
-export class ScrumTeamRepository {
-  constructor(private readonly lowdb: Low<DataBase> = db) {}
+export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepositoryInterface {
+  constructor(private readonly lowdb: Low<DataBase> = db) {
+    super()
+  }
+
+  private nextId(): ScrumTeamId {
+    return new ScrumTeamId(this.calculateNewId(this.lowdb.data.scrumTeams))
+  }
 
   async fetchOrFail() {
     await this.lowdb.read()
@@ -31,7 +38,7 @@ export class ScrumTeamRepository {
     const scrumTeam = scrumTeams[0]
 
     return new ScrumTeam(
-      new AutoIncrementId(scrumTeam.id),
+      new ScrumTeamId(scrumTeam.id),
       this.createProductOwner(scrumTeam, productOwners, employees, developers),
       this.createScrumMaster(scrumTeam, scrumMasters, employees, developers),
       this.createDevelopers(scrumTeam, developers, employees),
@@ -47,7 +54,7 @@ export class ScrumTeamRepository {
     const productOwnerEmployee = employees.find(employee => employee.id === productOwner.employee_id)!
 
     const employee = new Employee(
-      new AutoIncrementId(productOwnerEmployee.id),
+      new EmployeeId(productOwnerEmployee.id),
       new EmployeeName(productOwnerEmployee.first_name, productOwnerEmployee.family_name)
     )
     const isDeveloper = developers.some(developer => developer.employee_id === productOwnerEmployee.id)
@@ -66,7 +73,7 @@ export class ScrumTeamRepository {
     const scrumMasterEmployee = employees.find(employee => employee.id === scrumMaster.employee_id)!
 
     const employee = new Employee(
-      new AutoIncrementId(scrumMasterEmployee.id),
+      new EmployeeId(scrumMasterEmployee.id),
       new EmployeeName(scrumMasterEmployee.first_name, scrumMasterEmployee.family_name)
     )
     const isDeveloper = developers.some(developer => developer.employee_id === scrumMasterEmployee.id)
@@ -83,8 +90,9 @@ export class ScrumTeamRepository {
       const employee = employees.find(employee => employee.id === developerRecord.employee_id)!
       return Developer.createFromEmployee(
         new Employee(
-          new AutoIncrementId(employee.id),
-          new EmployeeName(employee.first_name, employee.family_name)),
+          new EmployeeId(employee.id),
+          new EmployeeName(employee.first_name, employee.family_name)
+        )
       )
     })
   }
@@ -100,21 +108,21 @@ export class ScrumTeamRepository {
     const { scrumTeams, productOwners, scrumMasters, developers } = this.lowdb.data
 
     // scrum team を保存
-    const scrumTeamAutoIncrementId = AutoIncrementId.createFromRecords(scrumTeams)
+    const scrumTeamId = this.nextId()
     scrumTeams.push({
-      id: scrumTeamAutoIncrementId.value,
+      id: scrumTeamId.toInt(),
       product_backlog_id: null,
     })
 
     // product owner を保存
     productOwners.push({
-      scrum_team_id: scrumTeamAutoIncrementId.value,
+      scrum_team_id: scrumTeamId.toInt(),
       employee_id: scrumTeam.productOwner.member.employee.id.value!,
     })
 
     // scrum master を保存
     scrumMasters.push({
-      scrum_team_id: scrumTeamAutoIncrementId.value,
+      scrum_team_id: scrumTeamId.toInt(),
       employee_id: scrumTeam.scrumMaster.member.employee.id.value!,
     })
 
@@ -122,7 +130,7 @@ export class ScrumTeamRepository {
     for (const scrumTeamDeveloper of scrumTeam.developers) {
       developers.push({
         id: AutoIncrementId.createFromRecords(developers).value,
-        scrum_team_id: scrumTeamAutoIncrementId.value!,
+        scrum_team_id: scrumTeamId.toInt(),
         employee_id: scrumTeamDeveloper.member.employee.id.value!,
       })
     }
@@ -156,6 +164,7 @@ export class ScrumTeamRepository {
     // スクラムチームのIDで開発者を全て削除したあと、スクラムチームの開発者を insert するようにする
 
     // スクラムチームのIDが同じ開発者をDBから削除
+    // TODO: ID いらないのでは？。employee id だけで絞り込めるはず
     const developerRecordIds = developers
       .filter((developer) => developer.scrum_team_id === scrumTeam.id.value)
       .map((developer) => developer.id)

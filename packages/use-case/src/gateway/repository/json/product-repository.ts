@@ -9,7 +9,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
   }
 
   private nextId(): ProductId {
-    return new ProductId(this.calculateNewId(this.lowdb.data.employees))
+    return new ProductId(this.calculateNewId(this.lowdb.data.products))
   }
 
   async fetch(): Promise<Product|null> {
