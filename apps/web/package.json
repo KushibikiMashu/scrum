@@ -6,7 +6,7 @@
     "next:dev": "next dev",
     "next:build": "next build",
     "next:start": "next start",
-    "next:lint": "next lint",
+    "lint": "next lint",
     "type-check": "tspc --noEmit"
   },
   "dependencies": {

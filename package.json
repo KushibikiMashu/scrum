@@ -10,7 +10,7 @@
     "dev": "turbo dev --parallel",
     "build": "turbo build",
     "type-check": "turbo type-check",
-    "lint": "eslint . '*/**/*.{ts,tsx}'",
+    "lint": "eslint . '*/**/*.{ts,tsx}' && turbo lint",
     "lint:fix": "eslint . --fix '*/**/*.{ts,tsx}'",
     "fmt": "prettier . --write"
   },
