@@ -1,7 +1,10 @@
-import TaskList from '../_common/task-list'
-import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
-import { EmptyTeam } from '~/app/(product)/[product]/_common/empty-team'
 import { ScrumTeamQueryService } from '@panda-project/use-case'
+
+import { EmptyTeam } from '~/app/(product)/[product]/_common/empty-team'
+import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
+
+import TaskList from '../_common/task-list'
+
 
 export default async function SprintBacklogPage() {
   const { data } = await new ScrumTeamQueryService().exec()

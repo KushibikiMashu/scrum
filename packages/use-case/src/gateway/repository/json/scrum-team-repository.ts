@@ -1,13 +1,3 @@
-import { Low } from 'lowdb'
-import {
-  DataBase,
-  db,
-  DevelopersSchema,
-  EmployeesSchema,
-  ProductOwnersSchema,
-  ScrumMastersSchema,
-  ScrumTeamsSchema,
-} from '@/external/db'
 import {
   Developer,
   Employee,
@@ -19,7 +9,19 @@ import {
   ScrumTeamId,
   ScrumTeamRepositoryInterface,
 } from '@panda-project/core'
+import { Low } from 'lowdb'
+
 import { JsonRepository } from './json-repository'
+
+import {
+  DataBase,
+  db,
+  DevelopersSchema,
+  EmployeesSchema,
+  ProductOwnersSchema,
+  ScrumMastersSchema,
+  ScrumTeamsSchema,
+} from '@/external/db'
 
 export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {

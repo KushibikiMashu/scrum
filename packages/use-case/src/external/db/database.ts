@@ -1,7 +1,9 @@
+import fs from 'node:fs'
+
 import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
+
 import { DataBase, defaultData } from './schema'
-import fs from 'node:fs'
 
 const cliPathIndex = __dirname.indexOf('/apps/cli')
 const webPathIndex = __dirname.indexOf('/apps/web')

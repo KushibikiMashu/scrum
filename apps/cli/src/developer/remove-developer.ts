@@ -1,12 +1,11 @@
+import { confirm, select } from '@inquirer/prompts'
 import {
-  AddDeveloperCliCommand,
   CheckDbMiddleware,
   RemoveDeveloperCliCommand,
   RemoveDeveloperQueryService,
   RemoveDeveloperQueryServiceDto,
   ScrumTeamUseCase,
 } from '@panda-project/use-case'
-import { confirm, select } from '@inquirer/prompts'
 import { Command } from 'commander'
 
 type SelectDeveloper = (arg: RemoveDeveloperQueryServiceDto['developers']) => Promise<{ developerId: number }>

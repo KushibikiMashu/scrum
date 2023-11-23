@@ -1,7 +1,9 @@
-import { EmployeeListQueryService } from '@panda-project/use-case'
-import Employee from './employee'
 import { UserIcon } from '@heroicons/react/20/solid'
+import { EmployeeListQueryService } from '@panda-project/use-case'
+
 import { assertDefined } from '~/utils'
+
+import Employee from './employee'
 
 function EmployeeEmpty() {
   return (

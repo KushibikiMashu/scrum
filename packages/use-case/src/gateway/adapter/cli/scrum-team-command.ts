@@ -1,3 +1,5 @@
+import {EmployeeId, ScrumTeamId} from "@panda-project/core";
+
 import {
   AddDeveloperCommand,
   CreateScrumTeamCommand,
@@ -5,7 +7,6 @@ import {
   EditScrumTeamCommand,
   RemoveDeveloperCommand,
 } from '@/use-case/scrum-team'
-import {EmployeeId, ScrumTeamId} from "@panda-project/core";
 
 export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
   constructor(

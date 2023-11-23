@@ -1,5 +1,7 @@
-import { Result } from './types'
 import { ScrumTeamRepositoryInterface } from '@panda-project/core'
+
+import { Result } from './types'
+
 import { ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ScrumTeamQueryServiceDto = {

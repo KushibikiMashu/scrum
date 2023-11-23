@@ -3,6 +3,7 @@
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { ComponentProps } from 'react'
+
 import { BreadcrumbContainer } from './breadcrumb-container'
 
 type Props = Required<ComponentProps<typeof BreadcrumbContainer>>

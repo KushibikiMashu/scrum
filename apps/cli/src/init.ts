@@ -1,6 +1,6 @@
 import { input } from '@inquirer/prompts'
-import { Command } from 'commander'
 import { InitCliCommand, InitScenario } from '@panda-project/use-case'
+import { Command } from 'commander'
 
 export const addInitCommand = (program: Command) => {
   program

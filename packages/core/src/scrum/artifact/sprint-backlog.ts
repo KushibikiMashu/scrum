@@ -1,5 +1,6 @@
-import { Commitment } from '@/scrum/product'
 import { Artifact, ImplementableItem, SprintGoal } from './index'
+
+import { Commitment } from '@/scrum/product'
 
 export class SprintBacklogItem {
   constructor(

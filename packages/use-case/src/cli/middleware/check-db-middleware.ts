@@ -1,4 +1,5 @@
 import { MiddlewareInterface } from './middleware'
+
 import { dbFileExists } from '@/external/db'
 
 export class CheckDbMiddleware implements MiddlewareInterface {

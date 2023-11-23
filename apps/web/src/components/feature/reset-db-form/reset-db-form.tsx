@@ -1,9 +1,11 @@
 'use client'
 
-import { resetDbAction } from './actions'
-import { useFormState } from 'react-dom'
 import { redirect } from 'next/navigation'
+import { useFormState } from 'react-dom'
+
 import { useToastDispatch } from '~/components/global/toast'
+
+import { resetDbAction } from './actions'
 
 const initialState: {
   message: string

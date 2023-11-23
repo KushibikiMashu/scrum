@@ -1,6 +1,7 @@
-import { Member } from '@/company'
 import { ScrumEvent, ScrumEventType, ScrumEventTypeType } from './index'
+
 import { Duration } from '@/common'
+import { Member } from '@/company'
 
 export class SprintReview implements ScrumEvent {
   constructor(

@@ -1,4 +1,5 @@
 import { ScrumEvent, ScrumEventType, ScrumEventTypeType } from './index'
+
 import { Duration } from '@/common'
 
 export class SprintPlanning implements ScrumEvent {

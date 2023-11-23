@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+
 import { Toast, ToastProviderContainer } from '~/components/global/toast'
 import { classNames } from '~/utils'
 

@@ -3,12 +3,15 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
     'plugin:import/typescript',
     // 競合を避けるため、prettierは一番最後に書く
     'prettier',
   ],
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'import',
+    'unused-imports'
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -46,7 +49,7 @@ module.exports = {
     'no-restricted-syntax': 'off',
     // console.errorを許容する
     'no-console': ['error', {allow: ['warn', 'error']}],
-    // 未使用の変数がある場合エラーにする（デフォルトは warning）
-    '@typescript-eslint/no-unused-vars': 'error'
+    // 未使用のimportの削除
+    'unused-imports/no-unused-imports': 'error'
   }
 }

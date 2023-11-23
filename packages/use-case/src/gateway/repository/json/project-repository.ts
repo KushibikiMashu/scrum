@@ -1,7 +1,9 @@
 import { Id, ProjectId, Project, ProjectName, ProjectRepositoryInterface } from '@panda-project/core'
 import { Low } from 'lowdb'
-import { DataBase, db } from '@/external/db'
+
 import { JsonRepository } from './json-repository'
+
+import { DataBase, db } from '@/external/db'
 
 export class ProjectRepository extends JsonRepository implements ProjectRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {

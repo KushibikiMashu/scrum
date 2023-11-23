@@ -1,8 +1,9 @@
+import { CreateProductCliCommand } from './product-command'
+import { CreateProjectCliCommand } from './project-command'
+
 import { InitCommand } from '@/scenario/init/scenario'
 import { CreateProductCommand } from '@/use-case/product'
 import { CreateProjectCommand } from '@/use-case/project'
-import { CreateProductCliCommand } from './product-command'
-import { CreateProjectCliCommand } from './project-command'
 
 export class InitCliCommand implements InitCommand {
   constructor(

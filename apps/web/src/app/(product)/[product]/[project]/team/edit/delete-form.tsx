@@ -1,10 +1,12 @@
 'use client'
 
-import { useFormState } from 'react-dom'
-import { deleteTeam } from './actions'
-import { ErrorMessage } from '~/components/common/error-message'
 import { useEffect } from 'react'
+import { useFormState } from 'react-dom'
+
+import { ErrorMessage } from '~/components/common/error-message'
 import { useToastDispatch } from '~/components/global/toast'
+
+import { deleteTeam } from './actions'
 
 const initialState: {
   type: null | 'success' | 'error'

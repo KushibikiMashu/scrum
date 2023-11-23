@@ -1,11 +1,12 @@
-import { Command } from 'commander'
+import { select } from '@inquirer/prompts'
 import {
   CheckDbMiddleware,
   EmployeeUseCase,
   RemoveEmployeeCliCommand,
   RemoveEmployeeQueryService,
 } from '@panda-project/use-case'
-import { select } from '@inquirer/prompts'
+import { Command } from 'commander'
+
 import { RemoveEmployeeQueryServiceDto } from '@/query-service'
 
 type UserInput = (arg: RemoveEmployeeQueryServiceDto) => Promise<{ employeeId: number }>

@@ -1,10 +1,14 @@
 import { ScrumTeamQueryService } from '@panda-project/use-case'
 import Link from 'next/link'
-import Team from './team'
-import Stats from './stats'
-import TaskList from '../_common/task-list'
-import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
+
 import { EmptyTeam } from '~/app/(product)/[product]/_common/empty-team'
+import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
+
+import TaskList from '../_common/task-list'
+
+import Stats from './stats'
+import Team from './team'
+
 
 export default async function TeamPage() {
   const { data } = await new ScrumTeamQueryService().exec()

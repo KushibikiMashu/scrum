@@ -1,10 +1,11 @@
-import { DefaultError, ErrorReason, Result } from './types'
 import {
   EmployeeRepositoryInterface,
-  ProjectRepositoryInterface,
   ScrumTeamRepositoryInterface,
 } from '@panda-project/core'
-import { EmployeeRepository, ProjectRepository, ScrumTeamRepository } from '@/gateway/repository/json'
+
+import { Result } from './types'
+
+import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ScrumTeamEditQueryServiceDto = {
   scrumTeam: {

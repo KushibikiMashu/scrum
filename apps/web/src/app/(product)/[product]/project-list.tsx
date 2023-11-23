@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { ProjectListQueryService } from '@panda-project/use-case'
+import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
-import { EmptyTeam } from './_common/empty-team'
+
 
 export async function ProjectList() {
   const { data, error } = await new ProjectListQueryService().exec()

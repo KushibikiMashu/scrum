@@ -1,4 +1,5 @@
 import { ProductName } from '@panda-project/core'
+
 import { CreateProductCommand } from '@/use-case/product'
 
 export class CreateProductCliCommand implements CreateProductCommand {

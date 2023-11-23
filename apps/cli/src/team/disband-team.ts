@@ -1,4 +1,3 @@
-import { Command } from 'commander'
 import { confirm } from '@inquirer/prompts'
 import {
   CheckDbMiddleware,
@@ -6,6 +5,7 @@ import {
   DisbandScrumTeamQueryService,
   DisbandScrumTeamCliCommand,
 } from '@panda-project/use-case'
+import { Command } from 'commander'
 
 export const addDisbandTeamCommand = (program: Command) => {
   program

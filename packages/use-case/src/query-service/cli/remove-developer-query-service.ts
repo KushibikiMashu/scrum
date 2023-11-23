@@ -1,4 +1,5 @@
 import { ScrumTeamRepositoryInterface } from '@panda-project/core'
+
 import { ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type RemoveDeveloperQueryServiceDto = {

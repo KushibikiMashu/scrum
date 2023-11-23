@@ -1,8 +1,9 @@
+import { CreateProductWebCommand } from './product-command'
+import { CreateProjectWebCommand } from './project-command'
+
 import { InitCommand } from '@/scenario/init/scenario'
 import { CreateProductCommand } from '@/use-case/product'
 import { CreateProjectCommand } from '@/use-case/project'
-import { CreateProductWebCommand } from './product-command'
-import { CreateProjectWebCommand } from './project-command'
 
 export class InitWebCommand implements InitCommand {
   constructor(

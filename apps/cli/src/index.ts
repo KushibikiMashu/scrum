@@ -1,8 +1,9 @@
 import { Command } from 'commander'
-import { addInitCommand } from '~/init'
-import { addAddEmployeeCommand, addEditEmployeeCommand, addRemoveEmployeeCommand } from '~/employee'
-import { addCreateTeamCommand, addDisbandTeamCommand, addEditTeamCommand, addListTeamCommand } from '~/team'
+
 import { addAddDeveloperCommand, addRemoveDeveloperCommand } from '~/developer'
+import { addAddEmployeeCommand, addEditEmployeeCommand, addRemoveEmployeeCommand } from '~/employee'
+import { addInitCommand } from '~/init'
+import { addCreateTeamCommand, addDisbandTeamCommand, addEditTeamCommand, addListTeamCommand } from '~/team'
 
 const program = new Command()
 

@@ -1,5 +1,6 @@
-import Breadcrumb from './breadcrumb'
 import { BreadcrumbQueryService } from '@panda-project/use-case'
+
+import Breadcrumb from './breadcrumb'
 
 type Props = {
   items?: LinkItem[]

@@ -1,4 +1,4 @@
-import { Command } from 'commander'
+import { input, select } from '@inquirer/prompts'
 import {
   CheckDbMiddleware,
   EditEmployeeCliCommand,
@@ -6,7 +6,7 @@ import {
   EditEmployeeQueryServiceDto,
   EmployeeUseCase,
 } from '@panda-project/use-case'
-import { input, select } from '@inquirer/prompts'
+import { Command } from 'commander'
 
 type UserInput = (arg: EditEmployeeQueryServiceDto) => Promise<{ employeeId: number; newEmployeeName: string }>
 

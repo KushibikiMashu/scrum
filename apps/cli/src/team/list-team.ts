@@ -1,5 +1,6 @@
-import { Command } from 'commander'
 import { CheckDbMiddleware, ListScrumTeamQueryService } from '@panda-project/use-case'
+import { Command } from 'commander'
+
 import { ListScrumTeamPresenter } from '@/query-service'
 
 export const addListTeamCommand = (program: Command) => {

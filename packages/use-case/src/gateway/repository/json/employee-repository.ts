@@ -1,7 +1,9 @@
 import { Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface } from '@panda-project/core'
 import { Low } from 'lowdb'
-import { DataBase, db, EmployeesSchema } from '@/external/db'
+
 import { JsonRepository } from './json-repository'
+
+import { DataBase, db, EmployeesSchema } from '@/external/db'
 
 export class EmployeeRepository extends JsonRepository implements EmployeeRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {

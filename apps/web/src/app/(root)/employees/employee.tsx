@@ -1,15 +1,17 @@
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
-import EditForm from './edit-form'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import DeleteForm from './delete-form'
 import { EmployeeListQueryServiceDto } from '@panda-project/use-case'
+import { Fragment, useEffect, useState } from 'react'
+import { useFormState } from 'react-dom'
+
 import { useToastDispatch } from '~/components/global/toast'
-import { useFormState, useFormStatus } from 'react-dom'
-import { deleteEmployee } from './actions'
 import { classNames } from '~/utils'
+
+import { deleteEmployee } from './actions'
+import DeleteForm from './delete-form'
+import EditForm from './edit-form'
 
 type Props = { employee: EmployeeListQueryServiceDto['employees'][number] }
 

@@ -1,6 +1,8 @@
 import { Employee, EmployeeRepositoryInterface, ProductName, ProductRepositoryInterface } from '@panda-project/core'
-import { EmployeeRepository, ProductRepository } from '@/gateway/repository/json'
+
 import { Result } from './types'
+
+import { EmployeeRepository, ProductRepository } from '@/gateway/repository/json'
 
 export type EmployeeListQueryServiceDto = {
   employees: {

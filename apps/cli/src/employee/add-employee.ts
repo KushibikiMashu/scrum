@@ -1,3 +1,5 @@
+import * as console from 'console'
+
 import { input } from '@inquirer/prompts'
 import {
   CheckDbMiddleware,
@@ -6,7 +8,6 @@ import {
   EmployeeUseCase,
 } from '@panda-project/use-case'
 import { Command } from 'commander'
-import * as console from 'console'
 
 export const addAddEmployeeCommand = (program: Command) => {
   program

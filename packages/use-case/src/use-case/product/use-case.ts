@@ -1,6 +1,8 @@
-import { Id, Product, ProductName, ProductRepositoryInterface } from '@panda-project/core'
-import { ProductRepository } from '@/gateway/repository/json'
+import { Id, Product, ProductRepositoryInterface } from '@panda-project/core'
+
 import { CreateProductCommand } from './command'
+
+import { ProductRepository } from '@/gateway/repository/json'
 
 export class ProductUseCase {
   constructor(private readonly productRepository: ProductRepositoryInterface = new ProductRepository()) {}

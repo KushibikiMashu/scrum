@@ -1,13 +1,14 @@
-import { DefaultError, ErrorReason, Result } from './types'
 import {
   Product,
-  ProductName,
   ProductRepositoryInterface,
   Project,
   ProjectRepositoryInterface,
   ScrumTeam,
   ScrumTeamRepositoryInterface,
 } from '@panda-project/core'
+
+import { DefaultError, ErrorReason, Result } from './types'
+
 import { ProductRepository, ProjectRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export type ProjectListQueryServiceDto = {

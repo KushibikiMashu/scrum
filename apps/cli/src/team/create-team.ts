@@ -1,4 +1,4 @@
-import { Command } from 'commander'
+import { select } from '@inquirer/prompts'
 import {
   CheckDbMiddleware,
   CreateScrumTeamCliCommand,
@@ -7,7 +7,7 @@ import {
   EditScrumTeamQueryServiceInput,
   ScrumTeamUseCase,
 } from '@panda-project/use-case'
-import { select } from '@inquirer/prompts'
+import { Command } from 'commander'
 
 type SelectProductOwner = (
   arg: EditScrumTeamQueryServiceDto['candidateEmployees']

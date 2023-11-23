@@ -1,6 +1,7 @@
-import { Increment } from '@/scrum/artifact'
 import { ScrumEvent, ScrumEventType, ScrumEventTypeType } from './index'
+
 import { Duration } from '@/common'
+import { Increment } from '@/scrum/artifact'
 
 export const SprintTimeBox = {
   OneWeek: 'one_week',

@@ -1,5 +1,6 @@
-import { Duration } from '@/common'
 import { ScrumEvent, ScrumEventType, ScrumEventTypeType } from './scrum-event'
+
+import { Duration } from '@/common'
 
 export class DailyScrum implements ScrumEvent {
   constructor(

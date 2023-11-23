@@ -1,6 +1,7 @@
-import { InitialForm } from '~/app/initial-form'
 import { TopPageQueryService } from '@panda-project/use-case'
 import { redirect } from 'next/navigation'
+
+import { InitialForm } from '~/app/initial-form'
 
 export default async function Page() {
   const { data } = await new TopPageQueryService().exec()

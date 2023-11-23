@@ -1,5 +1,6 @@
-import { Commitment } from '@/scrum/product'
 import { Artifact } from './index'
+
+import { Commitment } from '@/scrum/product'
 
 export const IncrementStatus = {
   Ongoing: 'ongoing',
