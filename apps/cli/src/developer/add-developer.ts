@@ -10,7 +10,6 @@ import {
 } from '@panda-project/use-case'
 import { Command } from 'commander'
 
-
 type SelectDeveloper = (arg: AddDeveloperQueryServiceDto['candidateEmployees']) => Promise<{ developerId: number }>
 
 // developer add。loop で複数 select + confirm で抜ける
@@ -32,14 +31,14 @@ export const addAddDeveloperCommand = (program: Command) => {
       const continueToSelect = async () => await confirm({ message: '他の開発者を追加しますか？' })
 
       try {
-        let shouldContinueLoop = true;
-        const i = 0;
+        let shouldContinueLoop = true
+        const i = 0
 
         while (shouldContinueLoop) {
           // ユーザー入力に基づいてループを終了する条件
           if (i >= 1 && !(await continueToSelect())) {
-            shouldContinueLoop = false;
-            break;
+            shouldContinueLoop = false
+            break
           }
 
           const { candidateEmployees } = await new AddDeveloperQueryService().exec()

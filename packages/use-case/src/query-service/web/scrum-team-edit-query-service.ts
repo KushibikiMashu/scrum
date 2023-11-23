@@ -1,7 +1,4 @@
-import {
-  EmployeeRepositoryInterface,
-  ScrumTeamRepositoryInterface,
-} from '@panda-project/core'
+import { EmployeeRepositoryInterface, ScrumTeamRepositoryInterface } from '@panda-project/core'
 
 import { Result } from './types'
 

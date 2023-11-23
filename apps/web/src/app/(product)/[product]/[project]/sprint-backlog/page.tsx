@@ -5,7 +5,6 @@ import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
 
 import TaskList from '../_common/task-list'
 
-
 export default async function SprintBacklogPage() {
   const { data } = await new ScrumTeamQueryService().exec()
 

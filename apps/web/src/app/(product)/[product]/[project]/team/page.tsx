@@ -9,7 +9,6 @@ import TaskList from '../_common/task-list'
 import Stats from './stats'
 import Team from './team'
 
-
 export default async function TeamPage() {
   const { data } = await new ScrumTeamQueryService().exec()
 

@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ["**/*.js", "**/*.d.ts"],
+  ignorePatterns: ['**/*.js', '**/*.d.ts'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -9,17 +9,13 @@ module.exports = {
     // 競合を避けるため、prettierは一番最後に書く
     'prettier',
   ],
-  plugins: [
-    '@typescript-eslint',
-    'import',
-    'unused-imports'
-  ],
+  plugins: ['@typescript-eslint', 'import', 'unused-imports'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   rules: {
     // 絶対パスでのモジュールの読み込みをokにする
@@ -49,10 +45,10 @@ module.exports = {
     // for (const a of A) を許可
     'no-restricted-syntax': 'off',
     // console.errorを許容する
-    'no-console': ['error', {allow: ['info', 'warn', 'error']}],
+    'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
     // 未使用のimportの削除
     'unused-imports/no-unused-imports': 'error',
     // any を ok にする
-    "@typescript-eslint/no-explicit-any": "off",
-  }
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
 }

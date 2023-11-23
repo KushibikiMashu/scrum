@@ -15,7 +15,7 @@ export class SprintBacklog implements Artifact {
     public readonly items: SprintBacklogItem[]
   ) {}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addItem(item: ImplementableItem): this {
     // このメソッドの実装は、具体的なロジックに基づいています。
     return this

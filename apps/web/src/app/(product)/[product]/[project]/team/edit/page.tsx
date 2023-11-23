@@ -7,10 +7,6 @@ import { BreadcrumbContainer } from '~/components/layout/breadcrumb'
 import DeleteForm from './delete-form'
 import { TeamForm } from './form'
 
-
-
-
-
 function EmployeeEmpty() {
   return (
     <div className="max-w-md">

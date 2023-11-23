@@ -7,7 +7,6 @@ import { useToastDispatch } from '~/components/global/toast'
 
 import { editEmployee } from './actions'
 
-
 export const editEmployeeState = {
   errors: null,
 }

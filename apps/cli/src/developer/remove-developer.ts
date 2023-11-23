@@ -29,14 +29,14 @@ export const addRemoveDeveloperCommand = (program: Command) => {
       const continueToSelect = async () => await confirm({ message: '他の開発者を除外しますか？' })
 
       try {
-        let shouldContinueLoop = true;
-        const i = 0;
+        let shouldContinueLoop = true
+        const i = 0
 
         while (shouldContinueLoop) {
           // ユーザー入力に基づいてループを終了する条件
           if (i >= 1 && !(await continueToSelect())) {
-            shouldContinueLoop = false;
-            break;
+            shouldContinueLoop = false
+            break
           }
 
           const { developers } = await new RemoveDeveloperQueryService().exec()

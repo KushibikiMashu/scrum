@@ -2,7 +2,6 @@ import { ProjectListQueryService } from '@panda-project/use-case'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
-
 export async function ProjectList() {
   const { data, error } = await new ProjectListQueryService().exec()
 
