@@ -59,6 +59,7 @@ export class ProductBacklog implements Artifact {
     return this.items.find((item) => item.id === id)
   }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   sort(option: ProductBacklogItemSortOptionType): this {
     // このメソッドの実装は、具体的なソートロジックに基づいています。
     return this

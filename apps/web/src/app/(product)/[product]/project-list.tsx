@@ -49,7 +49,7 @@ export async function ProjectList() {
         </Link>
       </li>
 
-      {/*　サンプル　*/}
+      {/* サンプル */}
       <li className="overflow-hidden rounded-xl border border-gray-200 hover:cursor-not-allowed">
         <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 py-4 px-6">
           <div className="text-sm font-medium leading-6 text-gray-900">Sample Project</div>

@@ -10,6 +10,7 @@ export const SprintTimeBox = {
   FourWeeks: 'four_weeks',
 } as const
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Sprint implements ScrumEvent {
   constructor(
     public readonly sprintPlanningId: number,

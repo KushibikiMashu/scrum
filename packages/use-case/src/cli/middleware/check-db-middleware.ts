@@ -3,7 +3,7 @@ import { MiddlewareInterface } from './middleware'
 import { dbFileExists } from '@/external/db'
 
 export class CheckDbMiddleware implements MiddlewareInterface {
-  constructor(private readonly callback: Function) {}
+  constructor(private readonly callback: (...arg: any[]) => any) {}
 
   async run() {
     if (!dbFileExists()) {

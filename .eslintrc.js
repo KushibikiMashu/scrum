@@ -49,8 +49,10 @@ module.exports = {
     // for (const a of A) を許可
     'no-restricted-syntax': 'off',
     // console.errorを許容する
-    'no-console': ['error', {allow: ['warn', 'error']}],
+    'no-console': ['error', {allow: ['info', 'warn', 'error']}],
     // 未使用のimportの削除
-    'unused-imports/no-unused-imports': 'error'
+    'unused-imports/no-unused-imports': 'error',
+    // any を ok にする
+    "@typescript-eslint/no-explicit-any": "off",
   }
 }
