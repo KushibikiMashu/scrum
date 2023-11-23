@@ -1,10 +1,16 @@
-import {Id, Product, ProductName, ProductRepositoryInterface} from "@panda-project/core";
+import {Id, Product, ProductId, ProductName, ProductRepositoryInterface} from "@panda-project/core";
 import {Low} from "lowdb";
 import {DataBase, db} from "@/external/db";
-import {AutoIncrementId} from "@/common";
+import {JsonRepository} from "./json-repository";
 
-export class ProductRepository implements ProductRepositoryInterface {
-  constructor(private readonly lowdb: Low<DataBase> = db) {}
+export class ProductRepository extends JsonRepository implements ProductRepositoryInterface {
+  constructor(private readonly lowdb: Low<DataBase> = db) {
+    super()
+  }
+
+  private nextId(): ProductId {
+    return new ProductId(this.calculateNewId(this.lowdb.data.employees))
+  }
 
   async fetch(): Promise<Product|null> {
     await this.lowdb.read()
@@ -41,13 +47,13 @@ export class ProductRepository implements ProductRepositoryInterface {
     await this.lowdb.read()
     const { products } = this.lowdb.data
 
-    const autoIncrementId = AutoIncrementId.createFromRecords(products)
+    const productId = this.nextId()
     products.push({
-      id: autoIncrementId.value,
+      id: productId.value!,
       name: product.name.value,
     })
 
     await this.lowdb.write()
-    return new Product(autoIncrementId, product.name)
+    return new Product(productId, product.name)
   }
 }

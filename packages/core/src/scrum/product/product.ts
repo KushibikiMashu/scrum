@@ -23,6 +23,10 @@ export class InvalidProductNameError extends Error {
   }
 }
 
+export class ProductId extends Id {
+
+}
+
 export class ProductName {
   constructor(
     public readonly value: string
@@ -43,7 +47,7 @@ export class ProductName {
 
 export class Product {
   constructor(
-    public readonly id: Id,
+    public readonly id: ProductId,
     public readonly name: ProductName,
   ) {
   }
