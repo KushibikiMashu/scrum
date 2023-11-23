@@ -1,6 +1,4 @@
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import {classNames} from "~/utils";
 
 type Props = {
   employeeId: number

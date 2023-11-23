@@ -9,3 +9,7 @@ export function assertIsString<T>(arg: T | string): asserts arg is string {
     throw new Error(`arg is not string`);
   }
 }
+
+export function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(' ')
+}

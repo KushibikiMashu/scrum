@@ -1,12 +1,9 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import {Toast, ToastProviderContainer} from "~/components/global/toast";
+import {classNames} from "~/utils";
 
 const inter = Inter({ subsets: ['latin'] })
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
   return (

@@ -11,10 +11,8 @@ import Link from "next/link";
 import {useUnimplemented} from "~/hooks";
 import {SidebarDto} from "@panda-project/use-case";
 import {ResetDbForm} from "~/components/feature/reset-db-form";
+import {classNames} from "~/utils";
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 type Navigation = ({
   name: string

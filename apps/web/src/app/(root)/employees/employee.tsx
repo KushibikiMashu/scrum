@@ -9,10 +9,8 @@ import {EmployeeListQueryServiceDto} from "@panda-project/use-case";
 import {useToastDispatch} from "~/components/global/toast";
 import {useFormState, useFormStatus} from "react-dom";
 import {deleteEmployee} from "./actions";
+import {classNames} from "~/utils";
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 type Props = { employee: EmployeeListQueryServiceDto['employees'][number] }
 
@@ -44,11 +42,7 @@ export default function Employee({employee}: Props) {
 
   return (
     <li className={
-      classNames(
-        'flex justify-between',
-        isEditing ? "py-3.5" : "py-5"
-      )}
-    >
+      classNames('flex justify-between', isEditing ? "py-3.5" : "py-5")}>
       {/* employee */}
       {isEditing ? <EditForm
           employeeId={employee.id}

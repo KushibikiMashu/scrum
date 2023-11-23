@@ -2,6 +2,7 @@
 
 import { Fragment } from 'react'
 import {useUnimplemented} from "~/hooks";
+import {classNames} from "~/utils";
 
 const stories = [
   {
@@ -25,9 +26,7 @@ const stories = [
   },
 ]
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
+
 
 export default function TaskList() {
   const onClick = useUnimplemented()
