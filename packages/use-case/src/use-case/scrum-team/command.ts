@@ -1,25 +1,25 @@
-import { AutoIncrementId } from '@/common'
+import {EmployeeId, ScrumTeamId} from "@panda-project/core";
 
 export interface CreateScrumTeamCommand {
-  getProductOwnerId(): AutoIncrementId
-  getScrumMasterId(): AutoIncrementId
-  getDeveloperIds(): AutoIncrementId[]
+  getProductOwnerId(): EmployeeId
+  getScrumMasterId(): EmployeeId
+  getDeveloperIds(): EmployeeId[]
 }
 
 export interface EditScrumTeamCommand {
-  getProductOwnerId(): AutoIncrementId
-  getScrumMasterId(): AutoIncrementId
-  getDeveloperIds(): AutoIncrementId[]
+  getProductOwnerId(): EmployeeId
+  getScrumMasterId(): EmployeeId
+  getDeveloperIds(): EmployeeId[]
 }
 
 export interface AddDeveloperCommand {
-  getDeveloperId(): AutoIncrementId
+  getDeveloperId(): EmployeeId
 }
 
 export interface RemoveDeveloperCommand {
-  getDeveloperId(): AutoIncrementId
+  getDeveloperId(): EmployeeId
 }
 
 export interface DisbandScrumTeamCommand {
-  getScrumTeamId(): AutoIncrementId
+  getScrumTeamId(): ScrumTeamId
 }

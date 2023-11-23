@@ -5,7 +5,7 @@ import {
   EditScrumTeamCommand,
   RemoveDeveloperCommand,
 } from '@/use-case/scrum-team'
-import { AutoIncrementId } from '@/common'
+import {EmployeeId, ScrumTeamId} from "@panda-project/core";
 
 export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
   constructor(
@@ -13,15 +13,15 @@ export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
     private readonly scrumMasterId: number
   ) {}
 
-  getProductOwnerId(): AutoIncrementId {
-    return new AutoIncrementId(this.productOwnerId)
+  getProductOwnerId(): EmployeeId {
+    return new EmployeeId(this.productOwnerId)
   }
 
-  getScrumMasterId(): AutoIncrementId {
-    return new AutoIncrementId(this.scrumMasterId)
+  getScrumMasterId(): EmployeeId {
+    return new EmployeeId(this.scrumMasterId)
   }
 
-  getDeveloperIds(): AutoIncrementId[] {
+  getDeveloperIds(): EmployeeId[] {
     // CLI の場合、チーム作成時に開発者は指定しない
     return []
   }
@@ -34,39 +34,39 @@ export class EditScrumTeamCliCommand implements EditScrumTeamCommand {
     private readonly developerIds: number[]
   ) {}
 
-  getProductOwnerId(): AutoIncrementId {
-    return new AutoIncrementId(this.productOwnerId)
+  getProductOwnerId(): EmployeeId {
+    return new EmployeeId(this.productOwnerId)
   }
 
-  getScrumMasterId(): AutoIncrementId {
-    return new AutoIncrementId(this.scrumMasterId)
+  getScrumMasterId(): EmployeeId {
+    return new EmployeeId(this.scrumMasterId)
   }
 
-  getDeveloperIds(): AutoIncrementId[] {
-    return this.developerIds.map((id) => new AutoIncrementId(id))
+  getDeveloperIds(): EmployeeId[] {
+    return this.developerIds.map((id) => new EmployeeId(id))
   }
 }
 
 export class AddDeveloperCliCommand implements AddDeveloperCommand {
   constructor(private readonly developerId: number) {}
 
-  getDeveloperId(): AutoIncrementId {
-    return new AutoIncrementId(this.developerId)
+  getDeveloperId(): EmployeeId {
+    return new EmployeeId(this.developerId)
   }
 }
 
 export class RemoveDeveloperCliCommand implements RemoveDeveloperCommand {
   constructor(private readonly developerId: number) {}
 
-  getDeveloperId(): AutoIncrementId {
-    return new AutoIncrementId(this.developerId)
+  getDeveloperId(): EmployeeId {
+    return new EmployeeId(this.developerId)
   }
 }
 
 export class DisbandScrumTeamCliCommand implements DisbandScrumTeamCommand {
   constructor(private readonly scrumTeamId: number) {}
 
-  getScrumTeamId(): AutoIncrementId {
-    return new AutoIncrementId(this.scrumTeamId)
+  getScrumTeamId(): ScrumTeamId {
+    return new ScrumTeamId(this.scrumTeamId)
   }
 }

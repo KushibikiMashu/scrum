@@ -1,6 +1,5 @@
-import { EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface } from '@panda-project/core'
+import {EmployeeId, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface} from '@panda-project/core'
 import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
-import { AutoIncrementId } from '@/common'
 
 export type EditScrumTeamQueryServiceDto = {
   candidateEmployees: { id: number; name: string }[]
@@ -12,8 +11,8 @@ export type EditScrumTeamQueryServiceDto = {
 export class EditScrumTeamQueryServiceInput {
   constructor(private readonly employeeIds: number[]) {}
 
-  getEmployeeIds(): Id[] {
-    return this.employeeIds.map((id) => new AutoIncrementId(id))
+  getEmployeeIds(): EmployeeId[] {
+    return this.employeeIds.map((id) => new EmployeeId(id))
   }
 }
 

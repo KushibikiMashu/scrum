@@ -1,7 +1,6 @@
 import { Employee, EmployeeId, EmployeeName, EmployeeRepositoryInterface } from '@panda-project/core'
 import { Low } from 'lowdb'
 import { DataBase, db, EmployeesSchema } from '@/external/db'
-import { AutoIncrementId } from '@/common'
 import { JsonRepository } from './json-repository'
 
 export class EmployeeRepository extends JsonRepository implements EmployeeRepositoryInterface {
@@ -13,7 +12,7 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
     return new EmployeeId(this.calculateNewId(this.lowdb.data.employees))
   }
 
-  async findByIdOrFail(id: AutoIncrementId): Promise<Employee> {
+  async findByIdOrFail(id: EmployeeId): Promise<Employee> {
     await this.lowdb.read()
     const { employees } = this.lowdb.data
     const employee = employees.find((v) => v.id === id.value)
@@ -37,7 +36,7 @@ export class EmployeeRepository extends JsonRepository implements EmployeeReposi
   }
 
   private mapToEmployee(record: EmployeesSchema[number]): Employee {
-    return new Employee(new AutoIncrementId(record.id), new EmployeeName(record.first_name, record.family_name))
+    return new Employee(new EmployeeId(record.id), new EmployeeName(record.first_name, record.family_name))
   }
 
   async save(employee: Employee) {
