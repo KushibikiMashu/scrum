@@ -38,7 +38,7 @@ export default function Employee({employee}: Props) {
         heading: deleteState.errors,
       })
     }
-  }, [deleteState])
+  }, [deleteState, showToast])
 
   return (
     <li className={

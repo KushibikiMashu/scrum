@@ -38,7 +38,7 @@ export default function DeleteForm({teamId}: Props) {
         heading: state.errors,
       })
     }
-  }, [state])
+  }, [state, showToast])
 
   return (
     <div className="mt-8">
