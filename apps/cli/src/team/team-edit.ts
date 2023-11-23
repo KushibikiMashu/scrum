@@ -1,12 +1,12 @@
 import {Command} from "commander";
 import {
-  CheckDbMiddleware, EditScrumTeamCliCommand, EditTeamQueryService, EditTeamQueryServiceDto,
+  CheckDbMiddleware, EditScrumTeamCliCommand, EditScrumTeamQueryService, EditScrumTeamQueryServiceDto,
   ScrumTeamUseCase
 } from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
 
-type SelectProductOwner = (args: EditTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
-type SelectScrumMaster = (args: EditTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
+type SelectProductOwner = (args: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
+type SelectScrumMaster = (args: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
 
 // team-edit product owner を変更する
 // team-edit scrum master を変更する
@@ -31,7 +31,7 @@ export const addTeamEditCommand = (program: Command) => {
           return {newProductOwnerId}
         }
         try {
-          const dto = await new EditTeamQueryService().exec()
+          const dto = await new EditScrumTeamQueryService().exec()
           const {newProductOwnerId} = await selectProductOwner(dto.candidateEmployees)
           const command = new EditScrumTeamCliCommand(
             newProductOwnerId,
@@ -57,7 +57,7 @@ export const addTeamEditCommand = (program: Command) => {
         }
 
         try {
-          const dto = await new EditTeamQueryService().exec()
+          const dto = await new EditScrumTeamQueryService().exec()
           const {newScrumMasterId} = await selectScrumMaster(dto.candidateEmployees)
           const command = new EditScrumTeamCliCommand(
             dto.productOwnerId,

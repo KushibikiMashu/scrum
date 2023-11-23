@@ -11,7 +11,7 @@ export async function ProjectList() {
   } else if (data === null || !data?.product || !data?.project) {
     redirect('/')
   } else if (!data?.scrumTeam) {
-    return <EmptyTeam />
+    redirect(`/${data.product.name}/${data.project.name}`)
   }
 
   return (

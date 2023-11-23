@@ -1,5 +1,26 @@
-import {DisbandScrumTeamCommand, EditScrumTeamCommand} from "@/use-case/scrum-team";
+import {CreateScrumTeamCommand, DisbandScrumTeamCommand, EditScrumTeamCommand} from "@/use-case/scrum-team";
 import {AutoIncrementId} from "@/common";
+
+export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
+  constructor(
+    private readonly productOwnerId: number,
+    private readonly scrumMasterId: number,
+  ) {
+  }
+
+  getProductOwnerId(): AutoIncrementId {
+    return new AutoIncrementId(this.productOwnerId)
+  }
+
+  getScrumMasterId(): AutoIncrementId {
+    return new AutoIncrementId(this.scrumMasterId)
+  }
+
+  getDeveloperIds(): AutoIncrementId[] {
+    // CLI の場合、チーム作成時に開発者は指定しない
+    return []
+  }
+}
 
 export class EditScrumTeamCliCommand implements EditScrumTeamCommand {
   constructor(

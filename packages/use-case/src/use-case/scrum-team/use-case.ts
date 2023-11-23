@@ -23,6 +23,11 @@ export class ScrumTeamUseCase {
       throw new Error('スクラムチームはすでに作成されています')
     }
 
+    const count = await this.employeeRepository.count()
+    if (count <= 1) {
+      throw new Error(`スクラムチームを作成するためには、社員が2人以上登録されている必要があります。社員数: ${count}名`)
+    }
+
     const newScrumTeam = ScrumTeam.createFromNewScrumTeam(newProductOwner, newScrumMaster, developers)
     await this.scrumTeamRepository.save(newScrumTeam)
   }

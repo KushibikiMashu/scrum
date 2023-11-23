@@ -1,31 +1,48 @@
 import {Command} from "commander";
-import {CheckDbMiddleware, CreateTeamCallback, CreateTeamScenario} from "@panda-project/use-case";
+import {
+  CheckDbMiddleware,
+  CreateScrumTeamCliCommand,
+  EditScrumTeamQueryService, EditScrumTeamQueryServiceDto, EditScrumTeamQueryServiceInput, ScrumTeamUseCase
+} from "@panda-project/use-case";
 import {select} from "@inquirer/prompts";
+
+type SelectProductOwner = (arg: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newProductOwnerId: number}>
+type SelectScrumMaster = (arg: EditScrumTeamQueryServiceDto['candidateEmployees']) => Promise<{newScrumMasterId: number}>
 
 export const addTeamCreateCommand = (program: Command) => {
   program
     .command('team-create')
-    .description('スクラムチームを作成します。登録済みの社員が最低2人必要です')
+    .description('スクラムチームを作成します')
     .action(async () => {
-      const selectProductOwner: CreateTeamCallback = async (names) => {
-        const employeeId = await select({
+      const selectProductOwner: SelectProductOwner = async (candidates) => {
+        const newProductOwnerId = await select({
           message: "プロダクトオーナーを選択してください",
-          choices: names.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+          choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
         })
-        return { employeeId }
+        return { newProductOwnerId }
       }
-      const selectScrumMaster: CreateTeamCallback = async (names) => {
-        const employeeId = await select({
+      const selectScrumMaster: SelectScrumMaster = async (candidates) => {
+        const newScrumMasterId = await select({
           message: "スクラムマスターを選択してください",
-          choices: names.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
+          choices: candidates.map((v) => ({name: `${v.id}: ${v.name}`, value: v.id})),
         })
-        return { employeeId }
+        return { newScrumMasterId }
       }
 
       try {
+        const {candidateEmployees: productOwnerCandidates} = await new EditScrumTeamQueryService().exec()
+        const {newProductOwnerId} = await selectProductOwner(productOwnerCandidates)
+
+        const input = new EditScrumTeamQueryServiceInput([newProductOwnerId])
+        const {candidateEmployees: scrumMasterCandidates} = await new EditScrumTeamQueryService().exec(input)
+        const {newScrumMasterId} = await selectScrumMaster(scrumMasterCandidates)
+
+        const command = new CreateScrumTeamCliCommand(
+          newProductOwnerId,
+          newScrumMasterId,
+        )
         await new CheckDbMiddleware(
-          async () =>
-            await new CreateTeamScenario().exec(selectProductOwner, selectScrumMaster)
+          async () => await new ScrumTeamUseCase().create(command)
         ).run()
       } catch (e: any) {
         console.error(e?.message)

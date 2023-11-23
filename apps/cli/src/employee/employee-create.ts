@@ -27,7 +27,7 @@ export const addEmployeeCreateCommand = (program: Command) => {
             async () => await new EmployeeUseCase().createMultiple(command)
           ).run()
           // TODO: 後から output adapter を使う形で実装する
-          console.log(`社員を登録しました: 合計${employees.length}名`)
+          console.info(`社員を登録しました: 合計${employees.length}名`)
         } catch (e: any) {
           console.error(e?.message)
         }

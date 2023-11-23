@@ -1,38 +1,48 @@
-import {EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from "@panda-project/core";
-import {EmployeeRepository, ScrumTeamRepository} from "@/gateway/repository/db";
+import {EmployeeRepositoryInterface, ID} from "@panda-project/core";
+import {EmployeeRepository} from "@/gateway/repository/db";
+import {AutoIncrementId} from "@/common";
 
-export type EditTeamQueryServiceDto = {
-  candidateEmployees: { id: number, name: string }[]
-  productOwnerId: number
-  scumMasterId: number
-  developerIds: number[]
+export class EditScrumTeamQueryServiceInput {
+  constructor(private readonly employeeIds: number[]) {
+  }
+
+  getEmployeeIds(): ID[] {
+    return this.employeeIds.map((id) => new AutoIncrementId(id))
+  }
 }
 
-export class EditTeamQueryService {
+export type EditScrumTeamQueryServiceDto = {
+  candidateEmployees: { id: number, name: string }[]
+}
+
+export class EditScrumTeamQueryService {
   constructor(
-    private readonly scrumTeamRepository: ScrumTeamRepositoryInterface = new ScrumTeamRepository(),
     private readonly employeeRepository: EmployeeRepositoryInterface = new EmployeeRepository(),
   ) {
   }
 
-  async exec(): Promise<EditTeamQueryServiceDto> {
+  async exec(input: EditScrumTeamQueryServiceInput | null = null): Promise<EditScrumTeamQueryServiceDto> {
     const employees = await this.employeeRepository.findAll()
-    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    const ids = input?.getEmployeeIds() ?? []
 
-    const employeeIdsWithoutPoAndSm = employees.filter(employee => {
-      const isPo = scrumTeam.productOwner.getId() === employee.id.value
-      const isSm = scrumTeam.scrumMaster.getId() === employee.id.value
-      return !isPo && !isSm
-    }).map(employee => ({
-      id: employee.id.value!,
-      name: employee.employeeName.getFullName(),
-    }))
+    const candidateEmployees = employees
+      .filter(employee => {
+        for (const id of ids) {
+          if (id.equals(employee.id)) {
+            return false
+          }
+        }
+        return true
+      })
+      .map(employee => ({
+        id: employee.id.value!,
+        name: employee.employeeName.getFullName(),
+      }))
+
+    console.log(candidateEmployees, 'candidateEmployees');
 
     return {
-      candidateEmployees: employeeIdsWithoutPoAndSm,
-      productOwnerId: scrumTeam.getProductOwnerId(),
-      scumMasterId: scrumTeam.getScrumMasterId(),
-      developerIds: scrumTeam.getDevelopersIds(),
+      candidateEmployees,
     }
   }
 }

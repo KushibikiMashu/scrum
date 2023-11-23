@@ -20,7 +20,7 @@ export default async function SprintBacklogPage() {
 
       {data!.scrumTeam === null ?
         <div className="mt-4">
-          {<EmptyTeam/>}
+          {<EmptyTeam href="./team/edit" />}
         </div>
         : (
           <>
