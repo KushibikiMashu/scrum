@@ -55,9 +55,9 @@ export class EmployeeUseCase {
 
     let scrumTeam = null
     try {
-      // TODO: fetch で null を返すようにする。null が返ってきて欲しいケースはここが初めてなので。
       scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     } catch (e: unknown) {
+      // スクラムチームが存在しない場合は、社員を削除できる
       await this.employeeRepository.delete(employee)
       return
     }
