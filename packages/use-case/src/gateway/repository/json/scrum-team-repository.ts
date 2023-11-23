@@ -16,7 +16,6 @@ import {
   ScrumMaster,
   ScrumTeam, ScrumTeamId, ScrumTeamRepositoryInterface
 } from "@panda-project/core";
-import {AutoIncrementId} from "@/common";
 import {JsonRepository} from "./json-repository";
 
 export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepositoryInterface {
@@ -129,7 +128,6 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     // developer を保存
     for (const scrumTeamDeveloper of scrumTeam.developers) {
       developers.push({
-        id: AutoIncrementId.createFromRecords(developers).value,
         scrum_team_id: scrumTeamId.toInt(),
         employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
       })
@@ -163,20 +161,18 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     // result       [2,3,4,5]
     // スクラムチームのIDで開発者を全て削除したあと、スクラムチームの開発者を insert するようにする
 
-    // スクラムチームのIDが同じ開発者をDBから削除
-    // TODO: ID いらないのでは？。employee id だけで絞り込めるはず
+    // 指定されたスクラムチームに所属している開発者をDBから削除
     const developerRecordIds = developers
       .filter((developer) => developer.scrum_team_id === scrumTeam.id.value)
-      .map((developer) => developer.id)
+      .map((developer) => developer.employee_id)
     for (const developerRecordId of developerRecordIds) {
-      const developerIndex = developers.findIndex((developer) => developer.id === developerRecordId)
+      const developerIndex = developers.findIndex((developer) => developer.employee_id === developerRecordId)
       developers.splice(developerIndex, 1)
     }
 
-    // スクラムチームの開発者をDBに追加
+    // 対象者を除外した上で、スクラムチームの開発者をDBに再度追加
     for (const scrumTeamDeveloper of scrumTeam.developers) {
         developers.push({
-          id: AutoIncrementId.createFromRecords(developers).value, // TODO: 消せそう。使ってないところを調べる
           scrum_team_id: scrumTeam.id.toInt(),
           employee_id: scrumTeamDeveloper.getEmployeeId().toInt(),
         })

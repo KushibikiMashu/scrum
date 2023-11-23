@@ -79,7 +79,6 @@ export type ScrumMastersSchema = {
 }[]
 
 export type DevelopersSchema = {
-  id: number
   scrum_team_id: number
   employee_id: number // "relation -> Employee"
 }[]
