@@ -126,7 +126,6 @@ export class ScrumTeamRepository extends JsonRepository implements ScrumTeamRepo
     const scrumTeamId = this.nextId()
     scrumTeams.push({
       id: scrumTeamId.toInt(),
-      product_backlog_id: null,
     })
 
     // product owner を保存
