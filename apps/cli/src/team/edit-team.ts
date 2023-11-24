@@ -1,6 +1,5 @@
 import { select } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   EditScrumTeamCliCommand,
   EditScrumTeamQueryService,
   EditScrumTeamQueryServiceDto,
@@ -44,7 +43,7 @@ export const addEditTeamCommand = (program: Command) => {
           const dto = await new EditScrumTeamQueryService().exec()
           const { newProductOwnerId } = await selectProductOwner(dto.candidateEmployees)
           const command = new EditScrumTeamCliCommand(newProductOwnerId, dto.scumMasterId, dto.developerIds)
-          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().edit(command)).run()
+          await new ScrumTeamUseCase().edit(command)
         } catch (e: any) {
           console.error(e?.message)
           return
@@ -67,7 +66,7 @@ export const addEditTeamCommand = (program: Command) => {
           const dto = await new EditScrumTeamQueryService().exec()
           const { newScrumMasterId } = await selectScrumMaster(dto.candidateEmployees)
           const command = new EditScrumTeamCliCommand(dto.productOwnerId, newScrumMasterId, dto.developerIds)
-          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().edit(command)).run()
+          await new ScrumTeamUseCase().edit(command)
         } catch (e: any) {
           console.error(e?.message)
           return

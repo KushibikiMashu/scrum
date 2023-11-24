@@ -2,7 +2,6 @@ import * as console from 'console'
 
 import { input } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   CreateMultipleEmployeeCliCommand,
   CreateEmployeeCliCommand,
   EmployeeUseCase,
@@ -26,7 +25,7 @@ export const addAddEmployeeCommand = (program: Command) => {
         try {
           const { employees } = await useInput()
           const command = new CreateMultipleEmployeeCliCommand(employees)
-          await new CheckDbMiddleware(async () => await new EmployeeUseCase().createMultiple(command)).run()
+          await new EmployeeUseCase().createMultiple(command)
           // TODO: 後から output adapter を使う形で実装する
           console.info(`社員を登録しました: 合計${employees.length}名`)
         } catch (e: any) {
@@ -43,7 +42,7 @@ export const addAddEmployeeCommand = (program: Command) => {
         try {
           const { name } = await useInput()
           const command = new CreateEmployeeCliCommand(name)
-          await new CheckDbMiddleware(async () => await new EmployeeUseCase().create(command)).run()
+          await new EmployeeUseCase().create(command)
           // TODO: output portで対応する
           console.info(`社員を登録しました: ${name}`)
         } catch (e: any) {

@@ -1,6 +1,5 @@
 import { input, select } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   EditEmployeeCliCommand,
   EditEmployeeQueryService,
   EditEmployeeQueryServiceDto,
@@ -33,7 +32,7 @@ export const addEditEmployeeCommand = (program: Command) => {
         const employees = await new EditEmployeeQueryService().exec()
         const { employeeId, newEmployeeName } = await userInput(employees)
         const command = new EditEmployeeCliCommand(employeeId, newEmployeeName)
-        await new CheckDbMiddleware(async () => await new EmployeeUseCase().edit(command)).run()
+        await new EmployeeUseCase().edit(command)
       } catch (e: any) {
         console.error(e?.message)
       }

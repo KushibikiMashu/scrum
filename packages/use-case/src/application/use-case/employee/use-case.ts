@@ -1,12 +1,12 @@
-import {Employee, EmployeeId, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface} from '@panda-project/core'
+import {Employee, EmployeeId, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from '@panda-project/core'
 
-import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 import {
   CreateEmployeeCommand,
   RemoveEmployeeCommand,
   EditEmployeeCommand,
   CreateMultipleEmployeeCommand,
-} from '@/use-case/employee'
+} from '@/application/use-case/employee'
+import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export class EmployeeUseCase {
   constructor(

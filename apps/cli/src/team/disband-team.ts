@@ -1,6 +1,5 @@
 import { confirm } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   ScrumTeamUseCase,
   DisbandScrumTeamQueryService,
   DisbandScrumTeamCliCommand,
@@ -20,7 +19,7 @@ export const addDisbandTeamCommand = (program: Command) => {
           const { scrumTeamId } = await new DisbandScrumTeamQueryService().exec()
           const command = new DisbandScrumTeamCliCommand(scrumTeamId)
 
-          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().disband(command)).run()
+          await new ScrumTeamUseCase().disband(command)
         } catch (e: any) {
           console.error(e?.message)
         }

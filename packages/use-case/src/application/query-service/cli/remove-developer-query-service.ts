@@ -12,7 +12,7 @@ export class RemoveDeveloperQueryService {
   async exec(): Promise<RemoveDeveloperQueryServiceDto> {
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
     const developers = scrumTeam.developers.map((developer) => ({
-      id: developer.getId(),
+      id: developer.getEmployeeId().toInt(),
       name: developer.getFullName(),
     }))
 

@@ -1,4 +1,4 @@
-import { Id, Product, ProductId, ProductName, ProductRepositoryInterface } from '@panda-project/core'
+import { Product, ProductId, ProductName, ProductRepositoryInterface } from '@panda-project/core'
 import { Low } from 'lowdb'
 
 import { JsonRepository } from './json-repository'

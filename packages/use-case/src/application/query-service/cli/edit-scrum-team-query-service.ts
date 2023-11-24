@@ -45,9 +45,9 @@ export class EditScrumTeamQueryService {
 
     return {
       candidateEmployees,
-      productOwnerId: scrumTeam.getProductOwnerId(),
-      scumMasterId: scrumTeam.getScrumMasterId(),
-      developerIds: scrumTeam.getDevelopersIds(),
+      productOwnerId: scrumTeam.getProductOwnerId().toInt(),
+      scumMasterId: scrumTeam.getScrumMasterId().toInt(),
+      developerIds: scrumTeam.getDeveloperIds().map(id => id.toInt()),
     }
   }
 }

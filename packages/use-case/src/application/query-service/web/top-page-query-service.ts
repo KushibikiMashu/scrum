@@ -19,6 +19,7 @@ export class TopPageQueryService {
     if (!dbFileExists()) {
       // DB を作成する
       // 副作用があるので本当は望ましくない
+      // TODO: トップページの useEffect でAPI をコールして実行するようにする。
       await createDb()
     }
 

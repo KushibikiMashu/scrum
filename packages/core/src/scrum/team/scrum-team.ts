@@ -9,12 +9,6 @@ export const ScrumMemberRole = {
 
 export type ScrumMemberRoleType = (typeof ScrumMemberRole)[keyof typeof ScrumMemberRole]
 
-export const isDeveloper = (
-  scrumMember: ReturnType<ScrumTeam['getScrumMemberByEmployeeId']>
-): scrumMember is Developer => {
-  return scrumMember?.isDeveloper() ?? false
-}
-
 export class ScrumTeamId extends Id {
   constructor(public readonly value: number | null) {
     super(value)
@@ -41,7 +35,7 @@ export class ScrumTeam {
     return new ScrumTeam(ScrumTeamId.createAsNull(), productOwner, scrumMaster, [])
   }
 
-  static createFromNewScrumTeam(productOwner: ProductOwner, scrumMaster: ScrumMaster, developers: Developer[]) {
+  static createNew(productOwner: ProductOwner, scrumMaster: ScrumMaster, developers: Developer[]) {
     return new ScrumTeam(ScrumTeamId.createAsNull(), productOwner, scrumMaster, developers)
   }
 
@@ -53,17 +47,10 @@ export class ScrumTeam {
     return new ScrumTeam(this.id, this.productOwner, scrumMaster, this.developers)
   }
 
-  getScrumMemberByEmployeeId(employeeId: EmployeeId): ProductOwner | ScrumMaster | Developer | null {
-    if (this.productOwner.member.employee.id.equals(employeeId)) return this.productOwner
-    if (this.scrumMaster.member.employee.id.equals(employeeId)) return this.scrumMaster
-    const developer = this.developers.find((developer) => developer.member.employee.id.equals(employeeId))
-    return developer ?? null
-  }
-
   getDeveloperByEmployeeId(employeeId: EmployeeId): Developer {
-    const developer = this.developers.find((developer) => developer.member.employee.id.equals(employeeId))
+    const developer = this.developers.find((developer) => developer.getEmployeeId().equals(employeeId))
     if (!developer) {
-      throw new Error(`開発者がスクラムチームに参加していません。ID: ${employeeId}`)
+      throw new Error(`開発者がスクラムチームに参加していません。ID: ${employeeId.toInt()}`)
     }
     return developer
   }
@@ -89,24 +76,24 @@ export class ScrumTeam {
     return (
       this.productOwner.member.employee.id.equals(employeeId) ||
       this.scrumMaster.member.employee.id.equals(employeeId) ||
-      this.developers.some((developer) => developer.member.employee.id.equals(employeeId))
+      this.developers.some((developer) => developer.getEmployeeId().equals(employeeId))
     )
   }
 
   isScrumTeamDeveloper(employeeId: EmployeeId): boolean {
-    return this.developers.some((developer) => developer.member.employee.id.equals(employeeId))
+    return this.developers.some((developer) => developer.getEmployeeId().equals(employeeId))
   }
 
-  getProductOwnerId(): number {
-    return this.productOwner.getId()
+  getProductOwnerId(): EmployeeId {
+    return this.productOwner.getEmployeeId()
   }
 
-  getScrumMasterId(): number {
-    return this.scrumMaster.getId()
+  getScrumMasterId(): EmployeeId {
+    return this.scrumMaster.getEmployeeId()
   }
 
-  getDevelopersIds(): number[] {
-    return this.developers.map((developer) => developer.getId())
+  getDeveloperIds(): EmployeeId[] {
+    return this.developers.map((developer) => developer.getEmployeeId())
   }
 }
 
@@ -138,10 +125,6 @@ export class ProductOwner {
 
   static createFromDeveloper(developer: Developer) {
     return new ProductOwner([ScrumMemberRole.ProductOwner, developer.role], developer.member)
-  }
-
-  getId(): number {
-    return this.member.employee.id.value!
   }
 
   getEmployeeId(): EmployeeId {
@@ -179,10 +162,6 @@ export class ScrumMaster {
     return new ScrumMaster([ScrumMemberRole.ScrumMaster, developer.role], developer.member)
   }
 
-  getId(): number {
-    return this.member.employee.id.value!
-  }
-
   getEmployeeId(): EmployeeId {
     return this.member.employee.id
   }
@@ -203,10 +182,6 @@ export class Developer {
 
   static createFromEmployee(employee: Employee) {
     return new Developer(Member.createFromEmployee(employee))
-  }
-
-  getId(): number {
-    return this.member.employee.id.value!
   }
 
   getEmployeeId(): EmployeeId {

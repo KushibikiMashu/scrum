@@ -5,6 +5,8 @@ import { addAddEmployeeCommand, addEditEmployeeCommand, addRemoveEmployeeCommand
 import { addInitCommand } from '~/init'
 import { addCreateTeamCommand, addDisbandTeamCommand, addEditTeamCommand, addListTeamCommand } from '~/team'
 
+import {createDb, dbFileExists} from "@/external/db";
+
 const program = new Command()
 
 type AddCommand = (program: Command) => void
@@ -27,5 +29,11 @@ const commands: AddCommand[] = [
 for (const command of commands) {
   command(program)
 }
+
+(async () => {
+  if (!dbFileExists()) {
+    await createDb()
+  }
+})()
 
 program.parse(process.argv)

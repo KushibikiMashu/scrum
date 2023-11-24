@@ -5,7 +5,7 @@ import {
   CreateMultipleEmployeeCommand,
   EditEmployeeCommand,
   RemoveEmployeeCommand,
-} from '@/use-case/employee'
+} from '@/application/use-case/employee'
 
 export class CreateEmployeeCliCommand implements CreateEmployeeCommand {
   constructor(private readonly employeeName: string) {}

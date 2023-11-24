@@ -6,7 +6,7 @@ import {
   DisbandScrumTeamCommand,
   EditScrumTeamCommand,
   RemoveDeveloperCommand,
-} from '@/use-case/scrum-team'
+} from '@/application/use-case/scrum-team'
 
 export class CreateScrumTeamCliCommand implements CreateScrumTeamCommand {
   constructor(

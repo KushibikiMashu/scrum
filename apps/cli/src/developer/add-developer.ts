@@ -5,7 +5,6 @@ import {
   AddDeveloperCliCommand,
   AddDeveloperQueryService,
   AddDeveloperQueryServiceDto,
-  CheckDbMiddleware,
   ScrumTeamUseCase,
 } from '@panda-project/use-case'
 import { Command } from 'commander'
@@ -49,7 +48,7 @@ export const addAddDeveloperCommand = (program: Command) => {
 
           const { developerId } = await selectDeveloper(candidateEmployees)
           const command = new AddDeveloperCliCommand(developerId)
-          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().addDeveloper(command)).run()
+          await new ScrumTeamUseCase().addDeveloper(command)
         }
 
         // TODO: output を作る

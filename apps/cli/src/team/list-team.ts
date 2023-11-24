@@ -1,7 +1,5 @@
-import { CheckDbMiddleware, ListScrumTeamQueryService } from '@panda-project/use-case'
+import { ListScrumTeamQueryService, ListScrumTeamPresenter } from '@panda-project/use-case'
 import { Command } from 'commander'
-
-import { ListScrumTeamPresenter } from '@/query-service'
 
 export const addListTeamCommand = (program: Command) => {
   program
@@ -9,7 +7,7 @@ export const addListTeamCommand = (program: Command) => {
     .description('スクラムチームのメンバーを表示します')
     .action(async () => {
       try {
-        const result = await new CheckDbMiddleware(async () => await new ListScrumTeamQueryService().exec()).run()
+        const result = await new ListScrumTeamQueryService().exec()
 
         const output = new ListScrumTeamPresenter().exec(result)
         console.info(output)

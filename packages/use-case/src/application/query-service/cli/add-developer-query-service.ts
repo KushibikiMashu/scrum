@@ -15,10 +15,10 @@ export class AddDeveloperQueryService {
   async exec(): Promise<AddDeveloperQueryServiceDto> {
     const employees = await this.employeeRepository.findAll()
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
-    const allScrumMemberDeveloperIds = scrumTeam.getDevelopersIds()
+    const allScrumMemberDeveloperIds = scrumTeam.getDeveloperIds()
 
     const candidateEmployees = employees
-      .filter((employee) => !allScrumMemberDeveloperIds.includes(employee.id.toInt()))
+      .filter((employee) => !allScrumMemberDeveloperIds.includes(employee.id))
       .map((employee) => ({
         id: employee.id.toInt(),
         name: employee.employeeName.getFullName(),

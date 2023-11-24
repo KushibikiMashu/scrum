@@ -1,5 +1,5 @@
-import { CreateProductCommand, ProductUseCase } from '@/use-case/product'
-import { CreateProjectCommand, ProjectUseCase } from '@/use-case/project'
+import { CreateProductCommand, ProductUseCase } from '@/application/use-case/product'
+import { CreateProjectCommand, ProjectUseCase } from '@/application/use-case/project'
 
 export interface InitCommand {
   getCreateProductCommand(): CreateProductCommand

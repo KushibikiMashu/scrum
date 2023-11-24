@@ -47,19 +47,19 @@ export class ScrumTeamEditQueryService {
       return {
         data: {
           scrumTeam: {
-            id: id.value!,
+            id: id.toInt(),
             scrumMaster: {
-              employeeId: scrumMaster.getId(),
+              employeeId: scrumMaster.getEmployeeId().toInt(),
               name: scrumMaster.getFullName(),
               isDeveloper: scrumMaster.isDeveloper(),
             },
             productOwner: {
-              employeeId: productOwner.getId(),
+              employeeId: productOwner.getEmployeeId().toInt(),
               name: productOwner.getFullName(),
               isDeveloper: productOwner.isDeveloper(),
             },
             developers: developers.map((developer) => ({
-              employeeId: developer.getId(),
+              employeeId: developer.getEmployeeId().toInt(),
               name: developer.getFullName(),
             })),
           },

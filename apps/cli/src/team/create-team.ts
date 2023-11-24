@@ -1,6 +1,5 @@
 import { select } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   CreateScrumTeamCliCommand,
   EditScrumTeamQueryService,
   EditScrumTeamQueryServiceDto,
@@ -51,7 +50,7 @@ export const addCreateTeamCommand = (program: Command) => {
         const { newScrumMasterId } = await selectScrumMaster(scrumMasterCandidates)
 
         const command = new CreateScrumTeamCliCommand(newProductOwnerId, newScrumMasterId)
-        await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().create(command)).run()
+        await new ScrumTeamUseCase().create(command)
       } catch (e: any) {
         console.error(e?.message)
       }

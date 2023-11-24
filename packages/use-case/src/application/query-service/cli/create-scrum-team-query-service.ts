@@ -18,8 +18,8 @@ export class CreateScrumTeamQueryService {
 
     const employeeIdsWithoutPoAndSm = employees
       .filter((employee) => {
-        const isPo = scrumTeam.productOwner.getId() === employee.id.value
-        const isSm = scrumTeam.scrumMaster.getId() === employee.id.value
+        const isPo = scrumTeam.getProductOwnerId().equals(employee.id)
+        const isSm = scrumTeam.getScrumMasterId().equals(employee.id)
         return !isPo && !isSm
       })
       .map((employee) => ({

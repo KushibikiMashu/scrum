@@ -1,19 +1,19 @@
 import {
   Developer,
-  EmployeeRepositoryInterface,
+  EmployeeRepositoryInterface, ProductOwner,
   ScrumMaster,
   ScrumTeam,
   ScrumTeamRepositoryInterface,
 } from '@panda-project/core'
 
-import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 import {
   EditScrumTeamCommand,
   CreateScrumTeamCommand,
   DisbandScrumTeamCommand,
   AddDeveloperCommand,
   RemoveDeveloperCommand,
-} from '@/use-case/scrum-team'
+} from '@/application/use-case/scrum-team'
+import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 
 export class ScrumTeamUseCase {
   constructor(
@@ -34,7 +34,7 @@ export class ScrumTeamUseCase {
       throw new Error(`スクラムチームを作成するためには、社員が2人以上登録されている必要があります。社員数: ${count}名`)
     }
 
-    const newScrumTeam = ScrumTeam.createFromNewScrumTeam(newProductOwner, newScrumMaster, developers)
+    const newScrumTeam = ScrumTeam.createNew(newProductOwner, newScrumMaster, developers)
     await this.scrumTeamRepository.save(newScrumTeam)
   }
 
@@ -59,7 +59,7 @@ export class ScrumTeamUseCase {
 
     // プロダクトオーナー
     const productOwnerEmployee = await this.employeeRepository.findByIdOrFail(newProductOwnerId)
-    const newProductOwner = ScrumMaster.createFromEmployee(productOwnerEmployee)
+    const newProductOwner = ProductOwner.createFromEmployee(productOwnerEmployee)
     // スクラムマスター
     const scrumMasterEmployee = await this.employeeRepository.findByIdOrFail(newScrumMasterId)
     const newScrumMaster = ScrumMaster.createFromEmployee(scrumMasterEmployee)

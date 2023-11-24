@@ -1,7 +1,7 @@
-import {ProductId, Product, Project, ProjectRepositoryInterface} from '@panda-project/core'
+import {ProductId, Project, ProjectRepositoryInterface} from '@panda-project/core'
 
+import { CreateProjectCommand } from '@/application/use-case/project'
 import { ProjectRepository } from '@/gateway/repository/json'
-import { CreateProjectCommand } from '@/use-case/project'
 
 export class ProjectUseCase {
   constructor(private readonly productRepository: ProjectRepositoryInterface = new ProjectRepository()) {}

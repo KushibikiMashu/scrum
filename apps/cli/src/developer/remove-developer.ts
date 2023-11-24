@@ -1,6 +1,5 @@
 import { confirm, select } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   RemoveDeveloperCliCommand,
   RemoveDeveloperQueryService,
   RemoveDeveloperQueryServiceDto,
@@ -42,7 +41,7 @@ export const addRemoveDeveloperCommand = (program: Command) => {
           const { developers } = await new RemoveDeveloperQueryService().exec()
           const { developerId } = await selectDeveloper(developers)
           const command = new RemoveDeveloperCliCommand(developerId)
-          await new CheckDbMiddleware(async () => await new ScrumTeamUseCase().removeDeveloper(command)).run()
+          await new ScrumTeamUseCase().removeDeveloper(command)
         }
       } catch (e: any) {
         console.error(e?.message)

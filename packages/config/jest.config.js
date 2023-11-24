@@ -3,4 +3,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
   testEnvironment: 'node',
+  moduleNameMapper: {
+    "@/(.*)$": "<rootDir>/src/$1"
+  }
 }

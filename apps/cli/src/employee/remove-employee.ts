@@ -1,13 +1,12 @@
 import { select } from '@inquirer/prompts'
 import {
-  CheckDbMiddleware,
   EmployeeUseCase,
   RemoveEmployeeCliCommand,
   RemoveEmployeeQueryService,
 } from '@panda-project/use-case'
 import { Command } from 'commander'
 
-import { RemoveEmployeeQueryServiceDto } from '@/query-service'
+import { RemoveEmployeeQueryServiceDto } from '@/application/query-service'
 
 type UserInput = (arg: RemoveEmployeeQueryServiceDto) => Promise<{ employeeId: number }>
 
@@ -31,7 +30,7 @@ export const addRemoveEmployeeCommand = (program: Command) => {
         const employees = await new RemoveEmployeeQueryService().exec()
         const { employeeId } = await userInput(employees)
         const command = new RemoveEmployeeCliCommand(employeeId)
-        await new CheckDbMiddleware(async () => await new EmployeeUseCase().remove(command)).run()
+        await new EmployeeUseCase().remove(command)
 
         // TODO: output port & presenter を作る
         const output = `社員ID ${employeeId} を削除しました`
