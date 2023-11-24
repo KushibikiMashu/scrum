@@ -6,7 +6,19 @@ export class InvalidProjectNameError extends Error {
   }
 }
 
-export class ProjectId extends Id {}
+export class ProjectId extends Id {
+  constructor(public readonly value: number | null) {
+    super(value)
+  }
+
+  static createAsNull() {
+    return new ProjectId(null)
+  }
+
+  equals(id: ProjectId) {
+    return this.value === id.value
+  }
+}
 
 export class ProjectName {
   constructor(public readonly value: string) {

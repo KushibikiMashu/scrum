@@ -15,7 +15,19 @@ export const isDeveloper = (
   return scrumMember?.isDeveloper() ?? false
 }
 
-export class ScrumTeamId extends Id {}
+export class ScrumTeamId extends Id {
+  constructor(public readonly value: number | null) {
+    super(value)
+  }
+
+  static createAsNull() {
+    return new ScrumTeamId(null)
+  }
+
+  equals(id: ScrumTeamId) {
+    return this.value === id.value
+  }
+}
 
 export class ScrumTeam {
   constructor(
@@ -26,11 +38,11 @@ export class ScrumTeam {
   ) {}
 
   static createWithProductOwnerAndScrumMaster(productOwner: ProductOwner, scrumMaster: ScrumMaster) {
-    return new ScrumTeam(Id.createAsNull(), productOwner, scrumMaster, [])
+    return new ScrumTeam(ScrumTeamId.createAsNull(), productOwner, scrumMaster, [])
   }
 
   static createFromNewScrumTeam(productOwner: ProductOwner, scrumMaster: ScrumMaster, developers: Developer[]) {
-    return new ScrumTeam(Id.createAsNull(), productOwner, scrumMaster, developers)
+    return new ScrumTeam(ScrumTeamId.createAsNull(), productOwner, scrumMaster, developers)
   }
 
   changeProductOwner(productOwner: ProductOwner) {
@@ -41,14 +53,14 @@ export class ScrumTeam {
     return new ScrumTeam(this.id, this.productOwner, scrumMaster, this.developers)
   }
 
-  getScrumMemberByEmployeeId(employeeId: Id): ProductOwner | ScrumMaster | Developer | null {
+  getScrumMemberByEmployeeId(employeeId: EmployeeId): ProductOwner | ScrumMaster | Developer | null {
     if (this.productOwner.member.employee.id.equals(employeeId)) return this.productOwner
     if (this.scrumMaster.member.employee.id.equals(employeeId)) return this.scrumMaster
     const developer = this.developers.find((developer) => developer.member.employee.id.equals(employeeId))
     return developer ?? null
   }
 
-  getDeveloperByEmployeeId(employeeId: Id): Developer {
+  getDeveloperByEmployeeId(employeeId: EmployeeId): Developer {
     const developer = this.developers.find((developer) => developer.member.employee.id.equals(employeeId))
     if (!developer) {
       throw new Error(`開発者がスクラムチームに参加していません。ID: ${employeeId}`)
@@ -73,7 +85,7 @@ export class ScrumTeam {
     return this.developers.length + 2
   }
 
-  isBelongTo(employeeId: Id): boolean {
+  isBelongTo(employeeId: EmployeeId): boolean {
     return (
       this.productOwner.member.employee.id.equals(employeeId) ||
       this.scrumMaster.member.employee.id.equals(employeeId) ||
@@ -81,7 +93,7 @@ export class ScrumTeam {
     )
   }
 
-  isScrumTeamDeveloper(employeeId: Id): boolean {
+  isScrumTeamDeveloper(employeeId: EmployeeId): boolean {
     return this.developers.some((developer) => developer.member.employee.id.equals(employeeId))
   }
 

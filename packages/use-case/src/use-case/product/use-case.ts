@@ -1,4 +1,4 @@
-import { Id, Product, ProductRepositoryInterface } from '@panda-project/core'
+import { ProductId, Product, ProductRepositoryInterface } from '@panda-project/core'
 
 import { CreateProductCommand } from './command'
 
@@ -8,7 +8,7 @@ export class ProductUseCase {
   constructor(private readonly productRepository: ProductRepositoryInterface = new ProductRepository()) {}
 
   async create(command: CreateProductCommand) {
-    const product = new Product(Id.createAsNull(), command.getProductName())
+    const product = new Product(ProductId.createAsNull(), command.getProductName())
     return await this.productRepository.save(product)
   }
 

@@ -1,6 +1,18 @@
 import { Id } from '@/common'
 
-export class EmployeeId extends Id {}
+export class EmployeeId extends Id {
+  constructor(public readonly value: number | null) {
+    super(value)
+  }
+
+  static createAsNull() {
+    return new EmployeeId(null)
+  }
+
+  equals(id: EmployeeId) {
+    return this.value === id.value
+  }
+}
 
 export class EmployeeName {
   constructor(
@@ -35,7 +47,7 @@ export class Employee {
 }
 
 export interface EmployeeRepositoryInterface {
-  findByIdOrFail(id: Id): Promise<Employee>
+  findByIdOrFail(id: EmployeeId): Promise<Employee>
   findAll(): Promise<Employee[]>
   count(): Promise<number>
   save(employee: Employee): Promise<Employee>

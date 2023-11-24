@@ -22,7 +22,7 @@ export class ProjectRepository extends JsonRepository implements ProjectReposito
       return null
     }
 
-    return new Project(new Id(projects[0].id), new ProjectName(projects[0].name))
+    return new Project(new ProjectId(projects[0].id), new ProjectName(projects[0].name))
   }
 
   async save(project: Project) {

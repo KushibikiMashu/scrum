@@ -23,7 +23,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
     }
 
     const product = products[0]
-    return new Product(new Id(product.id), new ProductName(product.name))
+    return new Product(new ProductId(product.id), new ProductName(product.name))
   }
 
   async findByNameOrFail(productName: ProductName) {
@@ -35,7 +35,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
       throw new Error(`Product not found. product name: ${productName.value}`)
     }
 
-    return new Product(new Id(product.id), productName)
+    return new Product(new ProductId(product.id), productName)
   }
 
   async existsWithoutId() {

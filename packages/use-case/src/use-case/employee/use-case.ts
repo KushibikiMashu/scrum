@@ -1,4 +1,4 @@
-import { Employee, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface } from '@panda-project/core'
+import {Employee, EmployeeId, EmployeeRepositoryInterface, Id, ScrumTeamRepositoryInterface} from '@panda-project/core'
 
 import { EmployeeRepository, ScrumTeamRepository } from '@/gateway/repository/json'
 import {
@@ -21,7 +21,7 @@ export class EmployeeUseCase {
     }
 
     const employeeName = command.getEmployeeName()
-    const employee = new Employee(Id.createAsNull(), employeeName)
+    const employee = new Employee(EmployeeId.createAsNull(), employeeName)
 
     await this.employeeRepository.save(employee)
   }
@@ -37,7 +37,7 @@ export class EmployeeUseCase {
         throw new Error('登録できる従業員数の上限に達しました。登録可能な人数は50名以下です')
       }
 
-      const employee = new Employee(Id.createAsNull(), name)
+      const employee = new Employee(EmployeeId.createAsNull(), name)
       await this.employeeRepository.save(employee)
     }
   }

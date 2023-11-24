@@ -1,13 +1,5 @@
-export class Id {
+export abstract class Id {
   constructor(public readonly value: number | null) {}
-
-  static createAsNull() {
-    return new Id(null)
-  }
-
-  equals(id: Id) {
-    return this.value === id.value
-  }
 
   toInt(): number {
     if (this.value === null) {
