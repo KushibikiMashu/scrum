@@ -207,19 +207,19 @@ describe('ScrumTeam', () => {
 
   describe('getProductOwnerId', () => {
     it('should return product owner id', () => {
-      expect(defaultScrumTeam.getProductOwnerId()).toBe(200)
+      expect(defaultScrumTeam.getProductOwnerId()).toEqual(new EmployeeId(200))
     })
   })
 
   describe('getScrumMasterId', () => {
     it('should return scrum master id', () => {
-      expect(defaultScrumTeam.getScrumMasterId()).toBe(300)
+      expect(defaultScrumTeam.getScrumMasterId()).toEqual(new EmployeeId(300))
     })
   })
 
   describe('getDeveloperIds', () => {
     it('should return developer ids', () => {
-      expect(defaultScrumTeam.getDeveloperIds()).toEqual([1])
+      expect(defaultScrumTeam.getDeveloperIds()).toEqual([new EmployeeId(1)])
     })
   })
 })
