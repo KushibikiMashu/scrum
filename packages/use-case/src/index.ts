@@ -1,4 +1,4 @@
-export * from './external/db'
+export * from './external/lowdb'
 
 // gateway
 export * from './gateway/repository/json'

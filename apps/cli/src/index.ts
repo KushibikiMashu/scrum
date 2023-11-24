@@ -5,7 +5,7 @@ import { addAddEmployeeCommand, addEditEmployeeCommand, addRemoveEmployeeCommand
 import { addInitCommand } from '~/init'
 import { addCreateTeamCommand, addDisbandTeamCommand, addEditTeamCommand, addListTeamCommand } from '~/team'
 
-import {createDb, dbFileExists} from "@/external/db";
+import {createDb, dbFileExists} from "@panda-project/use-case"
 
 const program = new Command()
 

@@ -3,7 +3,7 @@ import { Low } from 'lowdb'
 
 import { JsonRepository } from './json-repository'
 
-import { DataBase, db } from '@/external/db'
+import { DataBase, db } from '@/external/lowdb'
 
 export class ProjectRepository extends JsonRepository implements ProjectRepositoryInterface {
   constructor(private readonly lowdb: Low<DataBase> = db) {
