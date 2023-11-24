@@ -113,9 +113,12 @@ export class ProductOwner {
     this.validate()
   }
 
-  validate() {
+  private validate() {
     if (this.roles.includes(ScrumMemberRole.ScrumMaster)) {
       throw new Error('ProductOwner cannot be ScrumMaster')
+    }
+    if (!this.roles.includes(ScrumMemberRole.ProductOwner)) {
+      throw new Error('ProductOwner must have ProductOwnerRole')
     }
   }
 
@@ -148,9 +151,12 @@ export class ScrumMaster {
     this.validate()
   }
 
-  validate() {
+  private validate() {
     if (this.roles.includes(ScrumMemberRole.ProductOwner)) {
       throw new Error('ScrumMaster cannot be ProductOwner')
+    }
+    if (!this.roles.includes(ScrumMemberRole.ScrumMaster)) {
+      throw new Error('ScrumMaster must have ScrumMasterRole')
     }
   }
 

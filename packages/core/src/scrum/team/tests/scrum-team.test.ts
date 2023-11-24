@@ -30,7 +30,7 @@ const ProductOwnerFactory = (arg: { name?: string, roles?: ScrumMemberRoleType[]
   )
 }
 
-const ScrumMasterFactory = (arg: { name: string, roles?: ScrumMemberRoleType[] } | null = null) => {
+const ScrumMasterFactory = (arg: { name?: string, roles?: ScrumMemberRoleType[] } | null = null) => {
   return new ScrumMaster(
     arg?.roles ?? [ScrumMemberRole.ScrumMaster],
     Member.createFromEmployee(
@@ -165,7 +165,7 @@ describe('ScrumTeam', () => {
           DeveloperFactory({employeeId: 1, name: '開発 者1'}),
           DeveloperFactory({employeeId: 2, name: '開発 者2'}),
           DeveloperFactory({employeeId: 3, name: '開発 者3'}),
-          ]
+        ]
       )
 
       const newTeam = team.removeDeveloper(team.developers[1])
@@ -223,3 +223,157 @@ describe('ScrumTeam', () => {
     })
   })
 })
+
+describe('ProductOwner', () => {
+  it('should create ProductOwner', () => {
+    const sut = ProductOwnerFactory()
+
+    expect(sut).toBeInstanceOf(ProductOwner)
+    expect(sut.roles).toEqual([ScrumMemberRole.ProductOwner])
+    expect(sut.getEmployeeId()).toEqual(new EmployeeId(200))
+    expect(sut.getFullName()).toBe('プロダクト オーナー')
+  })
+
+  describe('validate', () => {
+    it('should throw error when create ProductOwner with ScrumMaster role', () => {
+      expect(() => {
+        ProductOwnerFactory({roles: [ScrumMemberRole.ScrumMaster]})
+      }).toThrow('ProductOwner cannot be ScrumMaster')
+    })
+  });
+
+  describe('createFromEmployee', () => {
+    it('should create ProductOwner from employee', () => {
+      const employee = new Employee(
+        new EmployeeId(1), EmployeeName.createFromString('開発 者')
+      )
+      const sut = ProductOwner.createFromEmployee(employee)
+
+      expect(sut).toBeInstanceOf(ProductOwner)
+      expect(sut.roles).toEqual([ScrumMemberRole.ProductOwner])
+      expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+      expect(sut.getFullName()).toBe('開発 者')
+    })
+  })
+
+  describe('createFromDeveloper', () => {
+    it('should create ProductOwner from developer', () => {
+      const developer = DeveloperFactory()
+      const sut = ProductOwner.createFromDeveloper(developer)
+
+      expect(sut).toBeInstanceOf(ProductOwner)
+      expect(sut.roles).toEqual([ScrumMemberRole.ProductOwner, developer.role])
+      expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+      expect(sut.getFullName()).toBe('開発 者')
+    })
+  })
+
+  describe('isDeveloper', () => {
+    it('should return true when ProductOwner has Developer role', () => {
+      const sut = ProductOwnerFactory({roles: [ScrumMemberRole.ProductOwner]})
+      expect(sut.isDeveloper()).toBeFalsy()
+    })
+
+    it('should return false when ProductOwner does not have Developer role', () => {
+      const sut = ProductOwnerFactory({roles: [ScrumMemberRole.ProductOwner, ScrumMemberRole.Developer]})
+      expect(sut.isDeveloper()).toBeTruthy()
+    })
+  });
+})
+
+describe('ScrumMaster', () => {
+  it('should create ScrumMaster', () => {
+    const sut = ScrumMasterFactory()
+
+    expect(sut).toBeInstanceOf(ScrumMaster)
+    expect(sut.roles).toEqual([ScrumMemberRole.ScrumMaster])
+    expect(sut.getEmployeeId()).toEqual(new EmployeeId(300))
+    expect(sut.getFullName()).toBe('スクラム マスター')
+  })
+
+  describe('validate', () => {
+    it('should throw error when create ScrumMaster with ProductOwner role', () => {
+      expect(() => {
+        ScrumMasterFactory({roles: [ScrumMemberRole.ProductOwner]})
+      }).toThrow('ScrumMaster cannot be ProductOwner')
+    })
+
+    it('should throw error when create ScrumMaster without ScrumMaster role', () => {
+      expect(() => {
+        ScrumMasterFactory({roles: [ScrumMemberRole.Developer]})
+      }).toThrow('ScrumMaster must have ScrumMasterRole')
+    })
+  })
+
+  describe('createFromEmployee', () => {
+    it('should create ScrumMaster from employee', () => {
+      const employee = new Employee(
+        new EmployeeId(1), EmployeeName.createFromString('開発 者')
+      )
+      const sut = ScrumMaster.createFromEmployee(employee)
+
+      expect(sut).toBeInstanceOf(ScrumMaster)
+      expect(sut.roles).toEqual([ScrumMemberRole.ScrumMaster])
+      expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+      expect(sut.getFullName()).toBe('開発 者')
+    })
+  })
+
+  describe('createFromDeveloper', () => {
+    it('should create ScrumMaster from developer', () => {
+      const developer = DeveloperFactory()
+      const sut = ScrumMaster.createFromDeveloper(developer)
+
+      expect(sut).toBeInstanceOf(ScrumMaster)
+      expect(sut.roles).toEqual([ScrumMemberRole.ScrumMaster, developer.role])
+      expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+      expect(sut.getFullName()).toBe('開発 者')
+    })
+  })
+
+  describe('isDeveloper', () => {
+    it('should return true when ScrumMaster has Developer role', () => {
+      const sut = ScrumMasterFactory({roles: [ScrumMemberRole.ScrumMaster]})
+      expect(sut.isDeveloper()).toBeFalsy()
+    })
+
+    it('should return false when ScrumMaster does not have Developer role', () => {
+      const sut = ScrumMasterFactory({roles: [ScrumMemberRole.ScrumMaster, ScrumMemberRole.Developer]})
+      expect(sut.isDeveloper()).toBeTruthy()
+    })
+  })
+})
+
+describe('Developer', () => {
+it('should create Developer', () => {
+    const sut = DeveloperFactory()
+
+    expect(sut).toBeInstanceOf(Developer)
+    expect(sut.role).toEqual(ScrumMemberRole.Developer)
+    expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+    expect(sut.getFullName()).toBe('開発 者')
+  })
+
+  describe('createFromEmployee', () => {
+    it('should create Developer from employee', () => {
+      const employee = new Employee(
+        new EmployeeId(1), EmployeeName.createFromString('開発 者')
+      )
+      const sut = Developer.createFromEmployee(employee)
+
+      expect(sut).toBeInstanceOf(Developer)
+      expect(sut.role).toEqual(ScrumMemberRole.Developer)
+      expect(sut.getEmployeeId()).toEqual(new EmployeeId(1))
+      expect(sut.getFullName()).toBe('開発 者')
+    })
+  })
+
+  describe('isDeveloper', () => {
+    it('should return true', () => {
+      const sut = DeveloperFactory()
+      expect(sut.isDeveloper()).toBeTruthy()
+    })
+  })
+})
+
+
