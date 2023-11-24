@@ -3,8 +3,8 @@ export abstract class Id {
 
   toInt(): number {
     if (this.value === null) {
-      throw new Error('ID が null です')
+      throw new Error('値が null です')
     }
-    return this.value!
+    return this.value
   }
 }
