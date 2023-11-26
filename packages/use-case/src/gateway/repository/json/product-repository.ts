@@ -32,7 +32,7 @@ export class ProductRepository extends JsonRepository implements ProductReposito
 
     const product = products.find((product) => product.name === productName.value)
     if (!product) {
-      throw new Error(`Product not found. product name: ${productName.value}`)
+      throw new Error('プロダクトが存在しません')
     }
 
     return new Product(new ProductId(product.id), productName)

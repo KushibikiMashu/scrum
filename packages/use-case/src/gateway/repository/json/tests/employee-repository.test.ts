@@ -1,4 +1,4 @@
-import { Employee, EmployeeId, EmployeeName } from '@panda-project/core'
+import {Employee, EmployeeId, EmployeeName} from '@panda-project/core'
 
 import { EmployeeRepository } from '../employee-repository'
 
@@ -15,7 +15,7 @@ beforeEach(async () => {
 })
 
 // テストデータを作る
-const fabricate = (data: Partial<EmployeesSchema> = null) => {
+const fabricate = (data: Partial<EmployeesSchema> = null): EmployeesSchema => {
   return {
     id: data?.id ?? 900,
     first_name: data?.first_name ?? '名前',
@@ -24,7 +24,7 @@ const fabricate = (data: Partial<EmployeesSchema> = null) => {
 }
 
 // テストデータをDBに保存する
-const fixture = async (data: Partial<EmployeesSchema> = null) => {
+const fixture = async (data: Partial<EmployeesSchema> = null): Promise<EmployeesSchema> => {
   const testData = fabricate(data)
   await mockDb.read()
   const { employees } = mockDb.data
@@ -40,6 +40,7 @@ describe('findByIdOrFail', () => {
     // act
     const actual = await repository.findByIdOrFail(new EmployeeId(900))
     // assert
+    expect(actual).toBeInstanceOf(Employee)
     expect(actual.id.value).toBe(900)
     expect(actual.employeeName.firstName).toBe('名前')
     expect(actual.employeeName.familyName).toBe('苗字')
