@@ -1,3 +1,3 @@
-const config = require('@panda-project/config/jest.config.js')
+import config from '@panda-project/config/jest.config.js'
 
-module.exports = config
+export default config
