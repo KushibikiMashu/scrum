@@ -1,9 +1,10 @@
+import {EmployeeId, ScrumTeamId} from "@panda-project/core";
+
 import {
   CreateScrumTeamWebCommand,
   EditScrumTeamWebCommand,
   DisbandScrumTeamWebCommand,
 } from '../scrum-team-command'
-import {EmployeeId, ScrumTeamId} from "@panda-project/core";
 
 describe('CreateScrumTeamWebCommand', () => {
   const sut = new CreateScrumTeamWebCommand('1', '2', [])

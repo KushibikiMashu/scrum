@@ -1,3 +1,5 @@
+import {EmployeeId, ScrumTeamId} from "@panda-project/core";
+
 import {
   CreateScrumTeamCliCommand,
   EditScrumTeamCliCommand,
@@ -5,7 +7,6 @@ import {
   RemoveDeveloperCliCommand,
   DisbandScrumTeamCliCommand,
 } from '../scrum-team-command'
-import {EmployeeId, ScrumTeamId} from "@panda-project/core";
 
 describe('CreateScrumTeamCliCommand', () => {
   const sut = new CreateScrumTeamCliCommand(1, 2)

@@ -1,5 +1,6 @@
-import { CreateProductCliCommand } from '../product-command';
 import {ProductName} from "@panda-project/core";
+
+import { CreateProductCliCommand } from '../product-command';
 
 describe('CreateProductCliCommand', () => {
   test('getProductName', () => {

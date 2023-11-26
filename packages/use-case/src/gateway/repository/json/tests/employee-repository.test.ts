@@ -1,7 +1,11 @@
-import { EmployeeRepository } from '../employee-repository';
 import {Employee, EmployeeId, EmployeeName} from "@panda-project/core";
-import {EmployeesSchema, Low} from "@/external/lowdb";
+
+import { EmployeeRepository } from '../employee-repository';
+
 import { setupDataBase} from './helper/database';
+
+import {EmployeesSchema, Low} from "@/external/lowdb";
+
 
 let repository: EmployeeRepository;
 let mockDb: Low

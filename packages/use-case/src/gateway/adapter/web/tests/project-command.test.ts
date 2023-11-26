@@ -1,5 +1,6 @@
-import { CreateProjectWebCommand } from '../project-command';
 import {ProjectName} from "@panda-project/core";
+
+import { CreateProjectWebCommand } from '../project-command';
 
 describe('CreateProjectWebCommand', () => {
   test('getProjectName', () => {

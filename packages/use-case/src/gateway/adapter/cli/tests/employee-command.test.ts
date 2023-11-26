@@ -1,5 +1,6 @@
-import {CreateEmployeeCliCommand, CreateMultipleEmployeeCliCommand, EditEmployeeCliCommand, RemoveEmployeeCliCommand,} from '../employee-command'
 import {EmployeeId} from "@panda-project/core";
+
+import {CreateEmployeeCliCommand, CreateMultipleEmployeeCliCommand, EditEmployeeCliCommand, RemoveEmployeeCliCommand,} from '../employee-command'
 
 describe('CreateEmployeeCliCommand', () => {
   test('getEmployeeName', () => {

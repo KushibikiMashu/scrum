@@ -1,5 +1,6 @@
-import { CreateProductWebCommand } from '../product-command';
 import {ProductName} from "@panda-project/core";
+
+import { CreateProductWebCommand } from '../product-command';
 
 describe('CreateProductWebCommand', () => {
   test('getProductName', () => {

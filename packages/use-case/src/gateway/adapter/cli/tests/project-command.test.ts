@@ -1,5 +1,6 @@
-import { CreateProjectCliCommand } from '../project-command';
 import {ProjectName} from "@panda-project/core";
+
+import { CreateProjectCliCommand } from '../project-command';
 
 describe('CreateProjectCliCommand', () => {
   test('getProjectName', () => {

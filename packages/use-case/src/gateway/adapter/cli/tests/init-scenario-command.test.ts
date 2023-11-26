@@ -1,5 +1,6 @@
-import {InitCliCommand} from '../init-scenario-command'
 import {ProductName, ProjectName} from "@panda-project/core";
+
+import {InitCliCommand} from '../init-scenario-command'
 
 describe('InitCliCommand', () => {
   test('getCreateProductCommand', () => {

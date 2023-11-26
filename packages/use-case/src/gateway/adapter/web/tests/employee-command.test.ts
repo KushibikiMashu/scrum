@@ -1,5 +1,6 @@
-import {CreateEmployeeWebCommand, EditEmployeeWebCommand, RemoveEmployeeWebCommand,} from '../employee-command'
 import {EmployeeId} from "@panda-project/core";
+
+import {CreateEmployeeWebCommand, EditEmployeeWebCommand, RemoveEmployeeWebCommand,} from '../employee-command'
 
 describe('CreateEmployeeWebCommand', () => {
   const sut = new CreateEmployeeWebCommand('社員', '一号')
