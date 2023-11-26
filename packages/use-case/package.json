@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tspc --emitDeclarationOnly && node ../config/build.mjs",
-    "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node && tspc --emitDeclarationOnly",
+    "build": "esbuild index.ts --bundle --outfile=dist/index.js --platform=node --format=esm && tspc --emitDeclarationOnly",
     "type-check": "tspc --noEmit",
     "jest": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
   },

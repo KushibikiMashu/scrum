@@ -8,6 +8,7 @@ const config = {
   platform: 'node',
   minify: false,
   logLevel: 'info',
+  format: 'esm',
 }
 
 const ctx = await esbuild.context(config)
