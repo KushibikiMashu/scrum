@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@panda-project/core": "*",
-    "@types/lowdb": "^1.0.12",
-    "lowdb": "^6.0.1"
+    "lowdb": "6.1.1"
   },
   "devDependencies": {
     "@panda-project/config": "*",
+    "@types/lowdb": "^1.0.15",
     "@types/node": "^20.8.2"
   },
   "private": true
