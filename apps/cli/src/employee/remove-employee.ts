@@ -1,9 +1,5 @@
 import { select } from '@inquirer/prompts'
-import {
-  EmployeeUseCase,
-  RemoveEmployeeCliCommand,
-  RemoveEmployeeQueryService,
-} from '@panda-project/use-case'
+import { EmployeeUseCase, RemoveEmployeeCliCommand, RemoveEmployeeQueryService } from '@panda-project/use-case'
 import { Command } from 'commander'
 
 import { RemoveEmployeeQueryServiceDto } from '@/application/query-service'

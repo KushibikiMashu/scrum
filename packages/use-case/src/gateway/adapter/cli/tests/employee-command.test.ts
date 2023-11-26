@@ -1,6 +1,11 @@
-import {EmployeeId} from "@panda-project/core";
+import { EmployeeId } from '@panda-project/core'
 
-import {CreateEmployeeCliCommand, CreateMultipleEmployeeCliCommand, EditEmployeeCliCommand, RemoveEmployeeCliCommand,} from '../employee-command'
+import {
+  CreateEmployeeCliCommand,
+  CreateMultipleEmployeeCliCommand,
+  EditEmployeeCliCommand,
+  RemoveEmployeeCliCommand,
+} from '../employee-command'
 
 describe('CreateEmployeeCliCommand', () => {
   test('getEmployeeName', () => {
@@ -12,10 +17,7 @@ describe('CreateEmployeeCliCommand', () => {
 describe('CreateMultipleEmployeeCliCommand', () => {
   test('getEmployeeNames', () => {
     const sut = new CreateMultipleEmployeeCliCommand('社員 一号, 社員 二号')
-    expect(sut.getEmployeeNames().map((name) => name.getFullName())).toEqual([
-      '社員 一号',
-      '社員 二号',
-    ])
+    expect(sut.getEmployeeNames().map((name) => name.getFullName())).toEqual(['社員 一号', '社員 二号'])
   })
 })
 

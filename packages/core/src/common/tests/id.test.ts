@@ -1,7 +1,6 @@
-import {Id} from '../id'
+import { Id } from '../id'
 
-class ChildClass extends Id {
-}
+class ChildClass extends Id {}
 
 describe('toInt', () => {
   it('should return given value', () => {

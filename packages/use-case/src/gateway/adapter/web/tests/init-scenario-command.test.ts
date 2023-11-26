@@ -1,6 +1,6 @@
-import {InitWebCommand} from '../init-scenario-command'
-import {CreateProductWebCommand} from "../product-command";
-import {CreateProjectWebCommand} from "../project-command";
+import { InitWebCommand } from '../init-scenario-command'
+import { CreateProductWebCommand } from '../product-command'
+import { CreateProjectWebCommand } from '../project-command'
 
 describe('InitWebCommand', () => {
   const sut = new InitWebCommand('プロダクト', 'プロジェクト')

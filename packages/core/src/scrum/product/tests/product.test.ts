@@ -1,4 +1,4 @@
-import {ProductId, ProductName} from '../product'
+import { ProductId, ProductName } from '../product'
 
 describe('ProductId', () => {
   describe('createAsNull', () => {

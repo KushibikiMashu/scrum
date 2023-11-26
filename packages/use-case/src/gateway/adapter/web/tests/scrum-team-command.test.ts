@@ -1,10 +1,6 @@
-import {EmployeeId, ScrumTeamId} from "@panda-project/core";
+import { EmployeeId, ScrumTeamId } from '@panda-project/core'
 
-import {
-  CreateScrumTeamWebCommand,
-  EditScrumTeamWebCommand,
-  DisbandScrumTeamWebCommand,
-} from '../scrum-team-command'
+import { CreateScrumTeamWebCommand, EditScrumTeamWebCommand, DisbandScrumTeamWebCommand } from '../scrum-team-command'
 
 describe('CreateScrumTeamWebCommand', () => {
   const sut = new CreateScrumTeamWebCommand('1', '2', [])
@@ -30,11 +26,9 @@ describe('CreateScrumTeamWebCommand', () => {
 
     it('throws error when developer id is duplicated', () => {
       const sut = new CreateScrumTeamWebCommand('1', '2', ['3', '3'])
-      expect(
-        () => sut.getDeveloperIds()
-      ).toThrowError('開発者が重複しています')
+      expect(() => sut.getDeveloperIds()).toThrowError('開発者が重複しています')
     })
-  });
+  })
 })
 
 describe('EditScrumTeamWebCommand', () => {
@@ -61,11 +55,9 @@ describe('EditScrumTeamWebCommand', () => {
 
     it('throws error when developer id is duplicated', () => {
       const sut = new EditScrumTeamWebCommand('1', '2', ['3', '3'])
-      expect(
-        () => sut.getDeveloperIds()
-      ).toThrowError('開発者が重複しています')
+      expect(() => sut.getDeveloperIds()).toThrowError('開発者が重複しています')
     })
-  });
+  })
 })
 
 describe('DisbandScrumTeamWebCommand', () => {

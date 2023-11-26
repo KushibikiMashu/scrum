@@ -1,4 +1,4 @@
-import {EmployeeId, EmployeeName, Employee, Member} from '../employee'
+import { EmployeeId, EmployeeName, Employee, Member } from '../employee'
 
 describe('EmployeeId', () => {
   describe('createAsNull', () => {
@@ -51,10 +51,7 @@ describe('EmployeeName', () => {
 describe('Employee', () => {
   describe('updateName', () => {
     it('should return Employee', () => {
-      const sut = new Employee(
-        new EmployeeId(100),
-        new EmployeeName('太郎', '山田')
-      )
+      const sut = new Employee(new EmployeeId(100), new EmployeeName('太郎', '山田'))
       const actual = sut.updateName(new EmployeeName('花子', '鈴木'))
       expect(actual).toBeInstanceOf(Employee)
       expect(actual.id).toEqual(sut.id)
@@ -66,10 +63,7 @@ describe('Employee', () => {
 describe('Member', () => {
   describe('createFromEmployee', () => {
     it('should return Member', () => {
-      const sut = new Employee(
-        new EmployeeId(100),
-        new EmployeeName('太郎', '山田')
-      )
+      const sut = new Employee(new EmployeeId(100), new EmployeeName('太郎', '山田'))
       const actual = Member.createFromEmployee(sut)
       expect(actual).toBeInstanceOf(Member)
       expect(actual.employee).toEqual(sut)

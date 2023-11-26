@@ -1,9 +1,5 @@
 import { confirm } from '@inquirer/prompts'
-import {
-  ScrumTeamUseCase,
-  DisbandScrumTeamQueryService,
-  DisbandScrumTeamCliCommand,
-} from '@panda-project/use-case'
+import { ScrumTeamUseCase, DisbandScrumTeamQueryService, DisbandScrumTeamCliCommand } from '@panda-project/use-case'
 import { Command } from 'commander'
 
 export const addDisbandTeamCommand = (program: Command) => {

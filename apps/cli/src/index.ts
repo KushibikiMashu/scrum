@@ -1,11 +1,10 @@
-import {createDb, dbFileExists} from "@panda-project/use-case"
+import { createDb, dbFileExists } from '@panda-project/use-case'
 import { Command } from 'commander'
 
 import { addAddDeveloperCommand, addRemoveDeveloperCommand } from '~/developer'
 import { addAddEmployeeCommand, addEditEmployeeCommand, addRemoveEmployeeCommand } from '~/employee'
 import { addInitCommand } from '~/init'
 import { addCreateTeamCommand, addDisbandTeamCommand, addEditTeamCommand, addListTeamCommand } from '~/team'
-
 
 const program = new Command()
 
@@ -30,7 +29,7 @@ for (const command of commands) {
   command(program)
 }
 
-(async () => {
+;(async () => {
   if (!dbFileExists()) {
     await createDb()
   }

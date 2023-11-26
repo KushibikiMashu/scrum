@@ -1,17 +1,15 @@
-import {ProductName, ProjectName} from "@panda-project/core";
+import { ProductName, ProjectName } from '@panda-project/core'
 
-import {InitCliCommand} from '../init-scenario-command'
+import { InitCliCommand } from '../init-scenario-command'
 
 describe('InitCliCommand', () => {
   test('getCreateProductCommand', () => {
     const sut = new InitCliCommand('プロダクト', 'プロジェクト')
-    expect(sut.getCreateProductCommand().getProductName())
-      .toEqual(new ProductName('プロダクト'))
+    expect(sut.getCreateProductCommand().getProductName()).toEqual(new ProductName('プロダクト'))
   })
 
   test('getCreateProjectCommand', () => {
     const sut = new InitCliCommand('プロジェクト', 'プロジェクト')
-    expect(sut.getCreateProjectCommand().getProjectName())
-      .toEqual(new ProjectName('プロジェクト'))
+    expect(sut.getCreateProjectCommand().getProjectName()).toEqual(new ProjectName('プロジェクト'))
   })
 })

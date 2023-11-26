@@ -1,4 +1,4 @@
-import {Employee, EmployeeId, EmployeeName, Member} from "../../../company";
+import { Employee, EmployeeId, EmployeeName, Member } from '../../../company'
 import {
   ScrumMemberRole,
   ScrumMemberRoleType,
@@ -6,37 +6,31 @@ import {
   ScrumTeam,
   ScrumMaster,
   ProductOwner,
-  Developer
-} from "../scrum-team";
+  Developer,
+} from '../scrum-team'
 
-const DeveloperFactory = (arg: { name?: string, employeeId?: number } | null = null) => {
+const DeveloperFactory = (arg: { name?: string; employeeId?: number } | null = null) => {
   return new Developer(
     Member.createFromEmployee(
-      new Employee(
-        new EmployeeId(arg?.employeeId ?? 1), EmployeeName.createFromString(arg?.name ?? '開発 者')
-      )
+      new Employee(new EmployeeId(arg?.employeeId ?? 1), EmployeeName.createFromString(arg?.name ?? '開発 者'))
     )
   )
 }
 
-const ProductOwnerFactory = (arg: { name?: string, roles?: ScrumMemberRoleType[] } | null = null) => {
+const ProductOwnerFactory = (arg: { name?: string; roles?: ScrumMemberRoleType[] } | null = null) => {
   return new ProductOwner(
     arg?.roles ?? [ScrumMemberRole.ProductOwner],
     Member.createFromEmployee(
-      new Employee(
-        new EmployeeId(200), EmployeeName.createFromString(arg?.name ?? 'プロダクト オーナー')
-      )
+      new Employee(new EmployeeId(200), EmployeeName.createFromString(arg?.name ?? 'プロダクト オーナー'))
     )
   )
 }
 
-const ScrumMasterFactory = (arg: { name?: string, roles?: ScrumMemberRoleType[] } | null = null) => {
+const ScrumMasterFactory = (arg: { name?: string; roles?: ScrumMemberRoleType[] } | null = null) => {
   return new ScrumMaster(
     arg?.roles ?? [ScrumMemberRole.ScrumMaster],
     Member.createFromEmployee(
-      new Employee(
-        new EmployeeId(300), EmployeeName.createFromString(arg?.name ?? 'スクラム マスター')
-      )
+      new Employee(new EmployeeId(300), EmployeeName.createFromString(arg?.name ?? 'スクラム マスター'))
     )
   )
 }
@@ -68,12 +62,9 @@ describe('ScrumTeamId', () => {
 describe('ScrumTeam', () => {
   let defaultScrumTeam: ScrumTeam
   beforeEach(() => {
-    defaultScrumTeam = new ScrumTeam(
-      new ScrumTeamId(1),
-      ProductOwnerFactory(),
-      ScrumMasterFactory(),
-      [DeveloperFactory()]
-    )
+    defaultScrumTeam = new ScrumTeam(new ScrumTeamId(1), ProductOwnerFactory(), ScrumMasterFactory(), [
+      DeveloperFactory(),
+    ])
   })
 
   describe('createWithProductOwnerAndScrumMaster', () => {
@@ -108,7 +99,7 @@ describe('ScrumTeam', () => {
 
   describe('changeProductOwner', () => {
     it('should change product owner', () => {
-      const productOwner = ProductOwnerFactory({name: '新しい プロダクトオーナー'})
+      const productOwner = ProductOwnerFactory({ name: '新しい プロダクトオーナー' })
       const newTeam = defaultScrumTeam.changeProductOwner(productOwner)
       expect(newTeam.productOwner.getFullName()).toBe('新しい プロダクトオーナー')
     })
@@ -116,7 +107,7 @@ describe('ScrumTeam', () => {
 
   describe('changeScrumMaster', () => {
     it('should change scrum master', () => {
-      const scrumMaster = ScrumMasterFactory({name: '新しい スクラムマスター'})
+      const scrumMaster = ScrumMasterFactory({ name: '新しい スクラムマスター' })
       const newTeam = defaultScrumTeam.changeScrumMaster(scrumMaster)
       expect(newTeam.scrumMaster.getFullName()).toBe('新しい スクラムマスター')
     })
@@ -137,7 +128,7 @@ describe('ScrumTeam', () => {
 
   describe('addDeveloper', () => {
     it('should add developer', () => {
-      const newDeveloper = DeveloperFactory({name: '新しい 開発者'})
+      const newDeveloper = DeveloperFactory({ name: '新しい 開発者' })
       const newTeam = defaultScrumTeam.addDeveloper(newDeveloper)
       expect(newTeam.developers).toHaveLength(2)
       expect(newTeam.developers[0].getFullName()).toBe('開発 者')
@@ -148,7 +139,7 @@ describe('ScrumTeam', () => {
 
   describe('updateDevelopers', () => {
     it('should update developers', () => {
-      const newDeveloper = DeveloperFactory({name: '新しい 開発者'})
+      const newDeveloper = DeveloperFactory({ name: '新しい 開発者' })
       const newTeam = defaultScrumTeam.updateDevelopers([newDeveloper])
       expect(newTeam.developers).toHaveLength(1)
       expect(newTeam.developers[0].getFullName()).toBe('新しい 開発者')
@@ -157,16 +148,11 @@ describe('ScrumTeam', () => {
 
   describe('removeDeveloper', () => {
     it('should remove developer', () => {
-      const team = new ScrumTeam(
-        new ScrumTeamId(1),
-        ProductOwnerFactory(),
-        ScrumMasterFactory(),
-        [
-          DeveloperFactory({employeeId: 1, name: '開発 者1'}),
-          DeveloperFactory({employeeId: 2, name: '開発 者2'}),
-          DeveloperFactory({employeeId: 3, name: '開発 者3'}),
-        ]
-      )
+      const team = new ScrumTeam(new ScrumTeamId(1), ProductOwnerFactory(), ScrumMasterFactory(), [
+        DeveloperFactory({ employeeId: 1, name: '開発 者1' }),
+        DeveloperFactory({ employeeId: 2, name: '開発 者2' }),
+        DeveloperFactory({ employeeId: 3, name: '開発 者3' }),
+      ])
 
       const newTeam = team.removeDeveloper(team.developers[1])
       expect(newTeam.developers).toHaveLength(2)
@@ -237,16 +223,14 @@ describe('ProductOwner', () => {
   describe('validate', () => {
     it('should throw error when create ProductOwner with ScrumMaster role', () => {
       expect(() => {
-        ProductOwnerFactory({roles: [ScrumMemberRole.ScrumMaster]})
+        ProductOwnerFactory({ roles: [ScrumMemberRole.ScrumMaster] })
       }).toThrow('ProductOwner cannot be ScrumMaster')
     })
-  });
+  })
 
   describe('createFromEmployee', () => {
     it('should create ProductOwner from employee', () => {
-      const employee = new Employee(
-        new EmployeeId(1), EmployeeName.createFromString('開発 者')
-      )
+      const employee = new Employee(new EmployeeId(1), EmployeeName.createFromString('開発 者'))
       const sut = ProductOwner.createFromEmployee(employee)
 
       expect(sut).toBeInstanceOf(ProductOwner)
@@ -270,15 +254,15 @@ describe('ProductOwner', () => {
 
   describe('isDeveloper', () => {
     it('should return true when ProductOwner has Developer role', () => {
-      const sut = ProductOwnerFactory({roles: [ScrumMemberRole.ProductOwner]})
+      const sut = ProductOwnerFactory({ roles: [ScrumMemberRole.ProductOwner] })
       expect(sut.isDeveloper()).toBeFalsy()
     })
 
     it('should return false when ProductOwner does not have Developer role', () => {
-      const sut = ProductOwnerFactory({roles: [ScrumMemberRole.ProductOwner, ScrumMemberRole.Developer]})
+      const sut = ProductOwnerFactory({ roles: [ScrumMemberRole.ProductOwner, ScrumMemberRole.Developer] })
       expect(sut.isDeveloper()).toBeTruthy()
     })
-  });
+  })
 })
 
 describe('ScrumMaster', () => {
@@ -294,22 +278,20 @@ describe('ScrumMaster', () => {
   describe('validate', () => {
     it('should throw error when create ScrumMaster with ProductOwner role', () => {
       expect(() => {
-        ScrumMasterFactory({roles: [ScrumMemberRole.ProductOwner]})
+        ScrumMasterFactory({ roles: [ScrumMemberRole.ProductOwner] })
       }).toThrow('ScrumMaster cannot be ProductOwner')
     })
 
     it('should throw error when create ScrumMaster without ScrumMaster role', () => {
       expect(() => {
-        ScrumMasterFactory({roles: [ScrumMemberRole.Developer]})
+        ScrumMasterFactory({ roles: [ScrumMemberRole.Developer] })
       }).toThrow('ScrumMaster must have ScrumMasterRole')
     })
   })
 
   describe('createFromEmployee', () => {
     it('should create ScrumMaster from employee', () => {
-      const employee = new Employee(
-        new EmployeeId(1), EmployeeName.createFromString('開発 者')
-      )
+      const employee = new Employee(new EmployeeId(1), EmployeeName.createFromString('開発 者'))
       const sut = ScrumMaster.createFromEmployee(employee)
 
       expect(sut).toBeInstanceOf(ScrumMaster)
@@ -333,19 +315,19 @@ describe('ScrumMaster', () => {
 
   describe('isDeveloper', () => {
     it('should return true when ScrumMaster has Developer role', () => {
-      const sut = ScrumMasterFactory({roles: [ScrumMemberRole.ScrumMaster]})
+      const sut = ScrumMasterFactory({ roles: [ScrumMemberRole.ScrumMaster] })
       expect(sut.isDeveloper()).toBeFalsy()
     })
 
     it('should return false when ScrumMaster does not have Developer role', () => {
-      const sut = ScrumMasterFactory({roles: [ScrumMemberRole.ScrumMaster, ScrumMemberRole.Developer]})
+      const sut = ScrumMasterFactory({ roles: [ScrumMemberRole.ScrumMaster, ScrumMemberRole.Developer] })
       expect(sut.isDeveloper()).toBeTruthy()
     })
   })
 })
 
 describe('Developer', () => {
-it('should create Developer', () => {
+  it('should create Developer', () => {
     const sut = DeveloperFactory()
 
     expect(sut).toBeInstanceOf(Developer)
@@ -356,9 +338,7 @@ it('should create Developer', () => {
 
   describe('createFromEmployee', () => {
     it('should create Developer from employee', () => {
-      const employee = new Employee(
-        new EmployeeId(1), EmployeeName.createFromString('開発 者')
-      )
+      const employee = new Employee(new EmployeeId(1), EmployeeName.createFromString('開発 者'))
       const sut = Developer.createFromEmployee(employee)
 
       expect(sut).toBeInstanceOf(Developer)
@@ -375,5 +355,3 @@ it('should create Developer', () => {
     })
   })
 })
-
-

@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 
-import {Adapter, Low, Memory } from 'lowdb'
+import { Adapter, Low, Memory } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
 
 import { DataBase, createDefaultData } from './schema'

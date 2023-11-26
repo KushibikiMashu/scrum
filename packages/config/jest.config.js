@@ -5,6 +5,6 @@ module.exports = {
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: {
-    "@/(.*)$": "<rootDir>/src/$1"
-  }
+    '@/(.*)$': '<rootDir>/src/$1',
+  },
 }

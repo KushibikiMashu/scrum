@@ -1,11 +1,7 @@
 import * as console from 'console'
 
 import { input } from '@inquirer/prompts'
-import {
-  CreateMultipleEmployeeCliCommand,
-  CreateEmployeeCliCommand,
-  EmployeeUseCase,
-} from '@panda-project/use-case'
+import { CreateMultipleEmployeeCliCommand, CreateEmployeeCliCommand, EmployeeUseCase } from '@panda-project/use-case'
 import { Command } from 'commander'
 
 export const addAddEmployeeCommand = (program: Command) => {

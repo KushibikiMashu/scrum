@@ -3,8 +3,8 @@ module.exports = {
   ignorePatterns: ['**/*.js', '**/*.d.ts'],
   settings: {
     next: {
-      rootDir: "apps/web/"
-    }
+      rootDir: 'apps/web/',
+    },
   },
   extends: [
     'eslint:recommended',

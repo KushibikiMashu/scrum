@@ -1,6 +1,7 @@
 import {
   Developer,
-  EmployeeRepositoryInterface, ProductOwner,
+  EmployeeRepositoryInterface,
+  ProductOwner,
   ScrumMaster,
   ScrumTeam,
   ScrumTeamRepositoryInterface,

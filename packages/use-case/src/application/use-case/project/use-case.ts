@@ -1,4 +1,4 @@
-import {ProductId, Project, ProjectRepositoryInterface} from '@panda-project/core'
+import { ProductId, Project, ProjectRepositoryInterface } from '@panda-project/core'
 
 import { CreateProjectCommand } from '@/application/use-case/project'
 import { ProjectRepository } from '@/gateway/repository/json'

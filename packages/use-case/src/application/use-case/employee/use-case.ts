@@ -1,4 +1,4 @@
-import {Employee, EmployeeId, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface} from '@panda-project/core'
+import { Employee, EmployeeId, EmployeeRepositoryInterface, ScrumTeamRepositoryInterface } from '@panda-project/core'
 
 import {
   CreateEmployeeCommand,

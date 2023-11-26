@@ -17,21 +17,13 @@ describe('JsonRepository', () => {
     })
 
     it('欠番がない時は最大値 + 1 を返す', () => {
-      const records = [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-      ]
+      const records = [{ id: 1 }, { id: 2 }, { id: 3 }]
       const result = concreteRepository.calculateNewIdForTest(records)
       expect(result).toBe(4)
     })
 
     it('欠番がある時も最大値 + 1 を返す', () => {
-      const records = [
-        { id: 1 },
-        { id: 2 },
-        { id: 9 },
-      ]
+      const records = [{ id: 1 }, { id: 2 }, { id: 9 }]
       const result = concreteRepository.calculateNewIdForTest(records)
       expect(result).toBe(10)
     })

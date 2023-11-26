@@ -1,4 +1,4 @@
-import {EmployeeId, ScrumTeamId} from "@panda-project/core";
+import { EmployeeId, ScrumTeamId } from '@panda-project/core'
 
 import {
   CreateScrumTeamCliCommand,
