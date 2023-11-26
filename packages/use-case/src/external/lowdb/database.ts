@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import {Adapter, Low, Memory } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
 
-import { DataBase, defaultData } from './schema'
+import { DataBase, createDefaultData } from './schema'
 
 const isTest = process.env.NODE_ENV === 'test'
 
@@ -29,7 +29,7 @@ declare global {
 }
 
 const adapter: Adapter<DataBase> = isTest ? new Memory<DataBase>() : new JSONFile<DataBase>(dbFilePath)
-const db = new Low<DataBase>(adapter, defaultData)
+const db = new Low<DataBase>(adapter, createDefaultData())
 const dbFileExists = () => fs.existsSync(dbFilePath)
 
 const createDb = async () => {
@@ -37,8 +37,8 @@ const createDb = async () => {
 }
 
 const resetDb = async () => {
-  const newDb = new Low<DataBase>(adapter, defaultData)
+  const newDb = new Low<DataBase>(adapter, createDefaultData())
   await newDb.write()
 }
 
-export { db, dbFileExists, createDb, resetDb }
+export { adapter, db, dbFileExists, createDb, resetDb }

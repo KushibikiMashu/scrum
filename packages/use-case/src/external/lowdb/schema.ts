@@ -1,7 +1,7 @@
 export type DataBase = Documents
 
 // mermaid 記法の er 図から、schema を自動生成できるといい。
-export const defaultData: DataBase = {
+export const createDefaultData = (): DataBase => ({
   products: [],
   projects: [],
   employees: [],
@@ -15,7 +15,7 @@ export const defaultData: DataBase = {
   productOwners: [],
   scrumMasters: [],
   developers: [],
-}
+})
 
 export type Documents = {
   // company
