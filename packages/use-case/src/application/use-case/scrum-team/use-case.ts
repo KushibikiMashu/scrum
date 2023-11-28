@@ -31,6 +31,7 @@ export class ScrumTeamUseCase {
     }
 
     const count = await this.employeeRepository.count()
+    // TODO: スクラムチームクラスのドメインロジックに持っていく
     if (count <= 1) {
       throw new Error(`スクラムチームを作成するためには、社員が2人以上登録されている必要があります。社員数: ${count}名`)
     }
@@ -81,6 +82,7 @@ export class ScrumTeamUseCase {
     const developer = Developer.createFromEmployee(developerEmployee)
 
     const prevScrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    // TODO: スクラムチームクラスのドメインロジックに持っていく
     if (prevScrumTeam.developers.length >= 8) {
       throw new Error('スクラムチームに参加できる開発者は8名までです')
     }
@@ -94,6 +96,7 @@ export class ScrumTeamUseCase {
 
   async removeDeveloper(command: RemoveDeveloperCommand) {
     const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    // TODO: スクラムチームクラスのドメインロジックに持っていく
     if (scrumTeam.developers.length === 0) {
       throw new Error('スクラムチームに開発者がいません')
     }
