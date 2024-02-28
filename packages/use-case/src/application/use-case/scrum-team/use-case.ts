@@ -31,7 +31,7 @@ export class ScrumTeamUseCase {
     }
 
     const count = await this.employeeRepository.count()
-    // TODO: スクラムチームクラスのドメインロジックに持っていく
+    // TODO: スクラムチームクラスのドメインロジックに持っていく？
     if (count <= 1) {
       throw new Error(`スクラムチームを作成するためには、社員が2人以上登録されている必要があります。社員数: ${count}名`)
     }

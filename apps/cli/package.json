@@ -19,5 +19,5 @@
     "@types/inquirer": "^9.0.3",
     "@panda-project/config": "*"
   },
-  "private": true
+  "license": "MIT"
 }

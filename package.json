@@ -1,6 +1,6 @@
 {
   "name": "scrum",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "workspaces": [
     "apps/*",
@@ -32,5 +32,5 @@
     "typescript": "^5.2.2",
     "typescript-transform-paths": "^3.4.6"
   },
-  "private": true
+  "license": "MIT"
 }

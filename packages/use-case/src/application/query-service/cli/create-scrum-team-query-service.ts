@@ -14,7 +14,7 @@ export class CreateScrumTeamQueryService {
 
   async exec(): Promise<CreateScrumTeamQueryServiceDto> {
     const employees = await this.employeeRepository.findAll()
-    const scrumTeam = await this.scrumTeamRepository.fetchOrFail()
+    const scrumTeam = await this.scrumTeamRepository.fetchOrFail() // TODO: findOrNull のメソッドを作る
 
     const employeeIdsWithoutPoAndSm = employees
       .filter((employee) => {

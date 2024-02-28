@@ -1,3 +1,5 @@
+テーブル定義のためのモデリング
+
 ```mermaid
 %% https://qiita.com/ramuneru/items/32fbf3032b625f71b69d
 %% 関係性は今は適当に書いてる

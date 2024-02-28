@@ -8,6 +8,8 @@ import {
 } from '@panda-project/use-case'
 import { Command } from 'commander'
 
+// TODO: EditScrumTeamQueryService になってるけど、これ CreateScrumTeamQueryService じゃない？
+
 type SelectProductOwner = (
   arg: EditScrumTeamQueryServiceDto['candidateEmployees']
 ) => Promise<{ newProductOwnerId: number }>
