@@ -32,5 +32,6 @@
     "typescript": "^5.2.2",
     "typescript-transform-paths": "^3.4.6"
   },
+  "private": "true",
   "license": "MIT"
 }
