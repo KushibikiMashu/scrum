@@ -1,8 +1,49 @@
 # scrum
 このレポジトリは、スクラムのチームを管理するアプリケーションです。Web からも CLI からも動かせます。
 
-構成図
-![構成図](./docs/diagram.png)
+```mermaid
+flowchart TD
+    %% UI Layer
+    subgraph "User Interfaces"
+        CLI["CLI Application"]:::ui
+        Web["Web Application"]:::ui
+    end
+
+    %% Application Layer
+    subgraph "Application Layer"
+        UC["Use-Case Layer"]:::app
+    end
+
+    %% Domain Layer
+    subgraph "Core Domain"
+        Core["Core Domain Layer"]:::domain
+    end
+
+    %% Infrastructure Layer
+    subgraph "Infrastructure"
+        Repo["Adapters/Repositories"]:::infra
+    end
+
+    %% Connections
+    CLI -->|"command_call"| UC
+    Web -->|"web_query"| UC
+    UC -->|"business_logic"| Core
+    UC -->|"persist_data"| Repo
+    Repo -->|"data_access"| Core
+
+    %% Click Events
+    click CLI "https://github.com/kushibikimashu/scrum/tree/main/apps/cli"
+    click Web "https://github.com/kushibikimashu/scrum/tree/main/apps/web"
+    click Core "https://github.com/kushibikimashu/scrum/tree/main/packages/core"
+    click UC "https://github.com/kushibikimashu/scrum/tree/main/packages/use-case"
+    click Repo "https://github.com/kushibikimashu/scrum/tree/main/packages/use-case/src/gateway"
+
+    %% Styles
+    classDef ui fill:#a6cee3,stroke:#1f78b4,stroke-width:2px;
+    classDef app fill:#b2df8a,stroke:#33a02c,stroke-width:2px;
+    classDef domain fill:#fb9a99,stroke:#e31a1c,stroke-width:2px;
+    classDef infra fill:#fdbf6f,stroke:#ff7f00,stroke-width:2px;
+```
 
 ## Quick Start
 アプリケーションを動かす事前準備をします。
